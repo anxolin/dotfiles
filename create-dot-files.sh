@@ -8,11 +8,17 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"    # list of files/folders to symlink in homedir
+files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"    # list of files/folders to symlink in homedir
+#files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"
 
 ##########
 
 # create dotfiles_old in homedir
+echo -n "Check if the dotfile backup dir exists: $olddir\n"
+if [[ -f ~/dotfiles_old ]]; then
+    echo "The dotfile backup dir $olddir already exists"
+    exit 0
+fi
 echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
 echo "done"
