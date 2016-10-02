@@ -7,32 +7,28 @@
 ########## Variables
 
 dir=~/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
+timeStamp=$(date +%F_%R)
+olddir=~/dotfiles/backup/backup_$timeStamp             # old dotfiles backup directory
 files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"    # list of files/folders to symlink in homedir
 #files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"
 
 ##########
 
 # create dotfiles_old in homedir
-echo -n "Check if the dotfile backup dir exists: $olddir\n"
-if [[ -f ~/dotfiles_old ]]; then
-    echo "The dotfile backup dir $olddir already exists"
-    exit 0
-fi
 echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
-echo "done"
+echo "done\n"
 
 # change to the dotfiles directory
 echo -n "Changing to the $dir directory ..."
 cd $dir
-echo "done"
+echo "done\n"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
-    echo "Creating symlink to $file in home directory."
+    mv ~/.$file $olddir
+    echo "Creating symlink to $file in home directory.\n"
     ln -s $dir/$file ~/.$file
 done
 
@@ -50,6 +46,7 @@ if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
 else
     # If zsh isn't installed, get the platform of the current machine
     platform=$(uname);
+    echo "Installing zsh for $platform"
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/redhat-release ]]; then
@@ -66,7 +63,7 @@ else
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-        echo "Please install zsh, then re-run this script!"
+	brew install zsh
         exit
     fi
 fi
