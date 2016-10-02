@@ -15,20 +15,20 @@ files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"    # list of files/folders to
 ##########
 
 # create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+printf -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
-echo "done\n"
+printf "done\n"
 
 # change to the dotfiles directory
-echo -n "Changing to the $dir directory ..."
+printf -n "Changing to the $dir directory ..."
 cd $dir
-echo "done\n"
+printf "done\n"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
+    printf "Moving any existing dotfiles from ~ to $olddir"
     mv ~/.$file $olddir
-    echo "Creating symlink to $file in home directory.\n"
+    printf "Creating symlink to $file in home directory.\n"
     ln -s $dir/$file ~/.$file
 done
 
@@ -40,13 +40,13 @@ if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
         git clone http://github.com/robbyrussell/oh-my-zsh.git
     fi
     # Set the default shell to zsh if it isn't currently set to zsh
-    if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
+    if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
         chsh -s $(which zsh)
     fi
 else
     # If zsh isn't installed, get the platform of the current machine
     platform=$(uname);
-    echo "Installing zsh for $platform"
+    printf "Installing zsh for $platform"
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/redhat-release ]]; then
@@ -63,7 +63,7 @@ else
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-        brew install zsh
+	brew install zsh
         exit
     fi
 fi
