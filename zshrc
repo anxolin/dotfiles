@@ -6,10 +6,13 @@
 # Path to your oh-my-zsh installation.
 # IT may be overriden by .localrc, where local EXPORT vars are defined
 export ZSH=~/dotfiles/oh-my-zsh
+export ZSH_CUSTOM=~/dotfiles/zsh-custom
 
 # Theme
-#   Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="robbyrussell"
+#   Look in:
+# 			 ~/dotfiles/zsh-custom/themes
+#				 ~/dotfiles/.oh-my-zsh/themes/
+ZSH_THEME="anxo"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -61,6 +64,10 @@ ZSH_THEME="robbyrussell"
 #####################
 #  CUSTOM CONFIG    #
 #####################
+
+# Show hostname
+#HOSTNAME=$(hostname)
+
 
 # Check for new versions every month
 export UPDATE_ZSH_DAYS=30

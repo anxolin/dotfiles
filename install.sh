@@ -57,13 +57,13 @@ else
             sudo apt-get install zsh
             install_zsh
         fi
- 	if [[ -f /etc/arch-release ]]; then
+ 	      if [[ -f /etc/arch-release ]]; then
             sudo pacman -S zsh
             install_zsh
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-	brew install zsh
+        brew install zsh
         exit
     fi
 fi
