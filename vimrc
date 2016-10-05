@@ -59,6 +59,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" Ctrl+p - ctrlp.vim - Open files by name
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
@@ -107,4 +109,9 @@ set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new
 let g:airline_theme='solarized'
 " :AirlineTheme simple
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
+
+" Ctrp - Open files by name -  confi
+let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
+let g:ctrlp_cmd = 'CtrlP'
+
 
