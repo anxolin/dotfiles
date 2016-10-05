@@ -1,4 +1,5 @@
 " *******  BASIC VUNDLE CONFIG *************
+let g:solarized_termcolors=16
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -47,8 +48,15 @@ Plugin 'VundleVim/Vundle.vim'
 
 " *******  Plugins *************
 
-" Solarized Theme
+" Solarized Theme (related conf in plugin conf section)
 Plugin 'altercation/vim-colors-solarized'
+
+" Git - Vim Fugitive: 
+" 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
+Plugin 'tpope/vim-fugitive'
+
+
+
 
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
@@ -64,7 +72,14 @@ filetype plugin indent on    " required
 
 " *******  Plugin Configuration *************
 
-" Solarized Theme
+" Solarized Theme - config
 syntax enable
 set background=dark
+" let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 colorscheme solarized
+"call togglebg#map("<F5>")
+
+
+" Git - Fugitive - config
+" set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+
