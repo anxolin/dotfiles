@@ -48,14 +48,16 @@ Plugin 'VundleVim/Vundle.vim'
 
 " *******  Plugins *************
 
-" Solarized Theme (related conf in plugin conf section)
+" Colors - Solarized Theme (related conf in plugin conf section)
 Plugin 'altercation/vim-colors-solarized'
 
 " Git - Vim Fugitive: 
 " 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
 Plugin 'tpope/vim-fugitive'
 
-
+" Status bar - Vim Airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 
 " *******  Key mappings *************
@@ -82,4 +84,27 @@ colorscheme solarized
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+
+
+" Status line
+" 	http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
+" set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+" set statusline=%t       "tail of the filename
+" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+" set statusline+=%{&ff}] "file format
+" set statusline+=%h      "help file flag
+" set statusline+=%m      "modified flag
+" set statusline+=%r      "read only flag
+" set statusline+=%y      "filetype
+" set statusline+=%=      "left/right separator
+" set statusline+=%c,     "cursor column
+" set statusline+=%l/%L   "cursor line/total lines
+" set statusline+=\ %P    "percent through file
+
+
+" Status bar - Vim airline conf
+set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new split problem
+let g:airline_theme='solarized'
+" :AirlineTheme simple
+" let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
 
