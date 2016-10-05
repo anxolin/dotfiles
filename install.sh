@@ -24,6 +24,9 @@ printf -n "Changing to the $dir directory ..."
 cd $dir
 printf "done\n"
 
+# Configure Vim Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
+
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
     printf "Moving any existing dotfiles from ~ to $olddir"
