@@ -22,8 +22,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-
-
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -49,7 +47,8 @@ Plugin 'VundleVim/Vundle.vim'
 
 " *******  Plugins *************
 
-
+" Solarized Theme
+Plugin 'altercation/vim-colors-solarized'
 
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
@@ -61,3 +60,11 @@ cmap w!! w !sudo tee >/dev/null %
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+
+" *******  Plugin Configuration *************
+
+" Solarized Theme
+syntax enable
+set background=dark
+colorscheme solarized
