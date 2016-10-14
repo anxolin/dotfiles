@@ -1,0 +1,9 @@
+git 
+ag 
+tmux
+zsh
+vim
+openssh
+#openssh-server
+# nmap
+# netstat
