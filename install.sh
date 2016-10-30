@@ -15,12 +15,12 @@ files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"    # list of files/folders to
 ##########
 
 # create dotfiles_old in homedir
-printf -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+printf "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
 printf "done\n"
 
 # change to the dotfiles directory
-printf -n "Changing to the $dir directory ..."
+printf "Changing to the $dir directory ..."
 cd $dir
 printf "done\n"
 
