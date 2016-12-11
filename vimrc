@@ -114,4 +114,6 @@ let g:airline_theme='solarized'
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
 
+" Use ag (the_silver_searcher) instead of ack
+let g:ackprg = 'ag --vimgrep'
 
