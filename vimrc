@@ -1,4 +1,15 @@
 " *******  BASIC VUNDLE CONFIG *************
+" Indentation without hard tabs
+" set expandtab
+" set shiftwidth=2
+" set softtabstop=2
+
+" Indentation purely with hard tabs
+set shiftwidth=4
+set tabstop=4
+
+
+" Theme
 let g:solarized_termcolors=16
 " Brief help
 " :PluginList       - lists configured plugins
