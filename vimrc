@@ -89,7 +89,7 @@ filetype plugin indent on    " required
 " *******  Plugin Configuration *************
 " NerdTree conf
 " 	auto-open on startup
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 "	auto-open if there are no files
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -158,6 +158,12 @@ let g:airline_theme='solarized'
 " Ctrp - Open files by name -  confi
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
+
 
 " Use ag (the_silver_searcher) instead of ack
 let g:ackprg = 'ag --vimgrep'
