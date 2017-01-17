@@ -9,7 +9,8 @@ set shiftwidth=4
 set tabstop=4
 
 " Theme
-let g:solarized_termcolors=16
+" let g:solarized_termcolors=16
+
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -59,6 +60,9 @@ Plugin 'VundleVim/Vundle.vim'
 " *******  Plugins *************
 " Colors - Solarized Theme (related conf in plugin conf section)
 Plugin 'altercation/vim-colors-solarized'
+
+" Javascript:  syntax highlighting and improved indentation.
+"Plugin 'pangloss/vim-javascript'
 
 " Git - Vim Fugitive: 
 " 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
@@ -124,8 +128,21 @@ map <C-n> :NERDTreeToggle<CR>
 " Solarized Theme - config
 syntax enable
 set background=dark
-" let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
+let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 colorscheme solarized
+
+
+" Javascript:  syntax highlighting and improved indentation.
+" 			   pangloss/vim-javascript'
+"	Enable JSDocs (http://usejsdoc.org)
+"let g:javascript_plugin_jsdoc = 1
+"	Enables syntax highlighting for Flow (https://flowtype.org)
+"let g:javascript_plugin_flow = 1
+"	Enables code folding based on our syntax file.
+" set foldmethod=syntax
+" Identention
+" :h cino-:
+" :h 'indentkeys
 "call togglebg#map("<F5>")
 
 
