@@ -78,6 +78,15 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " NerdTree - File explorer
 Plugin 'scrooloose/nerdtree'
 
+" Multilingual code-completion, goTo declaration, view documentation, rename
+" 	variables
+" Plugin 'Valloric/YouCompleteMe'
+
+" Terni: Javascript editting support,  Jump to the definitio, Look up the
+" 	documentation,  Find the type of the thing under the cursor, references to the variable
+"	Rename the variable
+" Plugin 'ternjs/tern_for_vim'
+"
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
 cmap w!! w !sudo tee >/dev/null %
@@ -128,7 +137,9 @@ map <C-n> :NERDTreeToggle<CR>
 " Solarized Theme - config
 syntax enable
 set background=dark
-let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
+" let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
 colorscheme solarized
 
 

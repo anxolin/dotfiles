@@ -5,7 +5,6 @@
 ############################
 
 ########## Variables
-
 dir=~/dotfiles                    # dotfiles directory
 timeStamp=$(date +%F_%R)
 olddir=~/dotfiles/backup/backup_$timeStamp             # old dotfiles backup directory
@@ -35,41 +34,35 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
-install_zsh () {
-# Test to see if zshell is installed.  If it is:
-if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
-    # Clone my oh-my-zsh repository from GitHub only if it isn't already present
+install () {
+	printf "Installing ag (the silver searcher), and xclip (for Linux only)\n"
+
+    # If zsh isn't installed, get the platform of the current machine
+    platform=$(uname);
+    printf "Installing some apps for $platform\n"
+    # If the platform is Linux, try an apt-get to install zsh and then recurse
+    if [[ $platform == 'Linux' ]]; then
+        if [[ -f /etc/debian_version ]]; then
+            sudo apt-get install zsh vim silversearcher-ag xclip
+        fi
+ 	      if [[ -f /etc/arch-release ]]; then
+            sudo pacman -S zsh vim the_silver_searcher xclip
+        fi
+    # If the platform is OS X, tell the user to install zsh :)
+    elif [[ $platform == 'Darwin' ]]; then
+		brew install zsh the_silver_searcher
+        exit
+    fi
+
+	# Clone my oh-my-zsh repository from GitHub only if it isn't already present
     if [[ ! -d $dir/oh-my-zsh/ ]]; then
         git clone http://github.com/robbyrussell/oh-my-zsh.git
     fi
+
     # Set the default shell to zsh if it isn't currently set to zsh
     if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
         chsh -s $(which zsh)
     fi
-else
-    # If zsh isn't installed, get the platform of the current machine
-    platform=$(uname);
-    printf "Installing zsh for $platform"
-    # If the platform is Linux, try an apt-get to install zsh and then recurse
-    if [[ $platform == 'Linux' ]]; then
-        if [[ -f /etc/redhat-release ]]; then
-            sudo yum install zsh
-            install_zsh
-        fi
-        if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh
-            install_zsh
-        fi
- 	      if [[ -f /etc/arch-release ]]; then
-            sudo pacman -S zsh
-            install_zsh
-        fi
-    # If the platform is OS X, tell the user to install zsh :)
-    elif [[ $platform == 'Darwin' ]]; then
-	brew install zsh
-        exit
-    fi
-fi
 }
 
-install_zsh
+install

@@ -3,5 +3,6 @@ vim/*
 !vim/.gitkeep
 #vim/.netrwhist
 #chef/
+*.swp
 private
 backup
