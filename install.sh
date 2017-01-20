@@ -23,6 +23,9 @@ printf "Changing to the $dir directory ..."
 cd $dir
 printf "done\n"
 
+# Create Vim backupo dir for swap, backup and undo files
+mkdir -p ~/.vim/{backup_files,swap_files,undo_files}
+
 # Configure Vim Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
 

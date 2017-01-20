@@ -1,4 +1,9 @@
 " *******  BASIC VUNDLE CONFIG *************
+" Change backup dir for .swp files
+set backupdir=~/.vim/backup_files//
+set directory=~/.vim/swap_files//
+set undodir=~/.vim/undo_files//
+
 " Indentation without hard tabs
  set expandtab
  set shiftwidth=2
