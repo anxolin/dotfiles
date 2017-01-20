@@ -1,35 +1,36 @@
 " *******  BASIC VUNDLE CONFIG *************
+" Use Vim, vi is not compatible
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" Enable syntaxis and plugin support
+syntax enable
+filetype plugin on
+
 " Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
 set directory=~/.vim/swap_files//
 set undodir=~/.vim/undo_files//
 
 " Indentation without hard tabs
- set expandtab
- set shiftwidth=2
- set softtabstop=2
+set expandtab
+set shiftwidth=2
+set softtabstop=2
 
-" Indentation purely with hard tabs
-"set shiftwidth=4
-"set tabstop=4
+" Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
+set wildmenu
 
-" Theme
-" let g:solarized_termcolors=16
-
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" Vundle: Plugin manager  
+"   Brief help
+"     :PluginList       - lists configured plugins
+"     :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"     :PluginSearch foo - searches for foo; append `!` to refresh local cache
+"     :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
+"   see :h vundle for more details or wiki for FAQ
+"   Put your non-Plugin stuff after this line
+"
+" Vundle installation: set the runtime path to include Vundle and initialize
 set rtp+=~/dotfiles/vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -143,7 +144,6 @@ map <C-n> :NERDTreeToggle<CR>
 
 
 " Solarized Theme - config
-syntax enable
 set background=dark
 " let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 let g:solarized_visibility = "high"
