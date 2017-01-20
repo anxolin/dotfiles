@@ -46,14 +46,14 @@ install () {
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh vim silversearcher-ag xclip
+            sudo apt-get install zsh vim silversearcher-ag xclip ctags
         fi
  	      if [[ -f /etc/arch-release ]]; then
-            sudo pacman -S zsh vim the_silver_searcher xclip
+            sudo pacman -S zsh vim the_silver_searcher xclip ctags
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-		brew install zsh the_silver_searcher
+		brew install zsh the_silver_searcher ctags
         exit
     fi
 

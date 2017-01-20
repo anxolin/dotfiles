@@ -20,6 +20,9 @@ set softtabstop=2
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
 
+" Maketags: Use ctags genetate the 'tags' file used to jumpToDefinition 
+command! Maketags !ctags -R .
+
 " Vundle: Plugin manager  
 "   Brief help
 "     :PluginList       - lists configured plugins
