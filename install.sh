@@ -8,7 +8,7 @@
 dir=~/dotfiles                    # dotfiles directory
 timeStamp=$(date +%F_%R)
 olddir=~/dotfiles/backup/backup_$timeStamp             # old dotfiles backup directory
-files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"    # list of files/folders to symlink in homedir
+files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf editorconfig"    # list of files/folders to symlink in homedir
 #files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"
 
 ##########
