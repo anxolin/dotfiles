@@ -1,12 +1,12 @@
 " *******  BASIC VUNDLE CONFIG *************
 " Indentation without hard tabs
-" set expandtab
-" set shiftwidth=2
-" set softtabstop=2
+ set expandtab
+ set shiftwidth=2
+ set softtabstop=2
 
 " Indentation purely with hard tabs
-set shiftwidth=4
-set tabstop=4
+"set shiftwidth=4
+"set tabstop=4
 
 " Theme
 " let g:solarized_termcolors=16
@@ -63,6 +63,9 @@ Plugin 'altercation/vim-colors-solarized'
 
 " Javascript:  syntax highlighting and improved indentation.
 "Plugin 'pangloss/vim-javascript'
+
+" Format JS, HTML and CSS with jsbautifier
+Plugin 'maksimr/vim-jsbeautify'
 
 " Git - Vim Fugitive: 
 " 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
@@ -156,6 +159,12 @@ colorscheme solarized
 " :h 'indentkeys
 "call togglebg#map("<F5>")
 
+" vim-jsbeautify: HTML, CSS, JS formatter
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
