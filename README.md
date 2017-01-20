@@ -12,13 +12,14 @@ The following commands will:
 * In Linux installs the `xclip`
 * Backup the old dotfiles and install the new ones.
 
+### Step 1: Install the dotfiles using the script
 ```bash
 cd
 git clone https://github.com/anxolin/dotfiles.git
-./chmod +x dotfiles/install.sh
+chmod +x ./dotfiles/*.sh
 ./dotfiles/install.sh
 ```
-
+### Step 2: Install the Vim plugins using Vundle
 After installing, install the vim plugins.
 
 We enter `vim` (an error is thown the first time, don't worry it's ok):
@@ -26,6 +27,13 @@ We enter `vim` (an error is thown the first time, don't worry it's ok):
 ```
 :PluginInstall
 ```
+
+### Step 3: Install the post install script
+Install the post install script to initialize some plugins:
+```bash
+./dotfiles/install-after.sh
+```
+
 
 ## Some info about the configurations
 ### Vim (vimrc)
