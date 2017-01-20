@@ -30,6 +30,7 @@ We enter `vim` (an error is thown the first time, don't worry it's ok):
 
 ### Step 3: Install the post install script
 Install the post install script to initialize some plugins:
+> IMPORTANT: `npm` is required for this step, since it install the `standard` JS lintern using node, so the Syntastic plugin can use it.
 ```bash
 ./dotfiles/install-after.sh
 ```

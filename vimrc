@@ -20,8 +20,12 @@ set softtabstop=2
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
 
-" Maketags: Use ctags genetate the 'tags' file used to jumpToDefinition 
+" Maketags: Use ctags genetate app to 
 command! Maketags !ctags -R .
+
+" SNIPPETS:
+"   Read an empty HTML template and move cursor to title
+" nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 
 " Vundle: Plugin manager  
 "   Brief help
@@ -64,6 +68,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" Lintern - Syntaxtic
+Plugin 'vim-syntastic/syntastic'
 
 
 " *******  Plugins *************
@@ -173,6 +180,19 @@ autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
 autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Lintern - syntastic config
+let g:syntastic_javascript_checkers = ['standard']
+nnoremap <C-L><C-L> :SyntasticCheck<CR>
+nnoremap <C-L> :SyntasticReset<CR>
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}

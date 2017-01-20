@@ -38,11 +38,22 @@ for file in $files; do
 done
 
 install () {
-	printf "Installing ag (the silver searcher), and xclip (for Linux only)\n"
+	printf "Installing all the required software\n"
+
+    # Required software:
+    #   - All platforms: 
+    #         * zsh
+    #         * vim
+    #         * ag (the silver searcher): Use it to search faster. Replace for ACK
+    #         * ctags: Generate tags from code for junToDefinition functionalities
+    #   - Linux
+    #         * xclip: Allows to share the clipboard between tmux and the X's
+    #   - Mac (Darwin)
+    #        
 
     # If zsh isn't installed, get the platform of the current machine
     platform=$(uname);
-    printf "Installing some apps for $platform\n"
+    printf "*** Architecture: $platform***\n"
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then

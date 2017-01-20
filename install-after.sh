@@ -9,3 +9,7 @@ cd ~/.vim/bundle/vim-jsbeautify
 git submodule update --init --recursive
 
 
+# Standard Lintern - Used by Syntastic
+# IMPORTANT: It asumes that npm is installed
+npm install -g standard
+
