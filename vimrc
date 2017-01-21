@@ -7,6 +7,9 @@ filetype off                  " required
 syntax enable
 filetype plugin on
 
+" Activate mouse
+set mouse=a
+
 " Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
 set directory=~/.vim/swap_files//
