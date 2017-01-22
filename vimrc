@@ -223,16 +223,39 @@ let g:airline_theme='solarized'
 " :AirlineTheme simple
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
 
+
 " Ctrp - Open files by name -  confi
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
-
+"   Ignore .gitignore files
 let g:ctrlp_user_command = [
     \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
     \ 'find %s -type f'
     \ ]
 
+" " Change colors for ctrl-p cursor
+" let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
+" function BrightHighlightOn()
+"   hi CursorLine guibg=darkred
+" endfunction
+" 
+" function BrightHighlightOff()
+"   hi CursorLine guibg=#191919
+" endfunction
 
-" Use ag (the_silver_searcher) instead of ack
-let g:ackprg = 'ag --vimgrep'
+
+" Use ag instead of grep, in the :grep command
+if executable('ag')
+  " Use ag (the_silver_searcher) instead of ack
+  let g:ackprg = 'ag --vimgrep'
+
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
