@@ -3,7 +3,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Enable syntaxis and plugin support
+" Enable syntax highlight and plugin support
 syntax enable
 filetype plugin on
 
@@ -22,6 +22,10 @@ set undodir=~/.vim/undo_files//
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+
+" Spell: Enable spell suggestions
+" set spelllang=en,es
+set spell
 
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js)
 set wildmenu
@@ -50,7 +54,7 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" Maketags: Use ctags genetate app to
+" Maketags: Use ctags generate app to
 command! Maketags !ctags -R .
 
 " SNIPPETS:
@@ -233,7 +237,7 @@ let g:airline_theme='solarized'
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
 
 
-" Ctrp - Open files by name -  confi
+" Ctrp - Open files by name
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
 "   Ignore .gitignore files
