@@ -95,6 +95,10 @@ Plugin 'altercation/vim-colors-solarized'
 " Javascript:  syntax highlighting and improved indentation.
 "Plugin 'pangloss/vim-javascript'
 
+" Taglist: List of tags in the current file
+"     http://vim-taglist.sourceforge.net/
+Plugin 'taglist.vim'
+
 " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
 Plugin 'maksimr/vim-jsbeautify'
 
@@ -209,6 +213,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" tagList: List all tags in a window
+"   :TlistOpen
+nnoremap <silent> <F8> :TlistToggle<CR>
+let Tlist_GainFocus_On_ToggleOpen = 1
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
