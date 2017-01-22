@@ -26,6 +26,27 @@ set wildmenu
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
+
+" Use ag instead of grep, in the :grep command
+if executable('ag')
+  " bind \ (backward slash) to grep shortcut
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Ag<SPACE>
+
+
+  " Use ag (the_silver_searcher) instead of ack
+  let g:ackprg = 'ag --vimgrep'
+
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
 " Maketags: Use ctags genetate app to 
 command! Maketags !ctags -R .
 
@@ -247,18 +268,4 @@ let g:ctrlp_user_command = [
 " endfunction
 
 
-" Use ag instead of grep, in the :grep command
-if executable('ag')
-  " Use ag (the_silver_searcher) instead of ack
-  let g:ackprg = 'ag --vimgrep'
-
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 
