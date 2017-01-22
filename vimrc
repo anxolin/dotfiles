@@ -23,6 +23,9 @@ set softtabstop=2
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
 
+" Bind K to :grep under the cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " Maketags: Use ctags genetate app to 
 command! Maketags !ctags -R .
 
