@@ -49,6 +49,7 @@ install () {
     #   - Linux
     #         * xclip: Allows to share the clipboard between tmux and the X's
     #   - Mac (Darwin)
+    #         * reattach-to-user-namespace: Required for tmux copy-paste integration
     #        
 
     # If zsh isn't installed, get the platform of the current machine
@@ -64,7 +65,7 @@ install () {
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-		brew install zsh the_silver_searcher ctags
+		brew install zsh the_silver_searcher ctags reattach-to-user-namespace
         exit
     fi
 

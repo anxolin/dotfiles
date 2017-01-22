@@ -20,6 +20,10 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 
+" copy/paste integration
+set clipboard=unnamed
+
+
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
 
@@ -231,10 +235,12 @@ let g:airline_theme='solarized'
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
 "   Ignore .gitignore files
-let g:ctrlp_user_command = [
-    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
-    \ 'find %s -type f'
-    \ ]
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" let g:ctrlp_user_command = [
+"     \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+"     \ 'find %s -type f'
+"     \ ]
+
 
 " " Change colors for ctrl-p cursor
 " let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
@@ -256,7 +262,11 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = [
+      \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+      \ 'ag %s -l --nocolor -g ""'
+      \ ]
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
