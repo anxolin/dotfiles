@@ -1,0 +1,13 @@
+[push]
+  default = simple
+
+[user]
+  name = Angel Rodriguez
+  email = anxolin@gmail.com
+
+[credential]
+  helper = store
+
+[include]
+  path = .gitconfiglocal
+
