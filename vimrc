@@ -1,16 +1,19 @@
-" *******  BASIC VUNDLE CONFIG *************
+" a******  BASIC VUNDLE CONFIG *************
 " Use Vim, vi is not compatible
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Enable syntaxis and plugin support
+" Enable syntax highlight and plugin support
 syntax enable
 filetype plugin on
 
 " Activate mouse
 set mouse=a
 
-" Change backup dir for .swp files
+" Autoread: Detect changes done by external applications
+set autoread
+
+" TempFiles: Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
 set directory=~/.vim/swap_files//
 set undodir=~/.vim/undo_files//
@@ -23,6 +26,9 @@ set softtabstop=2
 " copy/paste integration
 set clipboard=unnamed
 
+" Spell: Enable spell suggestions
+" set spelllang=en,es
+set spell
 
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
@@ -30,14 +36,15 @@ set wildmenu
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" Maketags: Use ctags genetate app to 
+
+" Maketags: Use ctags generate app to
 command! Maketags !ctags -R .
 
 " SNIPPETS:
 "   Read an empty HTML template and move cursor to title
 " nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 
-" Vundle: Plugin manager  
+" Vundle: Plugin manager
 "   Brief help
 "     :PluginList       - lists configured plugins
 "     :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -54,68 +61,54 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+" Vundle: let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
+" Autoread: Enables autoread (reload the file if it has changed autside)
+"Plugin 'djoshea/vim-autoread'
+"Plugin 'Carpetsmoker/auto_autoread.vim'
 
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-" Lintern - Syntaxtic
+" Syntastic: Lintern
 Plugin 'vim-syntastic/syntastic'
 
-
 " *******  Plugins *************
-" Colors - Solarized Theme (related conf in plugin conf section)
+" Solarized: Colors - Solarized Theme (related conf in plugin conf section)
 Plugin 'altercation/vim-colors-solarized'
 
 " Javascript:  syntax highlighting and improved indentation.
 "Plugin 'pangloss/vim-javascript'
 
-" Format JS, HTML and CSS with jsbautifier
+" Taglist: List of tags in the current file
+"     http://vim-taglist.sourceforge.net/
+Plugin 'taglist.vim'
+
+" Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
 Plugin 'maksimr/vim-jsbeautify'
 
-" Git - Vim Fugitive: 
+" Fugitive: Git - Vim Fugitive:
 " 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
 Plugin 'tpope/vim-fugitive'
 
-" Status bar - Vim Airline
+" Airline: Status bar - Vim Airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-" Ctrl+p - ctrlp.vim - Open files by name
+" Ctrlp: Ctrl+p - ctrlp.vim - Open files by name
 Plugin 'ctrlpvim/ctrlp.vim'
 
-" NerdTree - File explorer
+" NerdTree: File explorer
 Plugin 'scrooloose/nerdtree'
 
-" Multilingual code-completion, goTo declaration, view documentation, rename
-" 	variables
-" Plugin 'Valloric/YouCompleteMe'
+" Youcompleteme:
+"   Multilingual code-completion, goTo declaration, view documentation, rename variables
+"   Plugin 'Valloric/YouCompleteMe'
 
-" Terni: Javascript editting support,  Jump to the definitio, Look up the
+" Ternjs: Javascript editting support,  Jump to the definitio, Look up the
 " 	documentation,  Find the type of the thing under the cursor, references to the variable
 "	Rename the variable
 " Plugin 'ternjs/tern_for_vim'
-"
+
+
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
 cmap w!! w !sudo tee >/dev/null %
@@ -146,7 +139,7 @@ map <C-n> :NERDTreeToggle<CR>
 " 	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 " 	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 " endfunction
-" 
+"
 " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
 " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
@@ -203,6 +196,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" tagList: List all tags in a window
+"   :TlistOpen
+nnoremap <silent> <F8> :TlistToggle<CR>
+let Tlist_GainFocus_On_ToggleOpen = 1
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
@@ -231,7 +228,7 @@ let g:airline_theme='solarized'
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
 
 
-" Ctrp - Open files by name -  confi
+" Ctrp - Open files by name
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
 "   Ignore .gitignore files
@@ -247,14 +244,18 @@ let g:ctrlp_cmd = 'CtrlP'
 " function BrightHighlightOn()
 "   hi CursorLine guibg=darkred
 " endfunction
-" 
+"
 " function BrightHighlightOff()
 "   hi CursorLine guibg=#191919
 " endfunction
 
-
 " Use ag instead of grep, in the :grep command
 if executable('ag')
+  " bind \ (backward slash) to grep shortcut
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Ag<SPACE>
+
+
   " Use ag (the_silver_searcher) instead of ack
   let g:ackprg = 'ag --vimgrep'
 
@@ -262,8 +263,7 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_user_command = [
+   let g:ctrlp_user_command = [
       \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
       \ 'ag %s -l --nocolor -g ""'
       \ ]
@@ -271,4 +271,6 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+
 

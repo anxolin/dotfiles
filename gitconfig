@@ -6,7 +6,7 @@
   email = anxolin@gmail.com
 
 [credential]
-  helper = store
+	helper = cache --timeout=86400
 
 [include]
   path = .gitconfiglocal
