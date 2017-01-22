@@ -12,6 +12,22 @@ set mouse=a
 
 " Autoread: Detect changes done by external applications
 set autoread
+" TODO: Make vim notice automatically if an external app has changed the file
+" http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
+" |VimResized|    after the Vim window size changed
+" |FocusGained|   Vim got input focus
+" |FocusLost|   Vim lost input focus
+" |CursorHold|    the user doesn't press a key for a while
+" |CursorHoldI|   the user doesn't press a key for a while in Insert mode
+" |CursorMoved|   the cursor was moved in Normal mode
+" |CursorMovedI|    the cursor was moved in Insert mode
+" |WinEnter|    after entering another window
+" |WinLeave|    before leaving a window
+" |TabEnter|    after entering another tab page
+" |TabLeave|    before leaving a tab page
+" |CmdwinEnter|   after entering the command-line window
+" |CmdwinLeave|   before leaving the command-line 
+
 
 " TempFiles: Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
