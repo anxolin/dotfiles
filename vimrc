@@ -100,6 +100,13 @@ Plugin 'altercation/vim-colors-solarized'
 "Plugin 'pangloss/vim-javascript'
 
 " Javscript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
+"    :TernDef: Jump to the definition of the thing under the cursor.
+"    :TernDoc: Look up the documentation of something.
+"    :TernType: Find the type of the thing under the cursor.
+"    :TernRefs: Show all references to the variable or property under the cursor.
+"    :TernRename: Rename the variable under the cursor.
+
+
 "  for JS
 "Plugin 'marijnh/tern_for_vim'
 Plugin 'ternjs/tern_for_vim'
@@ -210,6 +217,10 @@ autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
 autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Tern: tern mappings
+nnoremap <silent> <F2> :TernRefs<CR>
+nnoremap <silent> <F3> :TernDef<CR>
 
 " Lintern - syntastic config
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
