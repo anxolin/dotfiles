@@ -18,3 +18,6 @@ sudo npm install -g standard
 cd ~/.vim/bundle/tern_for_vim
 npm install
 
+# jsctags: Is a better ctags fot JS. It's used by majutsushi/tagbar
+sudo npm install -g git+https://github.com/ramitos/jsctags.git
+

@@ -113,11 +113,17 @@ Plugin 'ternjs/tern_for_vim'
 
 " Taglist: List of tags in the current file
 "     http://vim-taglist.sourceforge.net/
-"Plugin 'taglist.vim'
+"Plugin 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
+"     Javascript: jsctags (depends on Tern) 
 Plugin 'majutsushi/tagbar'
 
 " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
 Plugin 'maksimr/vim-jsbeautify'
+
+" Scala: scala integration - https://github.com/derekwyatt/vim-scala
+"     :SortScalaImports - Sorting of import statements
+Plugin 'derekwyatt/vim-scala'
+
 
 " Fugitive: Git - Vim Fugitive:
 " 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
