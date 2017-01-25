@@ -94,9 +94,15 @@ Plugin 'altercation/vim-colors-solarized'
 " Javascript:  syntax highlighting and improved indentation.
 "Plugin 'pangloss/vim-javascript'
 
+" Javscript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
+"  for JS
+"Plugin 'marijnh/tern_for_vim'
+Plugin 'ternjs/tern_for_vim'
+
 " Taglist: List of tags in the current file
 "     http://vim-taglist.sourceforge.net/
-Plugin 'taglist.vim'
+"Plugin 'taglist.vim'
+Plugin 'majutsushi/tagbar'
 
 " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
 Plugin 'maksimr/vim-jsbeautify'
@@ -201,9 +207,11 @@ autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " Lintern - syntastic config
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_javascript_checkers = ['standard']
-nnoremap <C-L><C-L> :SyntasticCheck<CR>
-nnoremap <C-L> :SyntasticReset<CR>
+"nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+nnoremap <C-L> :SyntasticCheck<CR>
+nnoremap <C-L><C-L> :SyntasticReset<CR>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -212,10 +220,15 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+
 " tagList: List all tags in a window
 "   :TlistOpen
-nnoremap <silent> <F8> :TlistToggle<CR>
-let Tlist_GainFocus_On_ToggleOpen = 1
+"nnoremap <silent> <F8> :TlistToggle<CR>
+"let Tlist_GainFocus_On_ToggleOpen = 1
+
+" Tagbar: tags for majutsushi/tagbar
+nmap <F8> :TagbarToggle<CR>
+
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}

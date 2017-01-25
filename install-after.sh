@@ -11,5 +11,10 @@ git submodule update --init --recursive
 
 # Standard Lintern - Used by Syntastic
 # IMPORTANT: It asumes that npm is installed
-npm install -g standard
+sudo npm install -g standard
+
+
+# Required for tern
+cd ~/.vim/bundle/tern_for_vim
+npm install
 
