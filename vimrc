@@ -52,6 +52,11 @@ set wildmenu
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
+" Highlight a word on double click
+map <2-LeftMouse> :set hlsearch<CR>*
+imap <2-LeftMouse> :set hlsearch<CR><c-o>*
+set hlsearch
+nnoremap <F3> :set hlsearch!<CR>
 
 " Maketags: Use ctags generate app to
 command! Maketags !ctags -R .
