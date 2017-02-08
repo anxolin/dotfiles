@@ -64,6 +64,23 @@ Some basic bindings:
 * Use the `HJKL` keys for resizing
 * `v` for copy, `y` for yield, `P` for pasting.  
 
+
+> NOTE: The tmux config assumes that you are using at list 
+
+If you need to manually install tmux.
+Check the last version in: https://tmux.github.io/
+
+```bash
+wget https://github.com/tmux/tmux/releases/download/2.3/tmux-2.3.tar.gz
+tar xvf tmux-2.3.tar.gz
+```
+
+Within the tmux folder:
+```bash
+./configure && make
+sudo make install
+```
+
 ### zsh (zshrc, anxo.zsh-theme) 
 It installes:
 
