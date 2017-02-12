@@ -5,6 +5,13 @@
   name = Angel Rodriguez
   email = anxolin@gmail.com
 
+[log]
+  date = relative
+
+[format]
+  pretty = format:%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
+
+
 [credential]
 	helper = cache --timeout=86400
 
