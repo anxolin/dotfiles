@@ -82,7 +82,7 @@ export EDITOR='vim'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant)
+plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python)
 #plugins(pip python)
 
 #####################
