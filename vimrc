@@ -42,6 +42,9 @@ set softtabstop=2
 " copy/paste integration
 set clipboard=unnamed
 
+" Make backspace work like most other apps
+set backspace=2 
+
 " Spell: Enable spell suggestions
 " set spelllang=en,es
 set spell
@@ -90,7 +93,11 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'Carpetsmoker/auto_autoread.vim'
 
 " Syntastic: Lintern
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
+" Disabled to try w0rp/ale since vim8 upgrade
+
+" w0rp/ale
+Plugin 'w0rp/ale'
 
 " *******  Plugins *************
 " Solarized: Colors - Solarized Theme (related conf in plugin conf section)
@@ -203,20 +210,6 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
 
-
-" Javascript:  syntax highlighting and improved indentation.
-" 			   pangloss/vim-javascript'
-"	Enable JSDocs (http://usejsdoc.org)
-"let g:javascript_plugin_jsdoc = 1
-"	Enables syntax highlighting for Flow (https://flowtype.org)
-"let g:javascript_plugin_flow = 1
-"	Enables code folding based on our syntax file.
-" set foldmethod=syntax
-" Identention
-" :h cino-:
-" :h 'indentkeys
-"call togglebg#map("<F5>")
-
 " vim-jsbeautify: HTML, CSS, JS formatter
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
 autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
@@ -228,20 +221,26 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 nnoremap <silent> <F2> :TernRefs<CR>
 nnoremap <silent> <F3> :TernDef<CR>
 
-" Lintern - syntastic config
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_javascript_checkers = ['standard']
-"nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-nnoremap <C-L> :SyntasticCheck<CR>
-nnoremap <C-L><C-L> :SyntasticReset<CR>
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
+" " Lintern - syntastic config
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+" let g:syntastic_javascript_checkers = ['standard']
+" "nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+" nnoremap <C-L> :SyntasticCheck<CR>
+" nnoremap <C-L><C-L> :SyntasticReset<CR>
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" 
+
+" Ale lintern
+"let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " tagList: List all tags in a window
 "   :TlistOpen
@@ -254,6 +253,7 @@ nmap <F8> :TagbarToggle<CR>
 
 " Git - Fugitive - config
 " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+
 
 
 " Status line

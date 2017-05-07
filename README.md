@@ -30,7 +30,8 @@ We enter `vim` (an error is thown the first time, don't worry it's ok):
 
 ### Step 3: Install the post install script
 Install the post install script to initialize some plugins:
-> IMPORTANT: `npm` is required for this step, since it install the `standard` JS lintern using node, so the Syntastic plugin can use it.
+> IMPORTANT: `npm` is required for this step. For instance, it installs the `standard` JS lintern using node, so the Ale plugin can use it.
+> SEE: "Vim Linter - Ale section" for more info.
 ```bash
 ./dotfiles/install-after.sh
 ```
@@ -48,6 +49,33 @@ Some basic bindings are:
 * ctrl-p: For fuzzy Search 
 * ctrl-n: For NERDTree file explorer 
 
+### Vim Lintern - Ale
+> See documentation in https://github.com/w0rp/ale
+
+Linterns:
+  * **JS**: `sudo npm install -g standard`
+  * **JSON**: `sudo npm install -g jsonlint`
+  * **HTML**: `sudo npm install -g htmlhint`
+  * **SASS**: `sudo npm install -g sass-lint`
+  * **CSS**: `sudo npm install -g stylelint` 
+  * **MARKDOWN**: `sudo pip install proselint`
+  * **SQL**: `gem install sqlint`
+  * **Python**: Basta con instalar flake9 `python3.6 -m pip install flake8` 
+  * **YAML**: `sudo pip install yamllint`
+
+Install all the linterns:
+```bash
+python3.6 -m pip install flake8
+pip install proselint yamllint
+sudo npm install -g standard jsonlint htmlhint sass-lint stylelint
+gem install sqlint
+```
+
+Keybindings:
+* `c-J` Next lintern error
+* `c-K` Previous lintern error
+
+
 ### tmux (tmux.conf, tmux-linux.conf, tmux-osx.conf)
 * Changes the default prefix key combination  
 * Set the 256 terminal
@@ -58,14 +86,22 @@ Some basic bindings are:
 Some basic bindings:
 
 * ctrl-a: Default prefix key combination
-* `|` : split vertical
-* `-` : split horizontal
-* Move between panes using Vim keys 
-* Use the `HJKL` keys for resizing
-* `v` for copy, `y` for yield, `P` for pasting.  
-
-
-> NOTE: The tmux config assumes that you are using at list 
+  * `c-a |` : split vertical
+  * `c-a -` : split horizontal
+  * `c-a hjkl`: Move between panes using Vim keys (hjkl)
+  * `c-a HJKL`:  Use the `HJKL` keys for resizing
+* Copy paste like VIM:
+  * `c-a ESC` Enter in 'Copy-Paste mode'
+  * Move arround as you would in vim.
+  * `v` to start copying
+  * `y` to copy (yield)
+  * `ESC` to exit 'Copy-Paste mode'
+  * `c-a p` to paste
+* Move arround the windows:
+* `SHIFT-Left`, `SHIFT-Right` to move between windows.
+* `SHIFT-Down` to create a new window.
+* `C-SHIFT-Left`, `C-SHIFT-Right` to move the current window (changing their order).
+* `c-a T` to move the current window to the top position (first window).
 
 If you need to manually install tmux.
 Check the last version in: https://tmux.github.io/
