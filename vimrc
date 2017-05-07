@@ -127,6 +127,9 @@ Plugin 'majutsushi/tagbar'
 " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
 Plugin 'maksimr/vim-jsbeautify'
 
+" Format: vim-autoformat: Formats using any external formatter
+Plugin 'Chiel92/vim-autoformat'
+
 " Scala: scala integration - https://github.com/derekwyatt/vim-scala
 "     :SortScalaImports - Sorting of import statements
 Plugin 'derekwyatt/vim-scala'
@@ -210,12 +213,26 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
 
-" vim-jsbeautify: HTML, CSS, JS formatter
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Disable the formatting to test 'Chiel92/vim-autoformat'
+" " C-f vim-jsbeautify: HTML, CSS, JS formatter
+" autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+" autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+" autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+" autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+" autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Format: Formats using configurable external formatters: Chiel92/vim-autoformat
+"     c-f                       Auto format
+"     gg=G                      manually autoindent
+"     :retab                    retab
+"     :RemoveTrailingSpaces     remove trailing whitespace
+"noremap <c-f> :Autoformat<CR>
+noremap <c-f> gg=G``
+let g:formatter_yapf_style = 'pep8'
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" let g:autoformat_remove_trailing_spaces = 0
 
 " Tern: tern mappings
 nnoremap <silent> <F2> :TernRefs<CR>
