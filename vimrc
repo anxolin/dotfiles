@@ -72,6 +72,12 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <A-Up> :m .+1<CR>==
+nnoremap <A-Down> :m .-2<CR>==
+inoremap <A-Up> <Esc>:m .+1<CR>==gi
+inoremap <A-Down> <Esc>:m .-2<CR>==gi
+vnoremap <A-Up> :m '>+1<CR>gv=gv
+vnoremap <A-Down> :m '<-2<CR>gv=gv
 " Mac
 nnoremap ¶ :m .+1<CR>==
 nnoremap § :m .-2<CR>==
@@ -79,6 +85,14 @@ inoremap ¶ <Esc>:m .+1<CR>==gi
 inoremap § <Esc>:m .-2<CR>==gi
 vnoremap ¶ :m '>+1<CR>gv=gv
 vnoremap § :m '<-2<CR>gv=gv
+" TODO: Try to make arrows work in macOS
+" https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed
+" nnoremap ^[[1;3A :m .+1<CR>==
+" nnoremap ^[[1;3A :m .-2<CR>==
+" inoremap ^[[1;3A <Esc>:m .+1<CR>==gi
+" inoremap ^[[1;3A <Esc>:m .-2<CR>==gi
+" vnoremap ^[[1;3A :m '>+1<CR>gv=gv
+" vnoremap ^[[1;3A :m '<-2<CR>gv=gv
 
 " Spell: Enable spell suggestions
 " set spelllang=en,es
