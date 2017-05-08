@@ -39,6 +39,23 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 
+" Identations for Python - PEP8
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4
+"     \ set softtabstop=4
+"     \ set shiftwidth=4
+"     \ set textwidth=79
+"     \ set expandtab
+"     \ set autoindent
+"     \ set fileformat=unix
+
+" Identation for JS, HTML and CSS
+" au BufNewFile,BufRead *.js, *.html, *.css
+"     \ set tabstop=2
+"     \ set softtabstop=2
+"     \ set shiftwidth=2
+
+
 " copy/paste integration
 set clipboard=unnamed
 
@@ -129,6 +146,9 @@ Plugin 'maksimr/vim-jsbeautify'
 
 " Format: vim-autoformat: Formats using any external formatter
 Plugin 'Chiel92/vim-autoformat'
+
+" Python
+"Plugin 'nvie/vim-flake8'
 
 " Scala: scala integration - https://github.com/derekwyatt/vim-scala
 "     :SortScalaImports - Sorting of import statements

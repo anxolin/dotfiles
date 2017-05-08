@@ -18,3 +18,5 @@
 [include]
   path = .gitconfiglocal
 
+[diff]
+	tool = kdiff3
