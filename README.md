@@ -3,7 +3,7 @@ Installs the preferences for aplications such as `tmux`, `zsh` or `vim`.
 
 There's also documentation showing the plugins and configuration for:
 
-* **vim**: [docs/vim.md](docs/tmux.md) Plugins, mappings and configurations.
+* **vim**: [docs/vim.md](docs/vim.md) Plugins, mappings and configurations.
 * **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 * **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
 

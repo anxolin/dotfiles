@@ -14,10 +14,10 @@ Some basic bindings are:
 * `c-j` / `c-k`: Next/previous lintern error
 *  `F8`: Toggle taglist
 *  Go to tag:
-  * `ctrl-]` jump to tag
-  * `g<ctl>-]` jump to ambiguous tag
-  * `ctrl-t` go back up to the tag stack
-  * `:maketags`: Generate ctags
+   * `ctrl-]` jump to tag
+   * `g<ctl>-]` jump to ambiguous tag
+   * `ctrl-t` go back up to the tag stack
+   * `:maketags`: Generate ctags
 *  `c-f`: Format code 
 * `alt-j` / `alt-k`: Move line up/down.
 
