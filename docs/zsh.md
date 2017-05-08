@@ -1,9 +1,5 @@
 # zsh dotfiles
-The configuration is in:
-
-* `zshrc`: Main configuration
-* , anxo.zsh-theme) 
-It installes:
+The configuration is in `zshrc`
 
 ## Overview
 * Define the theme: `anxo` is a custom theme based on the `robbyrussell` one.

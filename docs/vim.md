@@ -13,12 +13,19 @@ Some basic bindings are:
 * `ctrl-n`: For NERDTree file explorer 
 * `c-j` / `c-k`: Next/previous lintern error
 *  `F8`: Toggle taglist
+*  Go to tag:
+  * `ctrl-]` jump to tag
+  * `g<ctl>-]` jump to ambiguous tag
+  * `ctrl-t` go back up to the tag stack
+  * `:maketags`: Generate ctags
 *  `c-f`: Format code 
+* `alt-j` / `alt-k`: Move line up/down.
 
 ### Vim Lintern - Ale
 > See documentation in https://github.com/w0rp/ale
 
 Linterns:
+
   * **JS**: `sudo npm install -g standard`
   * **JSON**: `sudo npm install -g jsonlint`
   * **HTML**: `sudo npm install -g htmlhint`
@@ -38,30 +45,36 @@ gem install sqlint
 ```
 
 Keybindings:
+
 * `c-J` Next lintern error
 * `c-K` Previous lintern error
 
-#### Vim tags - Basics (ctag) and a plugin (majutsushi/tagbar)
+## Vim tags - Basics (ctag) and a plugin (majutsushi/tagbar)
 **Vim ctags default support**
+
 Vim has already a ctag support.
 
 If ctags is installed, there's a custom command `:Makectags` to generate them easily. It basically executes `ctags -R .` 
 
 Once the `ctags`file is generated, you can use vim default ctag navigation commands:
+
   * `ctrl-]` jump to tag
   * `g<ctl>-]` jump to ambiguous tag
   * `ctrl-t` go back up to the tag stack
 
 **majutsushi/tagbar**
-Te plugin ads a window with the browsable ctags.
+
+The plugin ads a window with the browsable ctags.
 
 You can:
+
   * `F8` Toggle the tag list. It's an alias for the `TlistToggle`
 
 For:
+
   * `javascript`: It uses ramitos/jsctags that depends on Tern. The apfter-install.sh script istalls it.
   * `python`
 
-# Vim tagbar
+## Vim tagbar
 
 'majutsushi/tagbar'

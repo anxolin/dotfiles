@@ -3,14 +3,14 @@ Installs the preferences for aplications such as `tmux`, `zsh` or `vim`.
 
 There's also documentation showing the plugins and configuration for:
 
-* **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 * **vim**: [docs/vim.md](docs/tmux.md) Plugins, mappings and configurations.
+* **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 * **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
 
 It also contains some usefull scipts used when setting up a new working environment:
 
-* [install.sh](): Installs the dotfiles in a new environment. It doesn't delete anything. Conflicting files will be moved to backup_`${date}`
-* [install-after.sh](): Install some plugins or external programs required by some vim plugins (i.e. Tern for JS development)
+* [install.sh](install.sh): Installs the dotfiles in a new environment. It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`"
+* [install-after.sh](install.sh): Install some plugins or external programs required by some vim plugins (i.e. Tern for JS development)
 
 ## Setup the environment
 The following commands will:
