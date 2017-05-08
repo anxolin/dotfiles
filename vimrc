@@ -28,6 +28,8 @@ set autoread
 " |CmdwinEnter|   after entering the command-line window
 " |CmdwinLeave|   before leaving the command-line 
 
+" Ignore case by default when searching
+set ignorecase
 
 " TempFiles: Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
