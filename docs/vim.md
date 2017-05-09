@@ -13,6 +13,7 @@ Some basic bindings are:
 * `ctrl-n`: For NERDTree file explorer 
 * `c-j` / `c-k`: Next/previous lintern error
 *  `F8`: Toggle taglist
+*  `\<searcg_text>` or `:Ag <search_text>` for searching using **ag**.
 * Go to definition, usages, and rename
    * `\d`: Go to definition
    * `c-o`: Go back to previous position
@@ -29,6 +30,14 @@ Some basic bindings are:
    * `:maketags`: Generate ctags
 *  `c-f`: Format code 
 * `alt-j` / `alt-k`: Move line up/down.
+* **Quick fix** and **Location List**:
+  * `cw[indow]`: Open the quickfix if there's errors. If there's not, it hides the window if open.
+  * `lw[indow]`: Same as `cw[indow]` but for the location list.
+  * `cclose`: Close the quickfix (example: AsyncTask)
+  * `lclose`: Close the location list (example: Lintern)
+
+* Async run: Run something asyncronously and show the result in the 
+   * `:AsyncRun <command>`: Runs command in the quickfix window 
 
 ### Vim Lintern - Ale
 > See documentation in https://github.com/w0rp/ale
@@ -77,8 +86,20 @@ The main mappings are:
 
 
 ## Search with Ag
-> TODO: Document Ag usage
+Ag is configured:
 
+  * Instead of **ack** and **grep**.
+  * Mapped to `:Ag<search_text>` command and `\<search_text>`.
+  * It's used by **ctrl-p** for fuzzy-search.
+  *  
+
+## Async Run
+More info in: https://github.com/skywind3000/asyncrun.vim
+
+
+* Async run: Run something asyncronously and show the result in the 
+   * `:AsyncRun <command>`: Runs command in the quickfix window 
+      *  i.e. .`:AsyncRun gcc % -o %<`. run gcc in the background and output to the quickfix window in realtime.  Macro '%' stands for filename and '%<' represents filename without extension.
 
 ## TODO: leader
 
