@@ -13,6 +13,15 @@ Some basic bindings are:
 * `ctrl-n`: For NERDTree file explorer 
 * `c-j` / `c-k`: Next/previous lintern error
 *  `F8`: Toggle taglist
+* Go to definition, usages, and rename
+   * `\d`: Go to definition
+   * `c-o`: Go back to previous position
+   * `c-i`: Go forward to next position
+   * `\n`: Find usages
+   * `\r`: Rename
+* Autocomplete and documentation:
+   * `c-space`: Autocomplete
+   * `K`: Documentation
 *  Go to tag:
    * `ctrl-]` jump to tag
    * `g<ctl>-]` jump to ambiguous tag
@@ -48,6 +57,32 @@ Keybindings:
 
 * `c-J` Next lintern error
 * `c-K` Previous lintern error
+
+## Vim autocomplete, go to definition, view usages and refactor 
+> I haven't tried youcompletme yet, but I've used jedi vim plugin and It works great
+
+It uses `davidhalter/jedi-vim`. Only for python (for the time being)
+
+The main mappings are:
+
+* Autocomplete and documentation:
+   * `c-space`: Autocomplete
+   * `K`: Documentation
+* Go to definition, usages, and rename
+   * `\d`: Go to definition
+   * `c-o`: Go back to previous position
+   * `c-i`: Go forward to next position
+   * `\n`: Find usages
+   * `\r`: Rename
+
+
+## Search with Ag
+> TODO: Document Ag usage
+
+
+## TODO: leader
+
+https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 
 ## Vim tags - Basics (ctag) and a plugin (majutsushi/tagbar)
 **Vim ctags default support**
