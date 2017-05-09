@@ -65,20 +65,21 @@ set clipboard=unnamed
 set backspace=2 
 
 " Quick way to move lines of text up or down (alt-j)
-" Windows, Linux
+" Windows, Linux: Alt+jk
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
-nnoremap <A-Up> :m .+1<CR>==
-nnoremap <A-Down> :m .-2<CR>==
-inoremap <A-Up> <Esc>:m .+1<CR>==gi
-inoremap <A-Down> <Esc>:m .-2<CR>==gi
-vnoremap <A-Up> :m '>+1<CR>gv=gv
-vnoremap <A-Down> :m '<-2<CR>gv=gv
-" Mac
+" Windows, Linux: Alt+Arrows
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
+inoremap <A-Down> <Esc>:m .+1<CR>==gi
+inoremap <A-Up> <Esc>:m .-2<CR>==gi
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+" Mac: Alt+jk
 nnoremap ¶ :m .+1<CR>==
 nnoremap § :m .-2<CR>==
 inoremap ¶ <Esc>:m .+1<CR>==gi
