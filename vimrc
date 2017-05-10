@@ -7,6 +7,23 @@ filetype off                  " required
 syntax enable
 filetype plugin on
 
+" Set SPACE as the leader key
+let mapleader = "\<Space>"
+
+" Leader mappings:
+" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+"   open a new file
+nnoremap <Leader>o :CtrlP<CR>
+"   save file
+nnoremap <Leader>w :w<CR>
+"   Copy & paste to system clipboard with <Space>p and <Space>y:
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 " Activate mouse
 set mouse=a
 
