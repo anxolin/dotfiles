@@ -46,6 +46,7 @@ install () {
     #         * vim
     #         * ag (the silver searcher): Use it to search faster. Replace for ACK
     #         * ctags: Generate tags from code for junToDefinition functionalities
+    #         * cmake: Required by you complete me
     #   - Linux
     #         * xclip: Allows to share the clipboard between tmux and the X's
     #   - Mac (Darwin)
@@ -58,14 +59,14 @@ install () {
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh vim silversearcher-ag xclip ctags
+            sudo apt-get install zsh vim silversearcher-ag xclip ctags cmake
         fi
  	      if [[ -f /etc/arch-release ]]; then
-            sudo pacman -S zsh vim the_silver_searcher xclip ctags
+            sudo pacman -S zsh vim the_silver_searcher xclip ctags cmake
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-		brew install zsh the_silver_searcher ctags reattach-to-user-namespace
+		brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
         exit
     fi
 

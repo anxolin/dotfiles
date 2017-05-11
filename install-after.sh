@@ -8,6 +8,8 @@ echo "Initialize the vim-jsbeautify submodules"
 cd ~/.vim/bundle/vim-jsbeautify
 git submodule update --init --recursive
 
+# Autocomplete: You completme
+cd ~/.vim/bundle/YouCompleteMe && ./install.sh
 
 # Standard Lintern - Used by Syntastic
 # IMPORTANT: It asumes that npm is installed

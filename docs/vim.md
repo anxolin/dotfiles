@@ -70,8 +70,7 @@ Keybindings:
 ## Vim autocomplete, go to definition, view usages and refactor 
 > I haven't tried youcompletme yet, but I've used jedi vim plugin and It works great
 
-It uses `davidhalter/jedi-vim`. Only for python (for the time being)
-
+It uses 
 The main mappings are:
 
 * Autocomplete and documentation:
@@ -83,6 +82,18 @@ The main mappings are:
    * `c-i`: Go forward to next position
    * `\n`: Find usages
    * `\r`: Rename
+
+It uses several plugins:
+
+  * **python**: `davidhalter/jedi-vim` Autocomplete, rename, go to definition and find usages
+  * **javascript**:
+    * **Tern**: `ternjs/tern_for_vim`:
+      * **TernDef**: Jump to the definition of the thing under the cursor.
+      * **TernDoc**: Look up the documentation of something.
+      * **TernType**: Find the type of the thing under the cursor.
+      * **TernRefs**: Show all references to the variable or property under the cursor.
+      * **TernRename**: Rename the variable under the cursor.
+    * youcompleteme: `Valloric/YouCompleteMe` (it's not just for Javascript)
 
 
 ## Search with Ag

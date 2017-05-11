@@ -173,16 +173,12 @@ Plugin 'altercation/vim-colors-solarized'
 " Javascript:  syntax highlighting and improved indentation.
 "Plugin 'pangloss/vim-javascript'
 
-" Javscript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
+" Javascript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
 "    :TernDef: Jump to the definition of the thing under the cursor.
 "    :TernDoc: Look up the documentation of something.
 "    :TernType: Find the type of the thing under the cursor.
 "    :TernRefs: Show all references to the variable or property under the cursor.
 "    :TernRename: Rename the variable under the cursor.
-
-
-"  for JS
-"Plugin 'marijnh/tern_for_vim'
 Plugin 'ternjs/tern_for_vim'
 
 " Taglist: List of tags in the current file
@@ -221,7 +217,7 @@ Plugin 'scrooloose/nerdtree'
 
 " Autocomplete: Youcompleteme:
 "   Multilingual code-completion, goTo declaration, view documentation, rename variables
-"   Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'davidhalter/jedi-vim'
 
 " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
