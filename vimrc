@@ -44,9 +44,15 @@ set clipboard=unnamed
 " Make backspace work like most other apps
 set backspace=2 
 
-
 " Activate mouse
 set mouse=a
+
+" Automatically jump to end of text you pasted:
+"   This way you can paste many times with pppppp... 
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
 
 " Autoread: Detect changes done by external applications
 set autoread
@@ -125,7 +131,11 @@ au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c
 " vnoremap § :m '<-2<CR>gv=gv
 
 " Enter visual line mode 
-nmap <Leader><Leader> V
+"nmap <Leader><Leader> V
+
+" Easymotion
+map <Leader> <Plug>(easymotion-prefix)
+
 
 " Use vim expand region with v key: /terryma/vim-expand-region
 "   Use v for selecting a letter, vv to select a word, and so on...
@@ -453,3 +463,7 @@ endif
 "     endif
 " endfunction
 
+
+" TODOS:
+"     - Find and replace: https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+"
