@@ -1,4 +1,5 @@
-" a******  BASIC VUNDLE CONFIG *************
+" **********    BASIC CONFIG      **********
+
 " Use Vim, vi is not compatible
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -6,44 +7,6 @@ filetype off                  " required
 " Enable syntax highlight and plugin support
 syntax enable
 filetype plugin on
-
-" Set SPACE as the leader key
-let mapleader = "\<Space>"
-
-" Leader mappings:
-" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-"   open a new file
-nnoremap <Leader>o :CtrlP<CR>
-"   save file
-nnoremap <Leader>w :w<CR>
-"   Copy & paste to system clipboard with <Space>p and <Space>y:
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
-" Activate mouse
-set mouse=a
-
-" Autoread: Detect changes done by external applications
-set autoread
-" TODO: Make vim notice automatically if an external app has changed the file
-" http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
-" |VimResized|    after the Vim window size changed
-" |FocusGained|   Vim got input focus
-" |FocusLost|   Vim lost input focus
-" |CursorHold|    the user doesn't press a key for a while
-" |CursorHoldI|   the user doesn't press a key for a while in Insert mode
-" |CursorMoved|   the cursor was moved in Normal mode
-" |CursorMovedI|    the cursor was moved in Insert mode
-" |WinEnter|    after entering another window
-" |WinLeave|    before leaving a window
-" |TabEnter|    after entering another tab page
-" |TabLeave|    before leaving a tab page
-" |CmdwinEnter|   after entering the command-line window
-" |CmdwinLeave|   before leaving the command-line 
 
 " Ignore case by default when searching
 set ignorecase
@@ -81,36 +44,28 @@ set clipboard=unnamed
 " Make backspace work like most other apps
 set backspace=2 
 
-" Quick way to move lines of text up or down (alt-j)
-" Windows, Linux: Alt+jk
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-" Windows, Linux: Alt+Arrows
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
-inoremap <A-Down> <Esc>:m .+1<CR>==gi
-inoremap <A-Up> <Esc>:m .-2<CR>==gi
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-" Mac: Alt+jk
-nnoremap ¶ :m .+1<CR>==
-nnoremap § :m .-2<CR>==
-inoremap ¶ <Esc>:m .+1<CR>==gi
-inoremap § <Esc>:m .-2<CR>==gi
-vnoremap ¶ :m '>+1<CR>gv=gv
-vnoremap § :m '<-2<CR>gv=gv
-" TODO: Try to make arrows work in macOS
-" https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed
-" nnoremap ^[[1;3A :m .+1<CR>==
-" nnoremap ^[[1;3A :m .-2<CR>==
-" inoremap ^[[1;3A <Esc>:m .+1<CR>==gi
-" inoremap ^[[1;3A <Esc>:m .-2<CR>==gi
-" vnoremap ^[[1;3A :m '>+1<CR>gv=gv
-" vnoremap ^[[1;3A :m '<-2<CR>gv=gv
+
+" Activate mouse
+set mouse=a
+
+" Autoread: Detect changes done by external applications
+set autoread
+" TODO: Make vim notice automatically if an external app has changed the file
+" http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
+" |VimResized|    after the Vim window size changed
+" |FocusGained|   Vim got input focus
+" |FocusLost|   Vim lost input focus
+" |CursorHold|    the user doesn't press a key for a while
+" |CursorHoldI|   the user doesn't press a key for a while in Insert mode
+" |CursorMoved|   the cursor was moved in Normal mode
+" |CursorMovedI|    the cursor was moved in Insert mode
+" |WinEnter|    after entering another window
+" |WinLeave|    before leaving a window
+" |TabEnter|    after entering another tab page
+" |TabLeave|    before leaving a tab page
+" |CmdwinEnter|   after entering the command-line window
+" |CmdwinLeave|   before leaving the command-line 
+
 
 " Spell: Enable spell suggestions
 " set spelllang=en,es
@@ -118,6 +73,49 @@ set spell
 
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) 
 set wildmenu
+
+
+
+" **********     LEADER and custom MAPPINGS     **********
+" Set SPACE as the leader key
+" let mapleader = "\<Space>"
+let mapleader=" "
+
+
+" Leader mappings:
+" https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+"   open a new file
+nnoremap <Leader>o :CtrlP<CR>
+"   save file
+nnoremap <Leader>w :w<CR>
+"   Copy & paste to system clipboard with <Space>p and <Space>y:
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+"Python"
+""au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4
+au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+" Quick way to move lines of text up or down (alt-j)
+" Windows, Linux: Alt+jk
+nnoremap <leader>j :m .+1<CR>==
+nnoremap <leader>k :m .-2<CR>==
+inoremap <leader>j<A-j> <Esc>:m .+1<CR>==gi
+inoremap <leader>k<A-k> <Esc>:m .-2<CR>==gi
+vnoremap <leader>j<A-j> :m '>+1<CR>gv=gv
+vnoremap <leader>k<A-k> :m '<-2<CR>gv=gv
+" Windows, Linux: Alt+Arrows
+nnoremap <leader><Down> :m .+1<CR>==
+nnoremap <leader><Up> :m .-2<CR>==
+inoremap <leader><Down> <Esc>:m .+1<CR>==gi
+inoremap <leader><Up> <Esc>:m .-2<CR>==gi
+vnoremap <leader><Down> :m '>+1<CR>gv=gv
+vnoremap <leader><Up> :m '<-2<CR>gv=gv
+" https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed
 
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -432,3 +430,4 @@ endif
 "        exec "AsyncRun! time python %"
 "     endif
 " endfunction
+
