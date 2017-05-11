@@ -92,6 +92,19 @@ plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python
 
 source $ZSH/oh-my-zsh.sh
 
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
