@@ -102,20 +102,37 @@ au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c
 
 " Quick way to move lines of text up or down (alt-j)
 " Windows, Linux: Alt+jk
-nnoremap <leader>j :m .+1<CR>==
-nnoremap <leader>k :m .-2<CR>==
-inoremap <leader>j<A-j> <Esc>:m .+1<CR>==gi
-inoremap <leader>k<A-k> <Esc>:m .-2<CR>==gi
-vnoremap <leader>j<A-j> :m '>+1<CR>gv=gv
-vnoremap <leader>k<A-k> :m '<-2<CR>gv=gv
-" Windows, Linux: Alt+Arrows
-nnoremap <leader><Down> :m .+1<CR>==
-nnoremap <leader><Up> :m .-2<CR>==
-inoremap <leader><Down> <Esc>:m .+1<CR>==gi
-inoremap <leader><Up> <Esc>:m .-2<CR>==gi
-vnoremap <leader><Down> :m '>+1<CR>gv=gv
-vnoremap <leader><Up> :m '<-2<CR>gv=gv
 " https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed
+" nnoremap <A-j> :m .+1<CR>==
+" nnoremap <A-k> :m .-2<CR>==
+" inoremap <A-j> <Esc>:m .+1<CR>==gi
+" inoremap <A-k> <Esc>:m .-2<CR>==gi
+" vnoremap <A-j> :m '>+1<CR>gv=gv
+" vnoremap <A-k> :m '<-2<CR>gv=gv
+" " Windows, Linux: Alt+Arrows
+" nnoremap <A-Down> :m .+1<CR>==
+" nnoremap <A-Up> :m .-2<CR>==
+" inoremap <A-Down> <Esc>:m .+1<CR>==gi
+" inoremap <A-Up> <Esc>:m .-2<CR>==gi
+" vnoremap <A-Down> :m '>+1<CR>gv=gv
+" vnoremap <A-Up> :m '<-2<CR>gv=gv
+" " Mac: Alt+jk
+" nnoremap ¶ :m .+1<CR>==
+" nnoremap § :m .-2<CR>==
+" inoremap ¶ <Esc>:m .+1<CR>==gi
+" inoremap § <Esc>:m .-2<CR>==gi
+" vnoremap ¶ :m '>+1<CR>gv=gv
+" vnoremap § :m '<-2<CR>gv=gv
+
+" Enter visual line mode 
+nmap <Leader><Leader> V
+
+" Use vim expand region with v key: /terryma/vim-expand-region
+"   Use v for selecting a letter, vv to select a word, and so on...
+"   Use c-v to decrese selection
+"     The default was: + and _
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -225,6 +242,11 @@ Plugin 'davidhalter/jedi-vim'
 
 " Async run: skywind3000/asyncrun.vim
 Plugin 'skywind3000/asyncrun.vim'
+
+" Vim expand region: Allows to selects blocks of code and increase the
+" selection to next block easily
+Plugin 'terryma/vim-expand-region'
+
 
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim

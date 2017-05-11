@@ -142,6 +142,17 @@ For:
   * `javascript`: It uses ramitos/jsctags that depends on Tern. The apfter-install.sh script istalls it.
   * `python`
 
+
 ## Vim tagbar
 
 'majutsushi/tagbar'
+
+
+## Expand selection: terryma/vim-expand-region
+Remapped https://github.com/terryma/vim-expand-region to :
+
+* `v`: expand the visual selection 
+* `c-v`: shrink it
+
+
+
