@@ -1,4 +1,4 @@
-" **********    BASIC CONFIG      **********
+" **********s   BASIC CONFIG      **********
 
 " Use Vim, vi is not compatible
 set nocompatible              " be iMproved, required
@@ -93,7 +93,7 @@ let mapleader=" "
 "   open a new file
 nnoremap <Leader>o :CtrlP<CR>
 "   save file
-nnoremap <Leader>w :w<CR>
+" nnoremap <Leader>w :w<CR>
 "   Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -177,6 +177,9 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
 
+
+" *******  Plugins *************
+
 " Vundle: let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -191,7 +194,6 @@ Plugin 'VundleVim/Vundle.vim'
 " w0rp/ale
 Plugin 'w0rp/ale'
 
-" *******  Plugins *************
 " Solarized: Colors - Solarized Theme (related conf in plugin conf section)
 Plugin 'altercation/vim-colors-solarized'
 
@@ -257,6 +259,8 @@ Plugin 'skywind3000/asyncrun.vim'
 " selection to next block easily
 Plugin 'terryma/vim-expand-region'
 
+" Move fast using <leader> <leader>
+Plugin 'easymotion/vim-easymotion'
 
 " *******  Key mappings *************
 " [command: w!!] Allow to gain root permission within vim
@@ -430,10 +434,10 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-   let g:ctrlp_user_command = [
-      \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
-      \ 'ag %s -l --nocolor -g ""'
-      \ ]
+  let g:ctrlp_user_command = [
+        \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+        \ 'ag %s -l --nocolor -g ""'
+        \ ]
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
@@ -462,6 +466,28 @@ endif
 "        exec "AsyncRun! time python %"
 "     endif
 " endfunction
+
+
+" Easy motion config ------------
+" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+"nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap <leader>2 <Plug>(easymotion-overwin-f2)
+
+" Open search box
+map  <leader>/ <Plug>(easymotion-sn)
+omap <leader>/ <Plug>(easymotion-tn)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 
 " TODOS:

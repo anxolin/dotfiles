@@ -35,7 +35,13 @@ Some basic bindings are:
   * `lw[indow]`: Same as `cw[indow]` but for the location list.
   * `cclose`: Close the quickfix (example: AsyncTask)
   * `lclose`: Close the location list (example: Lintern)
-
+* Easy Motion:
+  * `<leader>w` Word motion. Hihlight's the first letter of the word
+  * `<leader>e` Highlight the end of the word
+  * `<leader>s` Highlight searching a letter
+  * `<leader>/` Highlight searching N-letters
+  * `<leader>j` Highlight lines up
+  * `<leader>k` Highlight lines up
 * Async run: Run something asyncronously and show the result in the 
    * `:AsyncRun <command>`: Runs command in the quickfix window 
 
