@@ -1,4 +1,3 @@
-oh-my-zsh/
 vim/*
 !vim/.gitkeep
 #vim/.netrwhist
