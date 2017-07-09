@@ -8,20 +8,15 @@
 dir=~/dotfiles                    # dotfiles directory
 timeStamp=$(date +%F_%R)
 olddir=~/dotfiles/backup/backup_$timeStamp             # old dotfiles backup directory
-files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf editorconfig gitconfig"    # list of files/folders to symlink in homedir
-#files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"
-
+# list of files/folders to symlink in homedir
 ##########
 
 # create dotfiles_old in homedir
-printf "Creating $olddir for backup of any existing dotfiles in ~ ..."
+printf "[dotfiles] Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
-printf "done\n"
 
 # change to the dotfiles directory
-printf "Changing to the $dir directory ..."
 cd $dir
-printf "done\n"
 
 # Create Vim backupo dir for swap, backup and undo files
 mkdir -p ~/.vim/{backup_files,swap_files,undo_files}
@@ -29,19 +24,21 @@ mkdir -p ~/.vim/{backup_files,swap_files,undo_files}
 # Configure Vim Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git vim/bundle/Vundle.vim
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
-for file in $files; do
-    printf "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file $olddir
-    printf "Creating symlink to $file in home directory.\n"
-    ln -s $dir/$file ~/.$file
-done
+# Dot files install:
+#   1. Backup: Move any existing dotfiles to dotfiles_old directory
+#   2. Symlink: Create symlinks in the homedir pointing to the dotfile
+printf "[dotfiles] Backup all current dotfiles to $olddir'\n"
+while read file; do
+  mv ~/.$file $olddir
+  printf "[dotfiles-$file] Creating symlink'\n"
+  ln -s $dir/$file ~/.$file
+done < dotfiles.list
 
 install () {
-	printf "Installing all the required software\n"
+	printf "[dotfiles] Installing all the required software\n"
 
     # Required software:
-    #   - All platforms: 
+    #   - All platforms:
     #         * zsh
     #         * vim
     #         * ag (the silver searcher): Use it to search faster. Replace for ACK
@@ -51,11 +48,11 @@ install () {
     #         * xclip: Allows to share the clipboard between tmux and the X's
     #   - Mac (Darwin)
     #         * reattach-to-user-namespace: Required for tmux copy-paste integration
-    #        
+    #
 
     # If zsh isn't installed, get the platform of the current machine
     platform=$(uname);
-    printf "*** Architecture: $platform***\n"
+    printf "[dotfiles] *** Architecture: $platform***\n"
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then
