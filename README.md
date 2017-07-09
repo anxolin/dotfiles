@@ -21,31 +21,13 @@ The following commands will:
 * In Linux installs the `xclip`
 * Backup the old dotfiles and install the new ones.
 
-**STEP 1: Install the dotfiles using the script**
+**Install the dotfiles using the script**
 
 ```bash
 cd
 git clone https://github.com/anxolin/dotfiles.git
-chmod +x ./dotfiles/*.sh
+chmod +x ./dotfiles/install.sh
 ./dotfiles/install.sh
-```
-**STEP 2: Install the Vim plugins using Vundle**
-
-After installing, install the vim plugins.
-
-We enter `vim` (an error is thown the first time, don't worry it's ok):
-
-```
-:PluginInstall
-```
-
-**STEP 3: Install the post install script**
-
-Install the post install script to initialize some plugins:
-> IMPORTANT: `npm` is required for this step. For instance, it installs the `standard` JS lintern using node, so the Ale plugin can use it.
-> SEE: "Vim Linter - Ale section" for more info.
-```bash
-./dotfiles/install-after.sh
 ```
 
 ## Another configuration

@@ -61,21 +61,51 @@ install () {
  	      if [[ -f /etc/arch-release ]]; then
             sudo pacman -S zsh vim the_silver_searcher xclip ctags cmake
         fi
+
+        # Set the default shell to zsh if it isn't currently set to zsh
+        if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
+            chsh -s $(which zsh)
+        fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
 		    brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
-        exit
     fi
 
-	# Clone my oh-my-zsh repository from GitHub only if it isn't already present
+	  # Clone my oh-my-zsh repository from GitHub only if it isn't already present
     if [[ ! -d $dir/oh-my-zsh/ ]]; then
         git clone http://github.com/robbyrussell/oh-my-zsh.git
     fi
 
-    # Set the default shell to zsh if it isn't currently set to zsh
-    if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
-        chsh -s $(which zsh)
-    fi
+    # Install vims plugins
+    echo "[dotfiles] Installing Vim plugins (it can take some time)..."
+    vim +PluginInstall +qall
+
+    # vim-jsbeautify
+    echo "[dotfiles] Initialize the vim-jsbeautify submodules"
+    cd ~/.vim/bundle/vim-jsbeautify
+    git submodule update --init --recursive
+
+    # Autocomplete: You completme
+    echo "[dotfiles] Install YouCompleteMe"
+    cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+
+    # Standard Lintern - Used by Syntastic
+    # IMPORTANT: It asumes that npm is installed
+    echo "[dotfiles] Install Syntastic linterns: standard (js), sass-lint, jsonlint, stylelint"
+    sudo npm install -g standard sass-lint jsonlint stylelint
+
+    # Lintern for Python: Flake8
+    #python3.6 -m pip install flake8
+    echo "[dotfiles] WARNING: You should also install flake8. ex.  python3.6 -m pip install flake8"
+
+    # Required for tern
+    echo "[dotfiles] Install tern for vim (js go to definition and tagnames)"
+    cd ~/.vim/bundle/tern_for_vim
+    npm install
+
+    # jsctags: Is a better ctags fot JS. It's used by majutsushi/tagbar
+    echo "[dotfiles] Install jsctags (js ctags required by majutsushi/tagbar)"
+    sudo npm install -g git+https://github.com/ramitos/jsctags.git
 }
 
 install
