@@ -35,7 +35,7 @@ while read file; do
 done < dotfiles.list
 
 install () {
-	printf "[dotfiles] Installing all the required software\n"
+    printf "[dotfiles] Installing all the required software\n"
 
     # Required software:
     #   - All platforms:

@@ -314,7 +314,7 @@ set background=dark
 " let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
-colorscheme solarized
+silent! colorscheme solarized
 
 
 " Disable the formatting to test 'Chiel92/vim-autoformat'
