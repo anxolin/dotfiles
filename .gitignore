@@ -5,3 +5,4 @@ vim/*
 *.swp
 private
 backup
+ansible.lock
