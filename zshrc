@@ -82,7 +82,7 @@ export EDITOR='vim'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python ansible)
+plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python ansible ssh-agent)
 #plugins(pip python)
 
 #####################
@@ -103,7 +103,6 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -131,4 +130,4 @@ bindkey '^Z' fancy-ctrl-z
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias activate="source ENV/bin/activate"
-alias vi="vim"
+# alias vi="vim"
