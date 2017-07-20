@@ -4,6 +4,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" UTF8 Encoding
+set encoding=utf-8
+
+
 " Enable syntax highlight and plugin support
 syntax enable
 filetype plugin on
