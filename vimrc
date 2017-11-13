@@ -57,6 +57,9 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
+" Use c-a and c-e for the "go-to begin/end" of the line in editing mode 
+inoremap <C-e> <Esc>A
+inoremap <C-a> <Esc>I
 
 " Autoread: Detect changes done by external applications
 set autoread
