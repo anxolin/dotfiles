@@ -56,10 +56,10 @@ install () {
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh vim silversearcher-ag xclip ctags cmake
+            sudo apt-get install zsh gvim silversearcher-ag xclip ctags cmake
         fi
  	      if [[ -f /etc/arch-release ]]; then
-            sudo pacman -S zsh vim the_silver_searcher xclip ctags cmake
+            sudo pacman -S zsh gvim the_silver_searcher xclip ctags cmake
         fi
 
         # Set the default shell to zsh if it isn't currently set to zsh
@@ -68,10 +68,10 @@ install () {
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-		    brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
+	brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
     fi
 
-	  # Clone my oh-my-zsh repository from GitHub only if it isn't already present
+    # Clone my oh-my-zsh repository from GitHub only if it isn't already present
     if [[ ! -d $dir/oh-my-zsh/ ]]; then
         git clone http://github.com/robbyrussell/oh-my-zsh.git
     fi
