@@ -6,3 +6,4 @@ vim/*
 private
 backup
 ansible.lock
+ptpython/history
