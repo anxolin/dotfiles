@@ -7,6 +7,8 @@ filetype off                  " required
 " UTF8 Encoding
 set encoding=utf-8
 
+" Enable line numbers
+set number
 
 " Enable syntax highlight and plugin support
 syntax enable
@@ -319,8 +321,9 @@ map <C-n> :NERDTreeToggle<CR>
 " Solarized Theme - config
 set background=dark
 " let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+let g:solarized_termtrans = 1
 silent! colorscheme solarized
 
 
