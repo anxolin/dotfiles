@@ -45,6 +45,10 @@ set softtabstop=2
 
 
 " copy/paste integration
+"   * in order to work vim must have been compiled with the clipboard flag
+"       :echo has('clipboard')
+"   * important, for working with tmux it's important to have 
+"       reattach-to-user-namespace
 set clipboard=unnamed
 
 " Make backspace work like most other apps
