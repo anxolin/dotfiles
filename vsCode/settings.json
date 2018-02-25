@@ -1,0 +1,17 @@
+{
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.minimap.enabled": false,
+    "eslint.packageManager": "yarn",
+    "window.zoomLevel": 0,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "explorer.openEditors.visible": 0,
+    "editor.tabSize": 2,
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "editor.rulers": [
+        80
+    ],
+    "explorer.confirmDragAndDrop": false,
+    "editor.folding": false
+}

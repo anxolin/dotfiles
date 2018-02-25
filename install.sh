@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 ############################
 # .make.sh
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
@@ -69,6 +71,7 @@ install () {
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
 	brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
+        ~/dotfiles/install-vsCode-mac.sh
     fi
 
     # Clone my oh-my-zsh repository from GitHub only if it isn't already present
