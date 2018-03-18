@@ -7,15 +7,23 @@ filetype off                  " required
 " UTF8 Encoding
 set encoding=utf-8
 
+" History
+set history=80
+
 " Enable line numbers
 set number
 
 " Enable syntax highlight and plugin support
 syntax enable
+
+" filetype: Enable plugin
+"   * Detects the filetype (using the extension or the hashbang)
+"   * Allows to hightlights depending on the filetype   
+"   * Uses filetypes plugins depending on the language (cames with defaults
+"     for common languages)
+"   * Apply language specific idengt rules see :filetype-indent-on
 filetype plugin on
 
-" Ignore case by default when searching
-set ignorecase
 
 " TempFiles: Change backup dir for .swp files
 set backupdir=~/.vim/backup_files//
@@ -51,7 +59,8 @@ set softtabstop=2
 "       reattach-to-user-namespace
 set clipboard=unnamed
 
-" Make backspace work like most other apps
+" Make backspace work like most other apps (allows to remove the <br> chars of
+" the previous line)
 set backspace=2 
 
 " Activate mouse
@@ -149,7 +158,6 @@ au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c
 " Easymotion
 map <Leader> <Plug>(easymotion-prefix)
 
-
 " Use vim expand region with v key: /terryma/vim-expand-region
 "   Use v for selecting a letter, vv to select a word, and so on...
 "   Use c-v to decrese selection
@@ -160,7 +168,13 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Bind K to :grep under the cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" Highlight a word on double click
+" Ignore case by default when searching
+set ignorecase
+
+" Search: Hightlight increasilly while typing
+set incsearch
+
+" Highlight a word on double click (also using *)
 map <2-LeftMouse> :set hlsearch<CR>*
 imap <2-LeftMouse> :set hlsearch<CR><c-o>*
 set hlsearch
@@ -413,15 +427,16 @@ let g:airline_theme='solarized'
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
 
 
-" Ctrp - Open files by name
+" Ctrlp: Open files by name
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
-"   Ignore .gitignore files
-" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-" let g:ctrlp_user_command = [
-"     \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
-"     \ 'find %s -type f'
-"     \ ]
+
+" Ctrlp: Ignore .gitignore files
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_user_command = [
+    \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+    \ 'find %s -type f'
+    \ ]
 
 
 " " Change colors for ctrl-p cursor
