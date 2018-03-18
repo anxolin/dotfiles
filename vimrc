@@ -52,7 +52,7 @@ set shiftwidth=2
 set softtabstop=2
 
 if has("gui_running")
-  set linespace=3
+  set linespace=6
 endif
 
 " Vertical ruler at 80
