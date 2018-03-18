@@ -1,0 +1,626 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/dotfiles/vimrc.html</title>
+<meta name="Generator" content="Vim/8.0">
+<meta name="plugin-version" content="vim7.4_v2">
+<meta name="syntax" content="vim">
+<meta name="settings" content="number_lines,use_css,no_foldcolumn,expand_tabs,line_ids,prevent_copy=">
+<meta name="colorscheme" content="solarized">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #839496; background-color: #002b36; }
+body { font-family: monospace; color: #839496; background-color: #002b36; }
+* { font-size: 1em; }
+.Todo { color: #d33682; font-weight: bold; }
+.LineNr { color: #586e75; background-color: #073642; padding-bottom: 1px; }
+.vimCommentString { color: #6c71c4; }
+.Comment { color: #586e75; font-style: italic; }
+.Constant { color: #2aa198; }
+.Special { color: #dc322f; }
+.Identifier { color: #268bd2; }
+.Statement { color: #719e07; }
+.PreProc { color: #cb4b16; }
+.Type { color: #b58900; }
+.vimIsCommand { color: #657b83; }
+.vimSynType { color: #2aa198; }
+.vimCommand { color: #b58900; }
+.Normal { color: #839496; background-color: #002b36; padding-bottom: 1px; }
+-->
+</style>
+
+<script type='text/javascript'>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
+</head>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr">  1 </span><span class="Comment">&quot; **********s   BASIC CONFIG      **********</span>
+<span id="L2" class="LineNr">  2 </span>
+<span id="L3" class="LineNr">  3 </span><span class="Comment">&quot; Use Vim, vi is not compatible</span>
+<span id="L4" class="LineNr">  4 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">nocompatible</span><span class="Normal">              </span><span class="Comment">&quot; be iMproved, required</span>
+<span id="L5" class="LineNr">  5 </span><span class="vimCommand">filetype</span> <span class="vimSynType">off</span>                  <span class="Comment">&quot; required</span>
+<span id="L6" class="LineNr">  6 </span>
+<span id="L7" class="LineNr">  7 </span><span class="Comment">&quot; UTF8 Encoding</span>
+<span id="L8" class="LineNr">  8 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">encoding</span><span class="Normal">=utf-</span><span class="Normal">8</span>
+<span id="L9" class="LineNr">  9 </span>
+<span id="L10" class="LineNr"> 10 </span><span class="Comment">&quot; History</span>
+<span id="L11" class="LineNr"> 11 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">history</span><span class="Normal">=8</span><span class="Normal">0</span>
+<span id="L12" class="LineNr"> 12 </span>
+<span id="L13" class="LineNr"> 13 </span><span class="Comment">&quot; Enable line numbers</span>
+<span id="L14" class="LineNr"> 14 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">number</span>
+<span id="L15" class="LineNr"> 15 </span>
+<span id="L16" class="LineNr"> 16 </span><span class="Comment">&quot; Do not wrap lines and when scroll horilzontally, show 25 chars of context</span>
+<span id="L17" class="LineNr"> 17 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">nowrap</span>
+<span id="L18" class="LineNr"> 18 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">sidescroll</span><span class="Normal">=2</span><span class="Normal">5</span>
+<span id="L19" class="LineNr"> 19 </span>
+<span id="L20" class="LineNr"> 20 </span><span class="Comment">&quot; If we are in the:</span>
+<span id="L21" class="LineNr"> 21 </span><span class="Comment">&quot;   - last char and press `l` (or right arrow) we jump to next line's first char</span>
+<span id="L22" class="LineNr"> 22 </span><span class="Comment">&quot;   - first char and press `h` (or left arrow) we jump to the previous last</span>
+<span id="L23" class="LineNr"> 23 </span><span class="Comment">&quot;     char</span>
+<span id="L24" class="LineNr"> 24 </span><span class="Comment">&quot;   - IMPORTANT: Some people recommend against using the 'h' and 'l' also.</span>
+<span id="L25" class="LineNr"> 25 </span><span class="Comment">&quot;     this for breaking some plugin no sure why, so I'll leave it as a test :)</span>
+<span id="L26" class="LineNr"> 26 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">whichwrap</span><span class="Normal">=b</span><span class="Statement">,</span><span class="Normal">s</span><span class="Statement">,</span><span class="Special">&lt;</span><span class="Special">,</span><span class="Special">&gt;</span><span class="Statement">,</span><span class="Normal">[</span><span class="Statement">,</span><span class="Normal">]</span><span class="Statement">,</span><span class="vimCommand">h</span><span class="Statement">,</span><span class="Normal">l</span>
+<span id="L27" class="LineNr"> 27 </span>
+<span id="L28" class="LineNr"> 28 </span><span class="Comment">&quot; Enable syntax highlight and plugin support</span>
+<span id="L29" class="LineNr"> 29 </span><span class="vimCommand">syntax</span> <span class="vimSynType">enable</span>
+<span id="L30" class="LineNr"> 30 </span>
+<span id="L31" class="LineNr"> 31 </span>
+<span id="L32" class="LineNr"> 32 </span><span class="Comment">&quot; filetype: Enable plugin</span>
+<span id="L33" class="LineNr"> 33 </span><span class="Comment">&quot;   * Detects the filetype (using the extension or the hashbang)</span>
+<span id="L34" class="LineNr"> 34 </span><span class="Comment">&quot;   * Allows to hightlights depending on the filetype   </span>
+<span id="L35" class="LineNr"> 35 </span><span class="Comment">&quot;   * Uses filetypes plugins depending on the language (cames with defaults</span>
+<span id="L36" class="LineNr"> 36 </span><span class="Comment">&quot;     for common languages)</span>
+<span id="L37" class="LineNr"> 37 </span><span class="Comment">&quot;   * Apply language specific idengt rules see :filetype-indent-on</span>
+<span id="L38" class="LineNr"> 38 </span><span class="vimCommand">filetype</span> <span class="vimSynType">plugin</span> <span class="vimSynType">on</span>
+<span id="L39" class="LineNr"> 39 </span>
+<span id="L40" class="LineNr"> 40 </span>
+<span id="L41" class="LineNr"> 41 </span><span class="Comment">&quot;</span> <span class="PreProc">TempFiles:</span><span class="Comment"> Change backup dir for .swp files</span>
+<span id="L42" class="LineNr"> 42 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">backupdir</span><span class="Normal">=~/.vim/backup_files/</span><span class="Normal">/</span>
+<span id="L43" class="LineNr"> 43 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">directory</span><span class="Normal">=~/.vim/swap_files/</span><span class="Normal">/</span>
+<span id="L44" class="LineNr"> 44 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">undodir</span><span class="Normal">=~/.vim/undo_files/</span><span class="Normal">/</span>
+<span id="L45" class="LineNr"> 45 </span>
+<span id="L46" class="LineNr"> 46 </span><span class="Comment">&quot; Indentation without hard tabs</span>
+<span id="L47" class="LineNr"> 47 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">expandtab</span>
+<span id="L48" class="LineNr"> 48 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">shiftwidth</span><span class="Normal">=</span><span class="Normal">2</span>
+<span id="L49" class="LineNr"> 49 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">softtabstop</span><span class="Normal">=</span><span class="Normal">2</span>
+<span id="L50" class="LineNr"> 50 </span>
+<span id="L51" class="LineNr"> 51 </span><span class="Comment">&quot; Vertical ruler at 80</span>
+<span id="L52" class="LineNr"> 52 </span><span class="vimCommand">if</span> <span class="Identifier">exists</span><span class="Special">(</span><span class="Constant">'+colorcolumn'</span><span class="Special">)</span>
+<span id="L53" class="LineNr"> 53 </span>  <span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">colorcolumn</span><span class="Normal">=8</span><span class="Normal">0</span>
+<span id="L54" class="LineNr"> 54 </span><span class="vimCommand">else</span>
+<span id="L55" class="LineNr"> 55 </span>  <span class="vimCommand">au</span> <span class="Type">BufWinEnter</span> * <span class="vimCommand">let</span> <span class="Identifier">w:m2</span><span class="Statement">=</span><span class="Identifier">matchadd</span><span class="Special">(</span><span class="Constant">'ErrorMsg'</span>, <span class="Constant">'\%&gt;80v.\+'</span>, <span class="Statement">-</span><span class="Constant">1</span><span class="Special">)</span>
+<span id="L56" class="LineNr"> 56 </span><span class="vimCommand">endif</span>
+<span id="L57" class="LineNr"> 57 </span>
+<span id="L58" class="LineNr"> 58 </span>
+<span id="L59" class="LineNr"> 59 </span><span class="Comment">&quot; Identations for Python - PEP8</span>
+<span id="L60" class="LineNr"> 60 </span><span class="Comment">&quot; au BufNewFile,BufRead *.py</span>
+<span id="L61" class="LineNr"> 61 </span><span class="Comment">&quot;     \ set tabstop=4</span>
+<span id="L62" class="LineNr"> 62 </span><span class="Comment">&quot;     \ set softtabstop=4</span>
+<span id="L63" class="LineNr"> 63 </span><span class="Comment">&quot;     \ set shiftwidth=4</span>
+<span id="L64" class="LineNr"> 64 </span><span class="Comment">&quot;     \ set textwidth=79</span>
+<span id="L65" class="LineNr"> 65 </span><span class="Comment">&quot;     \ set expandtab</span>
+<span id="L66" class="LineNr"> 66 </span><span class="Comment">&quot;     \ set autoindent</span>
+<span id="L67" class="LineNr"> 67 </span><span class="Comment">&quot;     \ set fileformat=unix</span>
+<span id="L68" class="LineNr"> 68 </span>
+<span id="L69" class="LineNr"> 69 </span><span class="Comment">&quot; Identation for JS, HTML and CSS</span>
+<span id="L70" class="LineNr"> 70 </span><span class="Comment">&quot; au BufNewFile,BufRead *.js, *.html, *.css</span>
+<span id="L71" class="LineNr"> 71 </span><span class="Comment">&quot;     \ set tabstop=2</span>
+<span id="L72" class="LineNr"> 72 </span><span class="Comment">&quot;     \ set softtabstop=2</span>
+<span id="L73" class="LineNr"> 73 </span><span class="Comment">&quot;     \ set shiftwidth=2</span>
+<span id="L74" class="LineNr"> 74 </span>
+<span id="L75" class="LineNr"> 75 </span>
+<span id="L76" class="LineNr"> 76 </span><span class="Comment">&quot; copy/paste integration</span>
+<span id="L77" class="LineNr"> 77 </span><span class="Comment">&quot;   * in order to work vim must have been compiled with the clipboard flag</span>
+<span id="L78" class="LineNr"> 78 </span><span class="Comment">&quot;       :echo has('clipboard')</span>
+<span id="L79" class="LineNr"> 79 </span><span class="Comment">&quot;   * important, for working with tmux it's important to have </span>
+<span id="L80" class="LineNr"> 80 </span><span class="Comment">&quot;       reattach-to-user-namespace</span>
+<span id="L81" class="LineNr"> 81 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">clipboard</span><span class="Normal">=unname</span><span class="Normal">d</span>
+<span id="L82" class="LineNr"> 82 </span>
+<span id="L83" class="LineNr"> 83 </span><span class="Comment">&quot; Make backspace work like most other apps (allows to remove the &lt;br&gt; chars of</span>
+<span id="L84" class="LineNr"> 84 </span><span class="Comment">&quot; the previous line)</span>
+<span id="L85" class="LineNr"> 85 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">backspace</span><span class="Normal">=indent</span><span class="Statement">,</span><span class="Normal">eol</span><span class="Statement">,</span><span class="vimCommand">start</span>
+<span id="L86" class="LineNr"> 86 </span>
+<span id="L87" class="LineNr"> 87 </span><span class="Comment">&quot; Activate mouse</span>
+<span id="L88" class="LineNr"> 88 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">mouse</span><span class="Normal">=</span><span class="Normal">a</span>
+<span id="L89" class="LineNr"> 89 </span>
+<span id="L90" class="LineNr"> 90 </span><span class="Comment">&quot; Automatically jump to end of text you pasted:</span>
+<span id="L91" class="LineNr"> 91 </span><span class="Comment">&quot;   This way you can paste many times with pppppp... </span>
+<span id="L92" class="LineNr"> 92 </span><span class="vimCommand">vnoremap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> y y`]
+<span id="L93" class="LineNr"> 93 </span><span class="vimCommand">vnoremap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> p p`]
+<span id="L94" class="LineNr"> 94 </span><span class="vimCommand">nnoremap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> p p`]
+<span id="L95" class="LineNr"> 95 </span>
+<span id="L96" class="LineNr"> 96 </span><span class="Comment">&quot; Use c-a and c-e for the </span><span class="vimCommentString">&quot;go-to begin/end&quot;</span><span class="Comment"> of the line in editing mode </span>
+<span id="L97" class="LineNr"> 97 </span><span class="vimCommand">inoremap</span> <span class="Special">&lt;</span><span class="Special">C-e</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Esc</span><span class="Special">&gt;</span>A
+<span id="L98" class="LineNr"> 98 </span><span class="vimCommand">inoremap</span> <span class="Special">&lt;</span><span class="Special">C-a</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Esc</span><span class="Special">&gt;</span>I
+<span id="L99" class="LineNr"> 99 </span>
+<span id="L100" class="LineNr">100 </span><span class="Comment">&quot;</span> <span class="PreProc">Autoread:</span><span class="Comment"> Detect changes done by external applications</span>
+<span id="L101" class="LineNr">101 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">autoread</span>
+<span id="L102" class="LineNr">102 </span><span class="Comment">&quot;</span> <span class="Todo">TODO</span><span class="PreProc">:</span><span class="Comment"> Make vim notice automatically if an external app has changed the file</span>
+<span id="L103" class="LineNr">103 </span><span class="Comment">&quot; <a href="http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events">http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events</a></span>
+<span id="L104" class="LineNr">104 </span><span class="Comment">&quot; |VimResized|    after the Vim window size changed</span>
+<span id="L105" class="LineNr">105 </span><span class="Comment">&quot; |FocusGained|   Vim got input focus</span>
+<span id="L106" class="LineNr">106 </span><span class="Comment">&quot; |FocusLost|   Vim lost input focus</span>
+<span id="L107" class="LineNr">107 </span><span class="Comment">&quot; |CursorHold|    the user doesn't press a key for a while</span>
+<span id="L108" class="LineNr">108 </span><span class="Comment">&quot; |CursorHoldI|   the user doesn't press a key for a while in Insert mode</span>
+<span id="L109" class="LineNr">109 </span><span class="Comment">&quot; |CursorMoved|   the cursor was moved in Normal mode</span>
+<span id="L110" class="LineNr">110 </span><span class="Comment">&quot; |CursorMovedI|    the cursor was moved in Insert mode</span>
+<span id="L111" class="LineNr">111 </span><span class="Comment">&quot; |WinEnter|    after entering another window</span>
+<span id="L112" class="LineNr">112 </span><span class="Comment">&quot; |WinLeave|    before leaving a window</span>
+<span id="L113" class="LineNr">113 </span><span class="Comment">&quot; |TabEnter|    after entering another tab page</span>
+<span id="L114" class="LineNr">114 </span><span class="Comment">&quot; |TabLeave|    before leaving a tab page</span>
+<span id="L115" class="LineNr">115 </span><span class="Comment">&quot; |CmdwinEnter|   after entering the command-line window</span>
+<span id="L116" class="LineNr">116 </span><span class="Comment">&quot; |CmdwinLeave|   before leaving the command-line </span>
+<span id="L117" class="LineNr">117 </span>
+<span id="L118" class="LineNr">118 </span>
+<span id="L119" class="LineNr">119 </span><span class="Comment">&quot;</span> <span class="PreProc">Spell:</span><span class="Comment"> Enable spell suggestions</span>
+<span id="L120" class="LineNr">120 </span><span class="Comment">&quot; set spelllang=en,es</span>
+<span id="L121" class="LineNr">121 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">spell</span>
+<span id="L122" class="LineNr">122 </span>
+<span id="L123" class="LineNr">123 </span><span class="Comment">&quot; Enable wild menu: Display all matching options when we press tab (e.g. :find *.js) </span>
+<span id="L124" class="LineNr">124 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">wildmenu</span>
+<span id="L125" class="LineNr">125 </span>
+<span id="L126" class="LineNr">126 </span>
+<span id="L127" class="LineNr">127 </span>
+<span id="L128" class="LineNr">128 </span><span class="Comment">&quot; **********     LEADER and custom MAPPINGS     **********</span>
+<span id="L129" class="LineNr">129 </span><span class="Comment">&quot; Set SPACE as the leader key</span>
+<span id="L130" class="LineNr">130 </span><span class="Comment">&quot; let mapleader = </span><span class="vimCommentString">&quot;\&lt;Space&gt;&quot;</span>
+<span id="L131" class="LineNr">131 </span><span class="vimCommand">let</span> <span class="Identifier">mapleader</span><span class="Statement">=</span><span class="Constant">&quot; &quot;</span>
+<span id="L132" class="LineNr">132 </span>
+<span id="L133" class="LineNr">133 </span>
+<span id="L134" class="LineNr">134 </span><span class="Comment">&quot; Leader mappings:</span>
+<span id="L135" class="LineNr">135 </span><span class="Comment">&quot; <a href="https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/">https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/</a></span>
+<span id="L136" class="LineNr">136 </span><span class="Comment">&quot;   open a new file</span>
+<span id="L137" class="LineNr">137 </span><span class="vimCommand">nnoremap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>o :CtrlP<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L138" class="LineNr">138 </span><span class="Comment">&quot;   save file</span>
+<span id="L139" class="LineNr">139 </span><span class="Comment">&quot; nnoremap &lt;Leader&gt;w :w&lt;CR&gt;</span>
+<span id="L140" class="LineNr">140 </span><span class="Comment">&quot;   Copy &amp; paste to system clipboard with &lt;Space&gt;p and &lt;Space&gt;y:</span>
+<span id="L141" class="LineNr">141 </span><span class="vimCommand">vmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>y &quot;+y
+<span id="L142" class="LineNr">142 </span><span class="vimCommand">vmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>d &quot;+d
+<span id="L143" class="LineNr">143 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>p &quot;+p
+<span id="L144" class="LineNr">144 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>P &quot;+P
+<span id="L145" class="LineNr">145 </span><span class="vimCommand">vmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>p &quot;+p
+<span id="L146" class="LineNr">146 </span><span class="vimCommand">vmap</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>P &quot;+P
+<span id="L147" class="LineNr">147 </span>
+<span id="L148" class="LineNr">148 </span><span class="Comment">&quot;Python&quot;</span>
+<span id="L149" class="LineNr">149 </span><span class="Comment">&quot;&quot;au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4</span>
+<span id="L150" class="LineNr">150 </span><span class="vimCommand">au</span> <span class="Type">FileType</span> python <span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<span class="Special">&lt;</span><span class="Special">C-c</span><span class="Special">&gt;</span>
+<span id="L151" class="LineNr">151 </span>
+<span id="L152" class="LineNr">152 </span><span class="Comment">&quot; Quick way to move lines of text up or down (alt-j)</span>
+<span id="L153" class="LineNr">153 </span><span class="Comment">&quot; Windows, Linux: Alt+jk</span>
+<span id="L154" class="LineNr">154 </span><span class="Comment">&quot; <a href="https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed">https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed</a></span>
+<span id="L155" class="LineNr">155 </span><span class="Comment">&quot; nnoremap &lt;A-j&gt; :m .+1&lt;CR&gt;==</span>
+<span id="L156" class="LineNr">156 </span><span class="Comment">&quot; nnoremap &lt;A-k&gt; :m .-2&lt;CR&gt;==</span>
+<span id="L157" class="LineNr">157 </span><span class="Comment">&quot; inoremap &lt;A-j&gt; &lt;Esc&gt;:m .+1&lt;CR&gt;==gi</span>
+<span id="L158" class="LineNr">158 </span><span class="Comment">&quot; inoremap &lt;A-k&gt; &lt;Esc&gt;:m .-2&lt;CR&gt;==gi</span>
+<span id="L159" class="LineNr">159 </span><span class="Comment">&quot; vnoremap &lt;A-j&gt; :m '&gt;+1&lt;CR&gt;gv=gv</span>
+<span id="L160" class="LineNr">160 </span><span class="Comment">&quot; vnoremap &lt;A-k&gt; :m '&lt;-2&lt;CR&gt;gv=gv</span>
+<span id="L161" class="LineNr">161 </span><span class="Comment">&quot; &quot; Windows, Linux: Alt+Arrows</span>
+<span id="L162" class="LineNr">162 </span><span class="Comment">&quot; nnoremap &lt;A-Down&gt; :m .+1&lt;CR&gt;==</span>
+<span id="L163" class="LineNr">163 </span><span class="Comment">&quot; nnoremap &lt;A-Up&gt; :m .-2&lt;CR&gt;==</span>
+<span id="L164" class="LineNr">164 </span><span class="Comment">&quot; inoremap &lt;A-Down&gt; &lt;Esc&gt;:m .+1&lt;CR&gt;==gi</span>
+<span id="L165" class="LineNr">165 </span><span class="Comment">&quot; inoremap &lt;A-Up&gt; &lt;Esc&gt;:m .-2&lt;CR&gt;==gi</span>
+<span id="L166" class="LineNr">166 </span><span class="Comment">&quot; vnoremap &lt;A-Down&gt; :m '&gt;+1&lt;CR&gt;gv=gv</span>
+<span id="L167" class="LineNr">167 </span><span class="Comment">&quot; vnoremap &lt;A-Up&gt; :m '&lt;-2&lt;CR&gt;gv=gv</span>
+<span id="L168" class="LineNr">168 </span><span class="Comment">&quot; &quot;</span> <span class="PreProc">Mac:</span><span class="Comment"> Alt+jk</span>
+<span id="L169" class="LineNr">169 </span><span class="Comment">&quot; nnoremap ¶ :m .+1&lt;CR&gt;==</span>
+<span id="L170" class="LineNr">170 </span><span class="Comment">&quot; nnoremap § :m .-2&lt;CR&gt;==</span>
+<span id="L171" class="LineNr">171 </span><span class="Comment">&quot; inoremap ¶ &lt;Esc&gt;:m .+1&lt;CR&gt;==gi</span>
+<span id="L172" class="LineNr">172 </span><span class="Comment">&quot; inoremap § &lt;Esc&gt;:m .-2&lt;CR&gt;==gi</span>
+<span id="L173" class="LineNr">173 </span><span class="Comment">&quot; vnoremap ¶ :m '&gt;+1&lt;CR&gt;gv=gv</span>
+<span id="L174" class="LineNr">174 </span><span class="Comment">&quot; vnoremap § :m '&lt;-2&lt;CR&gt;gv=gv</span>
+<span id="L175" class="LineNr">175 </span>
+<span id="L176" class="LineNr">176 </span><span class="Comment">&quot; Enter visual line mode </span>
+<span id="L177" class="LineNr">177 </span><span class="Comment">&quot;nmap &lt;Leader&gt;&lt;Leader&gt; V</span>
+<span id="L178" class="LineNr">178 </span>
+<span id="L179" class="LineNr">179 </span><span class="Comment">&quot; Easymotion</span>
+<span id="L180" class="LineNr">180 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-prefix)
+<span id="L181" class="LineNr">181 </span>
+<span id="L182" class="LineNr">182 </span><span class="Comment">&quot; Use vim expand region with v key: /terryma/vim-expand-region</span>
+<span id="L183" class="LineNr">183 </span><span class="Comment">&quot;   Use v for selecting a letter, vv to select a word, and so on...</span>
+<span id="L184" class="LineNr">184 </span><span class="Comment">&quot;   Use c-v to decrese selection</span>
+<span id="L185" class="LineNr">185 </span><span class="Comment">&quot;     The default was: + and _</span>
+<span id="L186" class="LineNr">186 </span><span class="vimCommand">vmap</span> v <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(expand_region_expand)
+<span id="L187" class="LineNr">187 </span><span class="vimCommand">vmap</span> <span class="Special">&lt;</span><span class="Special">C-v</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(expand_region_shrink)
+<span id="L188" class="LineNr">188 </span>
+<span id="L189" class="LineNr">189 </span><span class="Comment">&quot; Bind K to :grep under the cursor</span>
+<span id="L190" class="LineNr">190 </span><span class="vimCommand">nnoremap</span> K :grep! &quot;\b<span class="Special">&lt;</span><span class="Special">C-R</span><span class="Special">&gt;&lt;</span><span class="Special">C-W</span><span class="Special">&gt;</span>\b&quot;<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>:cw<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L191" class="LineNr">191 </span>
+<span id="L192" class="LineNr">192 </span><span class="Comment">&quot; Ignore case by default when searching</span>
+<span id="L193" class="LineNr">193 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">ignorecase</span>
+<span id="L194" class="LineNr">194 </span>
+<span id="L195" class="LineNr">195 </span><span class="Comment">&quot;</span> <span class="PreProc">Search:</span><span class="Comment"> Hightlight increasilly while typing</span>
+<span id="L196" class="LineNr">196 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">incsearch</span>
+<span id="L197" class="LineNr">197 </span>
+<span id="L198" class="LineNr">198 </span><span class="Comment">&quot; Highlight a word on double click (also using *)</span>
+<span id="L199" class="LineNr">199 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">2-LeftMouse</span><span class="Special">&gt;</span> :set hlsearch<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>*
+<span id="L200" class="LineNr">200 </span><span class="vimCommand">imap</span> <span class="Special">&lt;</span><span class="Special">2-LeftMouse</span><span class="Special">&gt;</span> :set hlsearch<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;&lt;</span><span class="Special">c-o</span><span class="Special">&gt;</span>*
+<span id="L201" class="LineNr">201 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">hlsearch</span>
+<span id="L202" class="LineNr">202 </span><span class="vimCommand">nnoremap</span> <span class="Special">&lt;</span><span class="Special">F3</span><span class="Special">&gt;</span> :set hlsearch!<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L203" class="LineNr">203 </span>
+<span id="L204" class="LineNr">204 </span><span class="Comment">&quot;</span> <span class="PreProc">Maketags:</span><span class="Comment"> Use ctags generate app to</span>
+<span id="L205" class="LineNr">205 </span><span class="vimCommand">command</span>! <span class="vimIsCommand">Maketags</span> !ctags -R .
+<span id="L206" class="LineNr">206 </span>
+<span id="L207" class="LineNr">207 </span><span class="Comment">&quot;</span> <span class="PreProc">SNIPPETS:</span>
+<span id="L208" class="LineNr">208 </span><span class="Comment">&quot;   Read an empty HTML template and move cursor to title</span>
+<span id="L209" class="LineNr">209 </span><span class="Comment">&quot; nnoremap ,html :-1read $HOME/.vim/.skeleton.html&lt;CR&gt;3jwf&gt;a</span>
+<span id="L210" class="LineNr">210 </span>
+<span id="L211" class="LineNr">211 </span><span class="Comment">&quot;</span> <span class="PreProc">Vundle:</span><span class="Comment"> Plugin manager</span>
+<span id="L212" class="LineNr">212 </span><span class="Comment">&quot;   Brief help</span>
+<span id="L213" class="LineNr">213 </span><span class="Comment">&quot;     :PluginList       - lists configured plugins</span>
+<span id="L214" class="LineNr">214 </span><span class="Comment">&quot;     :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span>
+<span id="L215" class="LineNr">215 </span><span class="Comment">&quot;     :PluginSearch foo - searches for foo; append `!` to refresh local cache</span>
+<span id="L216" class="LineNr">216 </span><span class="Comment">&quot;     :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span>
+<span id="L217" class="LineNr">217 </span><span class="Comment">&quot;</span>
+<span id="L218" class="LineNr">218 </span><span class="Comment">&quot;   see :h vundle for more details or wiki for FAQ</span>
+<span id="L219" class="LineNr">219 </span><span class="Comment">&quot;   Put your non-Plugin stuff after this line</span>
+<span id="L220" class="LineNr">220 </span><span class="Comment">&quot;</span>
+<span id="L221" class="LineNr">221 </span><span class="Comment">&quot; Vundle installation: set the runtime path to include Vundle and initialize</span>
+<span id="L222" class="LineNr">222 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">rtp</span><span class="Normal">+=~/dotfiles/vim/bundle/Vundle.vi</span><span class="Normal">m</span>
+<span id="L223" class="LineNr">223 </span><span class="vimCommand">call</span> vundle#<span class="Identifier">begin</span><span class="Special">()</span>
+<span id="L224" class="LineNr">224 </span>
+<span id="L225" class="LineNr">225 </span><span class="Comment">&quot; alternatively, pass a path where Vundle should install plugins</span>
+<span id="L226" class="LineNr">226 </span><span class="Comment">&quot; call vundle#begin('~/some/path/here')</span>
+<span id="L227" class="LineNr">227 </span>
+<span id="L228" class="LineNr">228 </span>
+<span id="L229" class="LineNr">229 </span><span class="Comment">&quot; *******  Plugins *************</span>
+<span id="L230" class="LineNr">230 </span>
+<span id="L231" class="LineNr">231 </span><span class="Comment">&quot; Plugin that jumps to the matching HTML tag or if/else/elseif using %</span>
+<span id="L232" class="LineNr">232 </span><span class="vimCommand">packadd</span>! <span class="vimIsCommand">matchit</span>
+<span id="L233" class="LineNr">233 </span>
+<span id="L234" class="LineNr">234 </span><span class="Comment">&quot;</span> <span class="PreProc">Vundle:</span><span class="Comment"> let Vundle manage Vundle, required</span>
+<span id="L235" class="LineNr">235 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'VundleVim/Vundle.vim'</span>
+<span id="L236" class="LineNr">236 </span>
+<span id="L237" class="LineNr">237 </span><span class="Comment">&quot;</span> <span class="PreProc">Autoread:</span><span class="Comment"> Enables autoread (reload the file if it has changed autside)</span>
+<span id="L238" class="LineNr">238 </span><span class="Comment">&quot;Plugin 'djoshea/vim-autoread'</span>
+<span id="L239" class="LineNr">239 </span><span class="Comment">&quot;Plugin 'Carpetsmoker/auto_autoread.vim'</span>
+<span id="L240" class="LineNr">240 </span>
+<span id="L241" class="LineNr">241 </span><span class="Comment">&quot;</span> <span class="PreProc">Syntastic:</span><span class="Comment"> Lintern</span>
+<span id="L242" class="LineNr">242 </span><span class="Comment">&quot; Plugin 'vim-syntastic/syntastic'</span>
+<span id="L243" class="LineNr">243 </span><span class="Comment">&quot; Disabled to try w0rp/ale since vim8 upgrade</span>
+<span id="L244" class="LineNr">244 </span>
+<span id="L245" class="LineNr">245 </span><span class="Comment">&quot; w0rp/ale</span>
+<span id="L246" class="LineNr">246 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'w0rp/ale'</span>
+<span id="L247" class="LineNr">247 </span>
+<span id="L248" class="LineNr">248 </span><span class="Comment">&quot;</span> <span class="PreProc">Solarized:</span><span class="Comment"> Colors - Solarized Theme (related conf in plugin conf section)</span>
+<span id="L249" class="LineNr">249 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'altercation/vim-colors-solarized'</span>
+<span id="L250" class="LineNr">250 </span>
+<span id="L251" class="LineNr">251 </span><span class="Comment">&quot;</span> <span class="PreProc">Javascript:</span><span class="Comment">  syntax highlighting and improved indentation.</span>
+<span id="L252" class="LineNr">252 </span><span class="Comment">&quot;Plugin 'pangloss/vim-javascript'</span>
+<span id="L253" class="LineNr">253 </span>
+<span id="L254" class="LineNr">254 </span><span class="Comment">&quot;</span> <span class="PreProc">Javascript Tern:</span><span class="Comment"> tern_for_vim: Tern is a stand-alone code-analysis engine</span>
+<span id="L255" class="LineNr">255 </span><span class="Comment">&quot;    :TernDef: Jump to the definition of the thing under the cursor.</span>
+<span id="L256" class="LineNr">256 </span><span class="Comment">&quot;    :TernDoc: Look up the documentation of something.</span>
+<span id="L257" class="LineNr">257 </span><span class="Comment">&quot;    :TernType: Find the type of the thing under the cursor.</span>
+<span id="L258" class="LineNr">258 </span><span class="Comment">&quot;    :TernRefs: Show all references to the variable or property under the cursor.</span>
+<span id="L259" class="LineNr">259 </span><span class="Comment">&quot;    :TernRename: Rename the variable under the cursor.</span>
+<span id="L260" class="LineNr">260 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'ternjs/tern_for_vim'</span>
+<span id="L261" class="LineNr">261 </span>
+<span id="L262" class="LineNr">262 </span><span class="Comment">&quot;</span> <span class="PreProc">Taglist:</span><span class="Comment"> List of tags in the current file</span>
+<span id="L263" class="LineNr">263 </span><span class="Comment">&quot;     <a href="http://vim-taglist.sourceforge.net/">http://vim-taglist.sourceforge.net/</a></span>
+<span id="L264" class="LineNr">264 </span><span class="Comment">&quot;Plugin 'taglist.vim': <a href="https://github.com/majutsushi/tagbar/wiki">https://github.com/majutsushi/tagbar/wiki</a></span>
+<span id="L265" class="LineNr">265 </span><span class="Comment">&quot;</span>     <span class="PreProc">Javascript:</span><span class="Comment"> jsctags (depends on Tern) </span>
+<span id="L266" class="LineNr">266 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'majutsushi/tagbar'</span>
+<span id="L267" class="LineNr">267 </span>
+<span id="L268" class="LineNr">268 </span><span class="Comment">&quot;</span> <span class="PreProc">Jsbeautifier:</span><span class="Comment"> Format JS, HTML and CSS with jsbeautifier</span>
+<span id="L269" class="LineNr">269 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'maksimr/vim-jsbeautify'</span>
+<span id="L270" class="LineNr">270 </span>
+<span id="L271" class="LineNr">271 </span><span class="Comment">&quot;</span> <span class="PreProc">Format:</span><span class="Comment"> vim-autoformat: Formats using any external formatter</span>
+<span id="L272" class="LineNr">272 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'Chiel92/vim-autoformat'</span>
+<span id="L273" class="LineNr">273 </span>
+<span id="L274" class="LineNr">274 </span><span class="Comment">&quot; Python</span>
+<span id="L275" class="LineNr">275 </span><span class="Comment">&quot;Plugin 'nvie/vim-flake8'</span>
+<span id="L276" class="LineNr">276 </span>
+<span id="L277" class="LineNr">277 </span><span class="Comment">&quot;</span> <span class="PreProc">Scala:</span><span class="Comment"> scala integration - <a href="https://github.com/derekwyatt/vim-scala">https://github.com/derekwyatt/vim-scala</a></span>
+<span id="L278" class="LineNr">278 </span><span class="Comment">&quot;     :SortScalaImports - Sorting of import statements</span>
+<span id="L279" class="LineNr">279 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'derekwyatt/vim-scala'</span>
+<span id="L280" class="LineNr">280 </span>
+<span id="L281" class="LineNr">281 </span>
+<span id="L282" class="LineNr">282 </span><span class="Comment">&quot;</span> <span class="PreProc">Fugitive:</span><span class="Comment"> Git - Vim Fugitive:</span>
+<span id="L283" class="LineNr">283 </span><span class="Comment">&quot;       <a href="https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit">https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit</a></span>
+<span id="L284" class="LineNr">284 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'tpope/vim-fugitive'</span>
+<span id="L285" class="LineNr">285 </span>
+<span id="L286" class="LineNr">286 </span><span class="Comment">&quot;</span> <span class="PreProc">Airline:</span><span class="Comment"> Status bar - Vim Airline</span>
+<span id="L287" class="LineNr">287 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'vim-airline/vim-airline'</span>
+<span id="L288" class="LineNr">288 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'vim-airline/vim-airline-themes'</span>
+<span id="L289" class="LineNr">289 </span>
+<span id="L290" class="LineNr">290 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Ctrl+p - ctrlp.vim - Open files by name</span>
+<span id="L291" class="LineNr">291 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'ctrlpvim/ctrlp.vim'</span>
+<span id="L292" class="LineNr">292 </span>
+<span id="L293" class="LineNr">293 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Extension to allow to delete open buffers (ctrlp_bdelete)</span>
+<span id="L294" class="LineNr">294 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'j5shi/ctrlp_bdelete.vim'</span>
+<span id="L295" class="LineNr">295 </span>
+<span id="L296" class="LineNr">296 </span><span class="Comment">&quot;</span> <span class="PreProc">NerdTree:</span><span class="Comment"> File explorer</span>
+<span id="L297" class="LineNr">297 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'scrooloose/nerdtree'</span>
+<span id="L298" class="LineNr">298 </span>
+<span id="L299" class="LineNr">299 </span><span class="Comment">&quot;</span> <span class="PreProc">Autocomplete:</span><span class="Comment"> Youcompleteme:</span>
+<span id="L300" class="LineNr">300 </span><span class="Comment">&quot;   Multilingual code-completion, goTo declaration, view documentation, rename variables</span>
+<span id="L301" class="LineNr">301 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'Valloric/YouCompleteMe'</span>
+<span id="L302" class="LineNr">302 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'davidhalter/jedi-vim'</span>
+<span id="L303" class="LineNr">303 </span>
+<span id="L304" class="LineNr">304 </span><span class="Comment">&quot;</span> <span class="PreProc">Ternjs:</span><span class="Comment"> Javascript editting support,  Jump to the definitio, Look up the</span>
+<span id="L305" class="LineNr">305 </span><span class="Comment">&quot;       documentation,  Find the type of the thing under the cursor, references to the variable</span>
+<span id="L306" class="LineNr">306 </span><span class="Comment">&quot;       Rename the variable</span>
+<span id="L307" class="LineNr">307 </span><span class="Comment">&quot; Plugin 'ternjs/tern_for_vim'</span>
+<span id="L308" class="LineNr">308 </span>
+<span id="L309" class="LineNr">309 </span><span class="Comment">&quot; Async run: skywind3000/asyncrun.vim</span>
+<span id="L310" class="LineNr">310 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'skywind3000/asyncrun.vim'</span>
+<span id="L311" class="LineNr">311 </span>
+<span id="L312" class="LineNr">312 </span><span class="Comment">&quot; Vim expand region: Allows to selects blocks of code and increase the</span>
+<span id="L313" class="LineNr">313 </span><span class="Comment">&quot; selection to next block easily</span>
+<span id="L314" class="LineNr">314 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'terryma/vim-expand-region'</span>
+<span id="L315" class="LineNr">315 </span>
+<span id="L316" class="LineNr">316 </span><span class="Comment">&quot; Move fast using &lt;leader&gt; &lt;leader&gt;</span>
+<span id="L317" class="LineNr">317 </span><span class="vimIsCommand">Plugin</span> <span class="Constant">'easymotion/vim-easymotion'</span>
+<span id="L318" class="LineNr">318 </span>
+<span id="L319" class="LineNr">319 </span><span class="Comment">&quot; *******  Key mappings *************</span>
+<span id="L320" class="LineNr">320 </span><span class="Comment">&quot; [command: w!!] Allow to gain root permission within vim</span>
+<span id="L321" class="LineNr">321 </span><span class="vimCommand">cmap</span> w!! w !sudo tee &gt;/dev/null %
+<span id="L322" class="LineNr">322 </span>
+<span id="L323" class="LineNr">323 </span>
+<span id="L324" class="LineNr">324 </span>
+<span id="L325" class="LineNr">325 </span><span class="Comment">&quot; *******  Load Vundle Plugins  *************</span>
+<span id="L326" class="LineNr">326 </span><span class="Comment">&quot; All of your Plugins must be added before the following line</span>
+<span id="L327" class="LineNr">327 </span><span class="vimCommand">call</span> vundle#<span class="Identifier">end</span><span class="Special">()</span>            <span class="Comment">&quot; required</span>
+<span id="L328" class="LineNr">328 </span><span class="vimCommand">filetype</span> <span class="vimSynType">plugin</span> <span class="vimSynType">indent</span> <span class="vimSynType">on</span>    <span class="Comment">&quot; required</span>
+<span id="L329" class="LineNr">329 </span>
+<span id="L330" class="LineNr">330 </span>
+<span id="L331" class="LineNr">331 </span><span class="Comment">&quot; *******  Plugin Configuration *************</span>
+<span id="L332" class="LineNr">332 </span><span class="Comment">&quot; NerdTree conf</span>
+<span id="L333" class="LineNr">333 </span><span class="Comment">&quot;       auto-open on startup</span>
+<span id="L334" class="LineNr">334 </span><span class="Comment">&quot;autocmd vimenter * NERDTree</span>
+<span id="L335" class="LineNr">335 </span><span class="Comment">&quot;       auto-open if there are no files</span>
+<span id="L336" class="LineNr">336 </span><span class="Comment">&quot;autocmd StdinReadPre * let s:std_in=1</span>
+<span id="L337" class="LineNr">337 </span><span class="Comment">&quot;autocmd VimEnter * if argc() == 0 &amp;&amp; !exists(&quot;s:std_in&quot;) | NERDTree | endif</span>
+<span id="L338" class="LineNr">338 </span><span class="Comment">&quot;       How can I open NERDTree automatically when vim starts up on opening a directory?</span>
+<span id="L339" class="LineNr">339 </span><span class="Comment">&quot;autocmd StdinReadPre * let s:std_in=1</span>
+<span id="L340" class="LineNr">340 </span><span class="Comment">&quot;autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !exists(&quot;s:std_in&quot;) | exe 'NERDTree' argv()[0] | wincmd p | ene | endif</span>
+<span id="L341" class="LineNr">341 </span><span class="Comment">&quot;       Bind C-n key to NerdTree</span>
+<span id="L342" class="LineNr">342 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">C-n</span><span class="Special">&gt;</span> :NERDTreeToggle<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L343" class="LineNr">343 </span>
+<span id="L344" class="LineNr">344 </span>
+<span id="L345" class="LineNr">345 </span><span class="Comment">&quot; function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)</span>
+<span id="L346" class="LineNr">346 </span><span class="Comment">&quot;       exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg</span>
+<span id="L347" class="LineNr">347 </span><span class="Comment">&quot;       exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'</span>
+<span id="L348" class="LineNr">348 </span><span class="Comment">&quot; endfunction</span>
+<span id="L349" class="LineNr">349 </span><span class="Comment">&quot;</span>
+<span id="L350" class="LineNr">350 </span><span class="Comment">&quot; call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')</span>
+<span id="L351" class="LineNr">351 </span><span class="Comment">&quot; call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L352" class="LineNr">352 </span><span class="Comment">&quot; call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')</span>
+<span id="L353" class="LineNr">353 </span><span class="Comment">&quot; call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L354" class="LineNr">354 </span><span class="Comment">&quot; call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L355" class="LineNr">355 </span><span class="Comment">&quot; call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L356" class="LineNr">356 </span><span class="Comment">&quot; call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L357" class="LineNr">357 </span><span class="Comment">&quot; call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')</span>
+<span id="L358" class="LineNr">358 </span><span class="Comment">&quot; call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')</span>
+<span id="L359" class="LineNr">359 </span><span class="Comment">&quot; call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')</span>
+<span id="L360" class="LineNr">360 </span><span class="Comment">&quot; call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')</span>
+<span id="L361" class="LineNr">361 </span><span class="Comment">&quot; call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')</span>
+<span id="L362" class="LineNr">362 </span><span class="Comment">&quot; call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')</span>
+<span id="L363" class="LineNr">363 </span>
+<span id="L364" class="LineNr">364 </span>
+<span id="L365" class="LineNr">365 </span>
+<span id="L366" class="LineNr">366 </span><span class="Comment">&quot; Solarized Theme - config</span>
+<span id="L367" class="LineNr">367 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">background</span><span class="Normal">=dar</span><span class="Normal">k</span>
+<span id="L368" class="LineNr">368 </span><span class="Comment">&quot; let g:solarized_termcolors=256 &quot; If you are going to use Solarized in Terminal mode</span>
+<span id="L369" class="LineNr">369 </span><span class="Comment">&quot; let g:solarized_visibility = </span><span class="vimCommentString">&quot;high&quot;</span>
+<span id="L370" class="LineNr">370 </span><span class="Comment">&quot; let g:solarized_contrast = </span><span class="vimCommentString">&quot;high&quot;</span>
+<span id="L371" class="LineNr">371 </span><span class="vimCommand">let</span> <span class="Identifier">g:solarized_termtrans</span> <span class="Statement">=</span> <span class="Constant">1</span>
+<span id="L372" class="LineNr">372 </span><span class="vimCommand">silent</span>! <span class="vimCommand">colorscheme</span> <span class="vimIsCommand">solarized</span>
+<span id="L373" class="LineNr">373 </span>
+<span id="L374" class="LineNr">374 </span>
+<span id="L375" class="LineNr">375 </span><span class="Comment">&quot; Disable the formatting to test 'Chiel92/vim-autoformat'</span>
+<span id="L376" class="LineNr">376 </span><span class="Comment">&quot; &quot; C-f vim-jsbeautify: HTML, CSS, JS formatter</span>
+<span id="L377" class="LineNr">377 </span><span class="Comment">&quot; autocmd FileType javascript vnoremap &lt;buffer&gt;  &lt;c-f&gt; :call RangeJsBeautify()&lt;cr&gt;</span>
+<span id="L378" class="LineNr">378 </span><span class="Comment">&quot; autocmd FileType json vnoremap &lt;buffer&gt; &lt;c-f&gt; :call RangeJsonBeautify()&lt;cr&gt;</span>
+<span id="L379" class="LineNr">379 </span><span class="Comment">&quot; autocmd FileType jsx vnoremap &lt;buffer&gt; &lt;c-f&gt; :call RangeJsxBeautify()&lt;cr&gt;</span>
+<span id="L380" class="LineNr">380 </span><span class="Comment">&quot; autocmd FileType html vnoremap &lt;buffer&gt; &lt;c-f&gt; :call RangeHtmlBeautify()&lt;cr&gt;</span>
+<span id="L381" class="LineNr">381 </span><span class="Comment">&quot; autocmd FileType css vnoremap &lt;buffer&gt; &lt;c-f&gt; :call RangeCSSBeautify()&lt;cr&gt;</span>
+<span id="L382" class="LineNr">382 </span>
+<span id="L383" class="LineNr">383 </span><span class="Comment">&quot;</span> <span class="PreProc">Format:</span><span class="Comment"> Formats using configurable external formatters: Chiel92/vim-autoformat</span>
+<span id="L384" class="LineNr">384 </span><span class="Comment">&quot;     c-f                       Auto format</span>
+<span id="L385" class="LineNr">385 </span><span class="Comment">&quot;     gg=G                      manually autoindent</span>
+<span id="L386" class="LineNr">386 </span><span class="Comment">&quot;     :retab                    retab</span>
+<span id="L387" class="LineNr">387 </span><span class="Comment">&quot;     :RemoveTrailingSpaces     remove trailing whitespace</span>
+<span id="L388" class="LineNr">388 </span><span class="Comment">&quot;noremap &lt;c-f&gt; :Autoformat&lt;CR&gt;</span>
+<span id="L389" class="LineNr">389 </span><span class="vimCommand">noremap</span> <span class="Special">&lt;</span><span class="Special">c-f</span><span class="Special">&gt;</span> gg=G``
+<span id="L390" class="LineNr">390 </span><span class="vimCommand">let</span> <span class="Identifier">g:formatter_yapf_style</span> <span class="Statement">=</span> <span class="Constant">'pep8'</span>
+<span id="L391" class="LineNr">391 </span><span class="Comment">&quot; let g:autoformat_autoindent = 0</span>
+<span id="L392" class="LineNr">392 </span><span class="Comment">&quot; let g:autoformat_retab = 0</span>
+<span id="L393" class="LineNr">393 </span><span class="Comment">&quot; let g:autoformat_remove_trailing_spaces = 0</span>
+<span id="L394" class="LineNr">394 </span>
+<span id="L395" class="LineNr">395 </span><span class="Comment">&quot;</span> <span class="PreProc">Tern:</span><span class="Comment"> tern mappings</span>
+<span id="L396" class="LineNr">396 </span><span class="vimCommand">nnoremap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">F2</span><span class="Special">&gt;</span> :TernRefs<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L397" class="LineNr">397 </span><span class="vimCommand">nnoremap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">F3</span><span class="Special">&gt;</span> :TernDef<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L398" class="LineNr">398 </span>
+<span id="L399" class="LineNr">399 </span>
+<span id="L400" class="LineNr">400 </span><span class="Comment">&quot; &quot; Lintern - syntastic config</span>
+<span id="L401" class="LineNr">401 </span><span class="Comment">&quot; let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }</span>
+<span id="L402" class="LineNr">402 </span><span class="Comment">&quot; let g:syntastic_javascript_checkers = ['standard']</span>
+<span id="L403" class="LineNr">403 </span><span class="Comment">&quot; &quot;nnoremap &lt;C-L&gt; :SyntasticCheck&lt;CR&gt; :SyntasticToggleMode&lt;CR&gt;</span>
+<span id="L404" class="LineNr">404 </span><span class="Comment">&quot; nnoremap &lt;C-L&gt; :SyntasticCheck&lt;CR&gt;</span>
+<span id="L405" class="LineNr">405 </span><span class="Comment">&quot; nnoremap &lt;C-L&gt;&lt;C-L&gt; :SyntasticReset&lt;CR&gt;</span>
+<span id="L406" class="LineNr">406 </span><span class="Comment">&quot; set statusline+=%#warningmsg#</span>
+<span id="L407" class="LineNr">407 </span><span class="Comment">&quot; set statusline+=%{SyntasticStatuslineFlag()}</span>
+<span id="L408" class="LineNr">408 </span><span class="Comment">&quot; set statusline+=%*</span>
+<span id="L409" class="LineNr">409 </span><span class="Comment">&quot; let g:syntastic_always_populate_loc_list = 1</span>
+<span id="L410" class="LineNr">410 </span><span class="Comment">&quot; let g:syntastic_auto_loc_list = 1</span>
+<span id="L411" class="LineNr">411 </span><span class="Comment">&quot; let g:syntastic_check_on_open = 1</span>
+<span id="L412" class="LineNr">412 </span><span class="Comment">&quot; let g:syntastic_check_on_wq = 0</span>
+<span id="L413" class="LineNr">413 </span><span class="Comment">&quot; </span>
+<span id="L414" class="LineNr">414 </span>
+<span id="L415" class="LineNr">415 </span><span class="Comment">&quot; Ale lintern</span>
+<span id="L416" class="LineNr">416 </span><span class="Comment">&quot;let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']</span>
+<span id="L417" class="LineNr">417 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">C-k</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(ale_previous_wrap)
+<span id="L418" class="LineNr">418 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">silent</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">C-j</span><span class="Special">&gt;</span> <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(ale_next_wrap)
+<span id="L419" class="LineNr">419 </span>
+<span id="L420" class="LineNr">420 </span><span class="Comment">&quot; tagList: List all tags in a window</span>
+<span id="L421" class="LineNr">421 </span><span class="Comment">&quot;   :TlistOpen</span>
+<span id="L422" class="LineNr">422 </span><span class="Comment">&quot;nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;</span>
+<span id="L423" class="LineNr">423 </span><span class="Comment">&quot;let Tlist_GainFocus_On_ToggleOpen = 1</span>
+<span id="L424" class="LineNr">424 </span>
+<span id="L425" class="LineNr">425 </span><span class="Comment">&quot;</span> <span class="PreProc">Tagbar:</span><span class="Comment"> tags for majutsushi/tagbar</span>
+<span id="L426" class="LineNr">426 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">F8</span><span class="Special">&gt;</span> :TagbarToggle<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L427" class="LineNr">427 </span>
+<span id="L428" class="LineNr">428 </span>
+<span id="L429" class="LineNr">429 </span><span class="Comment">&quot; Git - Fugitive - config</span>
+<span id="L430" class="LineNr">430 </span><span class="Comment">&quot; set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}</span>
+<span id="L431" class="LineNr">431 </span>
+<span id="L432" class="LineNr">432 </span>
+<span id="L433" class="LineNr">433 </span>
+<span id="L434" class="LineNr">434 </span><span class="Comment">&quot; Status line</span>
+<span id="L435" class="LineNr">435 </span><span class="Comment">&quot;       <a href="http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html">http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html</a></span>
+<span id="L436" class="LineNr">436 </span><span class="Comment">&quot; set statusline=%t[%{strlen(&amp;fenc)?&amp;fenc:'none'},%{&amp;ff}]%h%m%r%y%=%c,%l/%L\ %P</span>
+<span id="L437" class="LineNr">437 </span><span class="Comment">&quot; set statusline=%t       &quot;tail of the filename</span>
+<span id="L438" class="LineNr">438 </span><span class="Comment">&quot; set statusline+=[%{strlen(&amp;fenc)?&amp;fenc:'none'}, &quot;file encoding</span>
+<span id="L439" class="LineNr">439 </span><span class="Comment">&quot; set statusline+=%{&amp;ff}] &quot;file format</span>
+<span id="L440" class="LineNr">440 </span><span class="Comment">&quot; set statusline+=%h      &quot;help file flag</span>
+<span id="L441" class="LineNr">441 </span><span class="Comment">&quot; set statusline+=%m      &quot;modified flag</span>
+<span id="L442" class="LineNr">442 </span><span class="Comment">&quot; set statusline+=%r      &quot;read only flag</span>
+<span id="L443" class="LineNr">443 </span><span class="Comment">&quot; set statusline+=%y      &quot;filetype</span>
+<span id="L444" class="LineNr">444 </span><span class="Comment">&quot; set statusline+=%=      &quot;left/right separator</span>
+<span id="L445" class="LineNr">445 </span><span class="Comment">&quot; set statusline+=%c,     &quot;cursor column</span>
+<span id="L446" class="LineNr">446 </span><span class="Comment">&quot; set statusline+=%l/%L   &quot;cursor line/total lines</span>
+<span id="L447" class="LineNr">447 </span><span class="Comment">&quot; set statusline+=\ %P    &quot;percent through file</span>
+<span id="L448" class="LineNr">448 </span>
+<span id="L449" class="LineNr">449 </span>
+<span id="L450" class="LineNr">450 </span><span class="Comment">&quot; Status bar - Vim airline conf</span>
+<span id="L451" class="LineNr">451 </span><span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">laststatus</span><span class="Normal">=2</span><span class="Normal"> </span><span class="Comment">&quot;  Solution for vim-airline doesn't appear until I create a new split problem</span>
+<span id="L452" class="LineNr">452 </span><span class="vimCommand">let</span> <span class="Identifier">g:airline_theme</span><span class="Statement">=</span><span class="Constant">'solarized'</span>
+<span id="L453" class="LineNr">453 </span><span class="Comment">&quot; :AirlineTheme simple</span>
+<span id="L454" class="LineNr">454 </span><span class="Comment">&quot; let g:airline#extensions#tabline#enabled = 1  &quot; displays all buffers when there's only one tab open</span>
+<span id="L455" class="LineNr">455 </span>
+<span id="L456" class="LineNr">456 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Close open bufferes extension by j5shi/ctrlp_bdelete</span>
+<span id="L457" class="LineNr">457 </span><span class="Comment">&quot;   Select the buffer and close it with ctrl-2 (also works with ctrl-z multi</span>
+<span id="L458" class="LineNr">458 </span><span class="Comment">&quot;   selection)</span>
+<span id="L459" class="LineNr">459 </span><span class="vimCommand">call</span> ctrlp_bdelete#<span class="Identifier">init</span><span class="Special">()</span>
+<span id="L460" class="LineNr">460 </span>
+<span id="L461" class="LineNr">461 </span>
+<span id="L462" class="LineNr">462 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Open files by name</span>
+<span id="L463" class="LineNr">463 </span><span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_map</span> <span class="Statement">=</span> <span class="Constant">'&lt;c-p&gt;'</span> <span class="Comment">&quot; Map ctr+p key to ctrlp</span>
+<span id="L464" class="LineNr">464 </span><span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_cmd</span> <span class="Statement">=</span> <span class="Constant">'CtrlP'</span>
+<span id="L465" class="LineNr">465 </span>
+<span id="L466" class="LineNr">466 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Open with ctrl-b the buffers</span>
+<span id="L467" class="LineNr">467 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">c-b</span><span class="Special">&gt;</span> :CtrlPBuffer<span class="Special">&lt;</span><span class="Special">CR</span><span class="Special">&gt;</span>
+<span id="L468" class="LineNr">468 </span>
+<span id="L469" class="LineNr">469 </span><span class="Comment">&quot;</span> <span class="PreProc">Ctrlp:</span><span class="Comment"> Ignore .gitignore files</span>
+<span id="L470" class="LineNr">470 </span><span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_user_command</span> <span class="Statement">=</span> [<span class="Constant">'.git/'</span>, <span class="Constant">'git --git-dir=%s/.git ls-files -oc --exclude-standard'</span>]
+<span id="L471" class="LineNr">471 </span><span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_user_command</span> <span class="Statement">=</span> [
+<span id="L472" class="LineNr">472 </span><span class="Special">    \</span> <span class="Constant">'.git'</span>, <span class="Constant">'cd %s &amp;&amp; git ls-files . -co --exclude-standard'</span>,
+<span id="L473" class="LineNr">473 </span><span class="Special">    \</span> <span class="Constant">'find %s -type f'</span>
+<span id="L474" class="LineNr">474 </span><span class="Special">    \</span> ]
+<span id="L475" class="LineNr">475 </span>
+<span id="L476" class="LineNr">476 </span>
+<span id="L477" class="LineNr">477 </span><span class="Comment">&quot; &quot; Change colors for ctrl-p cursor</span>
+<span id="L478" class="LineNr">478 </span><span class="Comment">&quot; let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }</span>
+<span id="L479" class="LineNr">479 </span><span class="Comment">&quot; function BrightHighlightOn()</span>
+<span id="L480" class="LineNr">480 </span><span class="Comment">&quot;   hi CursorLine guibg=darkred</span>
+<span id="L481" class="LineNr">481 </span><span class="Comment">&quot; endfunction</span>
+<span id="L482" class="LineNr">482 </span><span class="Comment">&quot;</span>
+<span id="L483" class="LineNr">483 </span><span class="Comment">&quot; function BrightHighlightOff()</span>
+<span id="L484" class="LineNr">484 </span><span class="Comment">&quot;   hi CursorLine guibg=#191919</span>
+<span id="L485" class="LineNr">485 </span><span class="Comment">&quot; endfunction</span>
+<span id="L486" class="LineNr">486 </span>
+<span id="L487" class="LineNr">487 </span><span class="Comment">&quot; Use ag instead of grep, in the :grep command</span>
+<span id="L488" class="LineNr">488 </span><span class="vimCommand">if</span> <span class="Identifier">executable</span><span class="Special">(</span><span class="Constant">'ag'</span><span class="Special">)</span>
+<span id="L489" class="LineNr">489 </span><span class="Comment">  &quot; bind \ (backward slash) to grep shortcut</span>
+<span id="L490" class="LineNr">490 </span>  <span class="vimCommand">command</span> <span class="Statement">-</span><span class="PreProc">nargs</span><span class="Statement">=+</span> <span class="Statement">-</span><span class="PreProc">complete</span><span class="Statement">=</span><span class="Type">file</span> <span class="Statement">-</span><span class="PreProc">bar</span> <span class="vimIsCommand">Ag</span> <span class="vimCommand">silent</span>! <span class="vimCommand">grep</span>! <span class="Special">&lt;</span><span class="Special">args</span><span class="Special">&gt;</span>|<span class="vimCommand">cwindow</span>|<span class="vimCommand">redraw</span>!
+<span id="L491" class="LineNr">491 </span>  <span class="vimCommand">nnoremap</span> \ :Ag<span class="Special">&lt;</span><span class="Special">SPACE</span><span class="Special">&gt;</span>
+<span id="L492" class="LineNr">492 </span>
+<span id="L493" class="LineNr">493 </span>
+<span id="L494" class="LineNr">494 </span><span class="Comment">  &quot; Use ag (the_silver_searcher) instead of ack</span>
+<span id="L495" class="LineNr">495 </span>  <span class="vimCommand">let</span> <span class="Identifier">g:ackprg</span> <span class="Statement">=</span> <span class="Constant">'ag --vimgrep'</span>
+<span id="L496" class="LineNr">496 </span>
+<span id="L497" class="LineNr">497 </span><span class="Comment">  &quot; Use ag over grep</span>
+<span id="L498" class="LineNr">498 </span>  <span class="vimCommand">set</span><span class="Normal"> </span><span class="PreProc">grepprg</span><span class="Normal">=ag\ --nogroup\ --nocolo</span><span class="Normal">r</span>
+<span id="L499" class="LineNr">499 </span>
+<span id="L500" class="LineNr">500 </span><span class="Comment">  &quot; Use ag in CtrlP for listing files. Lightning fast and respects .gitignore</span>
+<span id="L501" class="LineNr">501 </span>  <span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_user_command</span> <span class="Statement">=</span> [
+<span id="L502" class="LineNr">502 </span><span class="Special">        \</span> <span class="Constant">'.git'</span>, <span class="Constant">'cd %s &amp;&amp; git ls-files . -co --exclude-standard'</span>,
+<span id="L503" class="LineNr">503 </span><span class="Special">        \</span> <span class="Constant">'ag %s -l --nocolor -g &quot;&quot;'</span>
+<span id="L504" class="LineNr">504 </span><span class="Special">        \</span> ]
+<span id="L505" class="LineNr">505 </span>
+<span id="L506" class="LineNr">506 </span><span class="Comment">  &quot; ag is fast enough that CtrlP doesn't need to cache</span>
+<span id="L507" class="LineNr">507 </span>  <span class="vimCommand">let</span> <span class="Identifier">g:ctrlp_use_caching</span> <span class="Statement">=</span> <span class="Constant">0</span>
+<span id="L508" class="LineNr">508 </span><span class="vimCommand">endif</span>
+<span id="L509" class="LineNr">509 </span>
+<span id="L510" class="LineNr">510 </span>
+<span id="L511" class="LineNr">511 </span><span class="Comment">&quot; &quot; Quick run via &lt;F5&gt;</span>
+<span id="L512" class="LineNr">512 </span><span class="Comment">&quot; nnoremap &lt;F5&gt; :call &lt;SID&gt;compile_and_run()&lt;CR&gt;</span>
+<span id="L513" class="LineNr">513 </span><span class="Comment">&quot; augroup SPACEVIM_ASYNCRUN</span>
+<span id="L514" class="LineNr">514 </span><span class="Comment">&quot;     autocmd!</span>
+<span id="L515" class="LineNr">515 </span><span class="Comment">&quot;     &quot; Automatically open the quickfix window</span>
+<span id="L516" class="LineNr">516 </span><span class="Comment">&quot;     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)</span>
+<span id="L517" class="LineNr">517 </span><span class="Comment">&quot; augroup END</span>
+<span id="L518" class="LineNr">518 </span><span class="Comment">&quot; </span>
+<span id="L519" class="LineNr">519 </span><span class="Comment">&quot; function! s:compile_and_run()</span>
+<span id="L520" class="LineNr">520 </span><span class="Comment">&quot;     exec 'w'</span>
+<span id="L521" class="LineNr">521 </span><span class="Comment">&quot;     if &amp;filetype == 'c'</span>
+<span id="L522" class="LineNr">522 </span><span class="Comment">&quot;         exec </span><span class="vimCommentString">&quot;AsyncRun! gcc % -o %&lt;; time ./%&lt;&quot;</span>
+<span id="L523" class="LineNr">523 </span><span class="Comment">&quot;     elseif &amp;filetype == 'cpp'</span>
+<span id="L524" class="LineNr">524 </span><span class="Comment">&quot;        exec </span><span class="vimCommentString">&quot;AsyncRun! g++ -std=c++11 % -o %&lt;; time ./%&lt;&quot;</span>
+<span id="L525" class="LineNr">525 </span><span class="Comment">&quot;     elseif &amp;filetype == 'java'</span>
+<span id="L526" class="LineNr">526 </span><span class="Comment">&quot;        exec </span><span class="vimCommentString">&quot;AsyncRun! javac %; time java %&lt;&quot;</span>
+<span id="L527" class="LineNr">527 </span><span class="Comment">&quot;     elseif &amp;filetype == 'sh'</span>
+<span id="L528" class="LineNr">528 </span><span class="Comment">&quot;        exec </span><span class="vimCommentString">&quot;AsyncRun! time bash %&quot;</span>
+<span id="L529" class="LineNr">529 </span><span class="Comment">&quot;     elseif &amp;filetype == 'python'</span>
+<span id="L530" class="LineNr">530 </span><span class="Comment">&quot;        exec </span><span class="vimCommentString">&quot;AsyncRun! time python %&quot;</span>
+<span id="L531" class="LineNr">531 </span><span class="Comment">&quot;     endif</span>
+<span id="L532" class="LineNr">532 </span><span class="Comment">&quot; endfunction</span>
+<span id="L533" class="LineNr">533 </span>
+<span id="L534" class="LineNr">534 </span>
+<span id="L535" class="LineNr">535 </span><span class="Comment">&quot; Easy motion config ------------</span>
+<span id="L536" class="LineNr">536 </span><span class="Comment">&quot; let g:EasyMotion_do_mapping = 0 &quot; Disable default mappings</span>
+<span id="L537" class="LineNr">537 </span><span class="Comment">&quot; Jump to anywhere you want with minimal keystrokes, with just one key binding.</span>
+<span id="L538" class="LineNr">538 </span><span class="Comment">&quot; `s{char}{label}`</span>
+<span id="L539" class="LineNr">539 </span><span class="Comment">&quot;nmap s &lt;Plug&gt;(easymotion-overwin-f)</span>
+<span id="L540" class="LineNr">540 </span><span class="Comment">&quot; or</span>
+<span id="L541" class="LineNr">541 </span><span class="Comment">&quot; `s{char}{char}{label}`</span>
+<span id="L542" class="LineNr">542 </span><span class="Comment">&quot; Need one more keystroke, but on average, it may be more comfortable.</span>
+<span id="L543" class="LineNr">543 </span><span class="vimCommand">nmap</span> <span class="Special">&lt;</span><span class="Special">leader</span><span class="Special">&gt;</span>2 <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-overwin-f2)
+<span id="L544" class="LineNr">544 </span>
+<span id="L545" class="LineNr">545 </span><span class="Comment">&quot; Open search box</span>
+<span id="L546" class="LineNr">546 </span><span class="vimCommand">map</span>  <span class="Special">&lt;</span><span class="Special">leader</span><span class="Special">&gt;</span>/ <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-sn)
+<span id="L547" class="LineNr">547 </span><span class="vimCommand">omap</span> <span class="Special">&lt;</span><span class="Special">leader</span><span class="Special">&gt;</span>/ <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-tn)
+<span id="L548" class="LineNr">548 </span>
+<span id="L549" class="LineNr">549 </span><span class="Comment">&quot; Turn on case insensitive feature</span>
+<span id="L550" class="LineNr">550 </span><span class="vimCommand">let</span> <span class="Identifier">g:EasyMotion_smartcase</span> <span class="Statement">=</span> <span class="Constant">1</span>
+<span id="L551" class="LineNr">551 </span>
+<span id="L552" class="LineNr">552 </span><span class="Comment">&quot; JK motions: Line motions</span>
+<span id="L553" class="LineNr">553 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>j <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-j)
+<span id="L554" class="LineNr">554 </span><span class="vimCommand">map</span> <span class="Special">&lt;</span><span class="Special">Leader</span><span class="Special">&gt;</span>k <span class="Special">&lt;</span><span class="Special">Plug</span><span class="Special">&gt;</span>(easymotion-k)
+<span id="L555" class="LineNr">555 </span>
+<span id="L556" class="LineNr">556 </span>
+<span id="L557" class="LineNr">557 </span><span class="Comment">&quot;</span> <span class="PreProc">TODOS:</span>
+<span id="L558" class="LineNr">558 </span><span class="Comment">&quot;     - Find and replace: <a href="https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/">https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/</a></span>
+<span id="L559" class="LineNr">559 </span><span class="Comment">&quot;</span>
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->

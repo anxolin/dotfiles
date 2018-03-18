@@ -17,6 +17,13 @@ set number
 set nowrap
 set sidescroll=25
 
+" If we are in the:
+"   - last char and press `l` (or right arrow) we jump to next line's first char
+"   - first char and press `h` (or left arrow) we jump to the previous last
+"     char
+"   - IMPORTANT: Some people recommend against using the 'h' and 'l' also.
+"     this for breaking some plugin no sure why, so I'll leave it as a test :)
+set whichwrap=b,s,<,>,[,],h,l
 
 " Enable syntax highlight and plugin support
 syntax enable
@@ -73,8 +80,8 @@ set clipboard=unnamed
 
 " Make backspace work like most other apps (allows to remove the <br> chars of
 " the previous line)
-set backspace=2 
-
+set backspace=indent,eol,start
+  
 " Activate mouse
 set mouse=a
 

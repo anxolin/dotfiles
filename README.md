@@ -9,7 +9,8 @@ There's also documentation showing the plugins and configuration for:
 
 It also contains some usefull scipts used when setting up a new working environment:
 
-* [install.sh](install.sh): Installs the dotfiles in a new environment. It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`"
+* [install.sh](install.sh): Installs the dotfiles in a new environment. 
+It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`
 * [install-after.sh](install.sh): Install some plugins or external programs required by some vim plugins (i.e. Tern for JS development)
 
 ## Setup the environment
