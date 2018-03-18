@@ -13,6 +13,9 @@ set history=80
 " Enable line numbers
 set number
 
+" Do not wrap lines
+set nowrap
+
 " Enable syntax highlight and plugin support
 syntax enable
 
