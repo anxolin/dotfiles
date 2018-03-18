@@ -277,6 +277,9 @@ Plugin 'vim-airline/vim-airline-themes'
 " Ctrlp: Ctrl+p - ctrlp.vim - Open files by name
 Plugin 'ctrlpvim/ctrlp.vim'
 
+" Ctrlp: Extension to allow to delete open buffers (ctrlp_bdelete)
+Plugin 'j5shi/ctrlp_bdelete.vim'
+
 " NerdTree: File explorer
 Plugin 'scrooloose/nerdtree'
 
@@ -436,6 +439,11 @@ set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new
 let g:airline_theme='solarized'
 " :AirlineTheme simple
 " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
+
+" Ctrlp: Close open bufferes extension by j5shi/ctrlp_bdelete
+"   Select the buffer and close it with ctrl-2 (also works with ctrl-z multi
+"   selection)
+call ctrlp_bdelete#init()
 
 
 " Ctrlp: Open files by name
