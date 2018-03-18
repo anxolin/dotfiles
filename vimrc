@@ -35,6 +35,14 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 
+" Vertical ruler at 80
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+
 " Identations for Python - PEP8
 " au BufNewFile,BufRead *.py
 "     \ set tabstop=4
