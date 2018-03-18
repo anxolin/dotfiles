@@ -13,12 +13,13 @@ set history=80
 " Enable line numbers
 set number
 
-" Do not wrap lines
+" Do not wrap lines and when scroll horilzontally, show 25 chars of context
 set nowrap
+set sidescroll=25
+
 
 " Enable syntax highlight and plugin support
 syntax enable
-
 " filetype: Enable plugin
 "   * Detects the filetype (using the extension or the hashbang)
 "   * Allows to hightlights depending on the filetype   
