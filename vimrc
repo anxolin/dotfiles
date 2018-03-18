@@ -450,6 +450,9 @@ call ctrlp_bdelete#init()
 let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
 let g:ctrlp_cmd = 'CtrlP'
 
+" Ctrlp: Open with ctrl-b the buffers
+map <c-b> :CtrlPBuffer<CR>
+
 " Ctrlp: Ignore .gitignore files
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_user_command = [
