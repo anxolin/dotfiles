@@ -37,7 +37,8 @@ Download `iTerm2` from https://www.iterm2.com
 
 * Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
 * Set the report terminal type to **xterm-256color** (in `settings > profiles > terminal`)
-* Set the font to **12pt DejaVu Sans Mono for Powerline**
+* Set the font to **12pt Menlo** (or **Monaco**)  ~~**12pt DejaVu Sans Mono for Powerline**~~
+* Set the vertical character spacing to 120%
 
 ### In Linux
 In `Konsole`, set the font to 12pt Oc

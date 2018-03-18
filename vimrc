@@ -27,6 +27,8 @@ set whichwrap=b,s,<,>,[,],h,l
 
 " Enable syntax highlight and plugin support
 syntax enable
+
+
 " filetype: Enable plugin
 "   * Detects the filetype (using the extension or the hashbang)
 "   * Allows to hightlights depending on the filetype   
@@ -41,10 +43,17 @@ set backupdir=~/.vim/backup_files//
 set directory=~/.vim/swap_files//
 set undodir=~/.vim/undo_files//
 
-" Indentation without hard tabs
+" Set 2 spaces for tabs
+set ts=2
+
+" Spaces instead of tabs
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+
+if has("gui_running")
+  set linespace=3
+endif
 
 " Vertical ruler at 80
 if exists('+colorcolumn')
@@ -278,7 +287,7 @@ Plugin 'derekwyatt/vim-scala'
 
 
 " Fugitive: Git - Vim Fugitive:
-" 	https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
+"   https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
 Plugin 'tpope/vim-fugitive'
 
 " Airline: Status bar - Vim Airline
@@ -300,8 +309,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'davidhalter/jedi-vim'
 
 " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
-" 	documentation,  Find the type of the thing under the cursor, references to the variable
-"	Rename the variable
+"   documentation,  Find the type of the thing under the cursor, references to the variable
+" Rename the variable
 " Plugin 'ternjs/tern_for_vim'
 
 " Async run: skywind3000/asyncrun.vim
@@ -328,21 +337,21 @@ filetype plugin indent on    " required
 
 " *******  Plugin Configuration *************
 " NerdTree conf
-" 	auto-open on startup
+"   auto-open on startup
 "autocmd vimenter * NERDTree
-"	auto-open if there are no files
+" auto-open if there are no files
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"	How can I open NERDTree automatically when vim starts up on opening a directory?
+" How can I open NERDTree automatically when vim starts up on opening a directory?
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-"	Bind C-n key to NerdTree
+" Bind C-n key to NerdTree
 map <C-n> :NERDTreeToggle<CR>
 
 
 " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-" 	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-" 	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+"   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+"   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 " endfunction
 "
 " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
@@ -430,7 +439,7 @@ nmap <F8> :TagbarToggle<CR>
 
 
 " Status line
-" 	http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
+"   http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
 " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 " set statusline=%t       "tail of the filename
 " set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
