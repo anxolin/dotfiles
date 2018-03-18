@@ -215,6 +215,9 @@ call vundle#begin()
 
 " *******  Plugins *************
 
+" Plugin that jumps to the matching HTML tag or if/else/elseif using %
+packadd! matchit
+
 " Vundle: let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
