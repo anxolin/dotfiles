@@ -58,7 +58,8 @@ install () {
     # If the platform is Linux, try an apt-get to install zsh and then recurse
     if [[ $platform == 'Linux' ]]; then
         if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh gvim silversearcher-ag xclip ctags cmake
+            sudo apt-get install zsh gvim silversearcher-ag xclip ctags
+            # cmake
         fi
  	      if [[ -f /etc/arch-release ]]; then
             sudo pacman -S zsh gvim the_silver_searcher xclip ctags cmake
