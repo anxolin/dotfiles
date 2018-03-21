@@ -133,3 +133,5 @@ alias activate="source ENV/bin/activate"
 # alias vi="vim"
 alias mux="tmuxinator"
 
+# Tabs as 2 spaces
+tabs -2
