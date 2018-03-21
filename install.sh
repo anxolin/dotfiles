@@ -71,7 +71,8 @@ install () {
         fi
     # If the platform is OS X, tell the user to install zsh :)
     elif [[ $platform == 'Darwin' ]]; then
-	brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
+	brew install zsh the_silver_searcher ctags reattach-to-user-namespace
+  # cmake
         ~/dotfiles/install-vsCode-mac.sh
     fi
 
