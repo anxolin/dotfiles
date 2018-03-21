@@ -13,5 +13,7 @@
         80
     ],
     "explorer.confirmDragAndDrop": false,
-    "editor.folding": false
+    "editor.folding": false,
+    "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false
 }
