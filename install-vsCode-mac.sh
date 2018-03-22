@@ -10,7 +10,7 @@ VS_CONFIG_BACKUP_SNIPPETS="$VS_USER_DIR/snippets_$TIMESTAMP"
 VS_DOTFILES_DIR="$HOME/dotfiles/vsCode"
 
 echo "Backup VS config file and snippets"
-mkdir -p "$VS_USER_DIR/snippets"
+mkdir -p $VS_USER_DIR/snippets
 touch "$VS_CONFIG_FILE"
 mv "$VS_CONFIG_FILE" "$VS_CONFIG_BACKUP_FILE"
 mv "$VS_SNIPPETS_FILE" "$VS_CONFIG_BACKUP_SNIPPETS"
