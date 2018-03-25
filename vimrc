@@ -214,6 +214,10 @@ command! Maketags !ctags -R .
 " nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 
 
+function HasPlugins(name)
+  return isdirectory($HOME . '/dotfiles/vim/bundle/' . a:name)
+endfunction
+
 " Vundle: Plugin manager
 "   Brief help
 "     :PluginList       - lists configured plugins
@@ -227,7 +231,7 @@ command! Maketags !ctags -R .
 " Vundle installation: set the runtime path to include Vundle and initialize
 
 " If Vundle plugin is present
-if isdirectory($HOME . '/dotfiles/vim/bundle/Vundle.vim')
+if HasPlugins('Vundle.vim')
   set rtp+=~/dotfiles/vim/bundle/Vundle.vim
   call vundle#begin()
 
@@ -333,174 +337,11 @@ if isdirectory($HOME . '/dotfiles/vim/bundle/Vundle.vim')
   " All of your Plugins must be added before the following line
   call vundle#end()            " required
   filetype plugin indent on    " required
-
-
-
-
-  " *******  Plugin Configuration *************
-  " NerdTree conf
-  "   auto-open on startup
-  "autocmd vimenter * NERDTree
-  " auto-open if there are no files
-  "autocmd StdinReadPre * let s:std_in=1
-  "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  " How can I open NERDTree automatically when vim starts up on opening a directory?
-  "autocmd StdinReadPre * let s:std_in=1
-  "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-  " Bind C-n key to NerdTree
-  map <C-n> :NERDTreeToggle<CR>
-
-  " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  "   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  "   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-  " endfunction
-  "
-  " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-  " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-  " call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-  " call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-  " call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-  " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-  " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-  " Tern: tern mappings
-  nnoremap <silent> <F2> :TernRefs<CR>
-  nnoremap <silent> <F3> :TernDef<CR>
-
-  " " Lintern - syntastic config
-  " let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-  " let g:syntastic_javascript_checkers = ['standard']
-  " "nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-  " nnoremap <C-L> :SyntasticCheck<CR>
-  " nnoremap <C-L><C-L> :SyntasticReset<CR>
-  " set statusline+=%#warningmsg#
-  " set statusline+=%{SyntasticStatuslineFlag()}
-  " set statusline+=%*
-  " let g:syntastic_always_populate_loc_list = 1
-  " let g:syntastic_auto_loc_list = 1
-  " let g:syntastic_check_on_open = 1
-  " let g:syntastic_check_on_wq = 0
-
-  " Ale lintern (https://github.com/w0rp/ale)
-  "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-  nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-  " tagList: List all tags in a window
-  "   :TlistOpen
-  "nnoremap <silent> <F8> :TlistToggle<CR>
-  "let Tlist_GainFocus_On_ToggleOpen = 1
-
-  " Tagbar: tags for majutsushi/tagbar
-  nmap <F8> :TagbarToggle<CR>
-
-  " Git - Fugitive - config
-  " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-
-  " Status bar - Vim airline conf
-  set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new split problem
-  let g:airline_theme='solarized'
-  " :AirlineTheme simple
-  " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
-
-  " Status line
-  "   http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
-  " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-  " set statusline=%t       "tail of the filename
-  " set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-  " set statusline+=%{&ff}] "file format
-  " set statusline+=%h      "help file flag
-  " set statusline+=%m      "modified flag
-  " set statusline+=%r      "read only flag
-  " set statusline+=%y      "filetype
-  " set statusline+=%=      "left/right separator
-  " set statusline+=%c,     "cursor column
-  " set statusline+=%l/%L   "cursor line/total lines
-  " set statusline+=\ %P    "percent through file
-
-  " ctrlp_bdelete: Close open bufferes extension by j5shi/ctrlp_bdelete
-  " https://github.com/d11wtq/ctrlp_bdelete.vim
-
-  "   Select the buffer and close it with ctrl-2 (also works with ctrl-z multi
-  "   selection)
-  call ctrlp_bdelete#init()
-
-
-  " Ctrlp: Open files by name
-  let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
-  let g:ctrlp_cmd = 'CtrlP'
-
-  " Ctrlp: Open with ctrl-b the buffers
-  map <c-b> :CtrlPBuffer<CR>
-
-  " Ctrlp: Ignore .gitignore files
-  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-  let g:ctrlp_user_command = [
-      \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
-      \ 'find %s -type f'
-      \ ]
-
-  " Easy motion (https://github.com/easymotion/vim-easymotion)
-  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
-  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-  " `s{char}{label}`
-  "nmap s <Plug>(easymotion-overwin-f)
-  " or
-  " `s{char}{char}{label}`
-  " Need one more keystroke, but on average, it may be more comfortable.
-  nmap <leader>2 <Plug>(easymotion-overwin-f2)
-
-  " Open search box
-  map  <leader>/ <Plug>(easymotion-sn)
-  omap <leader>/ <Plug>(easymotion-tn)
-
-  " Turn on case insensitive feature
-  let g:EasyMotion_smartcase = 1
-
-  " JK motions: Line motions
-  map <Leader>j <Plug>(easymotion-j)
-  map <Leader>k <Plug>(easymotion-k)
-
-  " if &rtp =~ 'plugin-name'
-  " endif
-
-  " Disable the formatting to test 'Chiel92/vim-autoformat'
-  " " C-f vim-jsbeautify: HTML, CSS, JS formatter
-  " autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-  " autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-  " autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-  " autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-  " autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
-
-  " Format: Formats using configurable external formatters: Chiel92/vim-autoformat
-  "     c-f                       Auto format
-  "     gg=G                      manually autoindent
-  "     :retab                    retab
-  "     :RemoveTrailingSpaces     remove trailing whitespace
-  "noremap <c-f> :Autoformat<CR>
-  noremap <c-f> gg=G``
-  let g:formatter_yapf_style = 'pep8'
-  " let g:autoformat_autoindent = 0
-  " let g:autoformat_retab = 0
-  " let g:autoformat_remove_trailing_spaces = 0
-
-
-  " " Change colors for ctrl-p cursor
-  " let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
-  " function BrightHighlightOn()
-  "   hi CursorLine guibg=darkred
-  " endfunction
-  "
-  " function BrightHighlightOff()
-  "   hi CursorLine guibg=#191919
-  " endfunction
 endif
+
+
+
+" *******  Plugin Configuration *************
 
 " Solarized Theme - config
 set background=dark
@@ -533,7 +374,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-
 " " Quick run via <F5>
 " nnoremap <F5> :call <SID>compile_and_run()<CR>
 " augroup SPACEVIM_ASYNCRUN
@@ -557,6 +397,160 @@ endif
 "     endif
 " endfunction
 
+
+" NerdTree conf
+if HasPlugins('nerdtree')
+  "   auto-open on startup
+  "autocmd vimenter * NERDTree
+  " auto-open if there are no files
+  "autocmd StdinReadPre * let s:std_in=1
+  "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  " How can I open NERDTree automatically when vim starts up on opening a directory?
+  "autocmd StdinReadPre * let s:std_in=1
+  "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+  " Bind C-n key to NerdTree
+  map <C-n> :NERDTreeToggle<CR>
+
+  " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  "   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  "   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  " endfunction
+  "
+  " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+  " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+  " call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+  " call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+  " call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+  " call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+  " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+  " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+endif
+
+" Tern: tern mappings
+if HasPlugins('tern_for_vim')
+  nnoremap <silent> <F2> :TernRefs<CR>
+  nnoremap <silent> <F3> :TernDef<CR>
+endif
+
+" Ale lintern (https://github.com/w0rp/ale)
+if HasPlugins('ale')
+  "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+endif
+
+" " Lintern - syntastic config (disable to use Ale instead)
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+" let g:syntastic_javascript_checkers = ['standard']
+" "nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+" nnoremap <C-L> :SyntasticCheck<CR>
+" nnoremap <C-L><C-L> :SyntasticReset<CR>
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+" Tagbar: Display tags in a window
+"   https://github.com/majutsushi/tagbar
+if HasPlugins('tagbar')
+  nmap <F8> :TagbarToggle<CR>
+endif
+
+" Git - Fugitive - config
+if HasPlugins('vim-fugitive')
+  " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+endif
+
+" Status bar - Vim airline conf
+if HasPlugins('vim-airline')
+  set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new split problem
+  let g:airline_theme='solarized'
+  " :AirlineTheme simple
+  " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
+
+  " Status line
+  "   http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
+  " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+  " set statusline=%t       "tail of the filename
+  " set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+  " set statusline+=%{&ff}] "file format
+  " set statusline+=%h      "help file flag
+  " set statusline+=%m      "modified flag
+  " set statusline+=%r      "read only flag
+  " set statusline+=%y      "filetype
+  " set statusline+=%=      "left/right separator
+  " set statusline+=%c,     "cursor column
+  " set statusline+=%l/%L   "cursor line/total lines
+  " set statusline+=\ %P    "percent through file
+endif
+
+" ctrlp_bdelete: Close open bufferes extension by j5shi/ctrlp_bdelete
+"   https://github.com/d11wtq/ctrlp_bdelete.vim
+if HasPlugins('ctrlp_bdelete.vim')
+  "   Select the buffer and close it with ctrl-2 (also works with ctrl-z multi
+  "   selection)
+  call ctrlp_bdelete#init()
+endif
+
+" Ctrlp: Open files by name
+if HasPlugins('ctrlp.vim')
+  let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
+  let g:ctrlp_cmd = 'CtrlP'
+
+  " Ctrlp: Open with ctrl-b the buffers
+  map <c-b> :CtrlPBuffer<CR>
+
+  " Ctrlp: Ignore .gitignore files
+  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+  let g:ctrlp_user_command = [
+      \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
+      \ 'find %s -type f'
+      \ ]
+endif
+
+" Easy motion (https://github.com/easymotion/vim-easymotion)
+if HasPlugins('vim-easymotion')
+  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+  " `s{char}{label}`
+  "nmap s <Plug>(easymotion-overwin-f)
+  " or
+  " `s{char}{char}{label}`
+  " Need one more keystroke, but on average, it may be more comfortable.
+  nmap <leader>2 <Plug>(easymotion-overwin-f2)
+
+  " Open search box
+  map  <leader>/ <Plug>(easymotion-sn)
+  omap <leader>/ <Plug>(easymotion-tn)
+
+  " Turn on case insensitive feature
+  let g:EasyMotion_smartcase = 1
+
+  " JK motions: Line motions
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+endif
+
+" Disable the formatting to test 'Chiel92/vim-autoformat'
+
+" vim-jsbeautify: HTML, CSS, JS formatter
+if HasPlugins('vim-autoformat')
+  " Format: Formats using configurable external formatters: Chiel92/vim-autoformat
+  "     c-f                       Auto format
+  "     gg=G                      manually autoindent
+  "     :retab                    retab
+  "     :RemoveTrailingSpaces     remove trailing whitespace
+  noremap <c-f> gg=G``
+  let g:formatter_yapf_style = 'pep8'
+endif
 
 " TODOS:
 "     - Find and replace: https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
