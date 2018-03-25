@@ -227,7 +227,7 @@ command! Maketags !ctags -R .
 " Vundle installation: set the runtime path to include Vundle and initialize
 
 " If Vundle plugin is present
-if exists(':PluginList')
+if !isdirectory("~/dotfiles/vim/bundle/Vundle.vim")
   set rtp+=~/dotfiles/vim/bundle/Vundle.vim
   call vundle#begin()
 
@@ -333,12 +333,12 @@ if exists(':PluginList')
   " All of your Plugins must be added before the following line
   call vundle#end()            " required
   filetype plugin indent on    " required
-endif
 
-" *******  Plugin Configuration *************
 
-" NerdTree conf
-if exists(':NERDTreeToggle')
+
+
+  " *******  Plugin Configuration *************
+  " NerdTree conf
   "   auto-open on startup
   "autocmd vimenter * NERDTree
   " auto-open if there are no files
@@ -368,17 +368,12 @@ if exists(':NERDTreeToggle')
   " call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
   " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
   " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-endif
 
-
-" Tern: tern mappings
-if exists(':TernRefs')
+  " Tern: tern mappings
   nnoremap <silent> <F2> :TernRefs<CR>
   nnoremap <silent> <F3> :TernDef<CR>
-endif
 
-" " Lintern - syntastic config
-if exists(':SyntasticCheck')
+  " " Lintern - syntastic config
   " let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
   " let g:syntastic_javascript_checkers = ['standard']
   " "nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
@@ -391,34 +386,24 @@ if exists(':SyntasticCheck')
   " let g:syntastic_auto_loc_list = 1
   " let g:syntastic_check_on_open = 1
   " let g:syntastic_check_on_wq = 0
-endif
 
-" Ale lintern (https://github.com/w0rp/ale)
-if exists(':ALEFix')
+  " Ale lintern (https://github.com/w0rp/ale)
   "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
   nmap <silent> <C-k> <Plug>(ale_previous_wrap)
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
-endif
 
-" tagList: List all tags in a window
-if exists(':TlistToggle')
+  " tagList: List all tags in a window
   "   :TlistOpen
   "nnoremap <silent> <F8> :TlistToggle<CR>
   "let Tlist_GainFocus_On_ToggleOpen = 1
-endif
 
-if exists(':TagbarToggle')
   " Tagbar: tags for majutsushi/tagbar
   nmap <F8> :TagbarToggle<CR>
-endif
 
-" Git - Fugitive - config
-if exists(':Gstatus')
+  " Git - Fugitive - config
   " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-endif
 
-" Status bar - Vim airline conf
-if exists(':AirlineRefresh')
+  " Status bar - Vim airline conf
   set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new split problem
   let g:airline_theme='solarized'
   " :AirlineTheme simple
@@ -438,9 +423,6 @@ if exists(':AirlineRefresh')
   " set statusline+=%c,     "cursor column
   " set statusline+=%l/%L   "cursor line/total lines
   " set statusline+=\ %P    "percent through file
-endif
-
-if exists(':CtrlP')
 
   " ctrlp_bdelete: Close open bufferes extension by j5shi/ctrlp_bdelete
   " https://github.com/d11wtq/ctrlp_bdelete.vim
@@ -463,31 +445,62 @@ if exists(':CtrlP')
       \ '.git', 'cd %s && git ls-files . -co --exclude-standard',
       \ 'find %s -type f'
       \ ]
+
+  " Easy motion (https://github.com/easymotion/vim-easymotion)
+  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+  " `s{char}{label}`
+  "nmap s <Plug>(easymotion-overwin-f)
+  " or
+  " `s{char}{char}{label}`
+  " Need one more keystroke, but on average, it may be more comfortable.
+  nmap <leader>2 <Plug>(easymotion-overwin-f2)
+
+  " Open search box
+  map  <leader>/ <Plug>(easymotion-sn)
+  omap <leader>/ <Plug>(easymotion-tn)
+
+  " Turn on case insensitive feature
+  let g:EasyMotion_smartcase = 1
+
+  " JK motions: Line motions
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+
+  " if &rtp =~ 'plugin-name'
+  " endif
+
+  " Disable the formatting to test 'Chiel92/vim-autoformat'
+  " " C-f vim-jsbeautify: HTML, CSS, JS formatter
+  " autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+  " autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+  " autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+  " autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+  " autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+  " Format: Formats using configurable external formatters: Chiel92/vim-autoformat
+  "     c-f                       Auto format
+  "     gg=G                      manually autoindent
+  "     :retab                    retab
+  "     :RemoveTrailingSpaces     remove trailing whitespace
+  "noremap <c-f> :Autoformat<CR>
+  noremap <c-f> gg=G``
+  let g:formatter_yapf_style = 'pep8'
+  " let g:autoformat_autoindent = 0
+  " let g:autoformat_retab = 0
+  " let g:autoformat_remove_trailing_spaces = 0
+
+
+  " " Change colors for ctrl-p cursor
+  " let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
+  " function BrightHighlightOn()
+  "   hi CursorLine guibg=darkred
+  " endfunction
+  "
+  " function BrightHighlightOff()
+  "   hi CursorLine guibg=#191919
+  " endfunction
 endif
-
-" Easy motion (https://github.com/easymotion/vim-easymotion)
-"if exists(':??')
-" let g:EasyMotion_do_mapping = 0 " Disable default mappings
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-"nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap <leader>2 <Plug>(easymotion-overwin-f2)
-
-" Open search box
-map  <leader>/ <Plug>(easymotion-sn)
-omap <leader>/ <Plug>(easymotion-tn)
-
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-"endif
-
 
 " Solarized Theme - config
 set background=dark
@@ -496,40 +509,6 @@ set background=dark
 " let g:solarized_contrast = "high"
 let g:solarized_termtrans = 1
 silent! colorscheme solarized
-
-" if &rtp =~ 'plugin-name'
-" endif
-
-" Disable the formatting to test 'Chiel92/vim-autoformat'
-" " C-f vim-jsbeautify: HTML, CSS, JS formatter
-" autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-" autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-" autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-" autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-" autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
-
-" Format: Formats using configurable external formatters: Chiel92/vim-autoformat
-"     c-f                       Auto format
-"     gg=G                      manually autoindent
-"     :retab                    retab
-"     :RemoveTrailingSpaces     remove trailing whitespace
-"noremap <c-f> :Autoformat<CR>
-noremap <c-f> gg=G``
-let g:formatter_yapf_style = 'pep8'
-" let g:autoformat_autoindent = 0
-" let g:autoformat_retab = 0
-" let g:autoformat_remove_trailing_spaces = 0
-
-
-" " Change colors for ctrl-p cursor
-" let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
-" function BrightHighlightOn()
-"   hi CursorLine guibg=darkred
-" endfunction
-"
-" function BrightHighlightOff()
-"   hi CursorLine guibg=#191919
-" endfunction
 
 " Use ag instead of grep, in the :grep command
 if executable('ag')
