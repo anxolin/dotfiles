@@ -12,17 +12,11 @@ export ZSH_CUSTOM=~/dotfiles/zsh-custom
 #   * Themes are located in:
 # 		 ~/dotfiles/zsh-custom/themes
 #			 ~/dotfiles/.oh-my-zsh/themes/
-if [ -d "~/dotfiles/.oh-my-zsh/themes/anxo" ]; then
-  # Use my theme :)
-  ZSH_THEME="anxo"
-else
-  # Default prompt
-  PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
-  RPROMPT='[%F{yellow}%?%f]'
-  # autoload -Uz promptinit
-  # promptinit
-  # prompt fade blue
-fi
+ZSH_THEME="anxo"
+
+# Default prompt
+PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
+RPROMPT='[%F{yellow}%?%f]'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -101,6 +95,7 @@ plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python
 
 
 # Configure Oh My ZSH if present
+echo $ZSH/oh-my-zsh.sh
 if [ -f "$ZSH/oh-my-zsh.sh" ]; then
   source $ZSH/oh-my-zsh.sh
 else

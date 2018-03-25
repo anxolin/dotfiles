@@ -106,7 +106,21 @@ EOF
 source "$DOT_FILES/install/dotfiles_install-vim-plugins.sh"
 
 
+cat << EOF
+
+
+┌─┐┌─┐┬ ┬
+┌─┘└─┐├─┤
+└─┘└─┘┴ ┴
+┌─┐┌─┐┌┐┌┌─┐┬┌─┐
+│  │ ││││├┤ ││ ┬
+└─┘└─┘┘└┘└  ┴└─┘
+EOF
+
 printf "[dotfiles] Nice! All dotfiles are configured\n"
+
+# Install ZSH plugins
+source "$DOT_FILES/install/dotfiles_install-zsh-plugins.sh"
 
 cat << EOF
 
