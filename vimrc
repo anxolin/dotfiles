@@ -227,7 +227,7 @@ command! Maketags !ctags -R .
 " Vundle installation: set the runtime path to include Vundle and initialize
 
 " If Vundle plugin is present
-if !isdirectory("~/dotfiles/vim/bundle/Vundle.vim")
+if isdirectory($HOME . '/dotfiles/vim/bundle/Vundle.vim')
   set rtp+=~/dotfiles/vim/bundle/Vundle.vim
   call vundle#begin()
 
