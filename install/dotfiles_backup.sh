@@ -6,6 +6,7 @@ set -e
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
+
 # dotfiles directory
 DOT_FILES=~/dotfiles
 cd $DOT_FILES
@@ -25,5 +26,5 @@ mkdir -p $BACKUP_DIR
 #   2. Symlink: Create symlinks in the homedir pointing to the dotfile
 printf "[dotfiles-backup] Backup all current dotfiles to $BACKUP_DIR'\n"
 while read FILE; do
-  cp -r ~/.$FILE $BACKUP_DIR
+  cp -rf ~/.$FILE $BACKUP_DIR 2>/dev/null || :
 done < dotfiles.list

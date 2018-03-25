@@ -273,9 +273,8 @@ if HasPlugins('Vundle.vim')
   Plugin 'ternjs/tern_for_vim'
 
   " Taglist: List of tags in the current file
-  "     http://vim-taglist.sourceforge.net/
+  "     https://github.com/majutsushi/tagbar
   "Plugin 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
-  "     Javascript: jsctags (depends on Tern)
   Plugin 'majutsushi/tagbar'
 
   " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
