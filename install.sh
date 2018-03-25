@@ -25,5 +25,8 @@ elif [[ $PLATFORM == 'Darwin' ]]; then
   source "$DOT_FILES/install/install-apps_Mac.sh"
 fi
 
-# Install vim plugins
+# Prepare vim: required dirs and Vundle plugin manager
+source "$DOT_FILES/install/dotfiles_vim.sh"
+
+# Install all the plugins
 source "$DOT_FILES/install/dotfiles_install-vim-plugins.sh"
