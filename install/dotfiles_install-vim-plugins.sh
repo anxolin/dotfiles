@@ -15,7 +15,7 @@ git submodule update --init --recursive
 # You completme
 #   - Autocomplete for VIM 
 echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
-# cd ~/.vim/bundle/YouCompleteMe && ./install.sh
+cd ~/.vim/bundle/YouCompleteMe && ./install.sh
 
 # Syntastic:
 #   - Syntastic depends on some linterns that must be installed separatelly
