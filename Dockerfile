@@ -20,7 +20,6 @@ RUN \
   && cd /tmp && git clone https://github.com/vim/vim.git && cd vim \
   && ./configure --enable-pythoninterp --prefix=/usr --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp \
   && make && make install \
-  && sed -i -e $(which zsh) /etc/passwd
   && addgroup anxo \
   && adduser -Ds /bin/zsh anxo -G anxo
 
