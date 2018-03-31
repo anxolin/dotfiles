@@ -27,10 +27,10 @@ if [[ -f /etc/arch-release ]]; then
 fi
 
 # Alpine linux
-if [[ -f /etc/alpine-release ]]; then
-    printf "[install-apps-Linux] alpine: Install basic apps"
-    apk add --no-cache zsh vim the_silver_searcher xclip ctags cmake
-fi
+#if [[ -f /etc/alpine-release ]]; then
+#    printf "[install-apps-Linux] alpine: Install basic apps"
+#    su - root -c "apk add --no-cache zsh vim the_silver_searcher xclip ctags cmake"
+#fi
 
 # Set ZSH as the default shell
 if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
