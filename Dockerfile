@@ -1,6 +1,8 @@
 # docker run -u anxo -it 820613b91511 sh
-
 FROM alpine:latest
+
+MAINTAINER Angel Rodriguez "anxolin@gmail.com"
+
 
 # Install some basic apps
 #   - Since we are compiling vim with python3 support, we need some dependencies first
