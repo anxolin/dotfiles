@@ -4,7 +4,9 @@ set -e
 
 # Create Vim backupo dir for swap, backup and undo files
 echo "[dotfiles-vim] Creating Vim special dirs: Swap, Backup and Undo"
-mkdir -p ~/.vim/{backup_files,swap_files,undo_files}
+mkdir -p ~/.vim/backup_filesd
+mkdir -p ~/.vim/swap_files
+mkdir -p ~/.vim/undo_files
 
 # Install Vundle (Vim plugin manager)
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then

@@ -31,6 +31,12 @@ chmod +x ./dotfiles/install.sh
 ./dotfiles/install.sh
 ```
 
+## Run it with docker
+```bash
+docker build -t alpine-dotfiles .
+docker run -u anxo -it alpine-dotfiles zsh
+```
+
 ## Another configuration
 ### In macOs
 Download `iTerm2` from https://www.iterm2.com
