@@ -7,7 +7,10 @@ ENV DOTFILES_USER=anxo
 ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
 
 RUN \
-  pacman -Syu --noconfirm \
+  useradd -m -s /bin/zsh $DOTFILES_USER \
+  && usermod -aG wheel $DOTFILES_USER \
+  && echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+  && pacman -Syu --noconfirm \
   && pacman -S --noconfirm \
     gvim \
     git \
@@ -19,9 +22,6 @@ RUN \
     ctags \
     cmake \
     base-devel \
-  && useradd -m -s /bin/zsh $DOTFILES_USER \
-  && usermod -aG wheel $DOTFILES_USER \
-  && echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
   && pacman -Rns $(pacman -Qtdq) || true \
   && rm -rf /var/cache/pacman/pkg
 
