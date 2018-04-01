@@ -1,6 +1,39 @@
 #!/bin/bash
 set -e
 
+INSTALL_APPS=true         # --skip-install-apps
+INSTALL_VIM_PLUGINS=true  # --skip-install-vim-plugins)
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+echo $key
+
+case $key in
+    -a|--skip-install-apps)
+    INSTALL_APPS=false
+    shift # past argument
+    shift # past value
+    ;;
+    -v|--skip-install-vim-plugins)
+    INSTALL_VIM_PLUGINS=false
+    shift # past argument
+    shift # past value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument
+    ;;
+    *)    # unknown option
+    shift # past argument
+    ;;
+esac
+done
+
+#echo INSTALL_VIM_PLUGINS  = "${INSTALL_VIM_PLUGINS}"
+#echo INSTALL_APPS     = "${INSTALL_APPS}"
+
+
 cat << EOF
 
 
@@ -60,6 +93,7 @@ if [[ $PLATFORM == 'Darwin' ]]; then
   source "$DOT_FILES/install/dotfiles_wipe-and-install-visual-studio-mac.sh"
 fi
 
+
 cat << EOF
 
 
@@ -70,13 +104,18 @@ cat << EOF
 ├─┤├─┘├─┘└─┐
 ┴ ┴┴  ┴  └─┘
 EOF
-# Install apps
-#   TODO: Ask whether to install or not
-if [[ $PLATFORM == 'Linux' ]]; then
-  source "$DOT_FILES/install/install-apps_Linux.sh"
-elif [[ $PLATFORM == 'Darwin' ]]; then
-  source "$DOT_FILES/install/install-apps_Mac.sh"
+if $INSTALL_APPS; then
+  # Install apps
+  #   TODO: Ask whether to install or not
+  if [[ $PLATFORM == 'Linux' ]]; then
+    source "$DOT_FILES/install/install-apps_Linux.sh"
+  elif [[ $PLATFORM == 'Darwin' ]]; then
+    source "$DOT_FILES/install/install-apps_Mac.sh"
+  fi
+else
+  printf "[dotfiles] Skip install apps\n"
 fi
+
 
 cat << EOF
 
@@ -102,8 +141,12 @@ cat << EOF
 ├─┘│  │ ││ ┬││││└─┐
 ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
 EOF
-# Install all the plugins
-source "$DOT_FILES/install/dotfiles_install-vim-plugins.sh"
+if $INSTALL_VIM_PLUGINS; then
+  # Install all the plugins
+  source "$DOT_FILES/install/dotfiles_install-vim-plugins.sh"
+else
+  printf "[dotfiles] Skip install vim plugins\n"
+fi
 
 
 cat << EOF

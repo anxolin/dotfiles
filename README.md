@@ -9,7 +9,7 @@ There's also documentation showing the plugins and configuration for:
 
 It also contains some usefull scipts used when setting up a new working environment:
 
-* [install.sh](install.sh): Installs the dotfiles in a new environment. 
+* [install.sh](install.sh): Installs the dotfiles in a new environment.
 It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`
 * [install-after.sh](install.sh): Install some plugins or external programs required by some vim plugins (i.e. Tern for JS development)
 
@@ -30,6 +30,10 @@ git clone https://github.com/anxolin/dotfiles.git
 chmod +x ./dotfiles/install.sh
 ./dotfiles/install.sh
 ```
+
+Optionally, the `install.sh` accepts:
+* `--skip-install-apps`: Do not install apps like vim, tmux, etc.
+* `--skip-install-vim-plugins`: Do not install vim plugins
 
 ## Run it with docker
 ```bash
