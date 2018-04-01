@@ -3,10 +3,12 @@ FROM alpine:latest
 
 MAINTAINER Angel Rodriguez "anxolin@gmail.com"
 
+ENV DOTFILES_USER=anxo
+ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
 
 # Install some basic apps
 #   - Since we are compiling vim with python3 support, we need some dependencies first
-#   - Intsall other basic apps like git, zsh, tmux
+#   - Install other basic apps like git, zsh, tmux
 #   - Then install some apps that vim plugins depend on: xclip, ctags, ag, ...
 RUN \
   apk add --no-cache \
@@ -22,13 +24,13 @@ RUN \
   && cd /tmp && git clone https://github.com/vim/vim.git && cd vim \
   && ./configure --enable-pythoninterp --prefix=/usr --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp \
   && make && make install \
-  && addgroup anxo \
-  && adduser -Ds /bin/zsh anxo -G anxo
+  && addgroup $DOTFILES_USER \
+  && adduser -Ds /bin/zsh $DOTFILES_USER -G $DOTFILES_USER
 
-USER anxo
+USER $DOTFILES_USER
 
 RUN \
-  git clone https://github.com/anxolin/dotfiles.git /home/anxo/dotfiles && \
-  chmod +x /home/anxo/dotfiles/install.sh && \
-  sh -x /home/anxo/dotfiles/install.sh 
+  git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles && \
+  chmod +x /home/$DOTFILES_USER/dotfiles/install.sh && \
+  sh -x /home/$DOTFILES_USER/dotfiles/install.sh 
   

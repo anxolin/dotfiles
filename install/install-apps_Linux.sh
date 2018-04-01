@@ -17,6 +17,7 @@ set -e
 # If Debian based
 if [[ -f /etc/debian_version ]]; then
     DISTRO=$(cat /etc/issue)
+    sudo apt-get update
     if [[ $DISTRO = *"Ubuntu"* ]]; then
       printf "[install-apps-Linux] Ubuntu: Install basic apps"
       sudo apt-get install vim-nox-py2

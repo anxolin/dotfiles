@@ -1,4 +1,5 @@
 vim/*
+*.log
 !vim/.gitkeep
 #vim/.netrwhist
 #chef/

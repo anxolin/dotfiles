@@ -33,8 +33,7 @@ chmod +x ./dotfiles/install.sh
 
 ## Run it with docker
 ```bash
-docker build -t alpine-dotfiles .
-docker run -u anxo -it alpine-dotfiles zsh
+docker run anxolin/alpine-dotfiles zsh
 ```
 
 ## Another configuration
