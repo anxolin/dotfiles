@@ -25,7 +25,6 @@ RUN \
 
 
 USER $DOTFILES_USER
-WORKDIR /home/$DOTFILES_USER/dotfiles
 
 RUN \
   git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
@@ -34,5 +33,7 @@ RUN \
     --skip-install-apps \
     --skip-install-vim-plugins \
   && sudo rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home/$DOTFILES_USER/dotfiles
 
 CMD zsh
