@@ -1,0 +1,41 @@
+# docker run -u anxo -it 820613b91511 sh
+FROM ubuntu:latest
+
+MAINTAINER Angel Rodriguez "anxolin@gmail.com"
+
+ENV DOTFILES_USER=anxo
+ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
+
+RUN \
+  apt-get update \
+  && apt-get install -y \
+    sudo \
+    zsh \
+    tmux \
+    git \
+    vim-nox-py2 \
+    silversearcher-ag \
+    xclip \
+    ctags \
+    cmake \
+  && adduser --disabled-password --gecos "" $DOTFILES_USER \
+  && adduser $DOTFILES_USER sudo \
+  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+  && git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
+  && chown -R anxo /home/$DOTFILES_USER/dotfiles \
+  && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
+  && rm -rf /var/lib/apt/lists/*
+
+
+USER $DOTFILES_USER
+WORKDIR /home/$DOTFILES_USER/dotfiles
+
+# RUN \
+#   /home/$DOTFILES_USER/dotfiles/install.sh \
+#     --skip-install-apps \
+#     --skip-install-vim-plugins
+
+# \
+# && sudo rm -rf /var/lib/apt/lists/*
+
+CMD zsh
