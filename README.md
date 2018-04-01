@@ -36,8 +36,19 @@ Optionally, the `install.sh` accepts:
 * `--skip-install-vim-plugins`: Do not install vim plugins
 
 ## Run it with docker
+Arch:
 ```bash
-docker run anxolin/alpine-dotfiles zsh
+docker run -it anxolin/dotfiles-arch
+```
+
+Alpine:
+```bash
+docker run -it anxolin/dotfiles-alpine
+```
+
+Ubuntu:
+```bash
+docker run -it anxolin/dotfiles-ubuntu
 ```
 
 ## Another configuration
