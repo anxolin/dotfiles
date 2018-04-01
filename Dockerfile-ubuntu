@@ -21,21 +21,18 @@ RUN \
   && adduser --disabled-password --gecos "" $DOTFILES_USER \
   && adduser $DOTFILES_USER sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-  && git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
-  && chown -R anxo /home/$DOTFILES_USER/dotfiles \
-  && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
   && rm -rf /var/lib/apt/lists/*
 
 
 USER $DOTFILES_USER
 WORKDIR /home/$DOTFILES_USER/dotfiles
 
-# RUN \
-#   /home/$DOTFILES_USER/dotfiles/install.sh \
-#     --skip-install-apps \
-#     --skip-install-vim-plugins
-
-# \
-# && sudo rm -rf /var/lib/apt/lists/*
+RUN \
+  git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
+  && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
+  && /home/$DOTFILES_USER/dotfiles/install.sh \
+    --skip-install-apps \
+    --skip-install-vim-plugins \
+  && sudo rm -rf /var/lib/apt/lists/*
 
 CMD zsh
