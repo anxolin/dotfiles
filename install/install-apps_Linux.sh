@@ -14,10 +14,17 @@ set -e
 #       Also required by "You complete me" vim plugin
 #   
 
-# If Debian
+# If Debian based
 if [[ -f /etc/debian_version ]]; then
-    printf "[install-apps-Linux] Debian: Install basic apps"
-    sudo apt-get install zsh gvim silversearcher-ag xclip ctags cmake
+    DISTRO=$(cat /etc/issue)
+    if [[ $DISTRO = *"Ubuntu"* ]]; then
+      printf "[install-apps-Linux] Ubuntu: Install basic apps"
+      sudo apt-get install vim-nox-py2
+    else
+      printf "[install-apps-Linux] Debian: Install basic apps"
+      sudo apt-get install gvim
+    fi
+    sudo apt-get install zsh silversearcher-ag xclip ctags cmake
 fi
 
 # Arch linux
