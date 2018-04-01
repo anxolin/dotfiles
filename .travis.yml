@@ -12,7 +12,7 @@ env:
     - secure: T++tckc2VmMo/RJ6fUMrfJ+yMjgE0bQYBcoGLsElKLCfDvO28KAnN6XaqA23qknAAfWSf6Ym/DciLhVltCdugiPt9kYoGIiomVmzkT1jhvPzN1Jmhd58ZTo4cuNqAZKisGyL6xMiwxlFzORnV/A0batNHOJt90755e9H14t+/Sa6rVaTI85l5HlBKX+Ers1vHPI9wJ9WN6XL6KmlF+qUwJteieX7I3+X6wmwRxkM4bk+gVOsNr+abAmkyf2KexxhxXEcYJ/ouGwphWZnIa2swZuxR6YInr5mqbmTbqLq3Gckw7G6m+lbyUzIMgs6WOFUJbYhf1oXcC+wq9lFarflFbHW67Ujmoi2lPy9TN6odM9c8dYPoR+3Q2xVK8Pov1DdvNzChgigQaPWpd/VOKfIgJ/V7RUYSY6i0SENKByEDZ+oTTBr6gyOuxYODfBnhM2OY+OznUIg1RTuSVqU1WCNTmPrds262WXHvDwVH1/QxcG0TGm4n6kZeUCtHJ2N3QdRCOF3EtaOCaAs0FZ+6zOFhC5SHfrhhLs/K09xuSZGg/DojGhkkul+77B6o88QnnBkm6nA1+py7of7K13Gp0wX0SOZbW9ZSkG8kNVvHNNaOyNWlkL924tJ3jk44g9jqbY8hFpjkBerkfEkC+iQ3RKC8ovpeKo6KK/vWayy3zTXG3w=
 script:
   # Build latest
-  - docker build -f Docker-alpine -t $DOCKER_REPO_SLUG:latest .
+  - docker build -f $DOCKER_FILE -t $DOCKER_REPO_SLUG:latest .
   # Build tag
   - if [[ $TRAVIS_TAG = $TRAVIS_BRANCH ]]; then docker build -t $DOCKER_REPO_SLUG:$TRAVIS_BRANCH .; else true ; fi
 after_success:

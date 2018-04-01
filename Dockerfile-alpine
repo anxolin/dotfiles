@@ -34,3 +34,4 @@ RUN \
   chmod +x /home/$DOTFILES_USER/dotfiles/install.sh && \
   sh -x /home/$DOTFILES_USER/dotfiles/install.sh 
   
+CMD zsh
