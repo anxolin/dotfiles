@@ -86,8 +86,43 @@ export EDITOR='vim'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant pip python ansible ssh-agent tmuxinator)
-#plugins(pip python)
+plugins=(git)
+
+if which ssh-add >/dev/null 2>/dev/null  ; then
+  plugins="$plugins ssh-agent"
+fi
+
+if which ansible >/dev/null 2>/dev/null  ; then
+  plugins="$plugins ansible"
+fi
+
+if which tmuxinator >/dev/null 2>/dev/null  ; then
+  plugins="$plugins tmux tmuxinator"
+fi
+
+if which systemd >/dev/null 2>/dev/null  ; then
+  plugins="$plugins systemd"
+fi
+
+if which sbt >/dev/null 2>/dev/null  ; then
+  plugins="$plugins sbt"
+fi
+
+if which redis-cli >/dev/null 2>/dev/null  ; then
+  plugins="$plugins redis-cli"
+fi
+
+if which npm >/dev/null 2>/dev/null  ; then
+  plugins="$plugins npm"
+fi
+
+if which brew >/dev/null 2>/dev/null  ; then
+  plugins="$plugins brew"
+fi
+
+if which docker >/dev/null 2>/dev/null  ; then
+  plugins="$plugins docker"
+fi
 
 #####################
 #  OTRA CONF ZSH    #

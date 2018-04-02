@@ -21,6 +21,7 @@ RUN \
     xclip \
     ctags \
     cmake \
+    openssh \
   && cd /tmp && git clone https://github.com/vim/vim.git && cd vim \
   && ./configure --enable-pythoninterp --prefix=/usr --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp \
   && make && make install \
@@ -32,6 +33,8 @@ USER $DOTFILES_USER
 RUN \
   git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles && \
   chmod +x /home/$DOTFILES_USER/dotfiles/install.sh && \
-  sh -x /home/$DOTFILES_USER/dotfiles/install.sh 
-  
+  sh -x /home/$DOTFILES_USER/dotfiles/install.sh
+
+WORKDIR /home/$DOTFILES_USER/dotfiles
+
 CMD zsh

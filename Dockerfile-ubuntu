@@ -18,6 +18,7 @@ RUN \
     xclip \
     ctags \
     cmake \
+    openssh \
   && adduser --disabled-password --gecos "" $DOTFILES_USER \
   && adduser $DOTFILES_USER sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \

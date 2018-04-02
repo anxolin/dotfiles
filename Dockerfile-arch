@@ -22,11 +22,11 @@ RUN \
     ctags \
     cmake \
     base-devel \
+    openssh \
   && pacman -Rns $(pacman -Qtdq) || true \
   && rm -rf /var/cache/pacman/pkg
 
 USER $DOTFILES_USER
-WORKDIR /home/$DOTFILES_USER/dotfiles
 
 RUN \
   git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
@@ -36,5 +36,7 @@ RUN \
     --skip-install-vim-plugins \
   && pacman -Rns $(pacman -Qtdq) || true \
   && rm -rf /var/cache/pacman/pkg
+
+WORKDIR /home/$DOTFILES_USER/dotfiles
 
 CMD zsh
