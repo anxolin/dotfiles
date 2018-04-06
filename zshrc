@@ -123,6 +123,10 @@ fi
 if which docker >/dev/null 2>/dev/null  ; then
   plugins="$plugins docker"
 fi
+if which kubectl >/dev/null 2>/dev/null  ; then
+  plugins="$plugins kubectl"
+fi
+
 
 #####################
 #  OTRA CONF ZSH    #
