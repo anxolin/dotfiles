@@ -14,7 +14,7 @@ script:
   # Build latest
   - docker build -f $DOCKER_FILE -t $DOCKER_REPO_SLUG:latest .
   # Build tag
-  - if [[ $TRAVIS_TAG = $TRAVIS_BRANCH ]]; then docker build -t $DOCKER_REPO_SLUG:$TRAVIS_BRANCH .; else true ; fi
+  - if [[ $TRAVIS_TAG = $TRAVIS_BRANCH ]]; then docker build -f $DOCKER_FILE -t $DOCKER_REPO_SLUG:$TRAVIS_BRANCH .; else true ; fi
 after_success:
   # Login
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
