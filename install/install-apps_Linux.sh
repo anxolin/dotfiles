@@ -23,7 +23,7 @@ if [[ -f /etc/debian_version ]]; then
       sudo apt-get install vim-nox-py2
     else
       printf "[install-apps-Linux] Debian: Install basic apps"
-      sudo apt-get install gvim
+      sudo apt-get install vim-athena
     fi
     sudo apt-get install zsh silversearcher-ag xclip ctags cmake
 fi
