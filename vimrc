@@ -310,8 +310,8 @@ if HasPlugins('Vundle.vim')
 
   " Autocomplete: Youcompleteme:
   "   Multilingual code-completion, goTo declaration, view documentation, rename variables
-  Plugin 'Valloric/YouCompleteMe'
-  Plugin 'davidhalter/jedi-vim'
+  "Plugin 'Valloric/YouCompleteMe'
+  "Plugin 'davidhalter/jedi-vim'
 
   " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
   "   documentation,  Find the type of the thing under the cursor, references to the variable
