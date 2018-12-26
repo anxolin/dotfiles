@@ -82,11 +82,13 @@ if [[ -a ~/.localrc ]]; then
 fi
 
 # Default editor
-export EDITOR='vim'
+export EDITOR='vim mux'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
+# plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant)
 plugins=(git)
+
 
 if which ssh-add >/dev/null 2>/dev/null  ; then
   plugins="$plugins ssh-agent"
@@ -112,9 +114,9 @@ if which redis-cli >/dev/null 2>/dev/null  ; then
   plugins="$plugins redis-cli"
 fi
 
-if which npm >/dev/null 2>/dev/null  ; then
-  plugins="$plugins npm"
-fi
+#if which npm >/dev/null 2>/dev/null  ; then
+#  plugins="$plugins npm"
+#fi
 
 if which brew >/dev/null 2>/dev/null  ; then
   plugins="$plugins brew"
@@ -233,3 +235,8 @@ alias mux="tmuxinator"
 
 # Tabs as 2 spaces
 tabs -2
+
+
+#git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
+source ~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+
