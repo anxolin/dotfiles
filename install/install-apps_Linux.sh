@@ -41,7 +41,7 @@ fi
 #fi
 
 # Set ZSH as the default shell
-if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
-    printf "[install-apps-Linux] Set ZSH as the default shell"
-    chsh -s $(which zsh)
-fi
+#if [[ ! $(printf $SHELL) == $(which zsh) ]]; then
+#    printf "[install-apps-Linux] Set ZSH as the default shell"
+#    chsh -s $(which zsh)
+#fi
