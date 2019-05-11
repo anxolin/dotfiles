@@ -8,3 +8,4 @@ private
 backup
 ansible.lock
 ptpython/history
+.history
