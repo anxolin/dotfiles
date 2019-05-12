@@ -1,0 +1,31 @@
+####################
+#  ZSH CONFIG      #
+####################
+
+# Local config file, you can edit:
+#  - ~/.zshrc (this file)
+#     - The changes won't affect the dotfiles
+#     - It will apply just to ZSH config
+#  - ~/.localrc
+#     - The changes won't affect the dotfiles either
+#     - The changes will be applied to both BASH + ZSH config
+#  - ~/dotfiles/zshrc
+#     - The change will be included in the dotfiles config
+#     - It would only apply to ZSH config
+#  - ~/dotfiles/commonrc:
+#     - The change will be included in the dotfiles config
+#     - It would only apply to both BASH + ZSH config
+
+# dotfiles directory
+DOT_FILES=~/dotfiles
+
+# Load base zshrc config
+source ~/dotfiles/zshrc
+
+# Load common config
+source ~/dotfiles/commonrc
+
+# Load local config
+if [[ -a ~/.localrc ]]; then
+	source ~/.localrc
+fi

@@ -20,10 +20,19 @@ while read FILE; do
     exit 1
   fi
   rm -rf -r ~/.$FILE
-  printf "[dotfiles-wipe-and-install] Creating symlink .$FILE ( ~$DOT_FILES/$FILE )\n"
-  ln -s $DOT_FILES/$FILE ~/.$FILE
-done < dotfiles.list
 
+  if [ "$FILE" == "zshrc" ] || [ "$FILE" == "bashrc" ]; then
+    # For bashrc and zshrc, we don't want to keep the file versioned, because a lot
+    # of scripts keep adding lines there as part of the install
+    # Instead, we use a bashrc_base and zshrc_base
+    printf "[dotfiles-wipe-and-install] Creating profile file .$FILE (using $DOT_FILES/$FILE.example as template)\n"
+    cp $DOT_FILES/$FILE.example ~/.$FILE
+  else
+    # All other confi files are versioned
+    printf "[dotfiles-wipe-and-install] Creating symlink .$FILE ( ~$DOT_FILES/$FILE )\n"
+    ln -s $DOT_FILES/$FILE ~/.$FILE
+  fi
+done < dotfiles.list
 
 # Install Oh My Zsh 
 #   Clone my oh-my-zsh repository from GitHub only if it isn't already present

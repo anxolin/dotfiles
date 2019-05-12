@@ -1,6 +1,6 @@
-###################
-#  GENERAL ZSH    #
-###################
+##########################
+#  GENERAL ZSH CONFIG    #
+##########################
 
 
 # Path to your oh-my-zsh installation.
@@ -86,53 +86,53 @@ export EDITOR='vim mux'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-# plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant)
-plugins=(git)
+plugins=(git docker brew npm systemd tmux vagrant)
+
+# plugins="git"
+
+# if which ssh-add >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins ssh-agent"
+# fi
+
+# if which ansible >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins ansible"
+# fi
+
+# if which tmuxinator >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins tmux tmuxinator"
+# fi
+
+# if which systemd >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins systemd"
+# fi
+
+# if which sbt >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins sbt"
+# fi
+
+# if which redis-cli >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins redis-cli"
+# fi
+
+# #if which npm >/dev/null 2>/dev/null  ; then
+# #  plugins="$plugins npm"
+# #fi
+
+# if which brew >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins brew"
+# fi
+
+# if which docker >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins docker"
+# fi
+# if which kubectl >/dev/null 2>/dev/null  ; then
+#   plugins="$plugins kubectl"
+# fi
 
 
-if which ssh-add >/dev/null 2>/dev/null  ; then
-  plugins="$plugins ssh-agent"
-fi
-
-if which ansible >/dev/null 2>/dev/null  ; then
-  plugins="$plugins ansible"
-fi
-
-if which tmuxinator >/dev/null 2>/dev/null  ; then
-  plugins="$plugins tmux tmuxinator"
-fi
-
-if which systemd >/dev/null 2>/dev/null  ; then
-  plugins="$plugins systemd"
-fi
-
-if which sbt >/dev/null 2>/dev/null  ; then
-  plugins="$plugins sbt"
-fi
-
-if which redis-cli >/dev/null 2>/dev/null  ; then
-  plugins="$plugins redis-cli"
-fi
-
-#if which npm >/dev/null 2>/dev/null  ; then
-#  plugins="$plugins npm"
-#fi
-
-if which brew >/dev/null 2>/dev/null  ; then
-  plugins="$plugins brew"
-fi
-
-if which docker >/dev/null 2>/dev/null  ; then
-  plugins="$plugins docker"
-fi
-if which kubectl >/dev/null 2>/dev/null  ; then
-  plugins="$plugins kubectl"
-fi
-
-
-#####################
-#  OTRA CONF ZSH    #
-#####################
+######################
+#  OTHER CONF ZSH    #
+######################
 
 
 # Configure Oh My ZSH if present
@@ -220,28 +220,6 @@ bindkey '^Z' fancy-ctrl-z
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-alias activate="source ENV/bin/activate"
-# alias vi="vim"
-alias mux="tmuxinator"
-
-# Tabs as 2 spaces
-tabs -2
-
-
+# NPM better autocompletion
 #git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
 source ~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
- 
-export DEBUG_INFO=ERROR-*,WARN-*,INFO-*
-export DEBUG_DEBUG=ERROR-*,WARN-*,INFO-*,DEBUG-* 
-export DEBUG_TRACE=ERROR-*,WARN-*,INFO-*,DEBUG-*,TRACE-*
-
-
