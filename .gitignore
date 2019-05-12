@@ -9,3 +9,4 @@ backup
 ansible.lock
 ptpython/history
 .history
+oh-my-zsh
