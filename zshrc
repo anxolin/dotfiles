@@ -86,7 +86,7 @@ export EDITOR='vim mux'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker brew npm systemd tmux vagrant)
+plugins=(git docker npm systemd tmux vagrant)
 
 # plugins="git"
 

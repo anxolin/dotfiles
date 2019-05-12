@@ -8,13 +8,24 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Add colors
-export CLICOLOR=YES
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
+# Color Grep
+export GREP_OPTIONS='--color=auto'
 
-# Add colors to ls command
-alias ls='ls -G'
-alias ll='ls -lG'
+# Color ls
+if [ "$(uname)" == "Darwin" ]; then
+	# Ls colors in Mac
+	export CLICOLOR=YES
+	export LSCOLORS="Gxfxcxdxbxegedabagacad"
+	alias ls='ls -G'
+	alias ll='ls -lG'
+else
+	# Ls colors Unix
+	export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
+	export LS_OPTIONS='--color=auto'
+	#eval "`dircolors`"
+	alias ls='ls $LS_OPTIONS'
+fi
+
 
 # Prompt style
 # http://bashrcgenerator.com/
