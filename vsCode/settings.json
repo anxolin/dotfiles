@@ -1,50 +1,64 @@
 {
-    "workbench.colorTheme": "One Dark Pro",
-    "editor.minimap.enabled": false,
-    "eslint.packageManager": "yarn",
-    "window.zoomLevel": 0,
-    "diffEditor.ignoreTrimWhitespace": true,
-    "explorer.openEditors.visible": 0,
-    "[javascript]": {
-        "editor.tabSize": 2,
-    },
-    "[markdown]": {
-        "editor.tabSize": 2,
-    },
-    "[solidity]": {
-        "editor.tabSize": 4,
-    },
-    "editor.detectIndentation": false,
-    "[json]": {
-        "editor.folding": true,
-    },
-    "editor.rulers": [
-        80
+  "workbench.colorTheme": "One Dark Pro",
+  "editor.minimap.enabled": false,
+  "eslint.packageManager": "yarn",
+  "window.zoomLevel": 0,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "explorer.openEditors.visible": 0,
+  "[javascript]": {
+    "editor.tabSize": 2,
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+  },
+  "[solidity]": {
+    "editor.tabSize": 4,
+  },
+  "editor.detectIndentation": false,
+  "[json]": {
+    "editor.folding": true,
+  },
+  "editor.rulers": [
+    80
+  ],
+  "explorer.confirmDragAndDrop": false,
+  "editor.folding": false,
+  "workbench.editor.enablePreview": true,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/.history": true,
+    "**/.retry": true
+  },
+  "solidity.soliumRules": {
+    "imports-on-top": 0,
+    "variable-declarations": 0,
+    "indentation": [
+      "error",
+      4
     ],
-    "explorer.confirmDragAndDrop": false,
-    "editor.folding": false,
-    "workbench.editor.enablePreview": true,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "search.exclude": {
-      "**/node_modules": true,
-      "**/bower_components": true,
-      "**/.history": true,
-      "**/.retry": true
-    },
-    "solidity.soliumRules": {
-      "imports-on-top": 0,
-      "variable-declarations": 0,
-      "indentation": [
-        "error",
-        4
-      ],
-      "quotes": [
-        "error",
-        "double"
-      ]
-    },
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "solidity.linter": "solium",
-    "solidity.packageDefaultDependenciesContractsDirectory": "",
-    "editor.tabSize": 2
+    "quotes": [
+      "error",
+      "double"
+    ]
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "solidity.linter": "solium",
+  "solidity.packageDefaultDependenciesContractsDirectory": "",
+  "editor.tabSize": 2,
+  "breadcrumbs.enabled": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "es": true,
+    "lib": true
+  },
+  "liveshare.audio.joinCallBehavior": "accept",
+  "files.associations": {
+    ".env": "shellscript"
+  }
 }
