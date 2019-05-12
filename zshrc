@@ -239,4 +239,9 @@ tabs -2
 
 #git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
 source ~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+ 
+export DEBUG_INFO=ERROR-*,WARN-*,INFO-*
+export DEBUG_DEBUG=ERROR-*,WARN-*,INFO-*,DEBUG-* 
+export DEBUG_TRACE=ERROR-*,WARN-*,INFO-*,DEBUG-*,TRACE-*
+
 
