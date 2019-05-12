@@ -1,3 +1,4 @@
+gitconfig
 bashrc
 zshrc
 vimrc
@@ -5,6 +6,5 @@ vim
 oh-my-zsh
 tmux.conf
 editorconfig
-gitconfig
 Xdefaults
 ptpython
