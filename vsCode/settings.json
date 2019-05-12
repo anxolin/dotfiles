@@ -60,5 +60,7 @@
   "liveshare.audio.joinCallBehavior": "accept",
   "files.associations": {
     ".env": "shellscript"
-  }
+  },
+  "eslint.autoFixOnSave": true,
+  "editor.formatOnSave": true
 }
