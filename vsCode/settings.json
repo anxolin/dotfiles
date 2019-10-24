@@ -7,6 +7,7 @@
   "explorer.openEditors.visible": 0,
   "[javascript]": {
     "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[markdown]": {
     "editor.tabSize": 2,
@@ -14,12 +15,16 @@
   "[solidity]": {
     "editor.tabSize": 4,
   },
+  "[rust]": {
+    "editor.tabSize": 4,
+  },
   "editor.detectIndentation": false,
   "[json]": {
     "editor.folding": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "editor.rulers": [
-    80
+    120
   ],
   "explorer.confirmDragAndDrop": false,
   "editor.folding": false,
@@ -61,6 +66,24 @@
   "files.associations": {
     ".env": "shellscript"
   },
-  "eslint.autoFixOnSave": true,
-  "editor.formatOnSave": true
+  "eslint.autoFixOnSave":  true,
+  "eslint.validate":  [
+    "javascript",
+    "javascriptreact",
+    {"language":  "typescript",  "autoFix":  true  },
+    {"language":  "typescriptreact",  "autoFix":  true  }
+  ],
+  "rust.clippy_preference": "on",
+  "editor.formatOnSave": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "cSpell.userWords": [
+    "Etherscan",
+    "Mainnet",
+    "Rinkeby",
+    "behaviour",
+    "ethereum"
+  ]
+  
 }
