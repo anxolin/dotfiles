@@ -283,6 +283,10 @@ if HasPlugins('Vundle.vim')
   " Format: vim-autoformat: Formats using any external formatter
   Plugin 'Chiel92/vim-autoformat'
 
+  " Solidity
+  Plugin 'tomlion/vim-solidity'
+
+
   " Python
   "Plugin 'nvie/vim-flake8'
 
