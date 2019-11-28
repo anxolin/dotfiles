@@ -1,0 +1,75 @@
+
+######### Account angelrf ###########################
+# Requires setting up Apple Keychain (see PassCmd):
+#     - name: imap://mail.angelrf.com
+#       kind: Internet password
+#       account: anxo@angelrf.com
+#       where: http://mail.angelrf.com
+#
+
+IMAPAccount angelrf
+Host mail.angelrf.com
+User anxo@angelrf.com
+PassCmd "security find-internet-password -s 'mail.angelrf.com' -a 'anxo@angelrf.com' -w"
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile ~/dotfiles/certificates.pem
+
+# Remote storage
+IMAPStore mailbox-remote
+Account angelrf
+
+# Local storage
+MaildirStore mailbox-local
+Path ~/Mail/angelrf/
+Inbox ~/Mail/angelrf/INBOX
+
+Channel mailbox-inbox
+Master :mailbox-remote:"INBOX"
+Slave :mailbox-local:INBOX
+Create Both
+Expunge Both
+
+Channel mailbox-archive
+Master :mailbox-remote:"Archive"
+Slave :mailbox-local:archive
+Create Both
+Expunge Both
+
+Channel mailbox-drafts
+Master :mailbox-remote:"Drafts"
+Slave :mailbox-local:drafts
+Create Both
+Expunge Both
+
+Channel mailbox-sent
+Master :mailbox-remote:"Sent Messages"
+Slave :mailbox-local:sent
+Create Both
+Expunge Both
+
+Channel mailbox-trash
+Master :mailbox-remote:"Trash"
+Slave :mailbox-local:trash
+Create Both
+Expunge Both
+
+#Channel mailbox-junk
+#Master :mailbox-remote:"Junk E-mail"
+#Slave :mailbox-local:spam
+#Create Both
+#Expunge Both
+
+Group angelrf
+Channel mailbox-inbox
+Channel mailbox-archive
+Channel mailbox-drafts
+Channel mailbox-sent
+Channel mailbox-trash
+Channel mailbox-junk
+
+
+######### Account gnosis ###########################
+#IMAPAccount viu
+#Host outlook.office365.com
+#User steffen.rademacker@viu.ch

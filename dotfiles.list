@@ -9,3 +9,5 @@ editorconfig
 Xdefaults
 ptpython
 neomutt
+mbsyncrc
+msmtprc
