@@ -1,0 +1,189 @@
+###############################################################################
+#	neomutt config
+#		- Related files:
+#				~/.mbsyncrc: Config for mbsync wich syncs the imap mails into ~/Mail
+#				~/.msmtprc: msmtp sends emails
+#		- Guides:
+#				https://webgefrickel.de/blog/a-modern-mutt-setup
+#				https://webgefrickel.de/blog/a-modern-mutt-setup-part-two
+#
+###############################################################################
+# Personal Info
+set from = "anxo@angelrf.com"
+set realname = "Anxo Rodriguez"
+# by default, use mailbox
+set spoolfile = "+angelrf/INBOX"
+#source ~/.mutt/accounts/mailbox
+
+set sendmail = "/usr/local/bin/msmtp -a angelrf"
+
+# Mailboxes to show in the sidebar.
+#mailboxes =ALL-INBOXES
+mailboxes =angelrf/INBOX
+#mailboxes =angelrf/INBOX =viu/INBOX
+#mailboxes ="==================="
+mailboxes =angelrf/archive =angelrf/sent =angelrf/drafts 
+#=anxc@angelrf.com/trash
+#mailboxes =angelrf
+#mailboxes =viu
+#mailboxes =viu/archive =viu/sent =viu/drafts =viu/junk =viu/trash
+mailboxes =anxo
+
+# paths
+set folder = ~/Mail
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/dotfiles/certificates.pem
+set mailcap_path = ~/.mutt/mailcap
+set tmpdir = ~/.mutt/tmp
+
+# when changing into other mailboxes, use different adresses etc.
+#folder-hook mailbox/* source ~/.mutt/accounts/mailbox
+#folder-hook viu/* source ~/.mutt/accounts/viu
+
+# Basic options
+#   See: https://neomutt.org/man/neomuttrc
+set wait_key = no
+set mbox_type = Maildir # So it understands mbsync format
+set timeout = 3
+set mail_check = 10 # Check every 10s
+set delete
+set quit
+set thorough_search
+set mail_check_stats
+unset confirmappend
+unset move
+unset mark_old
+#unset beep_new
+
+# compose View Options
+set envelope_from                    # which from?
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+#set editor = "nvim"
+set text_flowed
+unset sig_dashes                     # no dashes before sig
+unset mime_forward                   # forward attachments as part of body
+
+# status bar, date format, finding stuff etc.
+set status_chars = " *%A"
+set status_format = "[ Folder: %f ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+set date_format = "%d.%m.%Y %H:%M"
+set index_format = "[%Z] %?X?A&-? %D  %-20.20F  %s"
+#set sort = threads
+set sort = date
+#set sort = reverse-date
+set sort_aux = last-date-received
+#set sort_aux = reverse-last-date-received
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set send_charset = "utf-8:iso-8859-1:us-ascii"
+set charset = "utf-8"
+
+# Pager View Options
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers
+
+
+# email headers and attachments
+ignore *
+unignore from: to: cc: bcc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: bcc: date: subject:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+
+# when composing emails, use this command to get addresses from
+# the addressbook with khard first, and everything else from mu index
+set query_command = "( khard email --parsable '%s' | sed -n '1!p'; mu cfind --format=mutt-ab '%s' )"
+
+# sidebar patch config
+set sidebar_visible
+set sidebar_short_path
+set sidebar_folder_indent
+set sidebar_width = 25
+set sidebar_divider_char = ' | '
+set sidebar_indent_string = '  ''
+set sidebar_format = "%B %* [%?N?%N / ?%S]"
+
+# Save all attachments
+macro pager S "<pipe-message> ripmime -i - -d ~/Downloads && rm ~/Downloads/textfile*" "Save all non-text attachments using ripmime"
+
+# opening urls with urlscan
+macro pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
+# Sync all email
+macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
+
+# source colors and keybindings
+# keeping those in one place makes it easier for my brain
+source ~/.neomutt/colors
+source ~/.neomutt/bindings
+
+
+# ----------------------------------------------------------------------------
+
+# SMTP and IMAP config
+#   smtp://<user>@server:<port>
+#   imap://<user>@server:<port>
+#set smtp_url = "smtp://anxo@angelrf.com@mail.angelrf.com:587"
+#set folder = "imaps://anxo@angelrf.com@mail.angelrf.com:993"
+
+# Main dir
+#set spoolfile = "+Inbox"
+#set record = "+Sent"
+#set trash = "+Trash"
+#set postponed = "+Drafts"
+#mailboxes =Inbox =Sent =Trash =Drafts =Junk =Other
+
+
+#source "gpg -d ~/.mutt/passwords.gpg |"
+#set my_pass=
+#set imap_pass=$my_pass
+#set smtp_pass=$my_pass
+
+
+# Add colours
+#source .color.muttrc
+
+# Sidebar
+#set sidebar_visible
+#set sidebar_format="%B%?F? [%F]?%* %?N?%N/?%S"
+#set mail_check_stats
+
+
+# Sidebar binds
+#bind index,pager \CP sidebar-prev                 # Ctrl-n to select next folder
+#bind index,pager \CN sidebar-next                 # Ctrl-p to select previous folder
+#bind index,pager \CI sidebar-open                 # Ctrl-o to open selected folder
+#bind index,pager \CB sidebar-toggle-visible       # Ctrl-b to toggle visibility of the sidebar
+
+# Vim like binds
+#bind attach,index,pager \CD next-page
+#bind attach,index,pager \CU previous-page
+#bind pager g top
+#bind pager G bottom
+#bind attach,index g first-entry
+#bind attach,index G last-entry
+
+
+# HTML/View
+#auto_view text/html
+
+# Index page format. Default "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+# set index_format="%4C %Z %{%b %d %R} %-15.15L (%?l?%4l&%4c?) %s"
