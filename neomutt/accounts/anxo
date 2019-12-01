@@ -1,0 +1,10 @@
+# Personal Info
+set from = "anxo@anxintosh"
+set realname = "Anxo Rodriguez"
+
+# Send mail
+#set sendmail = "/usr/local/bin/msmtp -a angelrf"
+
+# Colors
+color status black white
+

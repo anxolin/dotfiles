@@ -12,3 +12,5 @@ ptpython/history
 oh-my-zsh
 w3m/cookie
 w3m/history
+neomutt/tmp/*
+!neomutt/tmp/.gitkeep

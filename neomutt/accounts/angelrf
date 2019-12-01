@@ -1,0 +1,17 @@
+# Personal Info
+set from = "anxo@angelrf.com"
+set realname = "Anxo Rodriguez"
+#alternates ^anxo1@angelrf.com$ ^anxo2@angelrf.com$
+
+# Custom signature
+set signature = ~/.neomutt/signatures/angelrf
+
+# Send mail
+set sendmail = "/usr/local/bin/msmtp -a angelrf"
+
+# Colors
+color status black blue
+
+# Sync mailbox
+macro index o "<shell-escape>mbsync angelrf<enter>" "run mbsync to sync mail for angelrf"
+

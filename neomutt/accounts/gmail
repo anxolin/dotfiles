@@ -1,0 +1,16 @@
+# Personal Info
+set from = "anxo@gnosis.io"
+set realname = "Anxo Rodriguez"
+
+# Custom signature
+set signature = ~/.neomutt/signatures/gnosis
+
+# Send mail
+set sendmail = "/usr/local/bin/msmtp -a gnosis"
+
+# Colors
+color status black green
+
+# Sync mailbox
+macro index o "<shell-escape>mbsync gnosis<enter>" "run mbsync to sync mail for gnosis"
+

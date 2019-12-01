@@ -9,11 +9,10 @@ color search        brightmagenta   default
 color indicator     brightblack     yellow
 color tree          green          default
 
-# sidebarh
+# sidebar
 color sidebar_new   default blue
 
 # index ----------------------------------------------------------------
-
 color index         red             default         "~A"    # all messages
 color index         brightred       default         "~E"    # expired messages
 color index         blue            default         "~N"    # new messages
@@ -27,13 +26,11 @@ color index         red             default         "~F"    # flagged messages
 color index         black           red             "~D"    # deleted messages
 
 # message headers ------------------------------------------------------
-
 color hdrdefault    brightgreen     default
 color header        brightyellow    default         "^(From)"
 color header        blue            default         "^(Subject)"
 
 # body -----------------------------------------------------------------
-
 color quoted        blue            default
 color quoted1       cyan            default
 color quoted2       yellow          default
