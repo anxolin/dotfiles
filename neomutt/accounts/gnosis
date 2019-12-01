@@ -14,3 +14,20 @@ color status black brightmagenta
 # Sync mailbox
 macro index o "<shell-escape>mbsync gnosis<enter>" "run mbsync to sync mail for gnosis"
 
+
+# Move to Junk: J
+macro index,pager J \
+  "<enter-command>set my_old_resolve=\$resolve noresolve<enter>\
+  <tag-prefix><clear-flag>n<enter-command>set resolve=\$my_old_resolve<enter>\
+  <save-message>+gnosis/junk<enter>" \
+  "mark as read and move to junk folder"
+
+# Archive: A
+macro index,pager A \
+  "<save-message>+gnosis/archive<enter>"  \
+  "move message to the archive"
+
+# Move to inbox: I
+macro index,pager I \
+  "<save-message>+gnosis/INBOX<enter>"  \
+  "move message to the inbox"

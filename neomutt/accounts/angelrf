@@ -15,3 +15,19 @@ color status black blue
 # Sync mailbox
 macro index o "<shell-escape>mbsync angelrf<enter>" "run mbsync to sync mail for angelrf"
 
+# Move to Junk: J
+macro index,pager J \
+  "<enter-command>set my_old_resolve=\$resolve noresolve<enter>\
+  <tag-prefix><clear-flag>n<enter-command>set resolve=\$my_old_resolve<enter>\
+  <save-message>+angelrf/junk<enter>" \
+  "mark as read and move to junk folder"
+
+# Archive: A
+macro index,pager A \
+  "<save-message>+angelrf/archive<enter>"  \
+  "move message to the archive"
+
+# Move to inbox: I
+macro index,pager I \
+  "<save-message>+angelrf/INBOX<enter>"  \
+  "move message to the inbox"

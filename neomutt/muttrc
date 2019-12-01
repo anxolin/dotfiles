@@ -29,7 +29,7 @@ folder-hook anxo source ~/.neomutt/accounts/anxo
 folder-hook angelrf/* source ~/.neomutt/accounts/angelrf
 
 # ---------------   gmail   ---------------
-#folder-hook angelrf/* source ~/.neomutt/accounts/gmail
+folder-hook gmail/* source ~/.neomutt/accounts/gmail
 
 # ---------------   gnosis   ---------------
 #folder-hook angelrf/* source ~/.neomutt/accounts/gnosis
@@ -39,13 +39,12 @@ folder-hook angelrf/* source ~/.neomutt/accounts/angelrf
 #      MAILBOX
 ############################
 # Mailboxes to show in the sidebar.
-#mailboxes =ALL-INBOXES
 mailboxes =angelrf/INBOX
-#mailboxes =angelrf/INBOX =viu/INBOX
-#mailboxes ="==================="
 mailboxes =angelrf/archive =angelrf/sent =angelrf/drafts 
 #=anxo@angelrf.com/trash
-#mailboxes =angelrf
+mailboxes =gmail/INBOX
+#mailboxes =gmail/archive =gmail/sent =gmail/drafts 
+
 #mailboxes =gmail
 #mailboxes =gmail/archive =gmail/sent =gmail/drafts =gmail/junk =gmail/trash
 mailboxes =anxo
@@ -61,6 +60,7 @@ set message_cachedir = ~/.neomutt/cache/bodies
 set certificate_file = ~/dotfiles/certificates.pem
 set mailcap_path = ~/.neomutt/mailcap
 set tmpdir = ~/.neomutt/tmp
+set mailcap_path 	= ~/.neomutt/mailcap
 
 
 ############################
@@ -130,7 +130,8 @@ unignore from: to: cc: bcc: date: subject:
 unhdr_order *
 hdr_order from: to: cc: bcc: date: subject:
 alternative_order text/plain text/enriched text/html
-auto_view text/html
+auto_view text/html                                      # view html automatically
+alternative_order text/plain text/enriched text/html     # save html for last
 
 # When composing emails, use this command to get addresses from
 # The addressbook with khard first, and everything else from mu index

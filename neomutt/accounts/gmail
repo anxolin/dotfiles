@@ -1,16 +1,32 @@
 # Personal Info
-set from = "anxo@gnosis.io"
+set from = "anxolin@gmail.io"
 set realname = "Anxo Rodriguez"
 
 # Custom signature
-set signature = ~/.neomutt/signatures/gnosis
+set signature = ~/.neomutt/signatures/gmail
 
 # Send mail
-set sendmail = "/usr/local/bin/msmtp -a gnosis"
+set sendmail = "/usr/local/bin/msmtp -a gmail"
 
 # Colors
 color status black green
 
 # Sync mailbox
-macro index o "<shell-escape>mbsync gnosis<enter>" "run mbsync to sync mail for gnosis"
+macro index o "<shell-escape>mbsync gmail<enter>" "run mbsync to sync mail for gmail"
 
+# Move to Junk: J
+macro index,pager J \
+  "<enter-command>set my_old_resolve=\$resolve noresolve<enter>\
+  <tag-prefix><clear-flag>n<enter-command>set resolve=\$my_old_resolve<enter>\
+  <save-message>+gmail/junk<enter>" \
+  "mark as read and move to junk folder"
+
+# Archive: A
+macro index,pager A \
+  "<save-message>+gmail/archive<enter>"  \
+  "move message to the archive"
+
+# Move to inbox: I
+macro index,pager I \
+  "<save-message>+gmail/INBOX<enter>"  \
+  "move message to the inbox"

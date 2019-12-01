@@ -6,7 +6,6 @@
 #       account: anxo@angelrf.com
 #       where: http://mail.angelrf.com
 #
-
 IMAPAccount angelrf
 Host mail.angelrf.com
 User anxo@angelrf.com
@@ -16,60 +15,108 @@ SSLVersions TLSv1.2
 CertificateFile ~/dotfiles/certificates.pem
 
 # Remote storage
-IMAPStore mailbox-remote
+IMAPStore angelrf-remote
 Account angelrf
 
 # Local storage
-MaildirStore mailbox-local
+MaildirStore angelrf-local
 Path ~/Mail/angelrf/
 Inbox ~/Mail/angelrf/INBOX
 
-Channel mailbox-inbox
-Master :mailbox-remote:"INBOX"
-Slave :mailbox-local:INBOX
+Channel angelrf-inbox
+Master :angelrf-remote:"INBOX"
+Slave :angelrf-local:INBOX
 Create Both
 Expunge Both
 
-Channel mailbox-archive
-Master :mailbox-remote:"Archive"
-Slave :mailbox-local:archive
+Channel angelrf-archive
+Master :angelrf-remote:"Archive"
+Slave :angelrf-local:archive
 Create Both
 Expunge Both
 
-Channel mailbox-drafts
-Master :mailbox-remote:"Drafts"
-Slave :mailbox-local:drafts
+Channel angelrf-drafts
+Master :angelrf-remote:"Drafts"
+Slave :angelrf-local:drafts
 Create Both
 Expunge Both
 
-Channel mailbox-sent
-Master :mailbox-remote:"Sent Messages"
-Slave :mailbox-local:sent
+Channel angelrf-sent
+Master :angelrf-remote:"Sent Messages"
+Slave :angelrf-local:sent
 Create Both
 Expunge Both
 
-Channel mailbox-trash
-Master :mailbox-remote:"Trash"
-Slave :mailbox-local:trash
+Channel angelrf-trash
+Master :angelrf-remote:"Trash"
+Slave :angelrf-local:trash
 Create Both
 Expunge Both
 
-#Channel mailbox-junk
-#Master :mailbox-remote:"Junk E-mail"
-#Slave :mailbox-local:spam
+# No Junk mail in angelrf right now
+#Channel angelrf-junk
+#Master :angelrf-remote:"Junk"
+#Slave :angelrf-local:junk
 #Create Both
 #Expunge Both
 
 Group angelrf
-Channel mailbox-inbox
-Channel mailbox-archive
-Channel mailbox-drafts
-Channel mailbox-sent
-Channel mailbox-trash
-Channel mailbox-junk
+Channel angelrf-inbox
+Channel angelrf-archive
+Channel angelrf-drafts
+Channel angelrf-sent
+Channel angelrf-trash
+# Channel angelrf-junk
+
+
+
+######### Account gmail ###########################
+
+IMAPAccount gmail
+# Address to connect to
+Host imap.gmail.com
+User anxolin@gmail.com
+PassCmd "security find-generic-password -s 'neomutt gmail IMAP' -a 'anxolin@gmail.com' -w"
+SSLType IMAPS
+AuthMechs LOGIN
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/Mail/gmail/
+Inbox ~/Mail/gmail/INBOX
+
+Channel gmail-inbox
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "INBOX"
+
+Channel gmail-sent
+Master :gmail-remote:"[Gmail]/Sent Mail"
+Slave :gmail-local:sent
+
+Channel gmail-trash
+Master :gmail-remote:"[Gmail]/Trash"
+Slave :gmail-local:trash
+
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-trash
+
+# Gmail mailboxes:
+# "All Mail"
+# "Drafts"
+# "Important"
+# "Sent Mail"
+# "Spam"
+# "Starred"
+# "Trash"
 
 
 ######### Account gnosis ###########################
 #IMAPAccount viu
 #Host outlook.office365.com
 #User steffen.rademacker@viu.ch
+

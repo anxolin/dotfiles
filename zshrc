@@ -223,3 +223,7 @@ bindkey '^Z' fancy-ctrl-z
 # NPM better autocompletion
 #git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
 source ~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+
+#open_by_browser(){ open -a $1 $2}
+#alias firefox='open_by_browser firefox'
+#alias chrome='open_by_browser "Google Chrome"'
