@@ -1,5 +1,5 @@
-vim/*
 *.log
+vim/*
 !vim/.gitkeep
 #vim/.netrwhist
 #chef/
@@ -10,3 +10,5 @@ ansible.lock
 ptpython/history
 .history
 oh-my-zsh
+w3m/cookie
+w3m/history
