@@ -31,7 +31,8 @@ fi
 # Arch linux
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps"
-    sudo pacman -S zsh gvim the_silver_searcher xclip ctags cmake bc
+    sudo pacman -S --noconfirm zsh vim-nox the_silver_searcher xclip ctags cmake bc
+    # gvim
 fi
 
 # Alpine linux
