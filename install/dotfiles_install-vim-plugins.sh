@@ -54,3 +54,8 @@ npm install || true
 # else
 #   sudo npm install -g git+https://github.com/ramitos/jsctags.git || true
 # fi
+
+# Install NPM Completion
+if git --version &>/dev/null; then
+  git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
+fi
