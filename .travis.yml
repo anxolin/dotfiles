@@ -8,8 +8,9 @@ env:
     - DOCKER_REPO_SLUG=anxolin/dotfiles-arch DOCKER_FILE=Dockerfile-arch
     - DOCKER_REPO_SLUG=anxolin/dotfiles-ubuntu DOCKER_FILE=Dockerfile-ubuntu
   global:
-    - secure: KngpVJH2TVU/pq6Jq+gBR8htzmGU9693nbnpB7n4izqp5AJPxEaE/FyXy3+wfzyGqS6/uioDpfs94vxwFjqIFN+if59BuZHfBdvWPQFwAQi+cx+xx5zEJuO5QrfgilxK+j0ldwdCcgCZR43RLTwm3R3Un3rloCA8+pB81rH8lr6kfD5Zanbyl61uMpDke0WC9puBipTMZ7IAtVkVv0W/JkQ5YH41wGmmyJr3ZNQ27vlxFBRWFPpwplEEQqNfnJCwvO3tyXKq/5JWXk8TmGO7UcOtQ4zOTAQI0ubw3+WmwyArc7LQ89aSRHOwtM9Z1BBuB5PEpj+it/iP8Wnkc65e226dFR1q9gj/Z+tJ/+ssnKgYHO/qJ5Y3HO2m9LaGGf+PhJPh4DPeRlrmQbsZLYJgBwyWNoLcxvmYl+JadzNW9dD3oDnBWpxsH0RdjEHS0twT/D852qaAAkzgOP8Cj1GVb9Q0b3U4Ao12HC6/HsdSd3AkvOCI0fnDAetx3NeLZ71Looo0n0pCQ+FoMA6VsOMjS8MKiRaDkgO27eKFAJChFWsqpz0MtSBwfGxYIzWTT1jy5C0bmXAs8G2MMTc65WR0wpoLzk+qVjMxtAFmG4DsUyTEWeRYZNZtOB++GHQ/UCZ4dVO5dsIMPq0q+5WhQEpZrpBwrFCx6MBFQEftA8fZF/g=
-    - secure: T++tckc2VmMo/RJ6fUMrfJ+yMjgE0bQYBcoGLsElKLCfDvO28KAnN6XaqA23qknAAfWSf6Ym/DciLhVltCdugiPt9kYoGIiomVmzkT1jhvPzN1Jmhd58ZTo4cuNqAZKisGyL6xMiwxlFzORnV/A0batNHOJt90755e9H14t+/Sa6rVaTI85l5HlBKX+Ers1vHPI9wJ9WN6XL6KmlF+qUwJteieX7I3+X6wmwRxkM4bk+gVOsNr+abAmkyf2KexxhxXEcYJ/ouGwphWZnIa2swZuxR6YInr5mqbmTbqLq3Gckw7G6m+lbyUzIMgs6WOFUJbYhf1oXcC+wq9lFarflFbHW67Ujmoi2lPy9TN6odM9c8dYPoR+3Q2xVK8Pov1DdvNzChgigQaPWpd/VOKfIgJ/V7RUYSY6i0SENKByEDZ+oTTBr6gyOuxYODfBnhM2OY+OznUIg1RTuSVqU1WCNTmPrds262WXHvDwVH1/QxcG0TGm4n6kZeUCtHJ2N3QdRCOF3EtaOCaAs0FZ+6zOFhC5SHfrhhLs/K09xuSZGg/DojGhkkul+77B6o88QnnBkm6nA1+py7of7K13Gp0wX0SOZbW9ZSkG8kNVvHNNaOyNWlkL924tJ3jk44g9jqbY8hFpjkBerkfEkC+iQ3RKC8ovpeKo6KK/vWayy3zTXG3w=
+    - secure: "BmHMVquRBdNkQzX3UmKSQCHCMMke8xVpEkXRTCiLivvjb1pPu2ph+l3e+0Xj/kwOHqCH312zSjazzhxN7H4w1ddtydbVm1W67Arw40KfBANYmCYm9/w79Xhhigumb2i/laE0cHtpvb9zTJLhwiK4F3y2BxvlLR8sj9kham50Y2Gy7biaY7CDQjjk0Z7OVc/drQdw7TbNEoiZZpbDb/oG0Y/XxQXrV1PzOhUg/QDTtSQtR5cUhiZ9Gq1saWpxg+7x/4Eh2KPdrDTDQTnn7QjLSEg+59ByjzLR3Rnjqp/BWO6gfx7g3yHVe00QgsYTW5NP+7aPsBFMRxdXIoYMmIj4YSyFGhr/38INv6pWkqx9er6fmptT9poa148y2TCh2VztZUOlOdPQqFl+12qMxmUBaLcWppQPH82nmrxwLsN/GL9mSYNAL2Zt8Yqy7Xx8bkHqhrJy9QAcEmYXWPCV+XNawQMoQ2gyBfBS8boX2DBrK6o+1rk83Z40XB+ZcZR0jAvcjfTNmNu1w5rwE4CvvbGnQS7pqVWbl3TnAXmCulMqRivJEm+qMNjoFsdpm++CWco+E3CKoVZFSK55Fh8F4Qk9SWQ38ienDRWc6h3dmN1Rx04baZs/jeKOT19qemJqMhEPlQdixbofCDOmvV2bEMy7ckbVO1zfjr6L+iLuKtfEJUw="
+    - secure: "UxoQ5Q+mHHBz6MycSmvDN9+off7CF98tFnGppeDecHgSS2WbckwXtSmQPl2jCUqLA4aGfu3p6+SD9O1z30HLgux+blEVYMdGfhhHQVDzZRfd77eH0JANcOlHBN+DfKK0t/szMDfshX130cv5csx8FnMuEB7Lg6aJwSqnpYbjCWCMfvWTS+qy8XUu3hzG2qRnCmxrf5hpcfjreuY2eAL1HI+N5RnRiTGRkCzp7upwvlGG/5u21v3rDk7x72X2JcwJy4uMqFplDJyyraSL0hJx9e+ifxSieWMcBUErwCz0OuaMcdaJIZH+G59mYEO9lClPYWBKt9vo2/PR2OKdwWL65Lxri9U1+jsLPpVP1y/K1gnpik7exrbCJh82PDm+OsuDjLPyT85rU9cueR4ikEofUlxe+6G8y9T1QwsRw5KdntMui6eTcEBxmXMWEapU4JbIo8aZDeGkzGtniRRrNTCaExBrtEBRCavuG+P+iV0PrEIcRV5BjiLNDIGUhGJCeBTO77bMquqhKmqEHonxWNGGt3/dqVuMrBfFvEngGY3QdoIpDgTXzYgtQ3CAGq/0BvKeJJq17tOQKywNYNpM98tsC6ajZGYdxhME2EVSJ1mc6o9+vYCKgfvJHGUBcnb+8hdOD6gvfvatYpswn1NH/o8HKBaTAZbZLzPFRtPbAqUFruo="
+
 script:
   # Build latest
   - docker build -f $DOCKER_FILE -t $DOCKER_REPO_SLUG:latest .
@@ -17,7 +18,7 @@ script:
   - if [[ $TRAVIS_TAG = $TRAVIS_BRANCH ]]; then docker build -f $DOCKER_FILE -t $DOCKER_REPO_SLUG:$TRAVIS_BRANCH .; else true ; fi
 after_success:
   # Login
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # push to latest if master branch
   - if [[ $TRAVIS_BRANCH = master ]]; then docker push $DOCKER_REPO_SLUG:latest; else true; fi
   # push tag as well
