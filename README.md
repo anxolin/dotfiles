@@ -71,14 +71,14 @@ Tags:
 
 ```bash
 # Build Arch, Alpine, Ubuntu
-docker build -f Dockerfile-arch -t dotfiles-arch .
-docker build -f Dockerfile-alpine -t dotfiles-alpine .
-docker build -f Dockerfile-ubuntu -t dotfiles-ubuntu .
+docker build --no-cache -f Dockerfile-arch -t dotfiles-arch .
+docker build --no-cache -f Dockerfile-alpine -t dotfiles-alpine .
+docker build --no-cache -f Dockerfile-ubuntu -t dotfiles-ubuntu .
 
 # Arch
 docker run --hostname=dotfiles-arch -v ~/:/home/anxo/data -it --rm dotfiles-arch
-docker run --rm --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it dotfiles-alpine
-docker run --rm --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it dotfiles-ubuntu
+docker run --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it --rm dotfiles-alpine
+docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it --rm dotfiles-ubuntu
 ```
 
 ## Another configuration
