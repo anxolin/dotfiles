@@ -42,27 +42,37 @@ Optionally, the `install.sh` accepts:
 
 ## Run it with docker
 
+Run latest docker images with:
+
+- Mapped `/home/anxo/data` to the host `~` dir
+- Sets a nicer `hostname`
+- Iterative mode
+- Latest successful image (see below for tags)
+
 ```bash
 # Arch
-#   https://hub.docker.com/r/anxolin/dotfiles-arch/tags
-docker run  --hostname=dotfiles-arch -it anxolin/dotfiles-arch
+docker run  --hostname=dotfiles-arch -v ~/:/home/anxo/data -it anxolin/dotfiles-arch:latest
 
 # Alpine
-#   https://hub.docker.com/r/anxolin/dotfiles-alpine/tags
-docker run --hostname=dotfiles-alpine -it anxolin/dotfiles-alpine
+docker run --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it anxolin/dotfiles-alpine:latest
 
 # Ubuntu
-#   https://hub.docker.com/r/anxolin/dotfiles-ubuntu/tags
-docker run --hostname=dotfiles-ubuntu -it anxolin/dotfiles-ubuntu
+docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it anxolin/dotfiles-ubuntu:latest
 ```
+
+Tags:
+
+- **Arch**: https://hub.docker.com/r/anxolin/dotfiles-arch/tags
+- **Alpine**: https://hub.docker.com/r/anxolin/dotfiles-alpine/tags
+- **Ubuntu**: https://hub.docker.com/r/anxolin/dotfiles-ubuntu/tags
 
 ## Build docker image
 
 ```bash
 # Build Arch, Alpine, Ubuntu
-docker build -f Dockerfile-alpine -t dotfiles-arch .
+docker build -f Dockerfile-arch -t dotfiles-arch .
 docker build -f Dockerfile-alpine -t dotfiles-alpine .
-docker build -f Dockerfile-alpine -t dotfiles-ubuntu .
+docker build -f Dockerfile-ubuntu -t dotfiles-ubuntu .
 
 # Run:
 docker run dotfiles-<distro> # i.e. docker run dotfiles-alpine
