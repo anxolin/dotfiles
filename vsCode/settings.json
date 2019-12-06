@@ -7,21 +7,21 @@
   "explorer.openEditors.visible": 0,
   "[javascript]": {
     "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
-    "editor.tabSize": 2,
+    "editor.tabSize": 2
   },
   "[solidity]": {
-    "editor.tabSize": 4,
+    "editor.tabSize": 4
   },
   "[rust]": {
-    "editor.tabSize": 4,
+    "editor.tabSize": 4
   },
   "editor.detectIndentation": false,
   "[json]": {
     "editor.folding": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.rulers": [
     120
@@ -66,12 +66,18 @@
   "files.associations": {
     ".env": "shellscript"
   },
-  "eslint.autoFixOnSave":  true,
-  "eslint.validate":  [
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
     "javascript",
     "javascriptreact",
-    {"language":  "typescript",  "autoFix":  true  },
-    {"language":  "typescriptreact",  "autoFix":  true  }
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
   ],
   "rust.clippy_preference": "on",
   "editor.formatOnSave": true,
@@ -85,5 +91,4 @@
     "behaviour",
     "ethereum"
   ]
-  
 }
