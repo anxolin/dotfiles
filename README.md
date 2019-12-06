@@ -42,22 +42,30 @@ Optionally, the `install.sh` accepts:
 
 ## Run it with docker
 
-Arch:
-
 ```bash
-docker run -it anxolin/dotfiles-arch
+# Arch
+#   https://hub.docker.com/r/anxolin/dotfiles-arch/tags
+docker run  --hostname=dotfiles-arch -it anxolin/dotfiles-arch
+
+# Alpine
+#   https://hub.docker.com/r/anxolin/dotfiles-alpine/tags
+docker run --hostname=dotfiles-alpine -it anxolin/dotfiles-alpine
+
+# Ubuntu
+#   https://hub.docker.com/r/anxolin/dotfiles-ubuntu/tags
+docker run --hostname=dotfiles-ubuntu -it anxolin/dotfiles-ubuntu
 ```
 
-Alpine:
+## Build docker image
 
 ```bash
-docker run -it anxolin/dotfiles-alpine
-```
+# Build Arch, Alpine, Ubuntu
+docker build -f Dockerfile-alpine -t dotfiles-arch .
+docker build -f Dockerfile-alpine -t dotfiles-alpine .
+docker build -f Dockerfile-alpine -t dotfiles-ubuntu .
 
-Ubuntu:
-
-```bash
-docker run -it anxolin/dotfiles-ubuntu
+# Run:
+docker run dotfiles-<distro> # i.e. docker run dotfiles-alpine
 ```
 
 ## Another configuration
