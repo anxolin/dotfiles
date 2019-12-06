@@ -44,20 +44,21 @@ Optionally, the `install.sh` accepts:
 
 Run latest docker images with:
 
-- Mapped `/home/anxo/data` to the host `~` dir
-- Sets a nicer `hostname`
-- Iterative mode
-- Latest successful image (see below for tags)
+- `--rm` Destroy the container after executing
+- `--hostname` Sets a nicer hostname (shown in tmux and zsh)
+- `-v ~/:/home/anxo/data` Maps `/home/anxo/data` to the host home dir
+- `-it` Iterative mode
+- `<image>:latest` Latest successful image (see link to all tags in Dockerhub)
 
 ```bash
 # Arch
-docker run  --hostname=dotfiles-arch -v ~/:/home/anxo/data -it anxolin/dotfiles-arch:latest
+docker run --rm  --hostname=dotfiles-arch -v ~/:/home/anxo/data -it anxolin/dotfiles-arch:latest
 
 # Alpine
-docker run --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it anxolin/dotfiles-alpine:latest
+docker run --rm --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it anxolin/dotfiles-alpine:latest
 
 # Ubuntu
-docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it anxolin/dotfiles-ubuntu:latest
+docker run --rm --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it anxolin/dotfiles-ubuntu:latest
 ```
 
 Tags:
@@ -74,8 +75,10 @@ docker build -f Dockerfile-arch -t dotfiles-arch .
 docker build -f Dockerfile-alpine -t dotfiles-alpine .
 docker build -f Dockerfile-ubuntu -t dotfiles-ubuntu .
 
-# Run:
-docker run dotfiles-<distro> # i.e. docker run dotfiles-alpine
+# Arch
+docker run --hostname=dotfiles-arch -v ~/:/home/anxo/data -it --rm dotfiles-arch
+docker run --rm --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it dotfiles-alpine
+docker run --rm --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it dotfiles-ubuntu
 ```
 
 ## Another configuration

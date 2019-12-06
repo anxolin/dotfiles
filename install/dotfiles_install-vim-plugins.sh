@@ -55,7 +55,10 @@ npm install || true
 #   sudo npm install -g git+https://github.com/ramitos/jsctags.git || true
 # fi
 
-# Install NPM Completion
+# Install NPM Completion for ZSH
 if git --version &>/dev/null; then
+  echo "Install NPM Completion for ZSH"
   git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
+else 
+  echo "WARN: NPM Completion for ZSH cannot be installed because git is not available"
 fi
