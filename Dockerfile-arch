@@ -1,7 +1,7 @@
 # docker -it 820613b91511 sh
 FROM archlinux/base:latest
 
-MAINTAINER Angel Rodriguez "anxolin@gmail.com"
+MAINTAINER Anxo Rodriguez "anxolin@gmail.com"
 
 ENV DOTFILES_USER=anxo
 ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
