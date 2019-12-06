@@ -221,8 +221,12 @@ bindkey '^Z' fancy-ctrl-z
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # NPM better autocompletion
-#git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion
-source ~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+NPM_COMPLETION_FILE=~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+if test -f "$NPM_COMPLETION_FILE"; then
+    source "$NPM_COMPLETION_FILE"
+else 
+  echo "For zsh NPM autocompletion, consider executing:\n  git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion"
+fi
 
 #open_by_browser(){ open -a $1 $2}
 #alias firefox='open_by_browser firefox'
