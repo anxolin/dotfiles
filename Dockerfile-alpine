@@ -37,4 +37,4 @@ RUN \
 
 WORKDIR /home/$DOTFILES_USER/dotfiles
 
-CMD zsh
+CMD tmux

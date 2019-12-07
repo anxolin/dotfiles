@@ -7,10 +7,15 @@ ENV DOTFILES_USER=anxo
 ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Set the locale
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8   
 
 RUN \
   apt-get update \
   && apt-get install -y \
+    locales \
     sudo \
     zsh \
     tmux \
@@ -25,7 +30,8 @@ RUN \
   && adduser --disabled-password --gecos "" $DOTFILES_USER \
   && adduser $DOTFILES_USER sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 
 
 USER $DOTFILES_USER
@@ -40,4 +46,4 @@ RUN \
 
 WORKDIR /home/$DOTFILES_USER/dotfiles
 
-CMD zsh
+CMD tmux

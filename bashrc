@@ -8,6 +8,38 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+#############################################
+# Locale
+#############################################
+#   Show all locales:
+#       locale -a
+#   Show current locales
+#       locale
+#   IMPORTANT: Not ser in this file. Each OS setup sets it's local
+##############################################
+# LANG: Provides default value for LC_* variables that have not been explicitly set.
+# LC_ALL: Overrides individual LC_* settings: if LC_ALL is set, none of the below have any effect.
+# LANGUAGE: Message language
+#export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+#export LANGUAGE=en_US.UTF-8
+
+## Aditional 
+# LC_ADDRESS: How addresses are formatted (country first or last, where zip code goes etc.).
+# LC_COLLATE: How strings (file names...) are alphabetically sorted. Using the "C" or "POSIX" locale here results in a strcmp()-like sort order, which may be preferable to language-specific locales.
+# LC_CTYPE: How characters are classified as letters, numbers etc. This determines things like how characters are converted between upper and lower case.
+# LC_IDENTIFICATION: Metadata about the locale information.
+# LC_MEASUREMENT: What units of measurement are used (feet, meters, pounds, kilos etc.).
+# LC_MESSAGES: What language should be used for system messages.
+# LC_MONETARY: What currency you use, its name, and its symbol.
+# LC_NAME: How names are represented (surname first or last, etc.).
+# LC_NUMERIC: How you format your numbers. For example, in many countries a period (.) is used as a decimal separator, while others use a comma (,).
+# LC_PAPER: Paper sizes: 11 x 17 inches, A4, etc.
+# LC_RESPONSE: Determines how responses (such as Yes and No) appear in the local language
+# LC_TELEPHONE: What your telephone numbers look like.
+# LC_TIME: How your time and date are formatted. Use for example "en_DK.UTF-8" to get a 24-hour-clock in some programs.
+#############################################
+
 # Color Grep
 export GREP_OPTIONS='--color=auto'
 
