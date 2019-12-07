@@ -20,10 +20,10 @@ if [[ -f /etc/debian_version ]]; then
     sudo apt-get update
     if [[ $DISTRO = *"Ubuntu"* ]]; then
       printf "[install-apps-Linux] Ubuntu: Install basic apps"
-      sudo apt-get install vim-nox
+      sudo apt-get install vim-nox bc
     else
       printf "[install-apps-Linux] Debian: Install basic apps"
-      sudo apt-get install vim-athena
+      sudo apt-get install vim-athena bc
     fi
     sudo apt-get install zsh silversearcher-ag xclip ctags cmake
 fi

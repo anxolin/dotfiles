@@ -21,6 +21,7 @@ RUN \
     ctags \
     cmake \
     openssh-client \
+    bc \
   && adduser --disabled-password --gecos "" $DOTFILES_USER \
   && adduser $DOTFILES_USER sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
