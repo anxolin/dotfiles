@@ -14,17 +14,18 @@ RUN \
   && echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
   && pacman -Syu --noconfirm \
   && pacman -S --noconfirm \
-    gvim \
     git \
     zsh \
     tmux \
-    vim \
+    vim-nox \
     the_silver_searcher \
     xclip \
     ctags \
     cmake \
     base-devel \
     openssh \
+    bc \
+    cmake \
   && pacman -Rns $(pacman -Qtdq) || true \
   && rm -rf /var/cache/pacman/pkg
 
