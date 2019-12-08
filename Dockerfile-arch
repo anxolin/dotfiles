@@ -8,31 +8,43 @@ ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
 
 # TODO: Review if I can remove the apps here and let them be install with install.sh
 # vim, vim-nox, or vim+gvim??
-RUN \
-  useradd -m -s /bin/zsh $DOTFILES_USER \
-  && usermod -aG wheel $DOTFILES_USER \
-  && echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+RUN echo "\n\n**********  Update dependencies  **********" \
   && pacman -Syu --noconfirm \
+  #
+  && echo "\n\n**********  Install base packages **********" \
+  && pacman -S --noconfirm base-devel \
+  #
+  && echo "\n\n**********  Install vim, tmux, zsh, git  **********" \
+  && pacman -S --noconfirm vim tmux zsh git \
+  #
+  && echo "\n\n**********  Install some dependencies for tmux and vim  **********" \
   && pacman -S --noconfirm \
-    git \
-    zsh \
-    tmux \
-    vim-nox \
     the_silver_searcher \
     xclip \
     ctags \
-    cmake \
-    base-devel \
+    cmake \    
     openssh \
     bc \
-    cmake \
+  #
+  && echo "**********  Install Node, npm, yarn  **********" \
+  && pacman -S --noconfirm nodejs npm yarn \
+  && echo "**********  Install Python3  **********" \
+  && apk add --no-cache python python-dev \
+  && echo "\n\n**********  Setup user $DOTFILES_USER  **********" \
+  && useradd -m -s /bin/zsh $DOTFILES_USER \
+  #
+  && echo "\n\n**********  Add $DOTFILES_USER to sudoers  **********" \
+  && usermod -aG wheel $DOTFILES_USER \
+  && echo '%wheel ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \  
+  #
+  && echo "\n\n**********  Cleanup packages  **********" \
   && pacman -Rns $(pacman -Qtdq) || true \
   && rm -rf /var/cache/pacman/pkg
 
 USER $DOTFILES_USER
 
-RUN \
-  git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
+RUN echo "**********  Install Dotfiles  **********" \
+  && git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
   && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
   && /home/$DOTFILES_USER/dotfiles/install.sh \
     --skip-install-apps \

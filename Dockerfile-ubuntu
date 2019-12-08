@@ -1,4 +1,3 @@
-# docker run -u anxo -it 820613b91511 sh
 FROM ubuntu:latest
 
 MAINTAINER Anxo Rodriguez "anxolin@gmail.com"
@@ -12,32 +11,56 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8   
 
-RUN \
-  apt-get update \
+RUN echo "**********  Update dependencies  **********" \ 
+  && apt-get update \
+  #
+  && echo "\n\n**********  Install base packages **********" \
+  && apt-get install -y curl \
+  #
+  && echo "**********  Install vim, tmux, zsh, git  **********" \
+  && apt-get install -y vim-nox tmux zsh git \
+  #
+  && echo "**********  Install some dependencies for tmux and vim  **********" \
   && apt-get install -y \
-    locales \
-    sudo \
-    zsh \
-    tmux \
-    git \
-    vim-nox \
     silversearcher-ag \
     xclip \
     ctags \
     cmake \
     openssh-client \
     bc \
+  #
+  && echo "**********  Install Locales  **********" \    
+  && apt-get install -y locales \
+  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+  && locale-gen \
+  #
+  && echo "**********  Setup user $DOTFILES_USER  **********" \
   && adduser --disabled-password --gecos "" $DOTFILES_USER \
+  #
+  && echo "**********  Install sudo and add $DOTFILES_USER to sudoers  **********" \
+  && apt-get install -y sudo \
   && adduser $DOTFILES_USER sudo \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-  && rm -rf /var/lib/apt/lists/* \
-  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+  #
+  && echo "**********  Install Node, npm, yarn  **********" \
+  && curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - \
+  && apt-get install -y nodejs \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update \
+  && apt-get install -y yarn \
+  #
+  && echo "**********  Install Python3  **********" \
+  && apt-get install -y python3 python3-dev \
+  #
+  && echo "**********  Cleanup packages  **********" \
+  && rm -rf /var/lib/apt/lists/*
 
 
 USER $DOTFILES_USER
 
-RUN \
-  git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
+RUN echo "**********  Install Dotfiles  **********" \
+  && git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
   && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
   && /home/$DOTFILES_USER/dotfiles/install.sh \
     --skip-install-apps \

@@ -5,35 +5,65 @@ MAINTAINER Anxo Rodriguez "anxolin@gmail.com"
 
 ENV DOTFILES_USER=anxo
 ENV DOTFILES_REPO=https://github.com/anxolin/dotfiles.git
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE pt_BR.UTF-8
+ENV LC_ALL pt_BR.UTF-8
 
 # Install some basic apps
 #   - Since we are compiling vim with python3 support, we need some dependencies first
 #   - Install other basic apps like git, zsh, tmux
 #   - Then install some apps that vim plugins depend on: xclip, ctags, ag, ...
-RUN \
-  apk add --no-cache \
-    gcc make ncurses-dev ncurses python-dev python3-dev python python3 ctags nodejs-npm musl-dev su-exec \
-    git \
-    zsh \
-    tmux \
-    vim \
+RUN echo "**********  Install Basic packages  **********" \
+  && apk add --no-cache gcc make ncurses-dev ncurses musl-dev \
+  #
+  && echo "**********  Install vim, tmux, zsh, git  **********" \
+  && apk add --no-cache vim zsh tmux git \
+  #
+  && echo "**********  Install some dependencies for tmux and vim  **********" \
+  && apk add --no-cache \
     the_silver_searcher \
     xclip \
     ctags \
     cmake \
     openssh \
-  && cd /tmp && git clone https://github.com/vim/vim.git && cd vim \
+    bc \
+  #
+  && echo "**********  Install Node, npm, yarn  **********" \
+  && apk add --no-cache nodejs npm yarn \
+  && apk add --no-cache tzdata \
+  && cp /usr/share/zoneinfo/Europe/Madrid /etc/localtime \
+  && apk del tzdata \
+  #
+  && echo "**********  Install python and python3  **********" \
+  && apk add --no-cache python python-dev python3 python3-dev \
+  && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi \
+  #
+  && echo "**********  Compile VIM and install  **********" \
+  && cd /tmp \
+  && git clone https://github.com/vim/vim.git \
+  && cd vim \
   && ./configure --enable-pythoninterp --prefix=/usr --with-python-config-dir=/usr/lib/python2.7/config --enable-python3interp \
-  && make && make install \
+  && make \
+  && make install \
+  #
+  && echo "**********  Setup user $DOTFILES_USER  **********" \
   && addgroup $DOTFILES_USER \
-  && adduser -Ds /bin/zsh $DOTFILES_USER -G $DOTFILES_USER
+  && addgroup sudo \
+  && adduser -Ds /bin/zsh $DOTFILES_USER -G $DOTFILES_USER \
+  #
+  && echo "**********  Install sudo and add $DOTFILES_USER to sudoers  **********" \
+  && apk add --no-cache su-exec sudo \
+  && adduser $DOTFILES_USER sudo \
+  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+# Set user
 USER $DOTFILES_USER
 
-RUN \
-  git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles && \
-  chmod +x /home/$DOTFILES_USER/dotfiles/install.sh && \
-  sh -x /home/$DOTFILES_USER/dotfiles/install.sh
+# Download and install dotfiles
+RUN echo "**********  Install Dotfiles (as $$DOTFILES_USER)  **********" \
+  && git clone $DOTFILES_REPO /home/$DOTFILES_USER/dotfiles \
+  && chmod +x /home/$DOTFILES_USER/dotfiles/install.sh \
+  && sh -x /home/$DOTFILES_USER/dotfiles/install.sh
 
 WORKDIR /home/$DOTFILES_USER/dotfiles
 

@@ -14,8 +14,13 @@ git submodule update --init --recursive
 
 # You completme
 #   - Autocomplete for VIM
-echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
-cd ~/.vim/bundle/YouCompleteMe && ./install.sh || true
+if [ -d ~/.vim/bundle/YouCompleteMe ]; then
+  echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
+  cd ~/.vim/bundle/YouCompleteMe && ./install.sh || true
+else 
+  echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/bundle/YouCompleteMe"
+fi
+
 
 # Syntastic:
 #   - Syntastic depends on some linterns that must be installed separatelly
@@ -32,10 +37,10 @@ else
 fi
 
 # Flake8: Lintern for Python (used also by syntastic)
-if ! type python3.6 > /dev/null; then
+if ! type python3 > /dev/null; then
   echo "[dotfiles-install-vim-plugins] WARNING: python3 is missing, so the PYTHON lintern for Syntastic could not be installed "
 else
-  python3.6 -m pip install flake8 || true
+  python3 -m pip install flake8 || true
 fi
 
 # Tern for Vim (https://github.com/ternjs/tern_for_vim)
