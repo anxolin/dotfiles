@@ -14,7 +14,7 @@ ENV LC_ALL en_US.UTF-8
 RUN echo "**********  Update dependencies  **********" \ 
   && apt-get update \
   #
-  && echo "\n\n**********  Install base packages **********" \
+  && echo "**********  Install base packages **********" \
   && apt-get install -y curl \
   #
   && echo "**********  Install vim, tmux, zsh, git  **********" \
