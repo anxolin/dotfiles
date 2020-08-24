@@ -292,7 +292,7 @@ if HasPlugins('Vundle.vim')
 
   " Scala: scala integration - https://github.com/derekwyatt/vim-scala
   "     :SortScalaImports - Sorting of import statements
-  Plugin 'derekwyatt/vim-scala'
+  "Plugin 'derekwyatt/vim-scala'
 
 
   " Fugitive: Git - Vim Fugitive:
