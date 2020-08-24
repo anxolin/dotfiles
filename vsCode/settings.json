@@ -2,7 +2,7 @@
   "workbench.colorTheme": "One Dark Pro",
   "editor.minimap.enabled": false,
   "eslint.packageManager": "yarn",
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 1,
   "diffEditor.ignoreTrimWhitespace": true,
   "explorer.openEditors.visible": 0,
   "[javascript]": {
@@ -12,20 +12,30 @@
   "[markdown]": {
     "editor.tabSize": 2
   },
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "ms-python.python"
+  },
   "[solidity]": {
     "editor.tabSize": 4
   },
   "[rust]": {
     "editor.tabSize": 4
   },
+  "[sql]": {
+    "editor.formatOnSave": false
+  },
+  "python": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
   "editor.detectIndentation": false,
   "[json]": {
     "editor.folding": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.rulers": [
-    120
-  ],
+  "editor.rulers": [120],
   "explorer.confirmDragAndDrop": false,
   "editor.folding": false,
   "workbench.editor.enablePreview": true,
@@ -39,14 +49,8 @@
   "solidity.soliumRules": {
     "imports-on-top": 0,
     "variable-declarations": 0,
-    "indentation": [
-      "error",
-      4
-    ],
-    "quotes": [
-      "error",
-      "double"
-    ]
+    "indentation": ["error", 4],
+    "quotes": ["error", "double"]
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "solidity.linter": "solium",
@@ -66,21 +70,7 @@
   "files.associations": {
     ".env": "shellscript"
   },
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
   "rust.clippy_preference": "on",
-  "editor.formatOnSave": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
@@ -88,7 +78,59 @@
     "Etherscan",
     "Mainnet",
     "Rinkeby",
+    "angelrf",
     "behaviour",
-    "ethereum"
-  ]
+    "ethereum",
+    "goerli",
+    "kovan",
+    "ropsten"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+    // "source.organizeImports": true
+  },
+  "explorer.confirmDelete": false,
+  "python.jediEnabled": false,
+  "editor.formatOnSave": true,
+  "todo-tree.tree.showScanModeButton": false,
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "python.formatting.provider": "black",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "githubIssues.queries": [
+    {
+      "label": "My Issues",
+      "query": "default"
+    },
+    {
+      "label": "Created Issues",
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:updated-desc"
+    },
+    {
+      "label": "Milestone: 15",
+      "query": "state:open repo:${owner}/${repository} milestone:\"Sprint 15\" sort:updated-desc"
+    },
+    {
+      "label": "Bugs",
+      "query": "state:open repo:${owner}/${repository} label:bug sort:updated-desc"
+    },
+    {
+      "label": "Important",
+      "query": "state:open repo:${owner}/${repository} label:important sort:updated-desc"
+    },
+    {
+      "label": "Release",
+      "query": "state:open repo:${owner}/${repository} label:release sort:updated-desc"
+    }
+  ],
+  "python.languageServer": "Microsoft",
+  "aws.profile": "profile:default"
 }
