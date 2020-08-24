@@ -90,6 +90,10 @@ plugins=(git docker npm systemd tmux vagrant)
 
 # plugins="git"
 
+# zsh-better-npm-completion
+#   https://github.com/lukechilds/zsh-better-npm-completion
+#plugins+=(zsh-better-npm-completion)
+
 # if which ssh-add >/dev/null 2>/dev/null  ; then
 #   plugins="$plugins ssh-agent"
 # fi
@@ -220,14 +224,7 @@ bindkey '^Z' fancy-ctrl-z
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# NPM better autocompletion
-NPM_COMPLETION_FILE=~/.zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
-if test -f "$NPM_COMPLETION_FILE"; then
-    source "$NPM_COMPLETION_FILE"
-else 
-  echo "For zsh NPM autocompletion, consider executing:\n  git clone https://github.com/lukechilds/zsh-better-npm-completion.git ~/.zsh-better-npm-completion"
-fi
-
 #open_by_browser(){ open -a $1 $2}
 #alias firefox='open_by_browser firefox'
 #alias chrome='open_by_browser "Google Chrome"'
+alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name}" --output table'
