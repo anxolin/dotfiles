@@ -63,21 +63,6 @@ printf "[dotfiles] *** INSTALL DOT FILES ($PLATFORM) ***\n"
 
 cat << EOF
 
-
-╔═╗┬┌┬┐                       
-║ ╦│ │                        
-╚═╝┴ ┴                        
-╔═╗┬ ┬┌┐ ┌┬┐┌─┐┌┬┐┬ ┬┬  ┌─┐┌─┐
-╚═╗│ │├┴┐││││ │ │││ ││  ├┤ └─┐
-╚═╝└─┘└─┘┴ ┴└─┘─┴┘└─┘┴─┘└─┘└─┘
-EOF
-
-# Install submodules
-printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
-source "$DOT_FILES/install/init_submodules.sh"
-
-cat << EOF
-
 ┌┐ ┌─┐┌─┐┬┌─┬ ┬┌─┐
 ├┴┐├─┤│  ├┴┐│ │├─┘
 └─┘┴ ┴└─┘┴ ┴└─┘┴
@@ -106,6 +91,22 @@ if [[ $PLATFORM == 'Darwin' ]]; then
   # Visual Studio Code dotfiles is handled separately
   source "$DOT_FILES/install/dotfiles_wipe-and-install-visual-studio-mac.sh"
 fi
+
+
+cat << EOF
+
+
+╔═╗┬┌┬┐                       
+║ ╦│ │                        
+╚═╝┴ ┴                        
+╔═╗┬ ┬┌┐ ┌┬┐┌─┐┌┬┐┬ ┬┬  ┌─┐┌─┐
+╚═╗│ │├┴┐││││ │ │││ ││  ├┤ └─┐
+╚═╝└─┘└─┘┴ ┴└─┘─┴┘└─┘┴─┘└─┘└─┘
+EOF
+
+# Install submodules
+printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
+source "$DOT_FILES/install/init_submodules.sh"
 
 
 cat << EOF
