@@ -1,6 +1,6 @@
 *.log
+!vim/bundle.vim
 vim/*
-!vim/bundle
 !vim/.gitkeep
 #vim/.netrwhist
 #chef/

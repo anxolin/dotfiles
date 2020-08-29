@@ -15,7 +15,14 @@ export ZSH_CUSTOM=~/dotfiles/zsh-custom
 #			 ~/dotfiles/.oh-my-zsh/themes/
 #ZSH_THEME="anxo"
 
+# Thene PowerLevel10K
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Default prompt
 PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
@@ -233,9 +240,15 @@ bindkey '^Z' fancy-ctrl-z
 alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
 : LaunchTime, placement: Placement.AvailabilityZone }" --output table'
 
+# tmuxnizator
+alias mux="tmuxinator"
 
 
 # # Read all autocomplete files in zsh_autocomplete dir
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
 # done
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

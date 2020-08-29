@@ -21,7 +21,8 @@ while read FILE; do
   fi
   rm -rf -r ~/.$FILE
 
-  if [ "$FILE" == "zshrc" ] || [ "$FILE" == "bashrc" ] || [ "$FILE" == "gitconfig" ]; then
+  #if [ "$FILE" == "zshrc" ] || [ "$FILE" == "bashrc" ] || [ "$FILE" == "gitconfig" ]; then
+  if [ "$FILE" == "gitconfig" ]; then
     # For bashrc and zshrc, we don't want to keep the file versioned, because a lot
     # of scripts keep adding lines there as part of the install
     # Instead, we use a bashrc_base and zshrc_base
