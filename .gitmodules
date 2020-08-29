@@ -8,7 +8,3 @@
 	path = zsh-custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
 
-# Vundle: Vim plugin manager
-[submodule "vim/bundle/Vundle.vim"]
-	path = vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
