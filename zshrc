@@ -19,6 +19,7 @@ export ZSH_CUSTOM=~/dotfiles/zsh-custom
 #ZSH_THEME="anxo"
 
 # Thene PowerLevel10K
+#   config: ~/dotfiles/p10k.zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # IMPORTANT:
@@ -69,15 +70,6 @@ export UPDATE_ZSH_DAYS=30
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(git docker brew bower npm redis-cli sbt systemd tmux vagrant)
-
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -114,7 +106,7 @@ fi
 #     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 #     ls ~/.oh-my-zsh/plugins
 plugins=(git docker sudo npm systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions)
-# tmuxinator vagrant
+# OTHER: Disabled: tmuxinator vagrant zsh-better-npm-completion ssh-agent
 
 # plugins="git"
 
@@ -275,3 +267,6 @@ alias mux="tmuxinator"
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
 # done
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/p10k.zsh.
+[[ ! -f ~/dotfiles/p10k.zsh ]] || source ~/dotfiles/p10k.zsh

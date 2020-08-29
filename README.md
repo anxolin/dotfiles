@@ -83,14 +83,27 @@ docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it --rm dotfiles-ub
 
 ## Another configuration
 
-### In macOs
+### In OSX: iTerm
 
 Download `iTerm2` from https://www.iterm2.com
 
-- Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
-- Set the report terminal type to **xterm-256color** (in `settings > profiles > terminal`)
-- Set the font to **12pt Menlo** (or **Monaco**) ~~**12pt DejaVu Sans Mono for Powerline**~~
-- Set the vertical character spacing to 120%
+Use the profile in <terminal-profiles/osx-iterm2/Default-profile.json>
+
+Details of the profile:
+
+- `Profiles > Colors`: Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
+- `Terminal > Terminal Emulation`: Set the report terminal type to **xterm-256color**
+- `Profiles > Text > Font`: Set the font to **Meslo LG M for Powerline** (important, make sure you deselect the option: `use different font for non-ASCII text`)
+  - Old one (until 29/08/2020): **12pt Menlo** (or **Monaco**)
+  - Old one (until 18/03/2018): **12pt DejaVu Sans Mono for Powerline**
+- `Profiles > Text > Font`: Set the vertical character spacing to `120%`
+
+### In OSX: Terminal
+
+Use the profile in <terminal-profiles/osx-terminal/Default-profile.terminal>
+
+- `Profiles > Text > Font`: Set the font to **Meslo LGS NF Regular 12pt**
+- `Profiles > Advanced > Terminfo`: Declare terminal as **xterm-256color**
 
 ### In Linux
 
