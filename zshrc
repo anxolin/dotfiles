@@ -1,5 +1,5 @@
 ##########################
-#  GENERAL ZSH CONFIG    #
+#  ZSH DIRS              #
 ##########################
 
 
@@ -9,6 +9,9 @@ export ZSH=~/dotfiles/oh-my-zsh
 export ZSH_CUSTOM=~/dotfiles/zsh-custom
 
 
+##########################
+#  THEME                 #
+##########################
 # Theme:
 #   * Themes are located in:
 # 		 ~/dotfiles/zsh-custom/themes
@@ -17,12 +20,22 @@ export ZSH_CUSTOM=~/dotfiles/zsh-custom
 
 # Thene PowerLevel10K
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# IMPORTANT:
+#     p10k-instant-prompt allows to make ZSH available before all config and plugins has been loaded, so u can type already
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+##########################
+#  GENERAL ZSH CONFIG    #
+##########################
 
 # Default prompt
 PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
@@ -68,6 +81,7 @@ export UPDATE_ZSH_DAYS=30
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
+
 #####################
 #  CUSTOM CONFIG    #
 #####################
@@ -89,6 +103,10 @@ if [[ -a ~/.zsh_local ]]; then
   done
 fi
 
+
+##########################
+#  PLUGINS               #
+##########################
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
@@ -144,11 +162,9 @@ plugins=(git docker sudo npm systemd tmux tig)
 # fi
 
 
-######################
-#  OTHER CONF ZSH    #
-######################
-
-
+##############################################################
+#  Configure OH MY ZSH and SOME DEFAULTS if not available    #
+##############################################################
 # Configure Oh My ZSH if present
 if [ -f "$ZSH/oh-my-zsh.sh" ]; then
   source $ZSH/oh-my-zsh.sh
@@ -204,7 +220,11 @@ else
   RPROMPT=$'$(vcs_info_wrapper)'
 fi
 
+######################
+#  OTHER CONF ZSH    #
+######################
 
+# Send to the FOREGROUND a process with control-z
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -230,13 +250,16 @@ bindkey '^Z' fancy-ctrl-z
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
 #open_by_browser(){ open -a $1 $2}
 #alias firefox='open_by_browser firefox'
 #alias chrome='open_by_browser "Google Chrome"'
 #alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name}" --output table'
+
+
+######################
+#  SOME ALIASES      #
+######################
+
 alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
 : LaunchTime, placement: Placement.AvailabilityZone }" --output table'
 
@@ -244,11 +267,19 @@ alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*]
 alias mux="tmuxinator"
 
 
+############################
+#  CUSTOM AUTOCOMPLETES    #
+############################
+
 # # Read all autocomplete files in zsh_autocomplete dir
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
 # done
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+######################
+#  OTHER CONF ZSH    #
+######################
+# IMPORTANT: This must be the latest plugin to load
+
+source ~/dotfiles/zsh-custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
