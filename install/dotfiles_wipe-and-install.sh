@@ -33,10 +33,3 @@ while read FILE; do
     ln -s $DOT_FILES/$FILE ~/.$FILE
   fi
 done < dotfiles.list
-
-# Install Oh My Zsh 
-#   Clone my oh-my-zsh repository from GitHub only if it isn't already present
-echo "[dotfiles-wipe-and-install] Install 'Oh My ZSH' into $DOT_FILES/oh-my-zsh/"
-if [[ ! -d $DOT_FILES/oh-my-zsh/ ]]; then
-    git clone http://github.com/robbyrussell/oh-my-zsh.git
-fi
