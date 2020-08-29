@@ -8,28 +8,24 @@
 export ZSH=~/dotfiles/oh-my-zsh
 export ZSH_CUSTOM=~/dotfiles/zsh-custom
 
+
 # Theme:
 #   * Themes are located in:
 # 		 ~/dotfiles/zsh-custom/themes
 #			 ~/dotfiles/.oh-my-zsh/themes/
-ZSH_THEME="anxo"
+#ZSH_THEME="anxo"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Default prompt
 PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
 RPROMPT='[%F{yellow}%?%f]'
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-#export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=30
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -72,21 +68,28 @@ RPROMPT='[%F{yellow}%?%f]'
 # Show hostname
 #HOSTNAME=$(hostname)
 
+# Default editor
+export EDITOR='vim mux'
 
 # Check for new versions every month
 export UPDATE_ZSH_DAYS=30
 
 # Load local config
-if [[ -a ~/.localrc ]]; then
-	source ~/.localrc
+if [[ -a ~/.zsh_local ]]; then	
+  # Read all config files in ~/.zsh_local
+  for file in ~/.zsh_local/*.zsh; do
+    source "$file"
+  done
 fi
 
-# Default editor
-export EDITOR='vim mux'
 
 # PLugins
 #   Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker npm systemd tmux vagrant)
+#   See all:
+#     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
+#     ls ~/.oh-my-zsh/plugins
+plugins=(git docker sudo npm systemd tmux tig)
+# tmuxinator vagrant
 
 # plugins="git"
 
@@ -140,7 +143,6 @@ plugins=(git docker npm systemd tmux vagrant)
 
 
 # Configure Oh My ZSH if present
-echo $ZSH/oh-my-zsh.sh
 if [ -f "$ZSH/oh-my-zsh.sh" ]; then
   source $ZSH/oh-my-zsh.sh
 else
@@ -227,4 +229,13 @@ bindkey '^Z' fancy-ctrl-z
 #open_by_browser(){ open -a $1 $2}
 #alias firefox='open_by_browser firefox'
 #alias chrome='open_by_browser "Google Chrome"'
-alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name}" --output table'
+#alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name}" --output table'
+alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
+: LaunchTime, placement: Placement.AvailabilityZone }" --output table'
+
+
+
+# # Read all autocomplete files in zsh_autocomplete dir
+# for file in ~/dotfiles/zsh_autocomplete/*; do
+#   source "$file"
+# done
