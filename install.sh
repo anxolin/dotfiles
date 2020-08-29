@@ -63,8 +63,6 @@ printf "[dotfiles] *** INSTALL DOT FILES ($PLATFORM) ***\n"
 
 cat << EOF
 
-cat << EOF
-
 
 ╔═╗┬┌┬┐                       
 ║ ╦│ │                        
@@ -78,6 +76,7 @@ EOF
 printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
 source "$DOT_FILES/install/init_submodules.sh"
 
+cat << EOF
 
 ┌┐ ┌─┐┌─┐┬┌─┬ ┬┌─┐
 ├┴┐├─┤│  ├┴┐│ │├─┘
