@@ -63,6 +63,21 @@ printf "[dotfiles] *** INSTALL DOT FILES ($PLATFORM) ***\n"
 
 cat << EOF
 
+cat << EOF
+
+
+╔═╗┬┌┬┐                       
+║ ╦│ │                        
+╚═╝┴ ┴                        
+╔═╗┬ ┬┌┐ ┌┬┐┌─┐┌┬┐┬ ┬┬  ┌─┐┌─┐
+╚═╗│ │├┴┐││││ │ │││ ││  ├┤ └─┐
+╚═╝└─┘└─┘┴ ┴└─┘─┴┘└─┘┴─┘└─┘└─┘
+EOF
+
+# Install submodules
+printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
+source "$DOT_FILES/install/init_submodules.sh"
+
 
 ┌┐ ┌─┐┌─┐┬┌─┬ ┬┌─┐
 ├┴┐├─┤│  ├┴┐│ │├─┘
@@ -148,23 +163,7 @@ else
   printf "[dotfiles] Skip install vim plugins\n"
 fi
 
-
-cat << EOF
-
-
-┌─┐┌─┐┬ ┬
-┌─┘└─┐├─┤
-└─┘└─┘┴ ┴
-┌─┐┌─┐┌┐┌┌─┐┬┌─┐
-│  │ ││││├┤ ││ ┬
-└─┘└─┘┘└┘└  ┴└─┘
-EOF
-
 printf "[dotfiles] Nice! All dotfiles are configured\n"
-
-# Install ZSH plugins
-source "$DOT_FILES/install/dotfiles_install-zsh-plugins.sh"
-
 cat << EOF
 
 

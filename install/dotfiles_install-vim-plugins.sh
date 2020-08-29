@@ -61,9 +61,9 @@ npm install || true
 # fi
 
 # Install NPM Completion for ZSH
-if git --version &>/dev/null; then
-  echo "Install NPM Completion for ZSH"
-  git clone https://github.com/lukechilds/zsh-better-npm-completion ~/.oh-my-zsh/custom/plugins/zsh-better-npm-completion
-else 
-  echo "WARN: NPM Completion for ZSH cannot be installed because git is not available"
-fi
+# if git --version &>/dev/null; then
+#   echo "Install NPM Completion for ZSH"
+#   git clone https://github.com/lukechilds/zsh-better-npm-completion ~/dotfiles/zsh-custom/plugins/zsh-better-npm-completion
+# else 
+#   echo "WARN: NPM Completion for ZSH cannot be installed because git is not available"
+# fi
