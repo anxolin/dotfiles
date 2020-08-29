@@ -113,7 +113,7 @@ fi
 #   See all:
 #     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 #     ls ~/.oh-my-zsh/plugins
-plugins=(git docker sudo npm systemd tmux tig)
+plugins=(git docker sudo npm systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions)
 # tmuxinator vagrant
 
 # plugins="git"
@@ -275,11 +275,3 @@ alias mux="tmuxinator"
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
 # done
-
-
-######################
-#  OTHER CONF ZSH    #
-######################
-# IMPORTANT: This must be the latest plugin to load
-
-source ~/dotfiles/zsh-custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
