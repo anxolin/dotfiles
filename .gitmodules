@@ -1,13 +1,14 @@
+# OhMyZsH: Zsh plugin manager
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
   
-# PowerLevel10K: ZSH Theme
+# PowerLevel10K: OMyZsh Theme
 [submodule "zsh-custom/themes/powerlevel10k"]
 	path = zsh-custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
 
-# Vundle (Vim plugin manager)  
-[submodule "vim/bundle"]
-	path = vim/bundle
+# Vundle: Vim plugin manager
+[submodule "vim/bundle/Vundle.vim"]
+	path = vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
