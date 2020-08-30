@@ -33,6 +33,12 @@ if [[ -f /etc/debian_version ]]; then
       sudo apt-get install vim-athena bc
     fi
     sudo apt-get install zsh silversearcher-ag xclip ctags cmake    
+
+    BAT_DEBIAN_VERSION=bat_0.15.4_amd64.deb
+    # Install bat
+    wget https://github.com/sharkdp/bat/releases/download/v0.15.4/$BAT_DEBIAN_VERSION
+    sudo apt install ./$BAT_DEBIAN_VERSION
+    rm $BAT_DEBIAN_VERSION
 fi
 
 
@@ -40,7 +46,7 @@ fi
 # Arch linux
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps"
-    sudo pacman -S --noconfirm zsh vim-nox the_silver_searcher xclip ctags cmake bc
+    sudo pacman -S --noconfirm zsh vim-nox the_silver_searcher xclip ctags cmake bc bat
     # gvim
 fi
 
