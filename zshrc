@@ -9,17 +9,15 @@ export ZSH=~/dotfiles/oh-my-zsh
 export ZSH_CUSTOM=~/dotfiles/zsh-custom
 
 
-##########################
-#  THEME                 #
-##########################
+#############################
+#  THEME: PowerLevel10K     #
+#############################
 # Theme:
 #   * Themes are located in:
 # 		 ~/dotfiles/zsh-custom/themes
 #			 ~/dotfiles/.oh-my-zsh/themes/
-#ZSH_THEME="anxo"
-
-# Thene PowerLevel10K
-#   config: ~/dotfiles/p10k.zsh
+#  Config: 
+#      ~/dotfiles/p10k.zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # IMPORTANT:
@@ -30,8 +28,19 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/p10k.zsh.
+[[ ! -f ~/dotfiles/p10k.zsh ]] || source ~/dotfiles/p10k.zsh
+
+
+#############################
+#  THEME: anxo (disabled)   #
+#############################
+# Theme:
+#   * Themes are located in:
+# 		 ~/dotfiles/zsh-custom/themes
+#			 ~/dotfiles/.oh-my-zsh/themes/
+#ZSH_THEME="anxo"
 
 
 ##########################
@@ -42,59 +51,14 @@ fi
 PROMPT='%F{red}%n%f@%F{blue}%m%f %F{yellow}%1~%f %# '
 RPROMPT='[%F{yellow}%?%f]'
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
 # Uncomment the following line to change how often to auto-update (in days).
 export UPDATE_ZSH_DAYS=30
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-
-#####################
-#  CUSTOM CONFIG    #
-#####################
-
-# Show hostname
-#HOSTNAME=$(hostname)
-
 # Default editor
-export EDITOR='vim mux'
+export EDITOR='vim'
 
 # Check for new versions every month
 export UPDATE_ZSH_DAYS=30
-
-# Load local config
-if [[ -a ~/.zsh_local ]]; then	
-  # Read all config files in ~/.zsh_local
-  for file in ~/.zsh_local/*.zsh; do
-    source "$file"
-  done
-fi
-
 
 ##########################
 #  PLUGINS               #
@@ -105,8 +69,33 @@ fi
 #   See all:
 #     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 #     ls ~/.oh-my-zsh/plugins
-plugins=(git docker sudo npm systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git vi-mode vscode web-search z docker docker-compose sudo npm osx systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copydir)
+
 # OTHER: Disabled: tmuxinator vagrant zsh-better-npm-completion ssh-agent
+# copydir: 
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copydir
+#   Copies the path of your current folder to the system clipboard.
+# osx: 
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/osx
+#   Osx utilities.
+# vim-mode:
+#   vim-like edition. Just press ESC when editing to enter normal mode. Then use vim keys, or press v to edit in vim
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
+# vscode:
+#   Better integration with Visual Studio code "vsda <dir>" or "vscd <file1> <file2>"
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vscode
+# web-search
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
+#   aliases for searching with Google, Wiki, Bing, YouTube and other popular services.
+#   google this
+# z
+#  quicly allow to jump to directories you've visited
+#  just type "z <fuzy-search>" and press tab
+#  https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
+#
+# history-substring-search (disabled)
+#  Adds fuzzy search for the history.
+#  Disabled since now I used FZF instead
 
 # plugins="git"
 
@@ -229,44 +218,37 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-#open_by_browser(){ open -a $1 $2}
-#alias firefox='open_by_browser firefox'
-#alias chrome='open_by_browser "Google Chrome"'
-#alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name}" --output table'
-
 
 ######################
 #  SOME ALIASES      #
 ######################
-
-alias aws_list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
+# General aliases
+# Machine specific aliases are in:
+#    ~/.zsh-local/alias.zsh
+alias aws-list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
 : LaunchTime, placement: Placement.AvailabilityZone }" --output table'
 
 # tmuxnizator
 alias mux="tmuxinator"
 
-
-############################
-#  CUSTOM AUTOCOMPLETES    #
-############################
+###############################
+#  LOAD SOME LOCAL CONFIG    #
+###############################
+# Some local config, like loading FLZ must be done at the end of the script
+# i.e. ~/.zsh_local/fzf.zsh
 
 # # Read all autocomplete files in zsh_autocomplete dir
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
 # done
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/p10k.zsh.
-[[ ! -f ~/dotfiles/p10k.zsh ]] || source ~/dotfiles/p10k.zsh
+# Load local config: Machine specific config:
+#    See:
+#      ~/.zsh-local
+if [[ -a ~/.zsh_local ]]; then	
+  # Read all config files in ~/.zsh_local
+  for file in ~/.zsh_local/*.zsh; do
+    #echo "Loading: $file"
+    source "$file"
+  done
+fi

@@ -108,3 +108,7 @@ Use the profile in <terminal-profiles/osx-terminal/Default-profile.terminal>
 ### In Linux
 
 In `Konsole`, set the font to 12pt Oc
+
+## Some interesting tools for productivity
+
+See tools in [doc/zsh.md](docs/zsh.md)

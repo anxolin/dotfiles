@@ -1,11 +1,11 @@
-" **********s   BASIC CONFIG      **********
+"  **********s   BASIC CONFIG      **********
 
 " Use Vim, vi is not compatible
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " UTF8 Encoding
-set encoding=utf-8
+set encoding=UTF-8
 
 " History
 set history=80
@@ -145,10 +145,12 @@ nnoremap <Leader>o :CtrlP<CR>
 "   Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+" The next lines are commented, because I wanted to use lead-P for ctrlp
+" plugin, while I reasign ctrl-p to fzf files dialog
+"nmap <Leader>p "+p
+"nmap <Leader>P "+P
+"vmap <Leader>p "+p
+"vmap <Leader>P "+P
 
 "Python"
 ""au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4
@@ -303,6 +305,11 @@ if HasPlugins('Vundle.vim')
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
 
+  " FLZ for vim
+  "   fzf#install() makes sure that you have the latest binary, but it's optional, so you can omit it if you use a plugin manager that doesn't support hooks.
+  Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plugin 'junegunn/fzf.vim'
+
   " Ctrlp: Ctrl+p - ctrlp.vim - Open files by name
   Plugin 'ctrlpvim/ctrlp.vim'
 
@@ -310,7 +317,11 @@ if HasPlugins('Vundle.vim')
   Plugin 'j5shi/ctrlp_bdelete.vim'
 
   " NerdTree: File explorer
-  Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdtree'  
+
+  " vim-nerdtree-syntax-highlight
+  "   Meant to be use with vim-devicons. Adds better icons and colours
+  Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
   " Autocomplete: Youcompleteme:
   "   Multilingual code-completion, goTo declaration, view documentation, rename variables
@@ -331,6 +342,12 @@ if HasPlugins('Vundle.vim')
 
   " Move fast using <leader> <leader>
   Plugin 'easymotion/vim-easymotion'
+
+  " Vim-devicons: 
+  "   IMPORTANT: Needs to go last
+  "   Add nice icons to NERDTree, vim-airline, CtrlP, powerline, 
+  "   denite, unite, lightline.vim, vim-startify, vimfiler, vim-buffet and flagship.
+  Plugin 'ryanoasis/vim-devicons'
 
   " *******  Key mappings *************
   " [command: w!!] Allow to gain root permission within vim
@@ -401,37 +418,24 @@ endif
 " endfunction
 
 
+
 " NerdTree conf
 if HasPlugins('nerdtree')
-  "   auto-open on startup
-  "autocmd vimenter * NERDTree
-  " auto-open if there are no files
-  "autocmd StdinReadPre * let s:std_in=1
-  "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  " How can I open NERDTree automatically when vim starts up on opening a directory?
-  "autocmd StdinReadPre * let s:std_in=1
-  "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
   " Bind C-n key to NerdTree
   map <C-n> :NERDTreeToggle<CR>
-
-  " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  "   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  "   exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-  " endfunction
-  "
-  " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-  " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-  " call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-  " call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-  " call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-  " call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-  " call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-  " call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+  map <C-m> :NERDTreeFind<CR>
+  
+  " Show file always in tree automatically 
+  "autocmd BufWinEnter * NERDTreeFind
+  
+  " Open nerd tree as an only window, with the current file
+  " selected
+  fun! NewTreeOpen()
+    NERDTreeFind
+    wincmd o
+    let g:NERDTreeQuitOnOpen=1
+  endfun
+  nmap <silent><leader>no :call NewTreeOpen()<CR>
 endif
 
 " Tern: tern mappings
@@ -505,11 +509,15 @@ endif
 
 " Ctrlp: Open files by name
 if HasPlugins('ctrlp.vim')
-  let g:ctrlp_map = '<c-p>' " Map ctr+p key to ctrlp
+  let g:ctrlp_map =  '<c-p>' "     Map ctr+p key to ctrlp (will be overrided by fzf below)
+  let g:ctrlp_map =  '<leader>p' " Map <leader>+p key to ctrlp
   let g:ctrlp_cmd = 'CtrlP'
 
-  " Ctrlp: Open with ctrl-b the buffers
+  " Ctrlp: Open with ctrl-b the buffers (will be overrided by fzf below)
   map <c-b> :CtrlPBuffer<CR>
+
+  " Ctrlp: Open with ctrl-p (will be overrided by fzf below)
+  map <c-p> :CtrlP<CR>
 
   " Ctrlp: Ignore .gitignore files
   let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -518,6 +526,63 @@ if HasPlugins('ctrlp.vim')
       \ 'find %s -type f'
       \ ]
 endif
+
+
+" FZF config
+"   fzf provides fuzzy search menus for buffers and files
+"   Uses fzf bin, the fzf.vim plugin, and some hack function to add images
+if executable('fzf')
+  " fzf config
+  map <leader>P :GFiles<CR>
+  map <C-p> :Files<CR>
+  map <C-p> :call FZFWithDevIcons():<CR>
+  map <C-b> :Buffers<CR>
+
+  " Small hack for adding icons to fzf
+  "   - fzf for now doesn't have a  dev-icons integration
+  "   - The code below substitutes the :Files command
+  function! FZFWithDevIcons()
+    let l:fzf_files_options = ' -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "bat --color always --style numbers {2..}"'
+
+    function! s:files()
+      let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+      return s:prepend_icon(l:files)
+    endfunction
+
+    function! s:prepend_icon(candidates)
+      let result = []
+      for candidate in a:candidates
+        let filename = fnamemodify(candidate, ':p:t')
+        let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(filename))
+        call add(result, printf("%s %s", icon, candidate))
+      endfor
+
+      return result
+    endfunction
+
+    function! s:edit_file(items)
+      let items = a:items
+      let i = 1
+      let ln = len(items)
+      while i < ln
+        let item = items[i]
+        let parts = split(item, ' ')
+        let file_path = get(parts, 1, '')
+        let items[i] = file_path
+        let i += 1
+      endwhile
+      call s:Sink(items)
+    endfunction
+
+    let opts = fzf#wrap({})
+    let opts.source = <sid>files()
+    let s:Sink = opts['sink*']
+    let opts['sink*'] = function('s:edit_file')
+    let opts.options .= l:fzf_files_options
+    call fzf#run(opts)
+  endfunction
+endif
+
 
 " Easy motion (https://github.com/easymotion/vim-easymotion)
 if HasPlugins('vim-easymotion')

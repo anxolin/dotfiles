@@ -22,3 +22,9 @@
 [submodule "vim/bundle/Vundle.vim"]
 	path = vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
+
+# History substring search
+#   Disabled in favor of fzf (wich i used to substitute ctrl-r history search)
+#[submodule "zsh-custom/plugins/zsh-history-substring-search"]
+#	path = zsh-custom/plugins/zsh-history-substring-search
+#	url = https://github.com/zsh-users/zsh-history-substring-search
