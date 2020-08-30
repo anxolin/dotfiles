@@ -18,7 +18,7 @@ if [ -d ~/.vim/bundle/YouCompleteMe ]; then
   echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
   cd ~/.vim/bundle/YouCompleteMe && ./install.sh || true
 else 
-  echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/bundle/YouCompleteMe"
+  echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/bundle/YouCompleteMe (probably was disabled in vimrc, ignore if it's the case)"
 fi
 
 

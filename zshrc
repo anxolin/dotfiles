@@ -234,9 +234,6 @@ alias mux="tmuxinator"
 ###############################
 #  LOAD SOME LOCAL CONFIG    #
 ###############################
-# Some local config, like loading FLZ must be done at the end of the script
-# i.e. ~/.zsh_local/fzf.zsh
-
 # # Read all autocomplete files in zsh_autocomplete dir
 # for file in ~/dotfiles/zsh_autocomplete/*; do
 #   source "$file"
@@ -252,3 +249,40 @@ if [[ -a ~/.zsh_local ]]; then
     source "$file"
   done
 fi
+
+############################################
+#  Setup FZF (should be the last thing)    #
+############################################
+# FZF default config
+#export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border -m'
+export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --multi --preview "bat --style=numbers --color=always --line-range :500 {}" --color "preview-bg:#223344,border:#778899" --color "preview-bg:#1e2b30,border:#2c3136"'
+#export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+
+# FZF: Load bindings
+#   https://github.com/junegunn/fzf
+FZF_PATH=~/dotfiles/bin-dependencies/fzf
+
+
+# CTRL-R binding config
+export FZF_CTRL_R_OPTS='--height 50% --layout=reverse --border -m --preview="" --color "fg:#bbccdd,fg+:#ddeeff,bg:#0F3643"'
+
+
+# CTRL-T binding config
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */usr/local/Cellar/fzf/0.22.0/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}$FZF_PATH/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "$FZF_PATH/shell/completion.zsh" 2> /dev/null
+
+# Key bindings
+# ------------
+source "$FZF_PATH/shell/key-bindings.zsh"

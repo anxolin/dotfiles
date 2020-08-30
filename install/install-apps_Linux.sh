@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+
+# Install fzf from sources
+if [[ `which fzf &>/dev/null && $?` != 0 ]]; then
+  echo "Install fzf from source code"
+  source ~/dotfiles/install/install-fzf.sh
+fi
+
 # Installed apps:
 #   - zsh: Nice shell
 #   - gvim: Vim (graphical + regular)
@@ -25,8 +32,10 @@ if [[ -f /etc/debian_version ]]; then
       printf "[install-apps-Linux] Debian: Install basic apps"
       sudo apt-get install vim-athena bc
     fi
-    sudo apt-get install zsh silversearcher-ag xclip ctags cmake
+    sudo apt-get install zsh silversearcher-ag xclip ctags cmake    
 fi
+
+
 
 # Arch linux
 if [[ -f /etc/arch-release ]]; then

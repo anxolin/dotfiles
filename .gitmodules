@@ -28,3 +28,6 @@
 #[submodule "zsh-custom/plugins/zsh-history-substring-search"]
 #	path = zsh-custom/plugins/zsh-history-substring-search
 #	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule "bin-dependencies/fzf"]
+	path = bin-dependencies/fzf
+	url = https://github.com/junegunn/fzf.git
