@@ -17,6 +17,9 @@
 [include]
   path = .gitconfiglocal
 
+[core]
+	excludesFile = ~/dotfiles/gitignore_global
+
 # [diff]
 # 	tool = kdiff3
 # [difftool "sourcetree"]
