@@ -2,7 +2,7 @@
   "workbench.colorTheme": "One Dark Pro",
   "editor.minimap.enabled": false,
   "eslint.packageManager": "yarn",
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 0,
   "diffEditor.ignoreTrimWhitespace": true,
   "explorer.openEditors.visible": 0,
   "[javascript]": {
@@ -132,5 +132,6 @@
     }
   ],
   "python.languageServer": "Microsoft",
-  "aws.profile": "profile:default"
+  "aws.profile": "profile:default",
+  "eslint.format.enable": true
 }
