@@ -5,6 +5,15 @@ set -e
 echo "[dotfiles-install-vim-plugins] Installing Vim plugins using Vundle (it can take some time)..."
 vim +PluginInstall +qall
 
+# Install fzf from sources
+if [[ `which node &>/dev/null && $?` == 0 ]]; then
+  echo "Install CoC Typescript server"
+  vim -c "CocInstall coc-tsserver"
+fi
+
+
+
+
 # vim-jsbeautify (https://github.com/maksimr/vim-jsbeautify)
 #   - Quickly format javascript, html and css files
 #   - Supports the editorconfig file

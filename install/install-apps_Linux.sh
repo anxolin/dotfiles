@@ -14,8 +14,6 @@ fi
 #   - ag: Allows to search text fast in test files
 #       useful for the terminal, but also I use it as a replacement for vim grep
 #       (also named silversearcher-ag or the_silver_searcher)
-#   - ctags: Tool for generating indexes in source files
-#       Also uused in VIM for "Jump to definition" functionality)
 #   - xclip: Allows to share the clipboard between tmux and the X's
 #   - cmake: To build packages
 #       Also required by "You complete me" vim plugin
@@ -32,7 +30,7 @@ if [[ -f /etc/debian_version ]]; then
       printf "[install-apps-Linux] Debian: Install basic apps"
       sudo apt-get install vim-athena bc
     fi
-    sudo apt-get install zsh silversearcher-ag xclip ctags cmake    
+    sudo apt-get install zsh silversearcher-ag xclip cmake    
 
     BAT_DEBIAN_VERSION=bat_0.15.4_amd64.deb
     # Install bat
@@ -46,14 +44,14 @@ fi
 # Arch linux
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps"
-    sudo pacman -S --noconfirm zsh vim-nox the_silver_searcher xclip ctags cmake bc bat
+    sudo pacman -S --noconfirm zsh gvim the_silver_searcher xclip cmake bc bat
     # gvim
 fi
 
 # Alpine linux
 #if [[ -f /etc/alpine-release ]]; then
 #    printf "[install-apps-Linux] alpine: Install basic apps"
-#    su - root -c "apk add --no-cache zsh vim the_silver_searcher xclip ctags cmake"
+#    su - root -c "apk add --no-cache zsh vim the_silver_searcher xclip cmake"
 #fi
 
 # Set ZSH as the default shell
