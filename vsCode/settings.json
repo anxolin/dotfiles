@@ -7,7 +7,6 @@
   "explorer.openEditors.visible": 0,
   "[javascript]": {
     "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
     "editor.tabSize": 2
@@ -33,9 +32,10 @@
   "editor.detectIndentation": false,
   "[json]": {
     "editor.folding": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.rulers": [120],
+  "editor.rulers": [
+    120
+  ],
   "explorer.confirmDragAndDrop": false,
   "editor.folding": false,
   "workbench.editor.enablePreview": true,
@@ -49,8 +49,14 @@
   "solidity.soliumRules": {
     "imports-on-top": 0,
     "variable-declarations": 0,
-    "indentation": ["error", 4],
-    "quotes": ["error", "double"]
+    "indentation": [
+      "error",
+      4
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ]
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "solidity.linter": "solium",
@@ -64,7 +70,11 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "es": true,
-    "lib": true
+    "lib": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "liveshare.audio.joinCallBehavior": "accept",
   "files.associations": {
@@ -75,6 +85,7 @@
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "cSpell.userWords": [
+    "Chainable",
     "Etherscan",
     "Mainnet",
     "Rinkeby",
@@ -96,14 +107,12 @@
   "editor.gotoLocation.multipleDefinitions": "goto",
   "editor.gotoLocation.multipleTypeDefinitions": "goto",
   "python.formatting.provider": "black",
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "[jsonc]": {},
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "githubIssues.queries": [
     {
@@ -133,5 +142,47 @@
   ],
   "python.languageServer": "Microsoft",
   "aws.profile": "profile:default",
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "terminal.external.osxExec": "iTerm.app",
+  "liveshare.featureSet": "insiders",
+  "java.project.importOnFirstTimeStartup": "automatic",
+  "git.suggestSmartCommit": false,
+  "githubPullRequests.queries": [
+    {
+      "label": "Waiting For My Review",
+      "query": "is:open review-requested:${user} -label:dependencies -label:\"on hold\""
+    },
+    {
+      "label": "Other open PRs",
+      "query": "is:open -review-requested:${user} -label:dependencies -label:\"on hold\""
+    },
+    {
+      "label": "Assigned To Me",
+      "query": "is:open assignee:${user}"
+    },
+    {
+      "label": "Created By Me",
+      "query": "is:open author:${user}"
+    },
+    {
+      "label": "On Hold",
+      "query": "is:open label:\"on hold\""
+    },
+    {
+      "label": "Release",
+      "query": "is:open label:release"
+    },
+    {
+      "label": "David's PRs (W3stside)",
+      "query": "is:open author:W3stside"
+    },
+    {
+      "label": "Dima's PRs (velenir)",
+      "query": "is:open author:velenir"
+    },
+    {
+      "label": "Michel's PRs (biocom)",
+      "query": "is:open author:biocom"
+    },
+  ]
 }
