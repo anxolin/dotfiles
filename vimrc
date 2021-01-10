@@ -104,6 +104,10 @@ nnoremap <silent> p p`]
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
 
+
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
 " Autoread: Detect changes done by external applications
 set autoread
 " TODO: Make vim notice automatically if an external app has changed the file
@@ -209,7 +213,7 @@ set hlsearch
 nnoremap <F3> :set hlsearch!<CR>
 
 " Maketags: Use ctags generate app to
-command! Maketags !ctags -R .
+" command! Maketags !ctags -R .
 
 " SNIPPETS:
 "   Read an empty HTML template and move cursor to title
@@ -249,22 +253,77 @@ if HasPlugins('Vundle.vim')
   " Vundle: let Vundle manage Vundle, required
   Plugin 'VundleVim/Vundle.vim'
 
-  " Autoread: Enables autoread (reload the file if it has changed autside)
-  "Plugin 'djoshea/vim-autoread'
-  "Plugin 'Carpetsmoker/auto_autoread.vim'
-
-  " Syntastic: Lintern
-  " Plugin 'vim-syntastic/syntastic'
-  " Disabled to try w0rp/ale since vim8 upgrade
-
-  " w0rp/ale
-  Plugin 'w0rp/ale'
-
   " Solarized: Colors - Solarized Theme (related conf in plugin conf section)
   Plugin 'altercation/vim-colors-solarized'
 
-  " Javascript:  syntax highlighting and improved indentation.
-  "Plugin 'pangloss/vim-javascript'
+  " Ack: Run your favorite search tool from Vim, with an enhanced results
+  " list. (ag silversearch, 
+  Plugin 'mileszs/ack.vim'
+
+  " Plugins that depend on NodeJS
+  "   - If nodejs available CoC is used for code completions, linter, etc
+  "   - Otherwise, there's a fallback with other plugins
+  if executable('node')
+    " CoC: Conquer of Completion
+    "   - Code completions, similar to YouCompleteMe, but easier to setup!
+    "   - Config file: 
+    "       ~/.config/coc
+    "       ~/dotfiles/vim/coc-settings.json
+    "   - Work with extension (i.e ts-server)
+    "      https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+    "      https://github.com/neoclide/coc-tsserver
+    Plugin 'neoclide/coc.nvim' , { 'branch' : 'release' }
+
+    " You have to install coc extension or configure language servers for LSP
+    " support.
+    "   - Install extensions:
+    "     CocInstall coc-json coc-tsserver
+    "Plugin 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+    "Plugin 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+
+  else
+    " Autoread: Enables autoread (reload the file if it has changed autside)
+    "Plugin 'djoshea/vim-autoread'
+    "Plugin 'Carpetsmoker/auto_autoread.vim'
+
+    " Syntastic: Lintern
+    " Disabled to try w0rp/ale since vim8 upgrade
+    " Plugin 'vim-syntastic/syntastic'
+
+    " Asynchronous Lint Engine (Ale)
+    "   - ALE makes use of NeoVim and Vim 8 job control functions and timers to
+    "    run linters
+    "   - ALE acts as a "language client" to support a variety of Language
+    "   Server Protocol features, including: Diagnostics, Go To Definition,
+    "     Completion, Find references, Hover, SymbolSearch
+    "   - Supported Languages and tools:
+    "   https://github.com/dense-analysis/ale/blob/master/supported-tools.md
+    "   - DISABLED: to try CoC (looks beter for TS, i.e. auto es6 imports)
+    Plugin 'w0rp/ale'
+
+    " Autocomplete: Youcompleteme:
+    "   Multilingual code-completion, goTo declaration, view documentation, rename variables
+    "Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'davidhalter/jedi-vim'
+
+    " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
+    "   documentation,  Find the type of the thing under the cursor, references to the variable
+    " Rename the variable
+    " Plugin 'ternjs/tern_for_vim'
+  endif
+
 
   " Javascript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
   "    :TernDef: Jump to the definition of the thing under the cursor.
@@ -272,33 +331,43 @@ if HasPlugins('Vundle.vim')
   "    :TernType: Find the type of the thing under the cursor.
   "    :TernRefs: Show all references to the variable or property under the cursor.
   "    :TernRename: Rename the variable under the cursor.
-  Plugin 'ternjs/tern_for_vim'
+  "Plugin 'ternjs/tern_for_vim'
 
   " Taglist: List of tags in the current file
   "     https://github.com/majutsushi/tagbar
   "Plugin 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
-  Plugin 'majutsushi/tagbar'
+  "Plugin 'majutsushi/tagbar'
 
   " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
-  Plugin 'maksimr/vim-jsbeautify'
+  "Plugin 'maksimr/vim-jsbeautify'
 
   " Format: vim-autoformat: Formats using any external formatter
-  Plugin 'Chiel92/vim-autoformat'
+  "Plugin 'Chiel92/vim-autoformat'
 
   " Solidity
-  Plugin 'tomlion/vim-solidity'
-
+  "Plugin 'tomlion/vim-solidity'
 
   " Python
   "Plugin 'nvie/vim-flake8'
+
+  " Javascript:  syntax highlighting and improved indentation.
+  Plugin 'pangloss/vim-javascript'
+
+  " TypeScript
+  Plugin 'leafgarland/typescript-vim' 
+
+  " JS and JSX
+  Plugin 'maxmellon/vim-jsx-pretty'   
+
+  " GraphQL
+  Plugin 'jparise/vim-graphql'       
 
   " Scala: scala integration - https://github.com/derekwyatt/vim-scala
   "     :SortScalaImports - Sorting of import statements
   "Plugin 'derekwyatt/vim-scala'
 
-
   " Fugitive: Git - Vim Fugitive:
-  "   https://docs.google.com/document/d/1sySUYHuHQO3yBRjIxshIg5_qkkVMq0DXjR4qQLG_Wr4/edit
+  "   Vim plugin
   Plugin 'tpope/vim-fugitive'
 
   " Airline: Status bar - Vim Airline
@@ -306,7 +375,8 @@ if HasPlugins('Vundle.vim')
   Plugin 'vim-airline/vim-airline-themes'
 
   " FLZ for vim
-  "   fzf#install() makes sure that you have the latest binary, but it's optional, so you can omit it if you use a plugin manager that doesn't support hooks.
+  "   fzf#install() makes sure that you have the latest binary, but it's 
+  "   optional, so you can omit it if you use a plugin manager that doesn't support hooks.
   Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plugin 'junegunn/fzf.vim'
 
@@ -322,16 +392,6 @@ if HasPlugins('Vundle.vim')
   " vim-nerdtree-syntax-highlight
   "   Meant to be use with vim-devicons. Adds better icons and colours
   Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-  " Autocomplete: Youcompleteme:
-  "   Multilingual code-completion, goTo declaration, view documentation, rename variables
-  "Plugin 'Valloric/YouCompleteMe'
-  "Plugin 'davidhalter/jedi-vim'
-
-  " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
-  "   documentation,  Find the type of the thing under the cursor, references to the variable
-  " Rename the variable
-  " Plugin 'ternjs/tern_for_vim'
 
   " Async run: skywind3000/asyncrun.vim
   Plugin 'skywind3000/asyncrun.vim'
@@ -375,10 +435,11 @@ silent! colorscheme solarized
 if executable('ag')
   " bind \ (backward slash) to grep shortcut
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<SPACE>
+  nnoremap \ :Ack<SPACE>
 
 
   " Use ag (the_silver_searcher) instead of ack
+  "     https://github.com/mileszs/ack.vim#can-i-use-ag-the-silver-searcher-with-this 
   let g:ackprg = 'ag --vimgrep'
 
   " Use ag over grep
@@ -436,6 +497,171 @@ if HasPlugins('nerdtree')
     let g:NERDTreeQuitOnOpen=1
   endfun
   nmap <silent><leader>no :call NewTreeOpen()<CR>
+endif
+
+" CoC: Conquer Of Completion 
+if HasPlugins('coc.nvim')
+  "--------------------------------------------------------------------------
+  " CoC custom comfig
+  " --------------------------------------------------------------------------
+  let g:coc_global_extensions = [ 'coc-tsserver' ]
+  
+  "--------------------------------------------------------------------------
+  " CoC recommened comfig 
+  " --------------------------------------------------------------------------
+	" TextEdit might fail if hidden is not set.
+	set hidden
+
+	" Some servers have issues with backup files, see #649.
+	set nobackup
+	set nowritebackup
+
+	" Give more space for displaying messages.
+	set cmdheight=2
+
+	" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+	" delays and poor user experience.
+	set updatetime=300
+
+	" Don't pass messages to |ins-completion-menu|.
+	set shortmess+=c
+
+	" Always show the signcolumn, otherwise it would shift the text each time
+	" diagnostics appear/become resolved.
+	if has("patch-8.1.1564")
+		" Recently vim can merge signcolumn and number column into one
+		set signcolumn=number
+	else
+		set signcolumn=yes
+	endif
+
+	" Use tab for trigger completion with characters ahead and navigate.
+	" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+	" other plugin before putting this into your config.
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
+
+	" Use <c-space> to trigger completion.
+	if has('nvim')
+		inoremap <silent><expr> <c-space> coc#refresh()
+	else
+		inoremap <silent><expr> <c-@> coc#refresh()
+	endif
+
+	" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+	" position. Coc only does snippet and additional edit on confirm.
+	" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+	if exists('*complete_info')
+		inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	else
+		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	endif
+
+	" Use `[g` and `]g` to navigate diagnostics
+	" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+	nmap <silent> [g <Plug>(coc-diagnostic-prev)
+	nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+	" GoTo code navigation.
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gy <Plug>(coc-type-definition)
+	nmap <silent> gi <Plug>(coc-implementation)
+	nmap <silent> gr <Plug>(coc-references)
+
+	" Use K to show documentation in preview window.
+	nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+	function! s:show_documentation()
+		if (index(['vim','help'], &filetype) >= 0)
+			execute 'h '.expand('<cword>')
+		else
+			call CocAction('doHover')
+		endif
+	endfunction
+
+	" Highlight the symbol and its references when holding the cursor.
+	autocmd CursorHold * silent call CocActionAsync('highlight')
+
+	" Symbol renaming.
+	nmap <leader>rn <Plug>(coc-rename)
+
+	" Formatting selected code.
+	xmap <leader>f  <Plug>(coc-format-selected)
+	nmap <leader>f  <Plug>(coc-format-selected)
+
+	augroup mygroup
+		autocmd!
+		" Setup formatexpr specified filetype(s).
+		autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+		" Update signature help on jump placeholder.
+		autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	augroup end
+
+	" Applying codeAction to the selected region.
+	" Example: `<leader>aap` for current paragraph
+	xmap <leader>a  <Plug>(coc-codeaction-selected)
+	nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+	" Remap keys for applying codeAction to the current buffer.
+	nmap <leader>ac  <Plug>(coc-codeaction)
+	" Apply AutoFix to problem on the current line.
+	nmap <leader>qf  <Plug>(coc-fix-current)
+
+	" Map function and class text objects
+	" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+	xmap if <Plug>(coc-funcobj-i)
+	omap if <Plug>(coc-funcobj-i)
+	xmap af <Plug>(coc-funcobj-a)
+	omap af <Plug>(coc-funcobj-a)
+	xmap ic <Plug>(coc-classobj-i)
+	omap ic <Plug>(coc-classobj-i)
+	xmap ac <Plug>(coc-classobj-a)
+	omap ac <Plug>(coc-classobj-a)
+
+	" Use CTRL-S for selections ranges.
+	" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+	nmap <silent> <C-s> <Plug>(coc-range-select)
+	xmap <silent> <C-s> <Plug>(coc-range-select)
+
+	" Add `:Format` command to format current buffer.
+	command! -nargs=0 Format :call CocAction('format')
+
+	" Add `:Fold` command to fold current buffer.
+	command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+	" Add `:OR` command for organize imports of the current buffer.
+	command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+	" Add (Neo)Vim's native statusline support.
+	" NOTE: Please see `:h coc-status` for integrations with external plugins that
+	" provide custom statusline: lightline.vim, vim-airline.
+	set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+	" Mappings for CoCList
+	" Show all diagnostics.
+	nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+	" Manage extensions.
+	nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+	" Show commands.
+	nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+	" Find symbol of current document.
+	nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+	" Search workspace symbols.
+	nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+	" Do default action for next item.
+	nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+	" Do default action for previous item.
+	nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+	" Resume latest coc list.
+	nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 endif
 
 " Tern: tern mappings
