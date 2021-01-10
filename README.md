@@ -40,6 +40,19 @@ Optionally, the `install.sh` accepts:
 - `--skip-install-apps`: Do not install apps like vim, tmux, etc.
 - `--skip-install-vim-plugins`: Do not install vim plugins
 
+## Update submodules (depenencies)
+Update the modules:
+```bash
+git pull --recurse-submodules
+git submodule update --remote
+```
+
+Then you can reinstall any of the tools:
+```bash
+# Install FZF
+./install/install-fzf.sh
+```
+
 ## Run it with docker
 
 Run latest docker images with:
