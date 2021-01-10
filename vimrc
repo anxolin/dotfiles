@@ -109,7 +109,16 @@ inoremap <C-a> <Esc>I
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Autoread: Detect changes done by external applications
-set autoread
+"   - autoread: reads the file when changed from the outside (but it doesnt work
+"     on its own, there is no internal timer or something like that)
+"   - CursorHold * checktime: when the cursor isn't moved by the user for the
+"     time specified in 'updatetime' (which is 4000 miliseconds by default)
+"     checktime is executed.
+"     Checktime forces the autoread to execute.
+"   - call feedkeys("lh"): Moves the cursor left and right, so CursorHold is
+"     triggered again later (basically, we create a loop)
+set autoread | au CursorHold * checktime | call feedkeys("lh")
+
 " TODO: Make vim notice automatically if an external app has changed the file
 " http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
 " |VimResized|    after the Vim window size changed
