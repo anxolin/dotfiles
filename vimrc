@@ -117,7 +117,11 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 "     Checktime forces the autoread to execute.
 "   - call feedkeys("lh"): Moves the cursor left and right, so CursorHold is
 "     triggered again later (basically, we create a loop)
-set autoread | au CursorHold * checktime | call feedkeys("lh")
+"   - FIXME: I had to remove 'call feedkeys("lh")' because with unsaved buffers
+"			was making a BEEP every checktime!
+"set autoread | au CursorHold * checktime | call feedkeys("lh")
+set autoread | au CursorHold * checktime
+
 
 " TODO: Make vim notice automatically if an external app has changed the file
 " http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
@@ -164,6 +168,13 @@ vmap <Leader>d "+d
 "nmap <Leader>P "+P
 "vmap <Leader>p "+p
 "vmap <Leader>P "+P
+
+" Move among buffers with SPACE arrows
+map <Leader><Right> :bnext<cr>
+map <Leader><Left> :bprev<cr>
+
+" Reload vimconfig with SPACE+r
+map <Leader>r :source ~/.vimrc<cr>
 
 "Python"
 ""au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4
