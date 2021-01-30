@@ -32,11 +32,13 @@ if [[ -f /etc/debian_version ]]; then
     fi
     sudo apt-get install zsh silversearcher-ag xclip cmake    
 
-    BAT_DEBIAN_VERSION=bat_0.15.4_amd64.deb
-    # Install bat
-    wget https://github.com/sharkdp/bat/releases/download/v0.15.4/$BAT_DEBIAN_VERSION
-    sudo apt install ./$BAT_DEBIAN_VERSION
-    rm $BAT_DEBIAN_VERSION
+    # Install bat: Syntax highlighting (for now, not in raspian for example)
+    printf "[install-apps-Linux] Get bat deb and install. Syntax highlighting"
+    BAT_VERSION=0.17.1
+    BAT_DEB_FILE="bat_${BAT_VERSION}_`dpkg --print-architecture`.deb"
+    wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/$BAT_DEB_FILE"
+    sudo apt install ./$BAT_DEB_FILE
+    rm $BAT_DEB_FILE
 fi
 
 
