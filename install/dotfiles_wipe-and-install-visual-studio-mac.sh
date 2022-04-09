@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 TIMESTAMP=$(date +%F_%R)
 VS_USER_DIR="$HOME/Library/Application Support/Code/User"
@@ -10,7 +11,7 @@ VS_CONFIG_BACKUP_SNIPPETS="$VS_USER_DIR/snippets_$TIMESTAMP"
 VS_DOTFILES_DIR="$HOME/dotfiles/vsCode"
 
 echo "[dotfiles-visual-studio] Backup VS config file and snippets"
-mkdir -p $VS_USER_DIR/snippets
+mkdir -p "$VS_USER_DIR/snippets"
 touch "$VS_CONFIG_FILE"
 mv "$VS_CONFIG_FILE" "$VS_CONFIG_BACKUP_FILE"
 mv "$VS_SNIPPETS_FILE" "$VS_CONFIG_BACKUP_SNIPPETS"
