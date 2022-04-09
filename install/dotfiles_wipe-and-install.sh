@@ -10,6 +10,11 @@ set -e
 DOT_FILES=~/dotfiles
 cd $DOT_FILES
 
+
+echo "[dotfiles-wipe-and-install] Create local ZSH config directory"
+mkdir -p ~/.zsh_local
+touch ~/.zsh_local/dev.zsh
+
 # Dot files install:
 #   1. Backup: Copy any existing dotfiles to dotfiles_old directory
 #   2. Symlink: Create symlinks in the homedir pointing to the dotfile

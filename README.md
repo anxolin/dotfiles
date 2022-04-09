@@ -107,6 +107,7 @@ Details of the profile:
 - `Profiles > Colors`: Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
 - `Terminal > Terminal Emulation`: Set the report terminal type to **xterm-256color**
 - `Profiles > Text > Font`: Set the font to **Meslo LG M for Powerline** (important, make sure you deselect the option: `use different font for non-ASCII text`)
+  - DOWNLOAD: [Meslo LG M for Powerline](https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true)
   - Old one (until 29/08/2020): **12pt Menlo** (or **Monaco**)
   - Old one (until 18/03/2018): **12pt DejaVu Sans Mono for Powerline**
 - `Profiles > Text > Font`: Set the vertical character spacing to `120%`
