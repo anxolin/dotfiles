@@ -43,4 +43,6 @@ The configurations is in [vscode](../vscode) directory:
 
 ## Custom Key bindings
   * `Mac + Shift + R`: Reveal file in the Explorer
+  * `Ctl + u`: Go up 10 lines
+  * `Ctl + d`: Go down 10 lines
 
