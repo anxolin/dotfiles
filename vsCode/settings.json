@@ -1,8 +1,6 @@
 {
-  "workbench.colorTheme": "One Dark Pro",
   "editor.minimap.enabled": false,
   "eslint.packageManager": "yarn",
-  "window.zoomLevel": 0,
   "diffEditor.ignoreTrimWhitespace": true,
   "explorer.openEditors.visible": 0,
   "[javascript]": {
@@ -140,7 +138,7 @@
       "query": "state:open repo:${owner}/${repository} label:release sort:updated-desc"
     }
   ],
-  "python.languageServer": "Microsoft",
+  "python.languageServer": "Default",
   "aws.profile": "profile:default",
   "eslint.format.enable": true,
   "terminal.external.osxExec": "iTerm.app",
@@ -184,5 +182,9 @@
       "label": "Michel's PRs (biocom)",
       "query": "is:open author:biocom"
     },
-  ]
+  ],
+  "workbench.iconTheme": "vscode-icons",
+  "gitlens.defaultTimeFormat": null,
+  "git.autofetch": true,
+  "window.zoomLevel": 1
 }
