@@ -2,13 +2,14 @@
 
 # Dotfiles
 
-Installs the preferences for aplications such as `tmux`, `zsh` or `vim`.
+Installs the preferences for aplications such as `tmux`, `zsh`, `vscode` or `vim`.
 
 There's also documentation showing the plugins and configuration for:
 
 - **vim**: [docs/vim.md](docs/vim.md) Plugins, mappings and configurations.
 - **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 - **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
+- **zsh**: [doc/zsh.md](docs/vscode.md) Shortcuts, configs, and some notes on plugins.
 
 It also contains some usefull scipts used when setting up a new working environment:
 
