@@ -69,14 +69,14 @@ export UPDATE_ZSH_DAYS=30
 #   See all:
 #     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 #     ls ~/.oh-my-zsh/plugins
-plugins=(git vi-mode vscode web-search z docker docker-compose sudo npm osx systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copydir)
+plugins=(git vi-mode vscode web-search z docker docker-compose sudo npm macos systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copypath)
 
 # OTHER: Disabled: tmuxinator vagrant zsh-better-npm-completion ssh-agent
-# copydir: 
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copydir
+# copypath: 
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copypath
 #   Copies the path of your current folder to the system clipboard.
-# osx: 
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/osx
+# macos: 
+#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/macos
 #   Osx utilities.
 # vim-mode:
 #   vim-like edition. Just press ESC when editing to enter normal mode. Then use vim keys, or press v to edit in vim
