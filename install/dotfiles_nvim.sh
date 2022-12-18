@@ -15,6 +15,9 @@ mkdir -p $BACKUP_DIR
 mkdir -p ~/.config
 cp -rf $NVIM_CONFIG_DIR $BACKUP_DIR 2>/dev/null || :
 
+printf "[dotfiles-nvim] Delete old nvim config\n"
+rm -rf $NVIM_CONFIG_DIR  2>/dev/null || :
+
 
 # All other confi files are versioned
 printf "[dotfiles-nvim] Creating symlink $NVIM_CONFIG_DIR ( $DOT_FILES/nvim )\n"
