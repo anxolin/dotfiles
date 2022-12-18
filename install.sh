@@ -107,6 +107,8 @@ EOF
 # Install submodules
 printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
 source "$DOT_FILES/install/init_submodules.sh"
+mkdir -p ~/.zsh_local
+touch ~/.zsh_local/alias.zsh ~/.zsh_local/config.zsh ~/.zsh_local/dev.zsh ~/.zsh_local/path.zsh
 
 
 cat << EOF
@@ -144,6 +146,7 @@ cat << EOF
 EOF
 # Prepare vim: required dirs and Vundle plugin manager
 source "$DOT_FILES/install/dotfiles_vim.sh"
+source "$DOT_FILES/install/dotfiles_nvim.sh"
 
 
 cat << EOF

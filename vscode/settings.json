@@ -5,6 +5,7 @@
   "explorer.openEditors.visible": 0,
   "[javascript]": {
     "editor.tabSize": 2,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[markdown]": {
     "editor.tabSize": 2
@@ -31,6 +32,14 @@
   "[json]": {
     "editor.folding": true,
   },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "cosmos.config.json"
+      ],
+      "url": "http://json.schemastore.org/cosmos-config"
+    }
+  ],
   "editor.rulers": [
     120
   ],
@@ -151,8 +160,8 @@
       "query": "is:open review-requested:${user} -label:dependencies -label:\"on hold\""
     },
     {
-      "label": "Other open PRs",
-      "query": "is:open -review-requested:${user} -label:dependencies -label:\"on hold\""
+      "label": "Not Reviewed",
+      "query": "is:open -reviewed-by:${user}"
     },
     {
       "label": "Assigned To Me",
@@ -163,28 +172,31 @@
       "query": "is:open author:${user}"
     },
     {
-      "label": "On Hold",
-      "query": "is:open label:\"on hold\""
-    },
-    {
       "label": "Release",
       "query": "is:open label:release"
     },
     {
+      "label": "Leandro's PRs (alfetopito)",
+      "query": "is:open author:alfetopito -reviewed-by:${user}"
+    },
+    {
       "label": "David's PRs (W3stside)",
-      "query": "is:open author:W3stside"
+      "query": "is:open author:W3stside -reviewed-by:${user}"
     },
     {
-      "label": "Dima's PRs (velenir)",
-      "query": "is:open author:velenir"
+      "label": "Nenad's PRs (nenadV91)",
+      "query": "is:open author:nenadV91 -reviewed-by:${user}"
     },
     {
-      "label": "Michel's PRs (biocom)",
-      "query": "is:open author:biocom"
-    },
+      "label": "FairLight's PRs (fairlighteth)",
+      "query": "is:open author:fairlighteth -reviewed-by:${user}"
+    }
   ],
   "workbench.iconTheme": "vscode-icons",
   "gitlens.defaultTimeFormat": null,
   "git.autofetch": true,
-  "window.zoomLevel": 1
+  "editor.accessibilitySupport": "off",
+  "npm.keybindingsChangedWarningShown": true,
+  "githubPullRequests.pullBranch": "never",
+  "vsicons.dontShowNewVersionMessage": true
 }
