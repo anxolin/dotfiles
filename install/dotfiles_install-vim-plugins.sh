@@ -8,7 +8,7 @@ vim +PluginInstall +qall
 # Install COC
 if hash yarn 2>/dev/null; then
     echo "Install CoC using yarn"
-    sh -c "cd ~/dotfiles/vim/bundle/coc.nvim && yarn install"
+    sh -c "cd ~/dotfiles/vim/bundle/coc.nvim && yarn install" || true || :
 else
     echo "⚠️ CoC requires you to run 'yarn install' in '~/dotfiles/vim/bundle/coc.nvim', however you don't have 'yarn' commmand installed. SKIPPING install (you should do this later)"
 fi
