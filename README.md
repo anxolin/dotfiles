@@ -42,13 +42,16 @@ Optionally, the `install.sh` accepts:
 - `--skip-install-vim-plugins`: Do not install vim plugins
 
 ## Update submodules (depenencies)
+
 Update the modules:
+
 ```bash
 git pull --recurse-submodules
 git submodule update --remote
 ```
 
 Then you can reinstall any of the tools:
+
 ```bash
 # Install FZF
 ./install/install-fzf.sh
@@ -107,11 +110,22 @@ Details of the profile:
 
 - `Profiles > Colors`: Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
 - `Terminal > Terminal Emulation`: Set the report terminal type to **xterm-256color**
-- `Profiles > Text > Font`: Set the font to **Meslo LG M for Powerline** (important, make sure you deselect the option: `use different font for non-ASCII text`)
-  - DOWNLOAD: [Meslo LG M for Powerline](https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true)
-  - Old one (until 29/08/2020): **12pt Menlo** (or **Monaco**)
-  - Old one (until 18/03/2018): **12pt DejaVu Sans Mono for Powerline**
+- `Profiles > Text > Font`: Set the font to **MesloLGS NF** (recommended by `Powerlevel10K` ZSH plugin, which also works great with `NerdTree` etc):
+  - Download and Install ALL of this fonts (**⚠️ IMPORTANT**: When importing, you should select "keep both" to install the different variants for the same font)
+    - [MesloLGS NF Bold Italic.ttf](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Bold%20Italic.ttf)
+    - [MesloLGS NF Bold](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Bold.ttf)
+    - [MesloLGS NF Italic](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Italic.ttf)
+    - [MesloLGS NF Regular](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Regular.ttf)
+  - NOTE Regarding VIM:
+    - Vim has a setting `guifont`, for iterm2 it will use the one defined in the settings if this is not set
+    - However, for `macvim` (`mvim`), you need to set it up (it's standalone app). This is why there's a conditional setting in `~/.vimrc` to set it up only for `gui_running` environments.
 - `Profiles > Text > Font`: Set the vertical character spacing to `120%`
+
+The font config should look like this:
+
+<p align="center">
+  <img src="./docs/images/iterm2-fonts.png" width="700" />
+</p>
 
 ### In OSX: Terminal
 

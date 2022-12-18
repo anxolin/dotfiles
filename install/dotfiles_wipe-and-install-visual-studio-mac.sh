@@ -27,7 +27,7 @@ for CONFIG_FILE in ${CONFIG_FILES[*]}; do
 done
 
 # Re-create link to the snippets
-echo "[dotfiles-visual-studio]   - Point snippets dir to $VS_DOTFILES_DIR/snippets"
-[ -L "$VS_USER_DIR/snippets" ] && rm "$VS_USER_DIR/snippets" || true
-ln -s "$VS_DOTFILES_DIR/snippets" "$VS_USER_DIR/snippets"
+#echo "[dotfiles-visual-studio]   - Point snippets dir to $VS_DOTFILES_DIR/snippets"
+#[ -L "$VS_USER_DIR/snippets" ] && rm "$VS_USER_DIR/snippets" || true
+#ln -s "$VS_DOTFILES_DIR/snippets" "$VS_USER_DIR/snippets"
 

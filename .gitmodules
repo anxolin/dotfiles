@@ -19,8 +19,8 @@
 	url = https://github.com/zsh-users/zsh-autosuggestions
 
 # Vundle: Plugin Manager for VIM
-[submodule "vim/vundle/Vundle.vim"]
-	path = vim/vundle/Vundle.vim
+[submodule "vim/bundle/Vundle.vim"]
+	path = vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
 
 # History substring search

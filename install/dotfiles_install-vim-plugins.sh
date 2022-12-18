@@ -5,26 +5,33 @@ set -e
 echo "[dotfiles-install-vim-plugins] Installing Vim plugins using Vundle (it can take some time)..."
 vim +PluginInstall +qall
 
-# Install fzf from sources
-if [[ `which node &>/dev/null && $?` == 0 ]]; then
-  echo "Install CoC Typescript server"
-  vim -c "CocInstall coc-tsserver"
+# Install COC
+if hash yarn 2>/dev/null; then
+    echo "Install CoC using yarn"
+    sh -c "cd ~/dotfiles/vim/bundle/coc.nvim && yarn install"
+else
+    echo "⚠️ CoC requires you to run 'yarn install' in '~/dotfiles/vim/bundle/coc.nvim', however you don't have 'yarn' commmand installed. SKIPPING install (you should do this later)"
 fi
+
+# if [[ `which node &>/dev/null && $?` == 0 ]]; then
+#   echo "Install CoC Typescript server"
+#   vim -c "CocInstall coc-tsserver"
+# fi
 
 # # vim-jsbeautify (https://github.com/maksimr/vim-jsbeautify)
 # #   - Quickly format javascript, html and css files
 # #   - Supports the editorconfig file
 # echo "[dotfiles-install-vim-plugins] Initialize the vim-jsbeautify submodules"
-# cd ~/.vim/vundle/vim-jsbeautify
+# cd ~/.vim/bundle/vim-jsbeautify
 # git submodule update --init --recursive
 
 # # You completme
 # #   - Autocomplete for VIM
-# if [ -d ~/.vim/vundle/YouCompleteMe ]; then
+# if [ -d ~/.vim/bundle/YouCompleteMe ]; then
 #   echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
-#   cd ~/.vim/vundle/YouCompleteMe && ./install.sh || true
+#   cd ~/.vim/bundle/YouCompleteMe && ./install.sh || true
 # else 
-#   echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/vundle/YouCompleteMe (probably was disabled in vimrc, ignore if it's the case)"
+#   echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/bundle/YouCompleteMe (probably was disabled in vimrc, ignore if it's the case)"
 # fi
 
 
@@ -53,7 +60,7 @@ fi
 # #   - Tern-based JavaScript editing support
 # #   - Go to definition, documentation, find references and rename
 # echo "[dotfiles-install-vim-plugins] Install tern for vim (for 'go to definition' functionality for JS)"
-# cd ~/.vim/vundle/tern_for_vim
+# cd ~/.vim/bundle/tern_for_vim
 # npm install || true
 
 # # jsctags (https://github.com/ramitos/jsctags)

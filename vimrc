@@ -17,6 +17,12 @@ set number
 set nowrap
 set sidescroll=25
 
+" Set Meslo font patched for PowerLevelPk10
+"   See https://github.com/anxolin/dotfiles/blob/master/README.md#L113
+if has('gui_running')
+  set guifont=MesloLGS-NF-Regular:h12
+endif
+
 " If we are in the:
 "   - last char and press `l` (or right arrow) we jump to next line's first char
 "   - first char and press `h` (or left arrow) we jump to the previous last
@@ -241,7 +247,7 @@ nnoremap <F3> :set hlsearch!<CR>
 
 
 function HasPlugins(name)
-  return isdirectory($HOME . '/dotfiles/vim/vundle/' . a:name)
+  return isdirectory($HOME . '/dotfiles/vim/bundle/' . a:name)
 endfunction
 
 " Vundle: Plugin manager
@@ -258,7 +264,7 @@ endfunction
 
 " If Vundle plugin is present
 if HasPlugins('Vundle.vim')
-  set rtp+=~/dotfiles/vim/vundle/Vundle.vim
+  set rtp+=~/dotfiles/vim/bundle/Vundle.vim
   call vundle#begin()
 
   " alternatively, pass a path where Vundle should install plugins
