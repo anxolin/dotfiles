@@ -61,8 +61,8 @@ source $ZSH_BASE/common.zsh
 # Load local config: Machine specific config:
 #    See:
 #      ~/.zsh-local
-if [[ -a ~/.zsh_local ]]; then	
-  # Read all config files in ~/.zsh_local
+if [[ -a ~/.zsh ]]; then	
+  # Read all config files in ~/.zsh
   for file in ~/.zsh/*.zsh; do
     #echo "Loading: $file"
     source "$file"

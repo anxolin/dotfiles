@@ -12,8 +12,8 @@ cd $DOT_FILES
 
 
 echo "[dotfiles-wipe-and-install] Create local ZSH config directory"
-mkdir -p ~/.zsh_local
-touch ~/.zsh_local/dev.zsh
+mkdir -p ~/.zsh
+touch ~/.zsh/alias.zsh ~/.zsh/config.zsh ~/.zsh/dev.zsh ~/.zsh/path.zsh
 
 # Dot files install:
 #   1. Backup: Copy any existing dotfiles to dotfiles_old directory
