@@ -15,16 +15,16 @@ fi
 # #   - Quickly format javascript, html and css files
 # #   - Supports the editorconfig file
 # echo "[dotfiles-install-vim-plugins] Initialize the vim-jsbeautify submodules"
-# cd ~/.vim/bundle/vim-jsbeautify
+# cd ~/.vim/vundle/vim-jsbeautify
 # git submodule update --init --recursive
 
 # # You completme
 # #   - Autocomplete for VIM
-# if [ -d ~/.vim/bundle/YouCompleteMe ]; then
+# if [ -d ~/.vim/vundle/YouCompleteMe ]; then
 #   echo "[dotfiles-install-vim-plugins] Install YouCompleteMe"
-#   cd ~/.vim/bundle/YouCompleteMe && ./install.sh || true
+#   cd ~/.vim/vundle/YouCompleteMe && ./install.sh || true
 # else 
-#   echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/bundle/YouCompleteMe (probably was disabled in vimrc, ignore if it's the case)"
+#   echo "WARN: YouCompleteMe was not installed cause it was not found in ~/.vim/vundle/YouCompleteMe (probably was disabled in vimrc, ignore if it's the case)"
 # fi
 
 
@@ -53,7 +53,7 @@ fi
 # #   - Tern-based JavaScript editing support
 # #   - Go to definition, documentation, find references and rename
 # echo "[dotfiles-install-vim-plugins] Install tern for vim (for 'go to definition' functionality for JS)"
-# cd ~/.vim/bundle/tern_for_vim
+# cd ~/.vim/vundle/tern_for_vim
 # npm install || true
 
 # # jsctags (https://github.com/ramitos/jsctags)

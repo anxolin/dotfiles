@@ -1,26 +1,26 @@
 # OhMyZsH: Zsh plugin manager
 [submodule "oh-my-zsh"]
-	path = oh-my-zsh
+	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
   
 # PowerLevel10K: OMyZsh Theme
 [submodule "zsh-custom/themes/powerlevel10k"]
-	path = zsh-custom/themes/powerlevel10k
+	path = zsh/zsh-custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
 
 # zsh-syntax-highlighting: ZSH plugin for highlighting syntax
 [submodule "zsh-custom/plugins/zsh-syntax-highlighting"]
-	path = zsh-custom/plugins/zsh-syntax-highlighting
+	path = zsh/zsh-custom/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 # zsh-autosuggestions: Autosuggest latest command
 [submodule "zsh-custom/plugins/zsh-autosuggestions"]
-	path = zsh-custom/plugins/zsh-autosuggestions
+	path = zsh/zsh-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
 
 # Vundle: Plugin Manager for VIM
-[submodule "vim/bundle/Vundle.vim"]
-	path = vim/bundle/Vundle.vim
+[submodule "vim/vundle/Vundle.vim"]
+	path = vim/vundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
 
 # History substring search

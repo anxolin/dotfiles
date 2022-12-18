@@ -241,7 +241,7 @@ nnoremap <F3> :set hlsearch!<CR>
 
 
 function HasPlugins(name)
-  return isdirectory($HOME . '/dotfiles/vim/bundle/' . a:name)
+  return isdirectory($HOME . '/dotfiles/vim/vundle/' . a:name)
 endfunction
 
 " Vundle: Plugin manager
@@ -258,7 +258,7 @@ endfunction
 
 " If Vundle plugin is present
 if HasPlugins('Vundle.vim')
-  set rtp+=~/dotfiles/vim/bundle/Vundle.vim
+  set rtp+=~/dotfiles/vim/vundle/Vundle.vim
   call vundle#begin()
 
   " alternatively, pass a path where Vundle should install plugins

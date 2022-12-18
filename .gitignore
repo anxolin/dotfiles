@@ -1,5 +1,5 @@
 *.log
-!vim/bundle.vim
+!vim/vundle/Vundle.vim
 vim/*
 !vim/.gitkeep
 #vim/.netrwhist

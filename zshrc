@@ -2,46 +2,17 @@
 #  ZSH DIRS              #
 ##########################
 
-
 # Path to your oh-my-zsh installation.
 # IT may be overriden by .localrc, where local EXPORT vars are defined
-export ZSH=~/dotfiles/oh-my-zsh
-export ZSH_CUSTOM=~/dotfiles/zsh-custom
-
-
-#############################
-#  THEME: PowerLevel10K     #
-#############################
-# Theme:
-#   * Themes are located in:
-# 		 ~/dotfiles/zsh-custom/themes
-#			 ~/dotfiles/.oh-my-zsh/themes/
-#  Config: 
-#      ~/dotfiles/p10k.zsh
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# IMPORTANT:
-#     p10k-instant-prompt allows to make ZSH available before all config and plugins has been loaded, so u can type already
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/p10k.zsh.
-[[ ! -f ~/dotfiles/p10k.zsh ]] || source ~/dotfiles/p10k.zsh
-
+export ZSH_BASE=~/dotfiles/zsh
+export ZSH="$ZSH_BASE/oh-my-zsh"
+export ZSH_CUSTOM="$ZSH_BASE/zsh-custom"
 
 #############################
-#  THEME: anxo (disabled)   #
+#  THEME                    #
 #############################
-# Theme:
-#   * Themes are located in:
-# 		 ~/dotfiles/zsh-custom/themes
-#			 ~/dotfiles/.oh-my-zsh/themes/
-#ZSH_THEME="anxo"
 
+source $ZSH_BASE/theme_p10k.zsh
 
 ##########################
 #  GENERAL ZSH CONFIG    #
@@ -64,85 +35,7 @@ export UPDATE_ZSH_DAYS=30
 ##########################
 #  PLUGINS               #
 ##########################
-
-# PLugins
-#   Add wisely, as too many plugins slow down shell startup.
-#   See all:
-#     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
-#     ls ~/.oh-my-zsh/plugins
-plugins=(git vi-mode vscode web-search z docker docker-compose sudo npm macos systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copypath)
-
-# OTHER: Disabled: tmuxinator vagrant zsh-better-npm-completion ssh-agent
-# copypath: 
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copypath
-#   Copies the path of your current folder to the system clipboard.
-# macos: 
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/macos
-#   Osx utilities.
-# vim-mode:
-#   vim-like edition. Just press ESC when editing to enter normal mode. Then use vim keys, or press v to edit in vim
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
-# vscode:
-#   Better integration with Visual Studio code "vsda <dir>" or "vscd <file1> <file2>"
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vscode
-# web-search
-#   https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
-#   aliases for searching with Google, Wiki, Bing, YouTube and other popular services.
-#   google this
-# z
-#  quicly allow to jump to directories you've visited
-#  just type "z <fuzy-search>" and press tab
-#  https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
-#
-# history-substring-search (disabled)
-#  Adds fuzzy search for the history.
-#  Disabled since now I used FZF instead
-
-# plugins="git"
-
-# zsh-better-npm-completion
-#   https://github.com/lukechilds/zsh-better-npm-completion
-#plugins+=(zsh-better-npm-completion)
-
-# if which ssh-add >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins ssh-agent"
-# fi
-
-# if which ansible >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins ansible"
-# fi
-
-# if which tmuxinator >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins tmux tmuxinator"
-# fi
-
-# if which systemd >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins systemd"
-# fi
-
-# if which sbt >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins sbt"
-# fi
-
-# if which redis-cli >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins redis-cli"
-# fi
-
-# #if which npm >/dev/null 2>/dev/null  ; then
-# #  plugins="$plugins npm"
-# #fi
-
-# if which brew >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins brew"
-# fi
-
-# if which docker >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins docker"
-# fi
-# if which kubectl >/dev/null 2>/dev/null  ; then
-#   plugins="$plugins kubectl"
-# fi
-
+source $ZSH_BASE/plugins.zsh
 
 ##############################################################
 #  Configure OH MY ZSH and SOME DEFAULTS if not available    #
@@ -152,77 +45,25 @@ if [ -f "$ZSH/oh-my-zsh.sh" ]; then
   source $ZSH/oh-my-zsh.sh
 else
   # Default config for when Oh My ZSH is not avaliable
-
-  # Enable autocompletion
-  autoload -Uz compinit
-  compinit
-
-  # Arrow base autocompletion
-  zstyle ':completion:*' menu select
-
-  # Autocompletion of command line switches for aliases
-  setopt COMPLETE_ALIASES
-
-  # History search using arrows
-  autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-  zle -N up-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-  [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
-  [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
-
-  # History reverse search: Bid to ctrl-r
-  bindkey -v
-  bindkey '^R' history-incremental-search-backward
-
-  PLATFORM=$(uname);
-  if [[ $PLATFORM == 'Darwin' ]]; then
-    # Use the Original OSX color
-    unset LSCOLORS
-    export CLICOLOR=1
-    export CLICOLOR_FORCE=1
-  fi
-
-  setopt prompt_subst
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' actionformats \
-      '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-  zstyle ':vcs_info:*' formats       \
-      '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-  zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
-
-  zstyle ':vcs_info:*' enable git cvs svn
-
-  # or use pre_cmd, see man zshcontrib
-  vcs_info_wrapper() {
-    vcs_info
-    if [ -n "$vcs_info_msg_0_" ]; then
-      echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
-    fi
-  }
-  RPROMPT=$'$(vcs_info_wrapper)'
+  source $ZSH_BASE/oh-my-zsh-unavailable.zsh
 fi
-
-
 
 ###############################
 #  LOAD COMMON CONFIG         #
 ###############################
 
+source $ZSH_BASE/common.zsh
 
 ###############################
 #  LOAD SOME LOCAL CONFIG    #
 ###############################
-# # Read all autocomplete files in zsh_autocomplete dir
-# for file in ~/dotfiles/zsh_autocomplete/*; do
-#   source "$file"
-# done
 
 # Load local config: Machine specific config:
 #    See:
 #      ~/.zsh-local
 if [[ -a ~/.zsh_local ]]; then	
   # Read all config files in ~/.zsh_local
-  for file in ~/.zsh_local/*.zsh; do
+  for file in ~/.zsh/*.zsh; do
     #echo "Loading: $file"
     source "$file"
   done
