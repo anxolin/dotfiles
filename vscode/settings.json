@@ -226,7 +226,6 @@
     "!Split sequence"
   ],
   "redhat.telemetry.enabled": false,
-  "diffEditor.ignoreTrimWhitespace": false,
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

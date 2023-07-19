@@ -68,3 +68,4 @@ if [[ -a ~/.zsh ]]; then
     source "$file"
   done
 fi
+export PATH="$PATH:/Users/anxo/.foundry/bin"
