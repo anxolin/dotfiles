@@ -46,6 +46,8 @@ Some basic bindings are:
   - `<leader>k` Highlight lines up
 - Async run: Run something asyncronously and show the result in the
   - `:AsyncRun <command>`: Runs command in the quickfix window
+- LazyGit
+  - `<leader>lg` or `<leader>lg` 
 
 ### Vim Lintern - Ale
 

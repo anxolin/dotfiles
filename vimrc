@@ -438,6 +438,10 @@ if HasPlugins('Vundle.vim')
   "   denite, unite, lightline.vim, vim-startify, vimfiler, vim-buffet and flagship.
   Plugin 'ryanoasis/vim-devicons'
 
+  " nvim v0.7.2
+  Plugin 'kdheepak/lazygit.nvim'
+
+
   " *******  Key mappings *************
   " [command: w!!] Allow to gain root permission within vim
   cmap w!! w !sudo tee >/dev/null %
@@ -527,6 +531,10 @@ if HasPlugins('nerdtree')
   endfun
   nmap <silent><leader>no :call NewTreeOpen()<CR>
 endif
+
+" LazyGit
+nnoremap <silent> <leader>lg :LazyGit<CR>
+nnoremap <silent> <leader>gg :LazyGit<CR>
 
 " CoC: Conquer Of Completion 
 if HasPlugins('coc.nvim')
