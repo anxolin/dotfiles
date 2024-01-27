@@ -10,7 +10,7 @@ fi
 
 # Installed apps:
 #   - zsh: Nice shell
-#   - gvim: Vim (graphical + regular)
+#   - nvim: Neo Vim 
 #   - ag: Allows to search text fast in test files
 #       useful for the terminal, but also I use it as a replacement for vim grep
 #       (also named silversearcher-ag or the_silver_searcher)
@@ -21,20 +21,11 @@ fi
 
 # If Debian based
 if [[ -f /etc/debian_version ]]; then
-    DISTRO=$(cat /etc/issue)
-    sudo apt-get update
-    if [[ $DISTRO = *"Ubuntu"* ]]; then
-      printf "[install-apps-Linux] Ubuntu: Install basic apps"
-      sudo apt-get install vim-nox bc
-    else
-      printf "[install-apps-Linux] Debian: Install basic apps"
-      sudo apt-get install vim-athena bc
-    fi
-    sudo apt-get install zsh silversearcher-ag xclip cmake    
+    sudo apt-get install neovim ripgrep zsh silversearcher-ag xclip cmake    
 
     # Install bat: Syntax highlighting (for now, not in raspian for example)
     printf "[install-apps-Linux] Get bat deb and install. Syntax highlighting"
-    BAT_VERSION=0.17.1
+    BAT_VERSION=0.24.0 # https://github.com/sharkdp/bat/releases
     BAT_DEB_FILE="bat_${BAT_VERSION}_`dpkg --print-architecture`.deb"
     wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/$BAT_DEB_FILE"
     sudo apt install ./$BAT_DEB_FILE
@@ -46,7 +37,7 @@ fi
 # Arch linux
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps"
-    sudo pacman -S --noconfirm zsh gvim the_silver_searcher xclip cmake bc bat
+    sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat
     # gvim
 fi
 

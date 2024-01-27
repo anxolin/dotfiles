@@ -6,12 +6,12 @@ echo "[dotfiles-install-vim-plugins] Installing Vim plugins using Vundle (it can
 vim +PluginInstall +qall
 
 # Install COC
-if hash yarn 2>/dev/null; then
-    echo "Install CoC using yarn"
-    sh -c "cd ~/dotfiles/vim/bundle/coc.nvim && yarn install" || true || :
-else
-    echo "⚠️ CoC requires you to run 'yarn install' in '~/dotfiles/vim/bundle/coc.nvim', however you don't have 'yarn' commmand installed. SKIPPING install (you should do this later)"
-fi
+# if hash yarn 2>/dev/null; then
+#     echo "Install CoC using yarn"
+#     sh -c "cd ~/dotfiles/vim/bundle/coc.nvim && yarn install" || true || :
+# else
+#     echo "⚠️ CoC requires you to run 'yarn install' in '~/dotfiles/vim/bundle/coc.nvim', however you don't have 'yarn' commmand installed. SKIPPING install (you should do this later)"
+# fi
 
 # if [[ `which node &>/dev/null && $?` == 0 ]]; then
 #   echo "Install CoC Typescript server"

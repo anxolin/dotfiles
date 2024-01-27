@@ -26,7 +26,7 @@ RPROMPT='[%F{yellow}%?%f]'
 export UPDATE_ZSH_DAYS=30
 
 # Default editor
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Check for new versions every month
 export UPDATE_ZSH_DAYS=30

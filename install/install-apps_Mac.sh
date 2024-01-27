@@ -3,7 +3,7 @@ set -e
 
 # Brew dependencies
 # brew install zsh the_silver_searcher ctags reattach-to-user-namespace cmake
-brew_dependencies=( zsh the_silver_searcher ctags reattach-to-user-namespace cmake nvim macvim )
+brew_dependencies=( zsh the_silver_searcher ctags reattach-to-user-namespace cmake neovim ripgrep )
 for package in "${brew_dependencies[@]}"
 do  
   if brew ls --versions myformula > /dev/null; then
