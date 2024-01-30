@@ -5,3 +5,7 @@
 --   pattern = "*",
 --   command = "tabdo wincmd =",
 -- })
+--
+
+
+vim.opt.termguicolors = true
