@@ -21,7 +21,8 @@ fi
 
 # If Debian based
 if [[ -f /etc/debian_version ]]; then
-    sudo apt-get install neovim ripgrep zsh silversearcher-ag xclip cmake    
+    # Install some useful apps (neovim is not installed, as its built from source instead for Debian systems)
+    sudo apt-get -y install ripgrep zsh silversearcher-ag xclip cmake    
 
     # Install bat: Syntax highlighting (for now, not in raspian for example)
     printf "[install-apps-Linux] Get bat deb and install. Syntax highlighting"

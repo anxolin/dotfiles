@@ -17,6 +17,7 @@ cp -rf $NVIM_CONFIG_DIR $BACKUP_DIR 2>/dev/null || :
 
 printf "[dotfiles-nvim] Delete old nvim config\n"
 rm -rf $NVIM_CONFIG_DIR  2>/dev/null || :
+rm -rf ~/.local/share/nvim 2>/dev/null || :
 
 printf "[dotfiles-nvim] Install nvimchad. Clone repository in  ~/.config/nvim\n"
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1

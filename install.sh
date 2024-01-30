@@ -142,9 +142,12 @@ cat << EOF
 │  │ ││││├┤ ││ ┬
 └─┘└─┘┘└┘└  ┴└─┘
 EOF
-# Prepare vim: required dirs and Vundle plugin manager
-source "$DOT_FILES/install/dotfiles_vim.sh"
+# Install vim and nvim
+if [[ -f /etc/debian_version ]]; then
+  source "$DOT_FILES/install/install-nvim-debian.sh"
+fi
 source "$DOT_FILES/install/dotfiles_nvim.sh"
+source "$DOT_FILES/install/dotfiles_vim.sh"
 
 
 cat << EOF
