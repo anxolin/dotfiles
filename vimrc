@@ -461,6 +461,7 @@ set background=dark
 " let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
 let g:solarized_termtrans = 1
 silent! colorscheme solarized
 
