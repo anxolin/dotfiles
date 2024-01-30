@@ -7,7 +7,9 @@
 #   See all:
 #     https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 #     ls ~/.oh-my-zsh/plugins
-plugins=(git vi-mode vscode web-search z docker docker-compose sudo npm macos systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copypath)
+plugins=(git vscode web-search z docker docker-compose sudo npm macos systemd tmux tig zsh-syntax-highlighting zsh-autosuggestions copypath)
+
+# vi-mode 
 
 # OTHER: Disabled: tmuxinator vagrant zsh-better-npm-completion ssh-agent
 # copypath: 
