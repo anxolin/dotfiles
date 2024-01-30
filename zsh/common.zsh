@@ -37,7 +37,8 @@ alias aws-list='aws ec2 describe-instances --query "Reservations[*].Instances[*]
 # tmuxnizator
 alias mux="tmuxinator"
 
-
+# nvim
+alias v="nvim"
 
 
 #######################################################
