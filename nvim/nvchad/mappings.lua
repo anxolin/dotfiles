@@ -11,12 +11,22 @@ M.general = {
         require("conform").format()
       end,
       "formatting",
+    },
+
+    -- Lazygit
+    ["<leader>lg"] = {
+      function()
+        require("lazygit").lazygit()
+      end,
+      "lazygit",
     }
 
   },
   v = {
     [">"] = { ">gv", "indent"},
   },
+
+
 }
 
 -- more keybinds!
