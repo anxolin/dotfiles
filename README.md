@@ -6,6 +6,7 @@ Installs the preferences for aplications such as `tmux`, `zsh`, `vscode` or `vim
 
 There's also documentation showing the plugins and configuration for:
 
+- **nvim**: [docs/vim.md](docs/nvim.md) Plugins, mappings and configurations.
 - **vim**: [docs/vim.md](docs/vim.md) Plugins, mappings and configurations.
 - **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 - **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
@@ -39,7 +40,7 @@ chmod +x ./dotfiles/install.sh
 Optionally, the `install.sh` accepts:
 
 - `--skip-install-apps`: Do not install apps like vim, tmux, etc.
-- `--skip-install-vim-plugins`: Do not install vim plugins
+- `--skip-install-vid-plugins`: Do not install vim plugins
 
 ## Update submodules (depenencies)
 
@@ -110,12 +111,8 @@ Details of the profile:
 
 - `Profiles > Colors`: Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
 - `Terminal > Terminal Emulation`: Set the report terminal type to **xterm-256color**
-- `Profiles > Text > Font`: Set the font to **MesloLGS NF** (recommended by `Powerlevel10K` ZSH plugin, which also works great with `NerdTree` etc):
-  - Download and Install ALL of this fonts (**⚠️ IMPORTANT**: When importing, you should select "keep both" to install the different variants for the same font)
-    - [MesloLGS NF Bold Italic.ttf](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Bold%20Italic.ttf)
-    - [MesloLGS NF Bold](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Bold.ttf)
-    - [MesloLGS NF Italic](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Italic.ttf)
-    - [MesloLGS NF Regular](./fonts/meslo-patched-for-powerlevel10k/MesloLGS%20NF%20Regular.ttf)
+- `Profiles > Text > Font`: Set the font to JetbrainsMono Nerd Font. See available [Nerd fonts](https://www.nerdfonts.com/font-downloads).
+    * Before, I used to use **MesloLGS NF** (as it was recommended by `Powerlevel10K` ZSH plugin, which also works great with `NerdTree` etc).
   - NOTE Regarding VIM:
     - Vim has a setting `guifont`, for iterm2 it will use the one defined in the settings if this is not set
     - However, for `macvim` (`mvim`), you need to set it up (it's standalone app). This is why there's a conditional setting in `~/.vimrc` to set it up only for `gui_running` environments.
