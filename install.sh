@@ -144,6 +144,7 @@ cat << EOF
 EOF
 # Install vim and nvim
 if [[ -f /etc/debian_version ]]; then
+  source "$DOT_FILES/install/install-lazygit-debian.sh"
   source "$DOT_FILES/install/install-nvim-debian.sh"
 fi
 source "$DOT_FILES/install/dotfiles_nvim.sh"
