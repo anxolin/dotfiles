@@ -40,6 +40,9 @@ alias mux="tmuxinator"
 # nvim
 alias v="nvim"
 
+# Lazygit
+alias lg="lazygit"
+
 
 #######################################################
 #  Setup FZF (should be applief after the plugins)    #
