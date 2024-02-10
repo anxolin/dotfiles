@@ -13,6 +13,9 @@ set history=80
 " Enable line numbers
 set number
 
+
+"tab sball
+
 " Do not wrap lines and when scroll horilzontally, show 25 chars of context
 set nowrap
 set sidescroll=25
@@ -32,8 +35,7 @@ endif
 set whichwrap=b,s,<,>,[,],h,l
 
 " Enable syntax highlight and plugin support
-syntax enable
-
+syntax on
 
 " filetype: Enable plugin
 "   * Detects the filetype (using the extension or the hashbang)
@@ -279,8 +281,16 @@ if HasPlugins('Vundle.vim')
   " Vundle: let Vundle manage Vundle, required
   Plugin 'VundleVim/Vundle.vim'
 
-  " Solarized: Colors - Solarized Theme (related conf in plugin conf section)
+  " Onedark: Theme - https://github.com/joshdick/onedark.vim
+  Plugin 'joshdick/onedark.vim'
+
+  " Solarized: Colors - Solarized Theme
+  "    - related conf in plugin conf section
+  "    - available, but disable (using onedark)
   Plugin 'altercation/vim-colors-solarized'
+
+  " vim-polyglot: A collection of language packs for Vim.
+  Plugin 'sheerun/vim-polyglot'
 
   " Ack: Run your favorite search tool from Vim, with an enhanced results
   " list. (ag silversearch, 
@@ -456,14 +466,23 @@ endif
 
 " *******  Plugin Configuration *************
 
-" Solarized Theme - config
+" Basic theme config 
 set background=dark
+
+" Solarized Theme - config
 " let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
 let g:solarized_termcolors=256
 let g:solarized_termtrans = 1
-silent! colorscheme solarized
+
+" Disabled solarized
+"   Re-enable with ":colorscheme solarized"
+" silent! colorscheme solarized
+
+" Onedark themee:
+colorscheme onedark
+
 
 " Use ag instead of grep, in the :grep command
 if executable('ag')
