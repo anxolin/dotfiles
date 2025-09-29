@@ -9,7 +9,6 @@ tmux.conf
 editorconfig
 Xdefaults
 ptpython
-neomutt
 mbsyncrc
 msmtprc
 w3m
