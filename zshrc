@@ -69,3 +69,6 @@ if [[ -a ~/.zsh ]]; then
   done
 fi
 export PATH="$PATH:/Users/anxo/.foundry/bin"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+. "$HOME/.local/bin/env"
