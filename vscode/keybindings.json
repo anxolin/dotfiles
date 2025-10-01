@@ -53,5 +53,17 @@
     "key": "shift+f11",
     "command": "-workbench.action.debug.stepOut",
     "when": "debugState == 'stopped'"
+  },
+  {
+    "key": "shift+alt+cmd+e",
+    "command": "workbench.files.action.focusFilesExplorer"
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  },
+  {
+    "key": "shift+alt+cmd+b",
+    "command": "editor.cpp.toggle"
   }
 ]
