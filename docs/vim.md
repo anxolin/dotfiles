@@ -1,5 +1,7 @@
 # VIM dotfiles
 
+> See [docs/nvim.md](docs/nvim.md) for Neovim configuration.
+
 All vim configuration is in `vimrc`.
 
 ## Overview

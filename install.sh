@@ -163,7 +163,7 @@ cat << EOF
 EOF
 if $INSTALL_VIM_PLUGINS; then
   # Install all the plugins
-  source "$DOT_FILES/install/dotfiles_install-vim-plugins.sh"
+  source "$DOT_FILES/install/install-vim-plug.sh"
 else
   printf "[dotfiles] Skip install vim plugins\n"
 fi

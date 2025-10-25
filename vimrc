@@ -252,25 +252,24 @@ function HasPlugins(name)
   return isdirectory($HOME . '/dotfiles/vim/bundle/' . a:name)
 endfunction
 
-" Vundle: Plugin manager
+" vim-plug: Plugin manager
 "   Brief help
-"     :PluginList       - lists configured plugins
-"     :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-"     :PluginSearch foo - searches for foo; append `!` to refresh local cache
-"     :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"     :PlugList       - lists configured plugins
+"     :PlugInstall    - installs plugins; append `!` to update or just :PlugUpdate
+"     :PlugSearch foo - searches for foo; append `!` to refresh local cache
+"     :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
-"   see :h vundle for more details or wiki for FAQ
-"   Put your non-Plugin stuff after this line
+"   see :h vim-plug for more details or wiki for FAQ
+"   Put your non-Plug stuff after this line
 "
-" Vundle installation: set the runtime path to include Vundle and initialize
+" vim-plug installation: set the runtime path to include vim-plug and initialize
 
-" If Vundle plugin is present
-if HasPlugins('Vundle.vim')
-  set rtp+=~/dotfiles/vim/bundle/Vundle.vim
-  call vundle#begin()
+" If vim-plug plugin is present
+if filereadable(expand('~/dotfiles/vim/autoload/plug.vim'))
+  call plug#begin('~/dotfiles/vim/bundle')
 
-  " alternatively, pass a path where Vundle should install plugins
-  " call vundle#begin('~/some/path/here')
+  " alternatively, pass a path where vim-plug should install plugins
+  " call plug#begin('~/some/path/here')
 
 
   " *******  Plugins *************
@@ -278,23 +277,23 @@ if HasPlugins('Vundle.vim')
   " Plugin that jumps to the matching HTML tag or if/else/elseif using %
   packadd! matchit
 
-  " Vundle: let Vundle manage Vundle, required
-  Plugin 'VundleVim/Vundle.vim'
+  " vim-plug: let vim-plug manage vim-plug, required
+  Plug 'junegunn/vim-plug'
 
   " Onedark: Theme - https://github.com/joshdick/onedark.vim
-  Plugin 'joshdick/onedark.vim'
+  Plug 'joshdick/onedark.vim'
 
   " Solarized: Colors - Solarized Theme
   "    - related conf in plugin conf section
   "    - available, but disable (using onedark)
-  Plugin 'altercation/vim-colors-solarized'
+  Plug 'altercation/vim-colors-solarized'
 
   " vim-polyglot: A collection of language packs for Vim.
-  Plugin 'sheerun/vim-polyglot'
+  Plug 'sheerun/vim-polyglot'
 
   " Ack: Run your favorite search tool from Vim, with an enhanced results
   " list. (ag silversearch, 
-  Plugin 'mileszs/ack.vim'
+  Plug 'mileszs/ack.vim'
 
   " Plugins that depend on NodeJS
   "   - If nodejs available CoC is used for code completions, linter, etc
@@ -308,7 +307,7 @@ if HasPlugins('Vundle.vim')
     "   - Work with extension (i.e ts-server)
     "      https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
     "      https://github.com/neoclide/coc-tsserver
-    Plugin 'neoclide/coc.nvim' , { 'branch' : 'release' }
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 
 
@@ -317,29 +316,29 @@ if HasPlugins('Vundle.vim')
     " support.
     "   - Install extensions:
     "     CocInstall coc-json coc-tsserver
-    "Plugin 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-    "Plugin 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 
   else
     " Autoread: Enables autoread (reload the file if it has changed autside)
-    "Plugin 'djoshea/vim-autoread'
-    "Plugin 'Carpetsmoker/auto_autoread.vim'
+    "Plug 'djoshea/vim-autoread'
+    "Plug 'Carpetsmoker/auto_autoread.vim'
 
     " Syntastic: Lintern
     " Disabled to try w0rp/ale since vim8 upgrade
-    " Plugin 'vim-syntastic/syntastic'
+    " Plug 'vim-syntastic/syntastic'
 
     " Asynchronous Lint Engine (Ale)
     "   - ALE makes use of NeoVim and Vim 8 job control functions and timers to
@@ -350,17 +349,17 @@ if HasPlugins('Vundle.vim')
     "   - Supported Languages and tools:
     "   https://github.com/dense-analysis/ale/blob/master/supported-tools.md
     "   - DISABLED: to try CoC (looks beter for TS, i.e. auto es6 imports)
-    Plugin 'w0rp/ale'
+    Plug 'w0rp/ale'
 
     " Autocomplete: Youcompleteme:
     "   Multilingual code-completion, goTo declaration, view documentation, rename variables
-    "Plugin 'Valloric/YouCompleteMe'
-    "Plugin 'davidhalter/jedi-vim'
+    "Plug 'Valloric/YouCompleteMe'
+    "Plug 'davidhalter/jedi-vim'
 
     " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
     "   documentation,  Find the type of the thing under the cursor, references to the variable
     " Rename the variable
-    " Plugin 'ternjs/tern_for_vim'
+    " Plug 'ternjs/tern_for_vim'
   endif
 
 
@@ -370,95 +369,95 @@ if HasPlugins('Vundle.vim')
   "    :TernType: Find the type of the thing under the cursor.
   "    :TernRefs: Show all references to the variable or property under the cursor.
   "    :TernRename: Rename the variable under the cursor.
-  "Plugin 'ternjs/tern_for_vim'
+  "Plug 'ternjs/tern_for_vim'
 
   " Taglist: List of tags in the current file
   "     https://github.com/majutsushi/tagbar
-  "Plugin 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
-  "Plugin 'majutsushi/tagbar'
+  "Plug 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
+  "Plug 'majutsushi/tagbar'
 
   " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
-  "Plugin 'maksimr/vim-jsbeautify'
+  "Plug 'maksimr/vim-jsbeautify'
 
   " Format: vim-autoformat: Formats using any external formatter
-  "Plugin 'Chiel92/vim-autoformat'
+  "Plug 'Chiel92/vim-autoformat'
 
   " Solidity
-  "Plugin 'tomlion/vim-solidity'
+  "Plug 'tomlion/vim-solidity'
 
   " Python
-  "Plugin 'nvie/vim-flake8'
+  "Plug 'nvie/vim-flake8'
 
   " Javascript:  syntax highlighting and improved indentation.
-  Plugin 'pangloss/vim-javascript'
+  Plug 'pangloss/vim-javascript'
 
   " TypeScript
-  Plugin 'leafgarland/typescript-vim' 
+  Plug 'leafgarland/typescript-vim' 
 
   " JS and JSX
-  Plugin 'maxmellon/vim-jsx-pretty'   
+  Plug 'maxmellon/vim-jsx-pretty'   
 
   " GraphQL
-  Plugin 'jparise/vim-graphql'       
+  Plug 'jparise/vim-graphql'       
 
   " Scala: scala integration - https://github.com/derekwyatt/vim-scala
   "     :SortScalaImports - Sorting of import statements
-  "Plugin 'derekwyatt/vim-scala'
+  "Plug 'derekwyatt/vim-scala'
 
   " Fugitive: Git - Vim Fugitive:
   "   Vim plugin
-  Plugin 'tpope/vim-fugitive'
+  Plug 'tpope/vim-fugitive'
 
   " Airline: Status bar - Vim Airline
-  Plugin 'vim-airline/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
   " FLZ for vim
   "   fzf#install() makes sure that you have the latest binary, but it's 
   "   optional, so you can omit it if you use a plugin manager that doesn't support hooks.
-  Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plugin 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 
   " Ctrlp: Ctrl+p - ctrlp.vim - Open files by name
-  Plugin 'ctrlpvim/ctrlp.vim'
+  Plug 'ctrlpvim/ctrlp.vim'
 
   " Ctrlp: Extension to allow to delete open buffers (ctrlp_bdelete)
-  Plugin 'j5shi/ctrlp_bdelete.vim'
+  Plug 'j5shi/ctrlp_bdelete.vim'
 
   " NerdTree: File explorer
-  Plugin 'scrooloose/nerdtree'  
+  Plug 'scrooloose/nerdtree'  
 
   " vim-nerdtree-syntax-highlight
   "   Meant to be use with vim-devicons. Adds better icons and colours
-  Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
   " Async run: skywind3000/asyncrun.vim
-  Plugin 'skywind3000/asyncrun.vim'
+  Plug 'skywind3000/asyncrun.vim'
 
   " Vim expand region: Allows to selects blocks of code and increase the
   " selection to next block easily
-  Plugin 'terryma/vim-expand-region'
+  Plug 'terryma/vim-expand-region'
 
   " Move fast using <leader> <leader>
-  Plugin 'easymotion/vim-easymotion'
+  Plug 'easymotion/vim-easymotion'
 
   " Vim-devicons: 
   "   IMPORTANT: Needs to go last
   "   Add nice icons to NERDTree, vim-airline, CtrlP, powerline, 
   "   denite, unite, lightline.vim, vim-startify, vimfiler, vim-buffet and flagship.
-  Plugin 'ryanoasis/vim-devicons'
+  Plug 'ryanoasis/vim-devicons'
 
   " nvim v0.7.2
-  Plugin 'kdheepak/lazygit.nvim'
+  Plug 'kdheepak/lazygit.nvim'
 
 
   " *******  Key mappings *************
   " [command: w!!] Allow to gain root permission within vim
   cmap w!! w !sudo tee >/dev/null %
 
-  " *******  Load Vundle Plugins  *************
+  " *******  Load vim-plug Plugins  *************
   " All of your Plugins must be added before the following line
-  call vundle#end()            " required
+  call plug#end()            " required
   filetype plugin indent on    " required
 endif
 
