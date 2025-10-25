@@ -1,17 +1,42 @@
-*.log
-!vim/vundle/Vundle.vim
+############################
+# General rules
+############################
+
+# Backup files (for older dotfiles)
+backup
+
+############################
+# Vim/Nvim Common rules
+############################
+# Swap temporal files
+*.swp
+
+
+############################
+# Vim rules
+############################
+# Ignore files containing plugins, swap files, undo files, backup files, etc
 vim/*
 !vim/.gitkeep
-#vim/.netrwhist
-#chef/
-*.swp
-private
-backup
-ansible.lock
+
+
+############################
+# Nvim rules
+############################
+# Nvim config experiments
+nvim/experiments
+!vim/experiments/.gitkeep
+
+
+############################
+# Other apps
+############################
+# Ptpython: Python REPL
 ptpython/history
-.history
-oh-my-zsh
+
+# w3m browser
 w3m/cookie
 w3m/history
-neomutt/tmp/*
-!neomutt/tmp/.gitkeep
+
+# Ansible: Lock file
+ansible.lock

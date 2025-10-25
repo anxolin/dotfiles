@@ -4,6 +4,7 @@ tmux
 zsh
 vim
 openssh
+ripgrep
 #openssh-server
 # nmap
 # netstat
