@@ -47,9 +47,9 @@ filetype plugin on
 
 
 " TempFiles: Change backup dir for .swp files
-set backupdir=~/.vim/backup_files//
-set directory=~/.vim/swap_files//
-set undodir=~/.vim/undo_files//
+set backupdir=~/.vim/backup_files/
+set directory=~/.vim/swap_files/
+set undodir=~/.vim/undo_files/
 
 " Set 2 spaces for tabs
 set ts=2
@@ -155,6 +155,19 @@ set spell
 " Enable wild menu: Display all matching options when we press tab (e.g. :find *.js)
 set wildmenu
 
+
+" **********     Functions     **********
+function! Message(msg, ...) abort
+    let l:duration = get(a:, 1, 800)
+    echo a:msg
+    call timer_start(l:duration, { _ -> execute('echo ""') })
+endfunction
+
+function! HasPlugins(name)
+    return isdirectory($HOME . '/.vim/plugged/' . a:name)
+endfunction
+
+
 " **********     LEADER and custom MAPPINGS     **********
 " Set SPACE as the leader key
 " let mapleader = "\<Space>"
@@ -182,7 +195,7 @@ map <Leader><Right> :bnext<cr>
 map <Leader><Left> :bprev<cr>
 
 " Reload vimconfig with SPACE+r
-map <Leader>r :source ~/.vimrc<cr>
+map <Leader>r :source ~/.vimrc<cr>:call Message("⚡️ reloaded!")<cr>
 
 "Python"
 ""au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4
@@ -216,7 +229,7 @@ au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c
 "nmap <Leader><Leader> V
 
 " Easymotion
-map <Leader> <Plug>(easymotion-prefix)
+"map <Leader> <Plug>(easymotion-prefix)
 
 " Use vim expand region with v key: /terryma/vim-expand-region
 "   Use v for selecting a letter, vv to select a word, and so on...
@@ -226,7 +239,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Bind K to :grep under the cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Ignore case by default when searching
 set ignorecase
@@ -248,10 +261,6 @@ nnoremap <F3> :set hlsearch!<CR>
 " nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 
 
-function HasPlugins(name)
-  return isdirectory($HOME . '/dotfiles/vim/bundle/' . a:name)
-endfunction
-
 " vim-plug: Plugin manager
 "   Brief help
 "     :PlugList       - lists configured plugins
@@ -265,8 +274,8 @@ endfunction
 " vim-plug installation: set the runtime path to include vim-plug and initialize
 
 " If vim-plug plugin is present
-if filereadable(expand('~/dotfiles/vim/autoload/plug.vim'))
-  call plug#begin('~/dotfiles/vim/bundle')
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+  call plug#begin()
 
   " alternatively, pass a path where vim-plug should install plugins
   " call plug#begin('~/some/path/here')
@@ -479,14 +488,15 @@ let g:solarized_termtrans = 1
 "   Re-enable with ":colorscheme solarized"
 " silent! colorscheme solarized
 
-" Onedark themee:
+" Onedark theme:
+"   https://github.com/joshdick/onedark.vim
 colorscheme onedark
 
 
 " Use ag instead of grep, in the :grep command
-if executable('ag')
+if executable('ag') && HasPlugins('ack.vim')
   " bind \ (backward slash) to grep shortcut
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
   nnoremap \ :Ack<SPACE>
 
 
@@ -555,12 +565,34 @@ endif
 nnoremap <silent> <leader>lg :LazyGit<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 
-" CoC: Conquer Of Completion 
+" CoC: Conquer Of Completion
 if HasPlugins('coc.nvim')
   "--------------------------------------------------------------------------
   " CoC custom comfig
   " --------------------------------------------------------------------------
-  let g:coc_global_extensions = [ 'coc-tsserver' ]
+  let g:coc_global_extensions = [
+        \ 'coc-tsserver',
+        \ 'coc-json',
+        \ 'coc-html',
+        \ 'coc-css',
+        \ 'coc-pyright',
+        \ 'coc-solidity',
+        \ 'coc-docker',
+        \ 'coc-eslint',
+        \ 'coc-git',
+        \ 'coc-lua',
+        \ 'coc-markdownlint',
+        \ 'coc-markdown-preview-enhanced',
+        \ 'coc-nav',
+        \ 'coc-prettier',
+        \ 'coc-rust-analyzer',
+        \ 'coc-sh',
+        \ 'coc-sql',
+        \ 'coc-symbol-line',
+        \ 'coc-toml',
+        \ 'coc-xml',
+        \ 'coc-yaml'
+        \ ]
   
   "--------------------------------------------------------------------------
   " CoC recommened comfig 
@@ -728,7 +760,7 @@ if HasPlugins('coc.nvim')
 endif
 
 " Tern: tern mappings
-if HasPlugins('tern_for_vim')
+if exists(':TernRefs')
   nnoremap <silent> <F2> :TernRefs<CR>
   nnoremap <silent> <F3> :TernDef<CR>
 endif
@@ -756,14 +788,10 @@ endif
 
 " Tagbar: Display tags in a window
 "   https://github.com/majutsushi/tagbar
-if HasPlugins('tagbar')
+if exists(':TagbarToggle')
   nmap <F8> :TagbarToggle<CR>
 endif
 
-" Git - Fugitive - config
-if HasPlugins('vim-fugitive')
-  " set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-endif
 
 " Status bar - Vim airline conf
 if HasPlugins('vim-airline')
@@ -890,7 +918,7 @@ endif
 " Disable the formatting to test 'Chiel92/vim-autoformat'
 
 " vim-jsbeautify: HTML, CSS, JS formatter
-if HasPlugins('vim-autoformat')
+if exists(':Autoformat')
   " Format: Formats using configurable external formatters: Chiel92/vim-autoformat
   "     c-f                       Auto format
   "     gg=G                      manually autoindent

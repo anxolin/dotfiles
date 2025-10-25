@@ -14,6 +14,10 @@ mkdir -p ~/dotfiles/vim/autoload
 curl -fLo ~/dotfiles/vim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+
+# Install the plugins
+vim +PlugInstall +qall
+
 echo "vim-plug installed successfully!"
 echo ""
 echo "Next steps:"
@@ -25,4 +29,5 @@ echo "  :PlugInstall    - Install plugins"
 echo "  :PlugUpdate     - Update plugins"
 echo "  :PlugClean      - Remove unused plugins"
 echo "  :PlugUpgrade    - Upgrade vim-plug itself"
-echo "  :PlugList       - List installed plugins"
+echo "  :PlugStatus     - List installed plugins"
+
