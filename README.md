@@ -2,17 +2,18 @@
 
 # Dotfiles
 
-Installs the preferences for aplications such as `tmux`, `zsh`, `vscode` or `vim`.
+Installs the preferences for aplications such as `tmux`, `zsh`, `vscode` or `nvim`/`vim`.
 
 There's also documentation showing the plugins and configuration for:
 
-- **nvim**: [docs/vim.md](docs/nvim.md) Plugins, mappings and configurations.
+- **nvim**: [docs/nvim.md](docs/nvim.md) Plugins, mappings and configurations.
 - **vim**: [docs/vim.md](docs/vim.md) Plugins, mappings and configurations.
 - **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
 - **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
 - **zsh**: [doc/zsh.md](docs/vscode.md) Shortcuts, configs, and some notes on plugins.
+- **fzf**: [doc/fzf.md](docs/fzf.md) Configuration and usage.
 
-It also contains some usefull scipts used when setting up a new working environment:
+It also contains some useful scripts used when setting up a new working environment:
 
 - [install.sh](install.sh): Installs the dotfiles in a new environment.
   It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`
@@ -23,8 +24,8 @@ It also contains some usefull scipts used when setting up a new working environm
 The following commands will:
 
 - Install `zsh` with a custom theme.
-- Install `ag` (the silver searcher)
-- Install `vim`
+- Install `ag` (the silver searcher) and `ripgrep`
+- Install `vim` and some useful packages for it (i.e. `ctags`, etc)
 - In Linux installs the `xclip`
 - Backup the old dotfiles and install the new ones.
 
@@ -42,7 +43,7 @@ Optionally, the `install.sh` accepts:
 - `--skip-install-apps`: Do not install apps like vim, tmux, etc.
 - `--skip-install-vid-plugins`: Do not install vim plugins
 
-## Update submodules (depenencies)
+## Update submodules (dependencies)
 
 Update the modules:
 
