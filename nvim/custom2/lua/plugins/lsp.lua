@@ -1,4 +1,26 @@
 -- LSP Configuration
+--
+-- Documentation:
+--   Mason: https://github.com/williamboman/mason.nvim
+--   Mason-lspconfig: https://github.com/williamboman/mason-lspconfig.nvim
+--   LSP server list: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+--   LSP config docs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+--
+-- Common LSP servers:
+--   JavaScript/TypeScript: ts_ls, eslint, biome
+--   Python: pyright, ruff_lsp
+--   Rust: rust_analyzer
+--   Go: gopls
+--   C/C++: clangd
+--   Java: jdtls
+--   HTML/CSS: html, cssls, tailwindcss
+--   JSON: jsonls
+--   YAML: yamlls
+--   Markdown: marksman
+--   Docker: dockerls
+--   Bash: bashls
+--   Lua: lua_ls
+
 return {
   -- LSP Configuration
   {
@@ -12,18 +34,6 @@ return {
       { "folke/neodev.nvim", opts = {} },
     },
     config = function()
-      -- Setup Mason
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "tsserver",
-          "pyright",
-          "rust_analyzer",
-        },
-        automatic_installation = true,
-      })
-
       -- LSP keymaps (applied when LSP attaches to buffer)
       local on_attach = function(_, bufnr)
         local map = function(keys, func, desc)
@@ -40,39 +50,67 @@ return {
         map("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
       end
 
-      -- Setup LSP servers
-      local lspconfig = require("lspconfig")
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      -- Lua
-      lspconfig.lua_ls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-          },
+      -- Setup Mason
+      require("mason").setup()
+
+      -- Setup mason-lspconfig with handlers
+      -- Options:
+      --   ensure_installed: List of servers to auto-install
+      --   automatic_installation: Auto-install servers configured in lspconfig
+      --   handlers: Functions to configure each server
+      require("mason-lspconfig").setup({
+        -- Add language servers here to auto-install them
+        -- Run :Mason to see all available servers
+        ensure_installed = {
+          "lua_ls",        -- Lua
+          "ts_ls",         -- TypeScript/JavaScript
+          "pyright",       -- Python
+          "rust_analyzer", -- Rust
         },
-      })
+        automatic_installation = true,
+        handlers = {
+          -- Default handler for all servers
+          function(server_name)
+            require("lspconfig")[server_name].setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+            })
+          end,
 
-      -- TypeScript
-      lspconfig.tsserver.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+          -- Custom handler for lua_ls (with special settings for Neovim)
+          ["lua_ls"] = function()
+            require("lspconfig").lua_ls.setup({
+              on_attach = on_attach,
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { "vim" },
+                  },
+                },
+              },
+            })
+          end,
 
-      -- Python
-      lspconfig.pyright.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
-      -- Rust
-      lspconfig.rust_analyzer.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+          -- Example: Custom handler for a different server
+          -- Uncomment and modify to add custom settings for any server
+          --
+          -- ["gopls"] = function()
+          --   require("lspconfig").gopls.setup({
+          --     on_attach = on_attach,
+          --     capabilities = capabilities,
+          --     settings = {
+          --       gopls = {
+          --         analyses = {
+          --           unusedparams = true,
+          --         },
+          --       },
+          --     },
+          --   })
+          -- end,
+        },
       })
     end,
   },
