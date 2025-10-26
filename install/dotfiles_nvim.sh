@@ -16,6 +16,7 @@ NVIM_DOTFILES=$DOT_FILES/nvim
 declare -a CONFIGS=(
   "custom:symlink" # Main configuration
   "legacy:symlink" # Config that uses my Vim configuration 
+  "empty:symlink"  # Empty nvim config (defaults)
   
   # Pre-configured setups
   "nvchad:clone:https://github.com/NvChad/starter" # Neovim config providing solid defaults and a beautiful UI

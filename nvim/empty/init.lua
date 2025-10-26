@@ -1,0 +1,1 @@
+-- Empty nvim config. Left blank to make sure it uses the default
