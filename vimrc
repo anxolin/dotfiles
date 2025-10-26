@@ -10,8 +10,9 @@ set encoding=UTF-8
 " History
 set history=80
 
-" Enable line numbers
+" Enable line numbers (hybrid: absolute + relative)
 set number
+set relativenumber
 
 
 "tab sball

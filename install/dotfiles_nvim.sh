@@ -15,6 +15,7 @@ NVIM_DOTFILES=$DOT_FILES/nvim
 #   - clone: Clone a repo, then symlink custom config into it (like NvChad)
 declare -a CONFIGS=(
   "custom:symlink" # Main configuration
+  "custom2:symlink" # Alternative configuration
   "legacy:symlink" # Config that uses my Vim configuration 
   "empty:symlink"  # Empty nvim config (defaults)
   
