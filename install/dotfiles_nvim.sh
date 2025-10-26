@@ -4,6 +4,24 @@ set -e
 # Neovim Multi-Config Setup
 # Uses NVIM_APPNAME to manage multiple Neovim configurations
 # Each config will be accessible via: NVIM_APPNAME=nvim-{name} nvim
+#
+# Dependencies:
+#   Required:
+#     - git
+#     - neovim
+#
+#   Optional (auto-installed if available):
+#     - Node.js/npm:
+#         - neovim (Neovim Node.js provider - enables Node-based plugins)
+#         - vscode-langservers-extracted (HTML/CSS/JSON/ESLint LSP servers)
+#     - Python3/pip:
+#         - pynvim (Neovim Python provider - enables Python-based plugins)
+#
+#   Note: Perl and Ruby providers are disabled in Neovim configs as they're
+#   rarely needed for modern plugins.
+#
+#   If Node.js or Python are not installed, warnings will be shown but
+#   Neovim will still work. Install them later if you need those features.
 
 DOT_FILES=~/dotfiles
 NVIM_DOTFILES=$DOT_FILES/nvim
@@ -16,15 +34,26 @@ NVIM_DOTFILES=$DOT_FILES/nvim
 declare -a CONFIGS=(
   "custom:symlink" # Main configuration
   "custom2:symlink" # Alternative configuration
-  "legacy:symlink" # Config that uses my Vim configuration 
+  "legacy:symlink" # Config that uses my Vim configuration
   "empty:symlink"  # Empty nvim config (defaults)
-  
+
   # Pre-configured setups
   "nvchad:clone:https://github.com/NvChad/starter" # Neovim config providing solid defaults and a beautiful UI
   "astrovim:symlink" # Feature-rich Neovim configuration that focuses on extensibility and usability
   "kickstart:symlink" # starting point for Neovim that is: small, single file, documented
   "lazyvim:symlink" # Neovim setup powered by 💤 lazy.nvim to make it easy to customize and extend your config
   "lunarvim:symlink" # An IDE layer for Neovim with sane defaults. Completely free and community driven.
+)
+
+# Node.js packages to install (requires npm)
+declare -a NPM_PACKAGES=(
+  "neovim"                        # Neovim Node.js provider (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
+  "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers (used for vim not neovim I believe)
+)
+
+# Python packages to install (requires pip/pip3)
+declare -a PYTHON_PACKAGES=(
+  "pynvim"  # Neovim Python provider. (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
 )
 
 # Backup existing configs
@@ -125,13 +154,44 @@ setup_all_configs() {
   done
 }
 
-# Install NPM packages
-install_npm_packages() {
+# Install Neovim dependencies (Node.js and Python packages)
+install_neovim_dependencies() {
+  printf "\n[dotfiles-nvim] Installing Neovim dependencies\n"
+
+  # Install Node.js packages
   if command -v npm >/dev/null 2>&1; then
-    printf "\n[dotfiles-nvim] Installing NPM packages\n"
-    npm i -g vscode-langservers-extracted
+    printf "\n  📦 Installing Node.js packages:\n"
+    for package in "${NPM_PACKAGES[@]}"; do
+      printf "    - Installing: $package\n"
+      npm install -g "$package" >/dev/null 2>&1 && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
+    done
   else
-    printf "\n[dotfiles-nvim] Node.js not installed. Skipping NPM packages\n"
+    printf "\n  ⚠️  WARNING: Node.js not installed\n"
+    printf "     Install Node.js to enable:\n"
+    printf "     - Node.js-based plugins\n"
+    printf "     - Some LSP servers (html, css, json, eslint)\n"
+    printf "     Packages to install manually: ${NPM_PACKAGES[*]}\n"
+  fi
+
+  # Install Python packages
+  if command -v pip3 >/dev/null 2>&1; then
+    printf "\n  🐍 Installing Python packages:\n"
+    for package in "${PYTHON_PACKAGES[@]}"; do
+      printf "    - Installing: $package\n"
+      pip3 install --quiet "$package" && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
+    done
+  elif command -v pip >/dev/null 2>&1; then
+    printf "\n  🐍 Installing Python packages (using pip):\n"
+    for package in "${PYTHON_PACKAGES[@]}"; do
+      printf "    - Installing: $package\n"
+      pip install --quiet "$package" && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
+    done
+  else
+    printf "\n  ⚠️  WARNING: Python/pip not installed\n"
+    printf "     Install Python3 and pip to enable:\n"
+    printf "     - Python-based plugins\n"
+    printf "     - Some formatters and linters\n"
+    printf "     Packages to install manually: ${PYTHON_PACKAGES[*]}\n"
   fi
 }
 
@@ -172,17 +232,41 @@ EOF
 print_usage() {
   printf "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
   printf "✓ Neovim configs installed successfully!\n\n"
-  printf "Usage:\n"
-  printf "  1. Make sure ~/.zsh/nvim.zsh is sourced in your ~/.zshrc:\n"
-  printf "     source ~/.zsh/nvim.zsh\n\n"
-  printf "  2. Reload your shell or run: source ~/.zshrc\n\n"
-  printf "  3. Use these commands:\n"
-  printf "     - nvim           # Default (custom config)\n"
 
+  printf "Next steps:\n\n"
+
+  printf "1. Source the zsh config in your ~/.zshrc:\n"
+  printf "   echo 'source ~/.zsh/nvim.zsh' >> ~/.zshrc\n"
+  printf "   source ~/.zshrc\n\n"
+
+  printf "2. Launch Neovim with any config:\n"
+  printf "   - nvim           # Default (custom config)\n"
   for config_line in "${CONFIGS[@]}"; do
     IFS=':' read -r name type repo <<< "$config_line"
-    printf "     - nvim-$name\n"
+    printf "   - nvim-$name\n"
   done
+
+  printf "\n3. First launch will:\n"
+  printf "   - Auto-install plugins (via lazy.nvim)\n"
+  printf "   - Install LSP servers (via Mason)\n"
+  printf "   - This takes 2-3 minutes\n\n"
+
+  printf "4. Verify installation:\n"
+  printf "   Run :checkhealth in Neovim\n\n"
+
+  printf "📦 Dependencies installed:\n"
+  if command -v npm >/dev/null 2>&1; then
+    printf "   ✓ Node.js packages (neovim, vscode-langservers-extracted)\n"
+  else
+    printf "   ⚠️  Node.js not found - install to enable Node-based plugins\n"
+  fi
+
+  if command -v pip3 >/dev/null 2>&1 || command -v pip >/dev/null 2>&1; then
+    printf "   ✓ Python packages (pynvim)\n"
+  else
+    printf "   ⚠️  Python not found - install to enable Python-based plugins\n"
+  fi
+
   printf "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
 }
 
@@ -195,7 +279,7 @@ main() {
   backup_configs
   clean_configs
   setup_all_configs
-  install_npm_packages
+  install_neovim_dependencies
   create_zsh_aliases
   print_usage
 }

@@ -6,15 +6,19 @@ local vim = vim
 -- **********************************************
 --            Globals (vim.g)
 -- **********************************************
--- Leader keys 
+-- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+
+-- Disable unused providers (removes warnings from :checkhealth)
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 
 -- **********************************************
 --            Plugin
 -- **********************************************
-require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
+-- require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
 
 
 -- **********************************************

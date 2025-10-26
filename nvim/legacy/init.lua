@@ -7,6 +7,10 @@ local vim = vim
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Disable unused providers (removes warnings from :checkhealth)
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Reuse your existing Vim config during the transition
 -- Make your old ~/.vim and ~/.vimrc visible to Neovim
 local home = vim.fn.expand("~")
