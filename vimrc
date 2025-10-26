@@ -179,7 +179,11 @@ let mapleader=" "
 "   open a new file
 nnoremap <Leader>o :CtrlP<CR>
 "   save file
-" nnoremap <Leader>w :w<CR>
+nnoremap <Leader>w :write<CR>
+"   quit
+nnoremap <Leader>q :quit<CR>
+"   quit all (force)
+nnoremap <Leader>Q :qa!<CR>
 "   Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -193,6 +197,12 @@ vmap <Leader>d "+d
 " Move among buffers with SPACE arrows
 map <Leader><Right> :bnext<cr>
 map <Leader><Left> :bprev<cr>
+
+" Window navigation with Ctrl+hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Reload vimconfig with SPACE+r
 map <Leader>r :source ~/.vimrc<cr>:call Message("⚡️ reloaded!")<cr>
