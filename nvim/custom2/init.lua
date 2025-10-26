@@ -10,6 +10,16 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- **********************************************
+--            Disable unused providers
+-- **********************************************
+-- These are optional providers for running plugins in different languages
+-- Disable them to remove warnings from :checkhealth
+vim.g.loaded_perl_provider = 0  -- Disable Perl (rarely needed)
+vim.g.loaded_ruby_provider = 0  -- Disable Ruby (rarely needed)
+-- vim.g.loaded_node_provider = 0  -- Uncomment to disable Node.js
+-- vim.g.loaded_python3_provider = 0  -- Uncomment to disable Python
+
+-- **********************************************
 --            Bootstrap lazy.nvim
 -- **********************************************
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
