@@ -12,6 +12,12 @@ vim.g.maplocalleader = ","
 
 
 -- **********************************************
+--            Plugin
+-- **********************************************
+require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
+
+
+-- **********************************************
 --            Config
 -- **********************************************
 -- Equivalent to Vim's set. Example
