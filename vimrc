@@ -275,7 +275,8 @@ nnoremap <F3> :set hlsearch!<CR>
 
 " If vim-plug plugin is present
 if filereadable(expand('~/.vim/autoload/plug.vim'))
-  call plug#begin()
+  " Use the same plugin directory for both Vim and Neovim
+  call plug#begin('~/.vim/plugged')
 
   " alternatively, pass a path where vim-plug should install plugins
   " call plug#begin('~/some/path/here')
@@ -490,7 +491,7 @@ let g:solarized_termtrans = 1
 
 " Onedark theme:
 "   https://github.com/joshdick/onedark.vim
-colorscheme onedark
+silent! colorscheme onedark
 
 
 " Use ag instead of grep, in the :grep command
@@ -821,7 +822,9 @@ endif
 if HasPlugins('ctrlp_bdelete.vim')
   "   Select the buffer and close it with ctrl-2 (also works with ctrl-z multi
   "   selection)
-  call ctrlp_bdelete#init()
+  if exists('*ctrlp_bdelete#init')
+    call ctrlp_bdelete#init()
+  endif
 endif
 
 " Ctrlp: Open files by name
