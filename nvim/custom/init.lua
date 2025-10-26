@@ -16,9 +16,9 @@ vim.g.loaded_ruby_provider = 0
 
 
 -- **********************************************
---            Plugin
+--            Plugins
 -- **********************************************
--- require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
+require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
 
 
 -- **********************************************
