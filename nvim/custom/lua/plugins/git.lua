@@ -29,18 +29,24 @@ return {
     },
 
 
-    -- Neogit: 
+    -- Neogit: Magit-like git interface for Neovim
     {
       "NeogitOrg/neogit",
       dependencies = {
         "nvim-lua/plenary.nvim",         -- required
         "sindrets/diffview.nvim",        -- optional - Diff integration
-
-        -- Only one of these is needed.
         "nvim-telescope/telescope.nvim", -- optional
-        "ibhagwan/fzf-lua",              -- optional
-        "nvim-mini/mini.pick",           -- optional
-        "folke/snacks.nvim",             -- optional
       },
-    }
+      cmd = "Neogit",
+      keys = {
+        { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+        { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
+      },
+      opts = {
+        integrations = {
+          telescope = true,
+          diffview = true,
+        },
+      },
+    },
   }
