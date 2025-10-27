@@ -1,8 +1,12 @@
-return {
+-- Make linter happy
+---@diagnostic disable-next-line: undefined-global
+local vim = vim
 
+return {
   -- Telescope: Fuzzy search
   {
-  'nvim-telescope/telescope.nvim', tag = '0.1.8', -- See https://github.com/nvim-telescope/telescope.nvim/releases
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.8', -- See https://github.com/nvim-telescope/telescope.nvim/releases
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require('telescope.builtin')

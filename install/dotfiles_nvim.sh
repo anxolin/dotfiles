@@ -49,6 +49,7 @@ declare -a CONFIGS=(
 declare -a NPM_PACKAGES=(
   "neovim"                        # Neovim Node.js provider (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
   "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers (used for vim not neovim I believe)
+  "vscode-solidity-server", # Dependencies of https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solidity_ls.lua
 )
 
 # Python packages to install (requires pip/pip3)

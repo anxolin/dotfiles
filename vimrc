@@ -169,6 +169,11 @@ function! HasPlugins(name)
 endfunction
 
 
+" **********     Custom Commands     **********
+" BufOnly: Close all buffers except the current one
+command! BufOnly %bd|e#
+
+
 " **********     LEADER and custom MAPPINGS     **********
 " Set SPACE as the leader key
 " let mapleader = "\<Space>"

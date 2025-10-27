@@ -1,3 +1,8 @@
+-- Make linter happy
+---@diagnostic disable-next-line: undefined-global
+local vim = vim
+
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -5,7 +10,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons", 
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("neo-tree").setup({
@@ -23,11 +28,12 @@ return {
         },
         buffers = { follow_current_file = { enable = true } },
       })
-      
+
       -- 🗂️ Toggle the file tree with <leader>e and <C-n>
       vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
       vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
     end,
   }
-  
+
 }
+

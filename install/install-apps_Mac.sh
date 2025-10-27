@@ -21,7 +21,7 @@ nvim_dependencies=( neovim )
 #   - cmake: For building packages
 #   - bat: Syntax highlighting for terminal. See docs/vim.md
 #   - tldr: Simplified and community-driven man pages
-dev_dependencies=( zsh the_silver_searcher ripgrep fd cmake bat tldr )
+dev_dependencies=( zsh the_silver_searcher ripgrep fd cmake bat tldr solidity)
 
 # Tmux dependencies:
 #   - reattach-to-user-namespace: For tmux, to allow to use the clipboard inside tmux. See docs/tmux.md
