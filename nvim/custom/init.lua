@@ -76,6 +76,13 @@ map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
 
+-- Tab navigation with Leader+arrows
+map("n", "<leader><Left>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<leader><Right>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+-- Tab navigation with Leader+h/l as fallback
+map("n", "<leader>h", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<leader>l", "<cmd>tabnext<cr>", { desc = "Next tab" })
+
 -- Clear search highlights quickly
 map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 

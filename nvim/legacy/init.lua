@@ -42,6 +42,13 @@ local map = vim.keymap.set
 map("n", "<leader>w", "<cmd>write<cr>", { desc = "Write file" })
 map("n", "<leader>q", "<cmd>quit<cr>",  { desc = "Quit" })
 
+-- Tab navigation with Leader+arrows
+map("n", "<leader><Left>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<leader><Right>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+-- Tab navigation with Leader+h/l as fallback
+map("n", "<leader>h", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<leader>l", "<cmd>tabnext<cr>", { desc = "Next tab" })
+
 -- 4) Check your environment
 -- Run :checkhealth after first launch to spot missing deps
 

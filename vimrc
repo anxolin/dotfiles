@@ -205,6 +205,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Tab navigation with <Leader><Arrows>
+nnoremap <Leader><Left>  :tabprevious<CR>
+nnoremap <Leader><Right> :tabnext<CR>
+" Tab navigation with Leader+h/l as fallback
+nnoremap <Leader>h :tabprevious<CR>
+nnoremap <Leader>l :tabnext<CR>
+
 " Reload vimconfig with SPACE+r
 map <Leader>r :source ~/.vimrc<cr>:call Message("⚡️ reloaded!")<cr>
 
