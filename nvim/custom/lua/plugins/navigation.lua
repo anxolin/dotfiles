@@ -8,7 +8,22 @@ return {
       "nvim-tree/nvim-web-devicons", 
     },
     config = function()
-        
+      require("neo-tree").setup({
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            show_hidden_count = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = false,
+          },
+        },
+        buffers = { follow_current_file = { enable = true } },
+      })
+      
       -- 🗂️ Toggle the file tree with <leader>e and <C-n>
       vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
       vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
