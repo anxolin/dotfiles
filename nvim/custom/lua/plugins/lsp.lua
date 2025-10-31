@@ -71,14 +71,28 @@ return {
           local map = function(m, lhs, rhs, desc)
             vim.keymap.set(m, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
           end
-          map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
+
+          -- Telescope-based LSP navigation (better UI)
+          local telescope_ok, telescope_builtin = pcall(require, "telescope.builtin")
+          if telescope_ok then
+            map("n", "gd", telescope_builtin.lsp_definitions, "Goto Definition")
+            map("n", "gr", telescope_builtin.lsp_references, "References")
+            map("n", "gi", telescope_builtin.lsp_implementations, "Goto Implementation")
+            map("n", "<leader>fs", telescope_builtin.lsp_document_symbols, "Document Symbols")
+            map("n", "<leader>fS", telescope_builtin.lsp_workspace_symbols, "Workspace Symbols")
+            map("n", "<leader>fd", telescope_builtin.diagnostics, "Diagnostics")
+          else
+            -- Fallback to built-in LSP if Telescope not available
+            map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
+            map("n", "gr", vim.lsp.buf.references, "References")
+            map("n", "gi", vim.lsp.buf.implementation, "Goto Implementation")
+          end
+
+          -- Non-Telescope LSP mappings
           map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
-          map("n", "gi", vim.lsp.buf.implementation, "Goto Implementation")
-          map("n", "gr", vim.lsp.buf.references, "References")
           map("n", "K", vim.lsp.buf.hover, "Hover")
           map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
           map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
-          map("n", "<leader>fd", function() vim.diagnostic.open_float() end, "Line Diagnostics")
           map("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
           map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
           map("n", "<leader>f", function() vim.lsp.buf.format({ async = false }) end, "Format")

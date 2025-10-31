@@ -30,6 +30,9 @@ return {
       vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
       vim.keymap.set("n", "<leader>hb", gs.toggle_current_line_blame, { desc = "Toggle blame" })
       vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
+      vim.keymap.set("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
+      vim.keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
+      vim.keymap.set("n", "<leader>gD", gs.diffthis, { desc = "Diff file" })
     end,
   },
 
@@ -38,20 +41,43 @@ return {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",           -- required
-      "sindrets/diffview.nvim",          -- optional - Diff integration
-      "nvim-telescope/telescope.nvim",   -- optional
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional
     },
     cmd = "Neogit",
     keys = {
-      { "<leader>gg", "<cmd>Neogit<cr>",        desc = "Neogit" },
-      { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
+      { "<leader>gg", "<cmd>Neogit<cr>",             desc = "Neogit" },
+      { "<leader>gc", "<cmd>Neogit commit<cr>",      desc = "Neogit commit" },
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>",       desc = "Git diff" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>",   desc = "Repo history" },
+      { "<leader>gP", "<cmd>Neogit push<cr>",        desc = "Git push" },
+      { "<leader>gl", "<cmd>Neogit log<cr>",         desc = "Git log" },
     },
     opts = {
       integrations = {
         telescope = true,
         diffview = true,
       },
+    },
+  },
+
+  -- Blame: Fugitive style git blame
+  {
+    "FabijanZulj/blame.nvim",
+    lazy = false,
+    config = function()
+      require('blame').setup {}
+
+      vim.api.nvim_create_user_command("ToggleBlame", function(args)
+        require("blame").toggle(args)
+      end, { nargs = "*" })
+
+      vim.keymap.set("n", "<leader>gb", "<cmd>BlameToggle<cr>", { desc = "Git blame" })
+    end,
+    opts = {
+      blame_options = { '-w' },
     },
   },
 }

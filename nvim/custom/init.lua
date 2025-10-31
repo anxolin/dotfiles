@@ -1,4 +1,3 @@
-
 -- Make linter happy
 ---@diagnostic disable-next-line: undefined-global
 local vim = vim
@@ -29,28 +28,28 @@ require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
 --   set clipboard=unnamedplus
 -- See https://neovim.io/doc/user/options.html#'number'
 local opt = vim.opt
-opt.number = true -- Print the line number in front of each line
-opt.relativenumber = true -- Show the line number relative to the line with the cursor in front of each line
-opt.wrap = false -- lines longer than the width of the window will wrap and displaying continues on the next line
-opt.signcolumn = "yes" -- When and how to draw the signcolumn (yes = always)
-opt.mouse = "a" -- Mouse for all modes (normal, visual, insert, ...)
+opt.number = true             -- Print the line number in front of each line
+opt.relativenumber = true     -- Show the line number relative to the line with the cursor in front of each line
+opt.wrap = false              -- lines longer than the width of the window will wrap and displaying continues on the next line
+opt.signcolumn = "yes"        -- When and how to draw the signcolumn (yes = always)
+opt.mouse = "a"               -- Mouse for all modes (normal, visual, insert, ...)
 opt.clipboard = "unnamedplus" -- A variant of the "unnamed" flag which uses the clipboard register "+"
-opt.ignorecase = true -- Ignore case in search patterns
-opt.smartcase = true -- Override the 'ignorecase' option if the search pattern contains upper
-opt.splitright = true -- When on, splitting a window will put the new window right of the current one
-opt.splitbelow = true -- When on, splitting a window will put the new window below the current one
-opt.termguicolors = true -- Enables 24-bit RGB color in the TUI (Requires an ISO-8613-3 compatible terminal)
-opt.updatetime = 200 -- If this many milliseconds nothing is typed the swap file will be written to disk
-opt.timeoutlen = 400 -- Time in milliseconds to wait for a mapped sequence to complete.
-opt.scrolloff = 5 -- Minimal number of screen lines to keep above and below the cursor.
-opt.sidescrolloff = 5 -- The minimal number of screen columns to keep to the left and to the right of the cursor if 'nowrap' is set.
+opt.ignorecase = true         -- Ignore case in search patterns
+opt.smartcase = true          -- Override the 'ignorecase' option if the search pattern contains upper
+opt.splitright = true         -- When on, splitting a window will put the new window right of the current one
+opt.splitbelow = true         -- When on, splitting a window will put the new window below the current one
+opt.termguicolors = true      -- Enables 24-bit RGB color in the TUI (Requires an ISO-8613-3 compatible terminal)
+opt.updatetime = 200          -- If this many milliseconds nothing is typed the swap file will be written to disk
+opt.timeoutlen = 400          -- Time in milliseconds to wait for a mapped sequence to complete.
+opt.scrolloff = 5             -- Minimal number of screen lines to keep above and below the cursor.
+opt.sidescrolloff = 5         -- The minimal number of screen columns to keep to the left and to the right of the cursor if 'nowrap' is set.
 
 
 -- Indentation settings - use spaces instead of tabs
-opt.expandtab = true -- Use spaces instead of tabs
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.shiftwidth = 2 -- Size of an indent
-opt.softtabstop = 2 -- Number of spaces that a <Tab> counts for while performing editing operations
+opt.expandtab = true   -- Use spaces instead of tabs
+opt.tabstop = 2        -- Number of spaces tabs count for
+opt.shiftwidth = 2     -- Size of an indent
+opt.softtabstop = 2    -- Number of spaces that a <Tab> counts for while performing editing operations
 opt.smartindent = true -- Insert indents automatically
 
 
@@ -67,13 +66,13 @@ local silent = { silent = true, noremap = true }
 
 -- Saving / quitting
 map("n", "<leader>w", "<cmd>write<cr>", { desc = "Write file" })
-map("n", "<leader>q", "<cmd>quit<cr>",  { desc = "Quit" })
-map("n", "<leader>Q", "<cmd>qa!<cr>",   { desc = "Quit all (force)" })
+map("n", "<leader>q", "<cmd>quit<cr>", { desc = "Quit" })
+map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all (force)" })
 
 -- Better window moves with Ctrl-h/j/k/l
 map("n", "<C-h>", "<C-w>h", silent)
-map("n", "<C-j>", "<C-w>j", silent)
-map("n", "<C-k>", "<C-w>k", silent)
+-- map("n", "<C-j>", "<C-w>j", silent)
+-- map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
 
 -- Tab navigation with Leader+arrows
@@ -92,8 +91,10 @@ map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 -- **********************************************
 
 -- Small quality-of-life autocommands
-local aug = vim.api.nvim_create_augroup -- Create or get an autocommand group autocmd-groups. See https://neovim.io/doc/user/autocmd.html#autocmd-groups
-local ac  = vim.api.nvim_create_autocmd -- Creates an autocommand event handler, defined by callback (Lua function or Vimscript function name string) or command (Ex command string).. See https://neovim.io/doc/user/api.html#nvim_create_autocmd() 
+local aug = vim.api
+.nvim_create_augroup                    -- Create or get an autocommand group autocmd-groups. See https://neovim.io/doc/user/autocmd.html#autocmd-groups
+local ac  = vim.api
+.nvim_create_autocmd                    -- Creates an autocommand event handler, defined by callback (Lua function or Vimscript function name string) or command (Ex command string).. See https://neovim.io/doc/user/api.html#nvim_create_autocmd()
 
 -- Highlight on yank
 aug("YankHighlight", { clear = true })
@@ -132,4 +133,3 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.defer_fn(function() print("✅ Minimal Neovim config loaded") end, 50)
   end,
 })
-
