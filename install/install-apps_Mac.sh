@@ -11,7 +11,11 @@ vim_dependencies=( ctags )
 
 # Nvim dependencies:
 #   - neovim: The Neo Vim editor. See docs/nvim.md
-nvim_dependencies=( neovim )
+#   - luarocks: Lua package manager (required by mason.nvim for some LSP servers/tools)
+#   - imagemagick: Image processing (required by snacks.nvim image rendering to convert images)
+#   - ghostscript: PDF rendering support (required by snacks.nvim to render PDF files in terminal)
+#   - tectonic: LaTeX engine (required by snacks.nvim to render LaTeX math expressions)
+nvim_dependencies=( neovim luarocks imagemagick ghostscript tectonic )
 
 # Development dependencies:
 #   - zsh: Nicer shell. See docs/zsh.md

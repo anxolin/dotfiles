@@ -15,7 +15,7 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
-      { "L3MON4D3/LuaSnip" },
+      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
       { "saadparwaiz1/cmp_luasnip" },
       { "stevearc/conform.nvim" },
     },
@@ -67,35 +67,36 @@ return {
       --------------------------------------------------------------------------
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
-          local bufnr = args.buf
-          local map = function(m, lhs, rhs, desc)
-            vim.keymap.set(m, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
-          end
+          --local bufnr = args.buf
+          --local map = function(m, lhs, rhs, desc)
+          --  vim.keymap.set(m, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+          --end
 
           -- Telescope-based LSP navigation (better UI)
-          local telescope_ok, telescope_builtin = pcall(require, "telescope.builtin")
-          if telescope_ok then
-            map("n", "gd", telescope_builtin.lsp_definitions, "Goto Definition")
-            map("n", "gr", telescope_builtin.lsp_references, "References")
-            map("n", "gi", telescope_builtin.lsp_implementations, "Goto Implementation")
-            map("n", "<leader>fs", telescope_builtin.lsp_document_symbols, "Document Symbols")
-            map("n", "<leader>fS", telescope_builtin.lsp_workspace_symbols, "Workspace Symbols")
-            map("n", "<leader>fd", telescope_builtin.diagnostics, "Diagnostics")
-          else
-            -- Fallback to built-in LSP if Telescope not available
-            map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
-            map("n", "gr", vim.lsp.buf.references, "References")
-            map("n", "gi", vim.lsp.buf.implementation, "Goto Implementation")
-          end
+          --local telescope_ok, telescope_builtin = pcall(require, "telescope.builtin")
+          --if telescope_ok then
+          -- NOTE: Disabled because I use the ones in snack.lua
+          --map("n", "gd", telescope_builtin.lsp_definitions, "Goto Definition")
+          --map("n", "gr", telescope_builtin.lsp_references, "References")
+          --map("n", "gi", telescope_builtin.lsp_implementations, "Goto Implementation")
+          --map("n", "<leader>fs", telescope_builtin.lsp_document_symbols, "Document Symbols")
+          --map("n", "<leader>fS", telescope_builtin.lsp_workspace_symbols, "Workspace Symbols")
+          --map("n", "<leader>fd", telescope_builtin.diagnostics, "Diagnostics")
+          --else
+          -- Fallback to built-in LSP if Telescope not available
+          --map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
+          --map("n", "gr", vim.lsp.buf.references, "References")
+          --map("n", "gi", vim.lsp.buf.implementation, "Goto Implementation")
+          -- end
 
           -- Non-Telescope LSP mappings
-          map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
-          map("n", "K", vim.lsp.buf.hover, "Hover")
-          map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
-          map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
-          map("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
-          map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
-          map("n", "<leader>f", function() vim.lsp.buf.format({ async = false }) end, "Format")
+          --map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
+          --map("n", "K", vim.lsp.buf.hover, "Hover")
+          --map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+          --map("n", "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+          --map("n", "[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
+          --map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
+          --map("n", "<leader>f", function() vim.lsp.buf.format({ async = false }) end, "Format")
         end,
       })
 

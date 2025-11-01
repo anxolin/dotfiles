@@ -98,8 +98,7 @@
     "Strapi"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-    // "source.organizeImports": true
+    "source.fixAll.eslint": "explicit"
   },
   "explorer.confirmDelete": false,
   "python.jediEnabled": false,

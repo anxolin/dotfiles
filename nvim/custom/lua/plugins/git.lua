@@ -32,7 +32,9 @@ return {
       vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
       vim.keymap.set("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
       vim.keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
-      vim.keymap.set("n", "<leader>gD", gs.diffthis, { desc = "Diff file" })
+
+      -- Disabled: Using :DiffviewOpen instead
+      -- vim.keymap.set("n", "<leader>gD", gs.diffthis, { desc = "Diff file" })
     end,
   },
 
@@ -47,13 +49,13 @@ return {
     },
     cmd = "Neogit",
     keys = {
-      { "<leader>gg", "<cmd>Neogit<cr>",             desc = "Neogit" },
-      { "<leader>gc", "<cmd>Neogit commit<cr>",      desc = "Neogit commit" },
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>",       desc = "Git diff" },
-      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
-      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>",   desc = "Repo history" },
-      { "<leader>gP", "<cmd>Neogit push<cr>",        desc = "Git push" },
-      { "<leader>gl", "<cmd>Neogit log<cr>",         desc = "Git log" },
+      { "<leader>gg", "<cmd>Neogit<cr>",        desc = "Neogit" },
+      { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>",  desc = "Git diff" },
+      -- { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+      -- { "<leader>gH", "<cmd>DiffviewFileHistory<cr>",   desc = "Repo history" },
+      -- { "<leader>gP", "<cmd>Neogit push<cr>",        desc = "Git push" },
+      -- { "<leader>gl", "<cmd>Neogit log<cr>",         desc = "Git log" },
     },
     opts = {
       integrations = {

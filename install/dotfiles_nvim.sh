@@ -47,14 +47,22 @@ declare -a CONFIGS=(
 
 # Node.js packages to install (requires npm)
 declare -a NPM_PACKAGES=(
-  "neovim"                        # Neovim Node.js provider (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
-  "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers (used for vim not neovim I believe)
-  "vscode-solidity-server", # Dependencies of https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solidity_ls.lua
+  "neovim"                        # Neovim Node.js provider (optional, prevents warnings in :checkhealth)
+  "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers (used for vim, not neovim)
+  "vscode-solidity-server"        # Solidity language server (required by nvim-lspconfig)
+  "prettier"                      # Code formatter for JS/TS/JSON/CSS/HTML (used by conform.nvim)
+  "@mermaid-js/mermaid-cli"       # Mermaid diagram renderer (required by snacks.nvim to render diagrams)
 )
 
 # Python packages to install (requires pip/pip3)
 declare -a PYTHON_PACKAGES=(
   "pynvim"  # Neovim Python provider. (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
+  "black"   # Python code formatter (used by conform.nvim)
+)
+
+# Rust/Cargo packages to install (requires cargo)
+declare -a CARGO_PACKAGES=(
+  "stylua"  # Lua code formatter (used by conform.nvim)
 )
 
 # Backup existing configs
@@ -193,6 +201,20 @@ install_neovim_dependencies() {
     printf "     - Python-based plugins\n"
     printf "     - Some formatters and linters\n"
     printf "     Packages to install manually: ${PYTHON_PACKAGES[*]}\n"
+  fi
+
+  # Install Cargo packages
+  if command -v cargo >/dev/null 2>&1; then
+    printf "\n  🦀 Installing Rust/Cargo packages:\n"
+    for package in "${CARGO_PACKAGES[@]}"; do
+      printf "    - Installing: $package\n"
+      cargo install "$package" --quiet 2>&1 | grep -q "Installing" && printf "      ✓ Installed\n" || printf "      ✓ Already installed or updated\n"
+    done
+  else
+    printf "\n  ⚠️  WARNING: Rust/Cargo not installed\n"
+    printf "     Install Rust and Cargo to enable:\n"
+    printf "     - Additional code formatters (stylua for Lua)\n"
+    printf "     Packages to install manually: ${CARGO_PACKAGES[*]}\n"
   fi
 }
 
