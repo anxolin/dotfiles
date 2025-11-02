@@ -22,10 +22,14 @@ nvim-custom
   - Rust (rust_analyzer)
 - **Fuzzy Finder**: Telescope for files, buffers, grep, and more
 - **Syntax Highlighting**: Treesitter
+- **Parsing**: Tree-sitter based text objects and navigation
 - **Git Integration**: Gitsigns + Neogit
 - **Colorscheme**: Catppuccin
 - **Icons**: mini.icons
-- **Comments**: mini.comment
+- **Comments**: Comment.nvim with treesitter context support
+- **Statusline**: Custom statusline configuration
+- **UI Enhancements**: Snacks.nvim for various UI improvements
+- **Copilot**: GitHub Copilot integration (currently disabled)
 
 ## Key Mappings
 
@@ -76,16 +80,20 @@ nvim/custom/
 │   ├── config/
 │   │   └── lazy.lua      # Lazy.nvim bootstrap
 │   └── plugins/
+│       ├── buffers.lua   # Buffer management
 │       ├── colors.lua    # Colorscheme
-│       ├── comment.lua   # Comment plugin
+│       ├── comment.lua   # Comment plugin with treesitter
+│       ├── copilot.lua   # GitHub Copilot (disabled)
 │       ├── git.lua       # Git plugins (gitsigns, neogit)
 │       ├── icons.lua     # Icons
 │       ├── lsp.lua       # LSP configuration
 │       ├── misc.lua      # Miscellaneous plugins
 │       ├── navigation.lua # File navigation
+│       ├── parsing.lua   # Treesitter text objects
 │       ├── search.lua    # Telescope
-│       └── treesitter.lua # Syntax highlighting
-└── README.md            # This file
+│       ├── snacks.lua    # UI enhancements
+│       └── statusline.lua # Custom statusline
+└── nvim-custom.md       # This file
 ```
 
 ## Health Check
