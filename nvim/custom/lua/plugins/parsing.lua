@@ -75,6 +75,46 @@ return {
 						node_decremental = "<BS>",
 					},
 				},
+
+				-- Textobjects for navigation and selection
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true, -- Automatically jump forward to textobj
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+							["aa"] = "@parameter.outer",
+							["ia"] = "@parameter.inner",
+						},
+					},
+					move = {
+						enable = true,
+						set_jumps = true, -- Add to jumplist
+						goto_next_start = {
+							["]f"] = "@function.outer",
+							["]c"] = "@class.outer",
+							["]a"] = "@parameter.inner",
+						},
+						goto_next_end = {
+							["]F"] = "@function.outer",
+							["]C"] = "@class.outer",
+							["]A"] = "@parameter.inner",
+						},
+						goto_previous_start = {
+							["[f"] = "@function.outer",
+							["[c"] = "@class.outer",
+							["[a"] = "@parameter.inner",
+						},
+						goto_previous_end = {
+							["[F"] = "@function.outer",
+							["[C"] = "@class.outer",
+							["[A"] = "@parameter.inner",
+						},
+					},
+				},
 			})
 		end,
 	},
