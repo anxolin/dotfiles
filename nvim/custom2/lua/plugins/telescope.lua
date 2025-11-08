@@ -34,6 +34,9 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
             ["<esc>"] = actions.close,
           },
+          n = {
+            ["dd"] = actions.delete_buffer,
+          },
         },
         file_ignore_patterns = { "node_modules", ".git/" },
       },

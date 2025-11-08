@@ -1,8 +1,14 @@
 #!/bin/bash
 set -e
 
+
+
 # Update brew
 # brew update
+
+# Vim dependencies:
+#   - watchexec: Allow to run a command when a file changes
+dev_dependencies=( watchexec )
 
 # Brew dependencies
 # Vim dependencies:
@@ -32,7 +38,7 @@ dev_dependencies=( zsh the_silver_searcher ripgrep fd cmake bat tldr solidity)
 tmux_dependencies=( reattach-to-user-namespace )
 
 # Combine all dependencies
-brew_dependencies=( "${vim_dependencies[@]}" "${nvim_dependencies[@]}" "${dev_dependencies[@]}" "${tmux_dependencies[@]}" )
+brew_dependencies=( "${dev_dependencies[@]}" "${vim_dependencies[@]}" "${nvim_dependencies[@]}" "${dev_dependencies[@]}" "${tmux_dependencies[@]}" )
 for package in "${brew_dependencies[@]}"
 do  
   if ! brew ls --versions $package > /dev/null; then

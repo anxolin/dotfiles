@@ -75,15 +75,16 @@ map("n", "<leader>w", "<cmd>write<cr>", { desc = "Write file" })
 map("n", "<leader>q", "<cmd>quit<cr>", { desc = "Quit" })
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all (force)" })
 
--- Navigate between windows with Alt-h/j/k/l in any mode
-map({ "t", "i" }, "<A-h>", "<C-\\><C-n><C-w>h")
-map({ "t", "i" }, "<A-j>", "<C-\\><C-n><C-w>j")
-map({ "t", "i" }, "<A-k>", "<C-\\><C-n><C-w>k")
-map({ "t", "i" }, "<A-l>", "<C-\\><C-n><C-w>l")
-map({ "n" }, "<A-h>", "<C-w>h")
-map({ "n" }, "<A-j>", "<C-w>j")
-map({ "n" }, "<A-k>", "<C-w>k")
-map({ "n" }, "<A-l>", "<C-w>l")
+-- Navigate between windows with Alt-h/j/k/l
+-- Note: Alt-h/l in insert mode are used for word movement, so only j/k for window nav
+--map({ "t", "i" }, "<A-j>", "<C-\\><C-n><C-w>j")
+--map({ "t", "i" }, "<A-k>", "<C-\\><C-n><C-w>k")
+--map({ "t" }, "<A-h>", "<C-\\><C-n><C-w>h")
+--map({ "t" }, "<A-l>", "<C-\\><C-n><C-w>l")
+--map({ "n" }, "<A-h>", "<C-w>h")
+--map({ "n" }, "<A-j>", "<C-w>j")
+--map({ "n" }, "<A-k>", "<C-w>k")
+--map({ "n" }, "<A-l>", "<C-w>l")
 
 -- Tab navigation with Leader+arrows
 map("n", "<leader><Left>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
@@ -100,6 +101,38 @@ map("n", "<A-[>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 
 -- Clear search highlights quickly
 map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
+
+-- macOS-style Natural Text Editing in insert mode
+-- Move by word with Alt+Left/Right (Option+arrows on Mac)
+map("i", "<M-Left>", "<C-o>b", { desc = "Move word backward" })
+map("i", "<M-Right>", "<C-o>w", { desc = "Move word forward" })
+map("i", "<M-b>", "<C-o>b", { desc = "Move word backward" })
+map("i", "<M-f>", "<C-o>w", { desc = "Move word forward" })
+map("i", "<M-h>", "<C-o>b", { desc = "Move word backward" })
+map("i", "<M-l>", "<C-o>w", { desc = "Move word forward" })
+
+-- Move to beginning/end of line with Cmd+Left/Right
+map("i", "<D-Left>", "<C-o>^", { desc = "Move to line start" })
+map("i", "<D-Right>", "<C-o>$", { desc = "Move to line end" })
+
+-- Emacs/terminal-style line movement with Ctrl+a/e
+map("i", "<C-a>", "<C-o>^", { desc = "Move to line start" })
+map("i", "<C-e>", "<C-o>$", { desc = "Move to line end" })
+
+-- Delete word backward/forward with Alt+Backspace/Delete
+map("i", "<M-BS>", "<C-w>", { desc = "Delete word backward" })
+map("i", "<M-d>", "<C-o>dw", { desc = "Delete word forward" })
+
+-- Fn+Backspace (Del key) for forward delete (joins lines when at end of line)
+map("i", "<Del>", "<Del>", { desc = "Delete forward" })
+map("n", "<Del>", "x", { desc = "Delete forward" })
+
+-- Ctrl+d as alternative for forward delete (Emacs-style)
+map("i", "<C-d>", "<Del>", { desc = "Delete forward" })
+
+-- Normal mode word movement
+map("n", "<M-Left>", "b", { desc = "Move word backward" })
+map("n", "<M-Right>", "w", { desc = "Move word forward" })
 
 -- **********************************************
 --            Auto-commands (vim.api.nvim_create_autocmd)
