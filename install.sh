@@ -112,6 +112,18 @@ source "$DOT_FILES/install/init_submodules.sh"
 cat << EOF
 
 
+┌┬┐┌┬┐┬ ┬─┐ ┬
+ │ ││││ │┌┴┬┘
+ ┴ ┴ ┴└─┘┴ └─
+EOF
+
+# Install tmux plugin manager
+source "$DOT_FILES/install/install-tmux.sh"
+
+
+cat << EOF
+
+
 ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┬
 ││││└─┐ │ ├─┤│  │
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘
