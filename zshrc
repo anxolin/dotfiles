@@ -54,6 +54,13 @@ fi
 
 source $ZSH_BASE/common.zsh
 
+
+###############################
+#  Add some local paths       #
+###############################
+
+export PATH="$HOME/.local/bin:$PATH"
+
 ###############################
 #  LOAD SOME LOCAL CONFIG    #
 ###############################
