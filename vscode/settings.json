@@ -4,40 +4,40 @@
   "explorer.openEditors.visible": 0,
   "[javascript]": {
     "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[markdown]": {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   },
   "[python]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "ms-python.python",
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
   },
   "[solidity]": {
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
   },
   "[rust]": {
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
   },
   "[sql]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
   },
   "python": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
+      "source.organizeImports": true,
+    },
   },
   "editor.detectIndentation": false,
   "[json]": {
     "editor.folding": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "json.schemas": [
     {
       "fileMatch": ["cosmos.config.json"],
-      "url": "http://json.schemastore.org/cosmos-config"
-    }
+      "url": "http://json.schemastore.org/cosmos-config",
+    },
   ],
   "editor.rulers": [120],
   "explorer.confirmDragAndDrop": false,
@@ -48,13 +48,13 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/.history": true,
-    "**/.retry": true
+    "**/.retry": true,
   },
   "solidity.soliumRules": {
     "imports-on-top": 0,
     "variable-declarations": 0,
     "indentation": ["error", 4],
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "solidity.linter": "solium",
@@ -72,11 +72,11 @@
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
-    "**/.factorypath": true
+    "**/.factorypath": true,
   },
   "liveshare.audio.joinCallBehavior": "accept",
   "files.associations": {
-    ".env": "shellscript"
+    ".env": "shellscript",
   },
   "rust.clippy_preference": "on",
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -95,10 +95,10 @@
     "Permittable",
     "Rinkeby",
     "ropsten",
-    "Strapi"
+    "Strapi",
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
   },
   "explorer.confirmDelete": false,
   "python.jediEnabled": false,
@@ -108,39 +108,39 @@
   "editor.gotoLocation.multipleTypeDefinitions": "goto",
   "python.formatting.provider": "black",
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "githubIssues.queries": [
     {
       "label": "My Issues",
-      "query": "default"
+      "query": "default",
     },
     {
       "label": "Created Issues",
-      "query": "author:${user} state:open repo:${owner}/${repository} sort:updated-desc"
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:updated-desc",
     },
     {
       "label": "Milestone: 15",
-      "query": "state:open repo:${owner}/${repository} milestone:\"Sprint 15\" sort:updated-desc"
+      "query": "state:open repo:${owner}/${repository} milestone:\"Sprint 15\" sort:updated-desc",
     },
     {
       "label": "Bugs",
-      "query": "state:open repo:${owner}/${repository} label:bug sort:updated-desc"
+      "query": "state:open repo:${owner}/${repository} label:bug sort:updated-desc",
     },
     {
       "label": "Important",
-      "query": "state:open repo:${owner}/${repository} label:important sort:updated-desc"
+      "query": "state:open repo:${owner}/${repository} label:important sort:updated-desc",
     },
     {
       "label": "Release",
-      "query": "state:open repo:${owner}/${repository} label:release sort:updated-desc"
-    }
+      "query": "state:open repo:${owner}/${repository} label:release sort:updated-desc",
+    },
   ],
   "python.languageServer": "Default",
   "aws.profile": "profile:default",
@@ -152,44 +152,44 @@
   "githubPullRequests.queries": [
     {
       "label": "Waiting For My Review",
-      "query": "is:open review-requested:${user} -label:dependencies -label:\"on hold\""
+      "query": "is:open review-requested:${user} -label:dependencies -label:\"on hold\"",
     },
     {
       "label": "Not Reviewed",
-      "query": "is:open -reviewed-by:${user}"
+      "query": "is:open -reviewed-by:${user}",
     },
     {
       "label": "Assigned To Me",
-      "query": "is:open assignee:${user}"
+      "query": "is:open assignee:${user}",
     },
     {
       "label": "Created By Me",
-      "query": "is:open author:${user}"
+      "query": "is:open author:${user}",
     },
     {
       "label": "Release",
-      "query": "is:open label:release"
+      "query": "is:open label:release",
     },
     {
       "label": "Leandro's PRs (alfetopito)",
-      "query": "is:open author:alfetopito -reviewed-by:${user}"
+      "query": "is:open author:alfetopito -reviewed-by:${user}",
     },
     {
       "label": "Sasha´s PRs (shoom3301)",
-      "query": "is:open author:shoom3301 -reviewed-by:${user}"
+      "query": "is:open author:shoom3301 -reviewed-by:${user}",
     },
     {
       "label": "Tukan´s PRs (tukantje)",
-      "query": "is:open author:tukantje -reviewed-by:${user}"
+      "query": "is:open author:tukantje -reviewed-by:${user}",
     },
     {
       "label": "Nenad's PRs (nenadV91)",
-      "query": "is:open author:nenadV91 -reviewed-by:${user}"
+      "query": "is:open author:nenadV91 -reviewed-by:${user}",
     },
     {
       "label": "FairLight's PRs (fairlighteth)",
-      "query": "is:open author:fairlighteth -reviewed-by:${user}"
-    }
+      "query": "is:open author:fairlighteth -reviewed-by:${user}",
+    },
   ],
   "workbench.iconTheme": "vscode-icons",
   "gitlens.defaultTimeFormat": null,
@@ -225,23 +225,24 @@
     "!Select",
     "!Select sequence",
     "!Split",
-    "!Split sequence"
+    "!Split sequence",
   ],
   "redhat.telemetry.enabled": false,
   "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "editor.inlineSuggest.enabled": true,
   "hediet.vscode-drawio.resizeImages": null,
   "jest.autoRun": {
     "watch": false,
     "onSave": "test-only",
-    "onStartup": false
+    "onStartup": false,
   },
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
     "markdown": true,
-    "scminput": false
-  }
+    "scminput": false,
+  },
+  "claudeCode.preferredLocation": "panel",
 }
