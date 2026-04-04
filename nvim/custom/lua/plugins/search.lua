@@ -73,8 +73,10 @@ return {
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
-			-- Ctrl-P as alternative to <leader>ff
-			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Telescope find files" })
+			-- Ctrl-P opens Snacks smart search
+			vim.keymap.set("n", "<C-p>", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
+			-- Ctrl-P as alternative to <leader>ff (Telescope)
+			-- vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Telescope find files" })
 		end,
 	},
 }
