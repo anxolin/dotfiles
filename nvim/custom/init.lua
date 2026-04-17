@@ -28,7 +28,7 @@ require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
 local opt = vim.opt
 opt.number = true -- Print the line number in front of each line
 opt.relativenumber = true -- Show the line number relative to the line with the cursor in front of each line
-opt.wrap = false -- lines longer than the width of the window will wrap and displaying continues on the next line
+opt.wrap = true -- lines longer than the width of the window will wrap and displaying continues on the next line
 opt.signcolumn = "yes" -- When and how to draw the signcolumn (yes = always)
 opt.mouse = "a" -- Mouse for all modes (normal, visual, insert, ...)
 opt.clipboard = "unnamedplus" -- A variant of the "unnamed" flag which uses the clipboard register "+"
@@ -98,6 +98,12 @@ map("n", "<M-C-Y>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 -- Tab navigation with Alt+[ and Alt+]
 map("n", "<A-]>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 map("n", "<A-[>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+-- Close tab
+map("n", "<C-w>q", "<cmd>tabclose<cr>", { desc = "Close tab" })
+-- Jump to tab by number with Alt+1..9
+for i = 1, 9 do
+  map("n", "<A-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
+end
 
 -- Clear search highlights quickly
 map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
