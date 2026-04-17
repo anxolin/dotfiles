@@ -22,8 +22,10 @@ return {
             visible = true,
             show_hidden_count = true,
             hide_dotfiles = false,
-            hide_gitignored = false,
+            hide_gitignored = true,
             never_show = {
+              ".git",
+              ".nvim",
               "node_modules",
               ".history",
             },
@@ -37,10 +39,9 @@ return {
       })
 
       -- 🗂️ Toggle the file tree with <leader>e and <C-n>
-      vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
-      vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neo-tree" })
+      vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle reveal<cr>", { desc = "Toggle Neo-tree" })
+      vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle reveal<cr>", { desc = "Toggle Neo-tree" })
     end,
   }
 
 }
-
