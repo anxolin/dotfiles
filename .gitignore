@@ -40,3 +40,9 @@ w3m/history
 
 # Ansible: Lock file
 ansible.lock
+
+tasks
+
+# Build artifacts & local state
+tags
+.history/
