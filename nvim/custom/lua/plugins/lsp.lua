@@ -110,21 +110,24 @@ return {
       --------------------------------------------------------------------------
       local lspconfig = require("lspconfig")
 
+      local ensure_installed = {
+        "lua_ls",        -- Lua Language Server
+        "gopls",         -- Go Language Server
+        "rust_analyzer", -- Rust Language Server
+      }
+      -- npm-based servers: only auto-install when npm is on PATH
+      if vim.fn.executable("npm") == 1 then
+        vim.list_extend(ensure_installed, {
+          "pyright",     -- Python Language Server (npm)
+          "ts_ls",       -- TypeScript/JavaScript Language Server (npm)
+          "solidity_ls", -- Solidity Language Server via vscode-solidity-server (npm)
+        })
+      end
+
       require("mason-lspconfig").setup({
         -- If your setup is older, and "ts_ls" isn't recognized, switch to "tsserver".
         -- To check the list of available LSP servers. Check :Mason
-        ensure_installed = {
-          "lua_ls",        -- Lua Language Server
-          "pyright",       -- Python Language Server
-          "ts_ls",         -- TypeScript/JavaScript Language Server
-          "gopls",         -- Go Language Server
-          "rust_analyzer", -- Rust Language S:lua dofile('/tmp/check_solidity_lsp.lua')erver
-
-          -- "solidity_ls_nomicfoundation", -- [good] Solidity Language Server - https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solidity_ls_nomicfoundation.lua
-          -- "solang",                   -- [bad] Solidity Language Server - https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solang.lua
-          -- "solidity",                 -- [bad] Solidity Language Server - https://github.com/neovim/nvim-lspconfig/blob/master/lsp/solidity.lua
-          "solidity_ls", -- [] Solidity Language Server - Uses NPM vscode-solidity-server (needed)
-        },
+        ensure_installed = ensure_installed,
         automatic_installation = true,
         handlers = {
           -- default handler for all servers

@@ -13,7 +13,9 @@ fi
 #   - zsh: Nice shell
 #   - nvim: Neo Vim (installed separately from source/release in install-nvim-debian.sh)
 #   - ripgrep (rg): Fast code search; superseded silversearcher-ag
+#   - fd (fd-find on Debian, binary `fdfind`): Fast find alternative; used by telescope.nvim and snacks.picker
 #   - xclip: Allows to share the clipboard between tmux and the X's
+#   - xdg-utils: Provides xdg-open, used by Neovim's vim.ui.open (e.g. gx to open URLs)
 #   - cmake: To build packages
 #   - bat: cat with syntax highlighting (binary named `batcat` on Debian/Ubuntu)
 
@@ -21,7 +23,7 @@ fi
 if [[ -f /etc/debian_version ]]; then
     # Install some useful apps (neovim is not installed, as its built from source instead for Debian systems)
     #sudo apt-get -y install ripgrep zsh silversearcher-ag xclip cmake
-    sudo apt-get -y install ripgrep zsh xclip cmake bat
+    sudo apt-get -y install ripgrep fd-find zsh xclip xdg-utils cmake bat
 
     # Install bat: Syntax highlighting (for now, not in raspian for example)
     # Note: on Debian/Ubuntu the binary is installed as `batcat` (conflict with an older tool). Alias it if needed.
@@ -39,11 +41,11 @@ fi
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps\n"
     #sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat unzip
-    sudo pacman -S --noconfirm zsh neovim ripgrep xclip cmake bc bat unzip
+    sudo pacman -S --noconfirm zsh neovim ripgrep fd xclip xdg-utils cmake bc bat unzip
 fi
 
 # Alpine linux
 if [[ -f /etc/alpine-release ]]; then
     printf "[install-apps-Linux] alpine: Install basic apps\n"
-    sudo apk add --no-cache zsh neovim ripgrep xclip cmake bat
+    sudo apk add --no-cache zsh neovim ripgrep fd xclip xdg-utils cmake bat
 fi
