@@ -17,6 +17,58 @@ return {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		config = function()
+			-- Compat shim: nvim-treesitter master branch doesn't support nvim 0.12
+			-- (see its README). On 0.12, query directive handlers receive `match[id]`
+			-- as a list of nodes (TSNode[]) instead of a single node, which makes the
+			-- plugin's directives crash with "attempt to call method 'range' (a nil value)"
+			-- when treesitter calls get_node_text on the list.
+			-- We re-register the affected directives to unwrap the list before use.
+			if vim.fn.has("nvim-0.12") == 1 then
+				local tsq = require("vim.treesitter.query")
+				local alias_map = { ex = "elixir", pl = "perl", sh = "bash", uxn = "uxntal", ts = "typescript" }
+				local html_script_type_languages = {
+					importmap = "json",
+					module = "javascript",
+					["application/ecmascript"] = "javascript",
+					["text/ecmascript"] = "javascript",
+				}
+				local function unwrap(match, capture_id)
+					local v = match[capture_id]
+					if type(v) == "table" then return v[1] end
+					return v
+				end
+
+				tsq.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+					local node = unwrap(match, pred[2])
+					if not node then return end
+					local alias = vim.treesitter.get_node_text(node, bufnr):lower()
+					local ft = vim.filetype.match({ filename = "a." .. alias })
+					metadata["injection.language"] = ft or alias_map[alias] or alias
+				end, { force = true })
+
+				tsq.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
+					local node = unwrap(match, pred[2])
+					if not node then return end
+					local value = vim.treesitter.get_node_text(node, bufnr)
+					local configured = html_script_type_languages[value]
+					if configured then
+						metadata["injection.language"] = configured
+					else
+						local parts = vim.split(value, "/", {})
+						metadata["injection.language"] = parts[#parts]
+					end
+				end, { force = true })
+
+				tsq.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+					local id = pred[2]
+					local node = unwrap(match, id)
+					if not node then return end
+					local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[id] }) or ""
+					metadata[id] = metadata[id] or {}
+					metadata[id].text = string.lower(text)
+				end, { force = true })
+			end
+
 			require("nvim-treesitter.configs").setup({
 				-- Install parsers for these languages
 				--   * Languages: https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
