@@ -24,9 +24,22 @@ cd $WORK_DIR
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 echo "[dotfiles-lazygit-debian] Latest version of lazygit is $LAZYGIT_VERSION"
 
-# Clone repository
-echo "[dotfiles-lazygit-debian] Dowload lazygit version $LAZYGIT_VERSION"
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+# Detect architecture (release assets use lowercase "linux_<arch>")
+ARCH=$(uname -m)
+case "$ARCH" in
+  x86_64)         LG_ARCH="x86_64" ;;
+  aarch64|arm64)  LG_ARCH="arm64"  ;;
+  armv7l)         LG_ARCH="armv6"  ;;
+  *)
+    echo "[dotfiles-lazygit-debian] Unsupported arch: $ARCH"
+    exit 1
+    ;;
+esac
+
+# Download release
+#curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+echo "[dotfiles-lazygit-debian] Download lazygit $LAZYGIT_VERSION ($LG_ARCH)"
+curl -fLo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_linux_${LG_ARCH}.tar.gz"
 tar xf lazygit.tar.gz lazygit
 
 echo "[dotfiles-lazygit-debian] Install lazygit version $LAZYGIT_VERSION"
