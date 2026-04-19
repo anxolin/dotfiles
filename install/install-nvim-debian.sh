@@ -8,6 +8,10 @@ set -o pipefail
 # Fast path: download pre-built release tarball (requires modern GLIBC).
 # Fallback: build from source on older systems (Debian 11, etc.) where the
 # release tarball's libc requirements aren't met.
+#
+# Note: this script is sourced by install.sh, so it must not change the
+# parent shell's working directory or leave its $PWD pointing at a temp dir
+# that gets removed (breaks subsequent `git clone` calls).
 
 # Neovim release tarballs are currently built against GLIBC 2.34 (Ubuntu
 # 22.04 / Debian 12 bookworm and newer). Older distros must build from source.
@@ -37,18 +41,18 @@ install_from_tarball() {
   URL="https://github.com/neovim/neovim/releases/latest/download/${TARBALL}"
 
   WORK_DIR=$(mktemp -d)
-  trap 'rm -rf "$WORK_DIR"' RETURN
-  cd "$WORK_DIR"
 
   echo "[install-nvim-debian] Downloading latest nvim release: $URL"
-  curl -fL -o "$TARBALL" "$URL"
+  curl -fL -o "$WORK_DIR/$TARBALL" "$URL"
 
   echo "[install-nvim-debian] Extracting to /opt"
   sudo rm -rf "/opt/nvim-${NVIM_ARCH}"
-  sudo tar -C /opt -xzf "$TARBALL"
+  sudo tar -C /opt -xzf "$WORK_DIR/$TARBALL"
 
   echo "[install-nvim-debian] Symlinking /usr/local/bin/nvim"
   sudo ln -sf "/opt/nvim-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
+
+  rm -rf "$WORK_DIR"
 }
 
 install_from_source() {
@@ -57,26 +61,30 @@ install_from_source() {
   sudo apt-get -y install ninja-build gettext libtool libtool-bin autoconf \
     automake cmake g++ pkg-config unzip curl doxygen python3-venv git
 
+  # Remove any previous tarball-based install (broken symlink or old dir)
+  if [[ -L /usr/local/bin/nvim ]]; then
+    echo "[install-nvim-debian] Removing previous tarball symlink at /usr/local/bin/nvim"
+    sudo rm -f /usr/local/bin/nvim
+  fi
+  sudo rm -rf /opt/nvim-linux-x86_64 /opt/nvim-linux-arm64
+
   WORK_DIR=$(mktemp -d)
-  trap 'rm -rf "$WORK_DIR"' RETURN
-  cd "$WORK_DIR"
 
-  echo "[install-nvim-debian] Cloning neovim"
-  # Pin to stable tag so builds are reproducible; bump as needed
-  git clone --depth 1 --branch stable https://github.com/neovim/neovim.git .
+  echo "[install-nvim-debian] Cloning neovim (stable)"
+  git clone --depth 1 --branch stable https://github.com/neovim/neovim.git "$WORK_DIR"
 
-  echo "[install-nvim-debian] Building (make CMAKE_BUILD_TYPE=RelWithDebInfo)"
-  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  echo "[install-nvim-debian] Building (this may take several minutes)"
+  # Subshell: keeps parent shell's PWD unchanged
+  ( cd "$WORK_DIR" && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install )
 
-  echo "[install-nvim-debian] Installing (make install)"
-  sudo make install
+  rm -rf "$WORK_DIR"
 }
 
 echo "[install-nvim-debian] Detected GLIBC $CURRENT_GLIBC (nvim tarball needs $MIN_GLIBC+)"
 if version_ge "$CURRENT_GLIBC" "$MIN_GLIBC"; then
   install_from_tarball
 else
-  echo "[install-nvim-debian] GLIBC too old; falling back to source build (this takes several minutes)"
+  echo "[install-nvim-debian] GLIBC too old; falling back to source build"
   install_from_source
 fi
 
