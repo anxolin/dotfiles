@@ -26,7 +26,8 @@ nvim_dependencies=( neovim luarocks imagemagick ghostscript tectonic )
 #   - solidity: Solidity compiler
 #   - uv: modern Python toolchain (replaces pyenv+pip+virtualenv+pipx)
 #   - ruff: fast Python linter/formatter (replaces black+flake8+isort)
-dev_dependencies=( zsh ripgrep fd cmake bat tldr solidity uv ruff )
+#   - fzf: fuzzy finder + shell integration
+dev_dependencies=( zsh ripgrep fd cmake bat tldr solidity uv ruff fzf )
 
 # Tmux:
 #   - reattach-to-user-namespace: makes tmux clipboard work on macOS. See docs/tmux.md
@@ -43,7 +44,3 @@ for package in "${brew_dependencies[@]}"; do
   fi
 done
 
-# Install fzf if missing
-if ! command -v fzf &>/dev/null; then
-  source ~/dotfiles/install/install-fzf.sh
-fi

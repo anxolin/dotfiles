@@ -57,29 +57,27 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # FZF: Load bindings
 #   https://github.com/junegunn/fzf
-FZF_PATH=~/dotfiles/bin-dependencies/fzf
-
-
-# CTRL-R binding config
+# fzf options
 export FZF_CTRL_R_OPTS='--height 50% --layout=reverse --border -m --preview="" --color ""'
-#export FZF_CTRL_R_OPTS='--height 50% --layout=reverse --border -m --preview="" --color "fg:#bbccdd,fg+:#ddeeff,bg:#223344"'
-
-# CTRL-T binding config
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS='--height 80% --layout=reverse --border --multi --preview "bat --style=numbers --color=always --line-range :500 {}" --color ""'
-# export FZF_CTRL_T_OPTS='--height 80% --layout=reverse --border --multi --preview "bat --style=numbers --color=always --line-range :500 {}" --color "bg:0,preview-bg:#223344"'
 
-# Setup fzf
-# ---------
-if [[ ! "$PATH" == */usr/local/Cellar/fzf/0.22.0/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}$FZF_PATH/bin"
-fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "$FZF_PATH/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-# ------------
-source "$FZF_PATH/shell/key-bindings.zsh"
+# fzf shell integration (key-bindings, completion). fzf is installed via
+# the system package manager (brew/apt/pacman/apk); shell scripts live in
+# platform-specific locations — try the usual suspects.
+_source_fzf_script() {
+  local name="$1" f
+  for f in \
+    "/opt/homebrew/opt/fzf/shell/$name" \
+    "/usr/local/opt/fzf/shell/$name" \
+    "/usr/share/doc/fzf/examples/$name" \
+    "/usr/share/fzf/$name" \
+    "$HOME/.fzf/shell/$name"; do
+    if [[ -r "$f" ]]; then source "$f"; return 0; fi
+  done
+  return 1
+}
+_source_fzf_script key-bindings.zsh
+[[ $- == *i* ]] && _source_fzf_script completion.zsh
+unset -f _source_fzf_script
 

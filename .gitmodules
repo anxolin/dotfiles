@@ -1,4 +1,0 @@
-# fzf: Fuzzy finder binary (used by install/install-fzf.sh)
-[submodule "bin-dependencies/fzf"]
-	path = bin-dependencies/fzf
-	url = https://github.com/junegunn/fzf.git
