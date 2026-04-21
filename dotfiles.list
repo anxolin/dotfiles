@@ -3,6 +3,6 @@ git/gitignore_global
 bash/bashrc
 zsh/zshrc
 vim/vimrc
-tmux.conf
+tmux/tmux.conf
 editorconfig
 zsh/p10k.zsh
