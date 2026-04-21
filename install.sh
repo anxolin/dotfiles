@@ -85,9 +85,12 @@ cat << EOF
 ╚═╝└─┘└─┘┴ ┴└─┘─┴┘└─┘┴─┘└─┘└─┘
 EOF
 
-# Install submodules
-printf "[dotfiles] Init Git submodules: ZSH + Themes + Vim plugins\n"
+# Init remaining git submodules (fzf binary)
+printf "[dotfiles] Init Git submodules\n"
 source "$DOT_FILES/install/init_submodules.sh"
+
+# Install Oh My Zsh + plugins/themes into ~/.oh-my-zsh (no longer vendored in repo)
+bash "$DOT_FILES/install/install-zsh.sh"
 
 
 cat << EOF

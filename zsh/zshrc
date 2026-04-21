@@ -2,11 +2,13 @@
 #  ZSH DIRS              #
 ##########################
 
-# Path to your oh-my-zsh installation.
-# IT may be overriden by .localrc, where local EXPORT vars are defined
+# dotfiles zsh dir (holds user-written modules like common.zsh, plugins.zsh, theme_p10k.zsh)
 export ZSH_BASE=~/dotfiles/zsh
-export ZSH="$ZSH_BASE/oh-my-zsh"
-export ZSH_CUSTOM="$ZSH_BASE/zsh-custom"
+
+# Oh My Zsh lives at its canonical location now (was vendored in dotfiles as a submodule).
+# Bootstrap a fresh machine with: bash ~/dotfiles/install/install-zsh.sh
+export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
 
 #############################
 #  THEME                    #
