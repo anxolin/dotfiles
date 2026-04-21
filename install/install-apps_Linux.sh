@@ -48,6 +48,17 @@ if [[ -f /etc/debian_version ]]; then
     #wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/$BAT_DEB_FILE"
     #sudo apt install ./$BAT_DEB_FILE
     #rm $BAT_DEB_FILE
+
+    # Install uv (modern Python toolchain) from Astral's installer — not yet in Debian apt.
+    # Then use uv to install ruff (fast Python linter/formatter).
+    if ! command -v uv &>/dev/null; then
+        printf "[install-apps-Linux] Install uv (Astral Python toolchain)\n"
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+    fi
+    if ! command -v ruff &>/dev/null; then
+        printf "[install-apps-Linux] Install ruff via uv tool\n"
+        "$HOME/.local/bin/uv" tool install ruff || uv tool install ruff
+    fi
 fi
 
 
@@ -56,11 +67,11 @@ fi
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps\n"
     #sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat unzip
-    sudo pacman -S --noconfirm zsh neovim ripgrep fd xclip xdg-utils cmake bc bat unzip github-cli
+    sudo pacman -S --noconfirm zsh neovim ripgrep fd xclip xdg-utils cmake bc bat unzip github-cli uv ruff
 fi
 
 # Alpine linux
 if [[ -f /etc/alpine-release ]]; then
     printf "[install-apps-Linux] alpine: Install basic apps\n"
-    sudo apk add --no-cache zsh neovim ripgrep fd xclip xdg-utils cmake bat github-cli
+    sudo apk add --no-cache zsh neovim ripgrep fd xclip xdg-utils cmake bat github-cli uv ruff
 fi

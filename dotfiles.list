@@ -7,5 +7,4 @@ vim
 oh-my-zsh
 tmux.conf
 editorconfig
-ptpython
 p10k.zsh

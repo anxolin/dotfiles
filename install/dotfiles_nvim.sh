@@ -55,9 +55,9 @@ declare -a NPM_PACKAGES=(
 )
 
 # Python packages to install (requires pip/pip3)
+# Note: ruff is installed as a system tool (brew/apt/pacman) via install-apps_*.sh — not pip-installed here.
 declare -a PYTHON_PACKAGES=(
   "pynvim"  # Neovim Python provider. (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
-  "black"   # Python code formatter (used by conform.nvim)
 )
 
 # Rust/Cargo packages to install (requires cargo)

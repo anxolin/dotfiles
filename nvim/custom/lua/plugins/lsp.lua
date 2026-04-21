@@ -168,7 +168,7 @@ return {
         format_on_save = { lsp_fallback = true, timeout_ms = 2000 },
         formatters_by_ft = {
           lua = { "stylua" },
-          python = { "black" },
+          python = { "ruff_organize_imports", "ruff_format" },
           javascript = { "prettier" },
           typescript = { "prettier" },
           json = { "prettier" },

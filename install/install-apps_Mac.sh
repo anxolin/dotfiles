@@ -31,7 +31,9 @@ nvim_dependencies=( neovim luarocks imagemagick ghostscript tectonic )
 #   - cmake: For building packages
 #   - bat: Syntax highlighting for terminal. See docs/vim.md
 #   - tldr: Simplified and community-driven man pages
-dev_dependencies=( zsh the_silver_searcher ripgrep fd cmake bat tldr solidity)
+#   - uv: Modern Python toolchain (package manager, venv, Python installer) — replaces pyenv+pip+virtualenv+pipx
+#   - ruff: Fast Python linter/formatter (replaces black+flake8+isort)
+dev_dependencies=( zsh the_silver_searcher ripgrep fd cmake bat tldr solidity uv ruff)
 
 # Tmux dependencies:
 #   - reattach-to-user-namespace: For tmux, to allow to use the clipboard inside tmux. See docs/tmux.md

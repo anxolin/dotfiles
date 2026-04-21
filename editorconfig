@@ -1,30 +1,19 @@
-;.editorconfig
+# Global editorconfig fallback for files opened outside a project.
+# Project-level .editorconfig files override these.
+# Spec: https://editorconfig.org
 
 root = true
 
-[**.js]
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
 
-[**.tmpl]
-indent_style = space
-indent_size = 2
+[*.py]
+indent_size = 4
 
-[**.json]
-indent_style = space
-indent_size = 2
-
-[**.jsx]
-e4x = true
-indent_style = space
-indent_size = R2
-
-[**.css]
-indent_style = space
-indent_size = 2
-
-[**.html]
-indent_style = space
-indent_size = 2
-max_char = 78
-brace_style = expand
+[Makefile]
+indent_style = tab
