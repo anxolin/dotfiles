@@ -19,8 +19,15 @@ case "$(uname -s)" in
       echo "[install-fonts] Homebrew not installed; skipping font install"
       exit 0
     fi
+    # Two paths to "already installed":
+    #   1. brew knows about the cask
+    #   2. font files exist in ~/Library/Fonts (e.g. from a prior manual install)
+    # Either way, skip — avoids the "already a Font at …" error on re-runs.
     if brew list --cask font-jetbrains-mono-nerd-font &>/dev/null; then
       echo "[install-fonts] $FONT_DISPLAY already installed via brew cask"
+    elif ls "$HOME/Library/Fonts/"JetBrainsMono*NerdFont*.ttf &>/dev/null; then
+      echo "[install-fonts] $FONT_DISPLAY .ttf files already present in ~/Library/Fonts; skipping brew install"
+      echo "[install-fonts] (To convert to a brew-managed install: rm those .ttf files and re-run this script)"
     else
       echo "[install-fonts] Installing $FONT_DISPLAY via brew cask"
       brew install --cask font-jetbrains-mono-nerd-font
