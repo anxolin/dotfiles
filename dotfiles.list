@@ -1,6 +1,6 @@
 gitconfig
 gitignore_global
-bashrc
+bash/bashrc
 zsh/zshrc
 vimrc
 vim
