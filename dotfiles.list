@@ -7,9 +7,7 @@ vim
 oh-my-zsh
 tmux.conf
 editorconfig
-Xdefaults
 ptpython
 mbsyncrc
 msmtprc
-w3m
 p10k.zsh

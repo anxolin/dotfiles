@@ -34,10 +34,6 @@ nvim/experiments
 # Ptpython: Python REPL
 ptpython/history
 
-# w3m browser
-w3m/cookie
-w3m/history
-
 # Ansible: Lock file
 ansible.lock
 
