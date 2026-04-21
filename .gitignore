@@ -13,19 +13,10 @@ backup
 
 
 ############################
-# Vim rules
-############################
-# Ignore files containing plugins, swap files, undo files, backup files, etc
-vim/*
-!vim/.gitkeep
-
-
-############################
 # Nvim rules
 ############################
 # Nvim config experiments
 nvim/experiments
-!vim/experiments/.gitkeep
 
 
 ############################
