@@ -16,6 +16,9 @@ return {
       require("neo-tree").setup({
         window = {
           position = "float",
+          mappings = {
+            h = "close_node",
+          },
         },
         filesystem = {
           filtered_items = {
