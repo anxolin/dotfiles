@@ -34,9 +34,6 @@ bindkey '^Z' fancy-ctrl-z
 alias aws-list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
 : LaunchTime, placement: Placement.AvailabilityZone }" --output table'
 
-# tmuxnizator
-alias mux="tmuxinator"
-
 # nvim
 alias v="nvim"
 

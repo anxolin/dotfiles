@@ -16,76 +16,65 @@
 # Tabs as 2 spaces
 tabs -2
 
-# tmuxnizator
-alias mux="tmuxinator"
-
 # Default editor
-export EDITOR='vim mux'
+export EDITOR='vim'
 
-
-#############################################
-# Locale
-#############################################
-#   Show all locales:
-#       locale -a
-#   Show current locales
-#       locale
-#   IMPORTANT: Not ser in this file. Each OS setup sets it's local
-##############################################
-# LANG: Provides default value for LC_* variables that have not been explicitly set.
-# LC_ALL: Overrides individual LC_* settings: if LC_ALL is set, none of the below have any effect.
-# LANGUAGE: Message language
-#export LANG=en_US.UTF-8
-#export LC_ALL=en_US.UTF-8
-#export LANGUAGE=en_US.UTF-8
-
-## Aditional 
-# LC_ADDRESS: How addresses are formatted (country first or last, where zip code goes etc.).
-# LC_COLLATE: How strings (file names...) are alphabetically sorted. Using the "C" or "POSIX" locale here results in a strcmp()-like sort order, which may be preferable to language-specific locales.
-# LC_CTYPE: How characters are classified as letters, numbers etc. This determines things like how characters are converted between upper and lower case.
-# LC_IDENTIFICATION: Metadata about the locale information.
-# LC_MEASUREMENT: What units of measurement are used (feet, meters, pounds, kilos etc.).
-# LC_MESSAGES: What language should be used for system messages.
-# LC_MONETARY: What currency you use, its name, and its symbol.
-# LC_NAME: How names are represented (surname first or last, etc.).
-# LC_NUMERIC: How you format your numbers. For example, in many countries a period (.) is used as a decimal separator, while others use a comma (,).
-# LC_PAPER: Paper sizes: 11 x 17 inches, A4, etc.
-# LC_RESPONSE: Determines how responses (such as Yes and No) appear in the local language
-# LC_TELEPHONE: What your telephone numbers look like.
-# LC_TIME: How your time and date are formatted. Use for example "en_DK.UTF-8" to get a 24-hour-clock in some programs.
-#############################################
-
-# Color Grep
-export GREP_OPTIONS='--color=auto'
+# Locale is intentionally left to each OS's own setup (not set here).
+# Inspect with: locale / locale -a
 
 # Color ls
 if [ "$(uname)" == "Darwin" ]; then
-	# Ls colors in Mac
-	export CLICOLOR=YES
-	export LSCOLORS="Gxfxcxdxbxegedabagacad"
-	alias ls='ls -G'
-	alias ll='ls -lG'
+    # Mac / BSD ls
+    export CLICOLOR=YES
+    export LSCOLORS="Gxfxcxdxbxegedabagacad"
+    alias ls='ls -G'
+    alias ll='ls -lhG'
 else
-	# Ls colors Unix
-	export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
-	export LS_OPTIONS='--color=auto'
-	#eval "`dircolors`"
-	alias ls='ls $LS_OPTIONS'
+    # GNU ls. dircolors produces a full LS_COLORS (~300 entries) covering
+    # executables, archives, images, etc. Falls back silently if missing.
+    command -v dircolors &>/dev/null && eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias ll='ls -lh --color=auto'
 fi
 
 
-# Prompt style
-# http://bashrcgenerator.com/
-#PS1='[\u@\h \W]\$ '
-export PS1="\[\033[38;5;161m\]\u\[$(tput sgr0)\]\[\033[38;5;248m\]@\[$(tput sgr0)\]\[\033[38;5;214m\]\h\[$(tput sgr0)\]\[\033[38;5;248m\]:[\[$(tput sgr0)\]\[\033[38;5;15m\]\w\[$(tput sgr0)\]\[\033[38;5;248m\]]\[$(tput sgr0)\]\[\033[38;5;248m\]:\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+# Prompt style: user@host:[path] (branch) [exit]$
+#   - git branch shown when in a repo (via __git_ps1 from git's contrib)
+#   - exit code shown in red only when the last command failed
+#   - \w truncated to last 3 path components by PROMPT_DIRTRIM
+PROMPT_DIRTRIM=3
+
+# Source git-prompt.sh if present (provides __git_ps1). Silently skips if not.
+for _f in \
+    /usr/share/git-core/contrib/completion/git-prompt.sh \
+    /etc/bash_completion.d/git-prompt \
+    /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh \
+    "$(brew --prefix 2>/dev/null)/etc/bash_completion.d/git-prompt.sh"; do
+    [ -r "$_f" ] && . "$_f" && break
+done
+unset _f
+GIT_PS1_SHOWDIRTYSTATE=1      # '*' unstaged, '+' staged
+GIT_PS1_SHOWUNTRACKEDFILES=1  # '%' if untracked files
+
+# Rebuild PS1 every prompt so we can cleanly compose git branch + exit code.
+_build_ps1() {
+    local e=$?
+    local git=""; type __git_ps1 &>/dev/null && git="$(__git_ps1 " (%s)")"
+    local exitind=""; [ "$e" -ne 0 ] && exitind=" \[\033[38;5;196m\][$e]"
+    PS1="\[\033[38;5;161m\]\u\[\033[38;5;248m\]@\[\033[38;5;214m\]\h\[\033[38;5;248m\]:[\[\033[38;5;15m\]\w\[\033[38;5;248m\]]\[\033[38;5;42m\]$git$exitind\[\033[38;5;248m\]\$ \[\033[0m\]"
+}
+PROMPT_COMMAND=_build_ps1
 
 # Make sure SSH agent is running (and only one instance of it)
-USER=$(whoami)
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<~/.ssh-agent-thing)" > /dev/null
+# Skipped on macOS — launchd already manages ssh-agent with Keychain integration.
+if [[ "$(uname)" != "Darwin" ]]; then
+    USER=$(whoami)
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent > ~/.ssh-agent-thing
+    fi
+    if [[ -z "$SSH_AGENT_PID" && -f ~/.ssh-agent-thing ]]; then
+        eval "$(<~/.ssh-agent-thing)" > /dev/null
+    fi
 fi
 
 # NVM Bash autocompletion
@@ -97,7 +86,9 @@ export NVM_DIR="$HOME/.nvm"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-source "$HOME/.cargo/env"
-. "$HOME/.cargo/env"
 
-. "$HOME/.local/bin/env"
+# Rust/cargo (only if installed)
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# uv / pipx / local installs (only if present)
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
