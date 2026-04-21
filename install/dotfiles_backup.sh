@@ -1,30 +1,39 @@
 #!/bin/bash
 set -e
 
-############################
-# .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
+###############################################################################
+# dotfiles_backup.sh — copy current home-side dotfiles into ~/dotfiles/backup/
+# and prune old backups so the dir doesn't grow unbounded.
+###############################################################################
 
-
-# dotfiles directory
 DOT_FILES=~/dotfiles
-cd $DOT_FILES
+cd "$DOT_FILES"
 
-########## Variables
 TIME_STAMP=$(date +%F_%R)
-BACKUP_DIR=~/dotfiles/backup/backup_$TIME_STAMP             # old dotfiles backup directory
-# list of files/folders to symlink in homedir
-##########
+BACKUP_BASE=~/dotfiles/backup
+BACKUP_DIR="$BACKUP_BASE/backup_$TIME_STAMP"
+KEEP=10  # how many backups to retain per prefix (backup_, nvim_, tmux_)
 
-# create dotfiles_old in homedir
-printf "[dotfiles-backup] Creating backup dir '$BACKUP_DIR'\n"
-mkdir -p $BACKUP_DIR
+# --- 1. Snapshot current home-side dotfiles
+printf "[dotfiles-backup] Creating backup dir '%s'\n" "$BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
 
-# Dot files install:
-#   1. Backup: Copy any existing dotfiles to dotfiles_old directory
-#   2. Symlink: Create symlinks in the homedir pointing to the dotfile
-printf "[dotfiles-backup] Backup all current dotfiles to $BACKUP_DIR'\n"
+printf "[dotfiles-backup] Backing up current dotfiles to %s\n" "$BACKUP_DIR"
 while read FILE; do
-  cp -rf ~/.$FILE $BACKUP_DIR 2>/dev/null || :
+  # dotfiles.list entries can be paths (e.g. "zsh/zshrc"); the home-side
+  # file uses just the basename (e.g. ~/.zshrc).
+  TARGET=".$(basename "$FILE")"
+  cp -rf "$HOME/$TARGET" "$BACKUP_DIR" 2>/dev/null || :
 done < dotfiles.list
+
+# --- 2. Retention: keep only the most recent $KEEP backups per prefix.
+# Backups are created by different install scripts with these prefixes.
+for prefix in backup nvim tmux; do
+  # -1t: one-per-line sorted by mtime, newest first.
+  # tail -n +$((KEEP + 1)): everything beyond the KEEP most recent.
+  ls -1t "$BACKUP_BASE" 2>/dev/null | grep "^${prefix}_" | tail -n +$((KEEP + 1)) | while read old; do
+    rm -rf "$BACKUP_BASE/$old"
+  done
+done
+
+printf "[dotfiles-backup] Retention policy applied (keep last %d per prefix)\n" "$KEEP"
