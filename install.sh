@@ -139,6 +139,9 @@ if $INSTALL_APPS; then
   elif [[ $PLATFORM == 'Darwin' ]]; then
     source "$DOT_FILES/install/install-apps_Mac.sh"
   fi
+
+  # Install Nerd Font (JetBrains Mono) for terminal/p10k glyphs
+  bash "$DOT_FILES/install/install-fonts.sh"
 else
   printf "[dotfiles] Skip install apps\n"
 fi

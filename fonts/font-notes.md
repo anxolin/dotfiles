@@ -1,29 +1,49 @@
-# Meslo
+# Fonts
 
-Font based on apple Menlo.
+Terminal and editor glyphs require a **Nerd Font** — a patched version of a
+monospace font that adds the icon range used by Powerlevel10k, lazygit,
+nvim-web-devicons, etc.
 
-There's multiple patched versions of this font.
+## Active choice
 
-- The one I use is the one recomended by `Powerlevel10K` ZSH plugin
-- Works great with:
-  - ZSH
-  - vim Nerd Tree
-  - Terminal text looks amazing
-- More info in [https://github.com/romkatv/powerlevel10k#fonts](https://github.com/romkatv/powerlevel10k#fonts)
+**JetBrains Mono Nerd Font Mono** — good code legibility, ligatures available,
+uniform glyph widths (the `Mono` suffix ensures single-column rendering for
+alignment in tables and status bars).
 
-## Install the font
+## Install
 
-In Mac:
+Automated via `install/install-fonts.sh` (invoked by `install.sh`):
 
-- Double click on each font, Font Book will ask you to import it
-- Because there's many variants for the same font, Font Book will ask you if you want to replace or keep both
-  - ⚠️ It's important to keep both! (so you have all variants for the same font)
+- **macOS**: Homebrew cask `font-jetbrains-mono-nerd-font`
+- **Linux**: Latest release from
+  [ryanoasis/nerd-fonts](https://github.com/ryanoasis/nerd-fonts/releases/latest),
+  unzipped into `~/.local/share/fonts/JetBrainsMono/` and registered with
+  `fc-cache`.
 
-## Other alternatives
+Manual run:
 
-In principle, we can use any **Nerd Font**
+```bash
+bash ~/dotfiles/install/install-fonts.sh
+```
 
-- See [https://www.nerdfonts.com](https://www.nerdfonts.com)
-- There's some pre-patched [https://www.nerdfonts.com/font-downloads](https://www.nerdfonts.com/font-downloads)
+## Using it in your terminal
 
-However, I recommend to stick to the one recommended by Power Level 10K plugin
+After install, set the font in your terminal emulator:
+
+- **iTerm2**: Preferences → Profiles → Text → Font →
+  `JetBrainsMono Nerd Font Mono 12`. The profile in
+  `terminal-profiles/osx-iterm2/Default-profile.json` already points to this
+  font — import it once via Preferences → Profiles → Other Actions →
+  Import JSON Profiles.
+- **Alacritty / Kitty / WezTerm**: set `font.family = "JetBrainsMono Nerd Font Mono"`
+  in the respective config.
+- **Terminal.app**: Preferences → Profiles → Text → Change… → pick the font.
+
+## Swapping to another Nerd Font
+
+Any Nerd Font works (Meslo, Fira Code, Hack, CaskaydiaCove, etc.). Change in
+two places:
+
+1. `install/install-fonts.sh` — update `FONT_NAME` to a different release
+   name from the nerd-fonts repo (e.g. `Meslo`, `FiraCode`, `Hack`).
+2. The terminal profile / config that selects the font.
