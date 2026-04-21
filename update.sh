@@ -17,9 +17,9 @@ EOF
 echo "[dotfiles-update] Updating git submodules"
 git submodule update --init --recursive
 
-# Vundle Install: Update vim plugins
+# Update vim plugins (vim-plug, replaced Vundle)
 echo "[dotfiles-update] Updating vim plugins"
-vim +PluginInstall +qall
+vim +PlugUpdate +qall
 
 # Update fzf
 echo "[dotfiles-update] Install FZF"

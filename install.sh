@@ -4,34 +4,15 @@ set -e
 INSTALL_APPS=true         # --skip-install-apps
 INSTALL_VIM_PLUGINS=true  # --skip-install-vim-plugins)
 
-while [[ $# -gt 0 ]]
-do
-key="$1"
-echo $key
-
-case $key in
-    -a|--skip-install-apps)
-    INSTALL_APPS=false
-    shift # past argument
-    shift # past value
-    ;;
-    -v|--skip-install-vim-plugins)
-    INSTALL_VIM_PLUGINS=false
-    shift # past argument
-    shift # past value
-    ;;
-    --default)
-    DEFAULT=YES
-    shift # past argument
-    ;;
-    *)    # unknown option
-    shift # past argument
-    ;;
-esac
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -a|--skip-install-apps)        INSTALL_APPS=false ;;
+    -v|--skip-install-vim-plugins) INSTALL_VIM_PLUGINS=false ;;
+    --default)                     DEFAULT=YES ;;
+    *)                             echo "[dotfiles] Unknown option: $1 (ignored)" ;;
+  esac
+  shift
 done
-
-#echo INSTALL_VIM_PLUGINS  = "${INSTALL_VIM_PLUGINS}"
-#echo INSTALL_APPS     = "${INSTALL_APPS}"
 
 
 cat << EOF

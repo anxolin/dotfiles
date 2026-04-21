@@ -7,15 +7,16 @@ set -e
 
 echo "Installing vim-plug..."
 
-# Create dotfiles vim directories if they don't exist
-mkdir -p ~/dotfiles/vim/autoload
+# Vim looks for autoload at ~/.vim/autoload (the runtime dir).
+# Note: pre-namespace-refactor this used ~/dotfiles/vim/autoload because
+# ~/.vim was symlinked to ~/dotfiles/vim. Now ~/.vim is its own real dir.
+mkdir -p ~/.vim/autoload
 
-# Download and install vim-plug to the dotfiles location
-curl -fLo ~/dotfiles/vim/autoload/plug.vim \
+# Download vim-plug to the standard runtime location
+curl -fLo ~/.vim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-
-# Install the plugins
+# Install the plugins listed in vimrc
 vim +PlugInstall +qall
 
 echo "vim-plug installed successfully!"
