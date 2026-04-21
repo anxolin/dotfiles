@@ -1,300 +1,130 @@
 #!/bin/bash
 set -e
 
-# Neovim Multi-Config Setup
-# Uses NVIM_APPNAME to manage multiple Neovim configurations
-# Each config will be accessible via: NVIM_APPNAME=nvim-{name} nvim
+# Neovim setup — single config, standard NVIM_APPNAME layout kept for continuity
+# (previously supported multiple configs; see git log for the multi-config
+# machinery if you ever need it back).
 #
 # Dependencies:
-#   Required:
-#     - git
-#     - neovim
+#   Required:  git, neovim
+#   Optional (auto-installed if toolchain present):
+#     - npm: neovim (Node provider), vscode-langservers-extracted, vscode-solidity-server,
+#            prettier, @mermaid-js/mermaid-cli
+#     - pip: pynvim (Python provider)
+#     - cargo: stylua (Lua formatter)
 #
-#   Optional (auto-installed if available):
-#     - Node.js/npm:
-#         - neovim (Neovim Node.js provider - enables Node-based plugins)
-#         - vscode-langservers-extracted (HTML/CSS/JSON/ESLint LSP servers)
-#     - Python3/pip:
-#         - pynvim (Neovim Python provider - enables Python-based plugins)
-#
-#   Note: Perl and Ruby providers are disabled in Neovim configs as they're
-#   rarely needed for modern plugins.
-#
-#   If Node.js or Python are not installed, warnings will be shown but
-#   Neovim will still work. Install them later if you need those features.
+#   Without Node/Python/Cargo nvim still works; :checkhealth will nag.
 
-DOT_FILES=~/dotfiles
-NVIM_DOTFILES=$DOT_FILES/nvim
+DOT_FILES="$HOME/dotfiles"
+NVIM_DOTFILES="$DOT_FILES/nvim"
+NVIM_TARGET="$HOME/.config/nvim-custom"   # NVIM_APPNAME=nvim-custom launches this
 
-# Configuration array
-# Format: "name:type:repo_url"
-# Types:
-#   - symlink: Direct symlink from ~/.config/nvim-{name} to ~/dotfiles/nvim/{name}
-#   - clone: Clone a repo, then symlink custom config into it (like NvChad)
-declare -a CONFIGS=(
-  "custom:symlink" # Main (and only) configuration
-)
-
-# Node.js packages to install (requires npm)
 declare -a NPM_PACKAGES=(
-  "neovim"                        # Neovim Node.js provider (optional, prevents warnings in :checkhealth)
-  "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers (used for vim, not neovim)
-  "vscode-solidity-server"        # Solidity language server (required by nvim-lspconfig)
-  "prettier"                      # Code formatter for JS/TS/JSON/CSS/HTML (used by conform.nvim)
-  "@mermaid-js/mermaid-cli"       # Mermaid diagram renderer (required by snacks.nvim to render diagrams)
+  "neovim"                        # Node provider (removes :checkhealth warning)
+  "vscode-langservers-extracted"  # HTML/CSS/JSON/ESLint language servers
+  "vscode-solidity-server"        # Solidity language server
+  "prettier"                      # Code formatter (conform.nvim)
+  "@mermaid-js/mermaid-cli"       # Mermaid diagram renderer (snacks.nvim)
 )
 
-# Python packages to install (requires pip/pip3)
-# Note: ruff is installed as a system tool (brew/apt/pacman) via install-apps_*.sh — not pip-installed here.
 declare -a PYTHON_PACKAGES=(
-  "pynvim"  # Neovim Python provider. (its optional, but nice to have. Shows up as warning in :checkhealth otherwise)
+  "pynvim"  # Python provider (ruff is installed as a system tool in install-apps_*.sh)
 )
 
-# Rust/Cargo packages to install (requires cargo)
 declare -a CARGO_PACKAGES=(
-  "stylua"  # Lua code formatter (used by conform.nvim)
+  "stylua"  # Lua formatter (conform.nvim)
 )
 
-# Backup existing configs
-backup_configs() {
+header() {
+  printf "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+  printf "Neovim Setup\n"
+  printf "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+}
+
+setup_symlink() {
   local TIME_STAMP=$(date +%F_%R)
-  local BACKUP_DIR=$DOT_FILES/backup/nvim_$TIME_STAMP
+  local BACKUP_DIR="$DOT_FILES/backup/nvim_$TIME_STAMP"
 
-  printf "[dotfiles-nvim] Backing up existing configs to '$BACKUP_DIR'\n"
-  mkdir -p "$BACKUP_DIR"
-
-  for config_line in "${CONFIGS[@]}"; do
-    IFS=':' read -r name type repo <<< "$config_line"
-    local config_dir=~/.config/nvim-$name
-
-    if [ -d "$config_dir" ] || [ -L "$config_dir" ]; then
-      printf "  - Backing up nvim-$name\n"
-      cp -rf "$config_dir" "$BACKUP_DIR/nvim-$name" 2>/dev/null || :
-    fi
-  done
-
-  # Backup old default nvim config if it exists
-  if [ -d ~/.config/nvim ] || [ -L ~/.config/nvim ]; then
-    printf "  - Backing up default nvim config\n"
-    cp -rf ~/.config/nvim "$BACKUP_DIR/nvim-default" 2>/dev/null || :
+  if [ -d "$NVIM_TARGET" ] || [ -L "$NVIM_TARGET" ]; then
+    printf "[dotfiles-nvim] Backing up existing %s -> %s\n" "$NVIM_TARGET" "$BACKUP_DIR"
+    mkdir -p "$BACKUP_DIR"
+    cp -rf "$NVIM_TARGET" "$BACKUP_DIR/" 2>/dev/null || :
+    rm -rf "$NVIM_TARGET"
   fi
+
+  # Clean plugin / state caches so lazy.nvim reinstalls cleanly
+  rm -rf "$HOME/.local/share/nvim-custom" "$HOME/.local/state/nvim-custom" 2>/dev/null || :
+
+  printf "[dotfiles-nvim] Linking %s -> %s\n" "$NVIM_TARGET" "$NVIM_DOTFILES"
+  mkdir -p "$(dirname "$NVIM_TARGET")"
+  ln -sf "$NVIM_DOTFILES" "$NVIM_TARGET"
 }
 
-# Clean old configs
-clean_configs() {
-  printf "[dotfiles-nvim] Cleaning old configs\n"
-
-  for config_line in "${CONFIGS[@]}"; do
-    IFS=':' read -r name type repo <<< "$config_line"
-    local config_dir=~/.config/nvim-$name
-
-    if [ -d "$config_dir" ] || [ -L "$config_dir" ]; then
-      printf "  - Removing nvim-$name\n"
-      rm -rf "$config_dir"
-    fi
-
-    # Clean plugin data for this config
-    rm -rf ~/.local/share/nvim-$name 2>/dev/null || :
-    rm -rf ~/.local/state/nvim-$name 2>/dev/null || :
+install_npm() {
+  command -v npm >/dev/null 2>&1 || {
+    printf "\n  ⚠️  npm not installed — skipping: %s\n" "${NPM_PACKAGES[*]}"
+    return
+  }
+  printf "\n  📦 Installing Node.js packages:\n"
+  for pkg in "${NPM_PACKAGES[@]}"; do
+    printf "    - %s: " "$pkg"
+    npm install -g "$pkg" >/dev/null 2>&1 && echo "✓" || echo "⚠️  failed"
   done
 }
 
-# Setup a single config
-setup_config() {
-  local name=$1
-  local type=$2
-  local repo=$3
-  local config_dir=~/.config/nvim-$name
-  local source_dir=$NVIM_DOTFILES/$name
-
-  printf "\n[dotfiles-nvim] Setting up nvim-$name (type: $type)\n"
-
-  # Check if source directory exists
-  if [ ! -d "$source_dir" ]; then
-    printf "  ⚠️  Warning: Source directory not found: $source_dir (skipping)\n"
+install_pip() {
+  local PIP
+  if command -v pip3 >/dev/null 2>&1; then PIP=pip3
+  elif command -v pip  >/dev/null 2>&1; then PIP=pip
+  else
+    printf "\n  ⚠️  pip not installed — skipping: %s\n" "${PYTHON_PACKAGES[*]}"
     return
   fi
-
-  case $type in
-    symlink)
-      printf "  - Creating symlink: $config_dir -> $source_dir\n"
-      ln -sf "$source_dir" "$config_dir"
-      ;;
-
-    clone)
-      if [ -z "$repo" ]; then
-        printf "  ⚠️  Error: Clone type requires repo URL (skipping)\n"
-        return
-      fi
-
-      printf "  - Cloning $repo to $config_dir\n"
-      git clone "$repo" "$config_dir" --depth 1
-
-      printf "  - Creating custom config symlink: $config_dir/lua/custom -> $source_dir\n"
-      ln -sf "$source_dir" "$config_dir/lua/custom"
-      ;;
-
-    *)
-      printf "  ⚠️  Error: Unknown type '$type' (skipping)\n"
-      return
-      ;;
-  esac
-
-  printf "  ✓ nvim-$name setup complete\n"
-}
-
-# Setup all configs
-setup_all_configs() {
-  mkdir -p ~/.config
-
-  for config_line in "${CONFIGS[@]}"; do
-    IFS=':' read -r name type repo <<< "$config_line"
-    setup_config "$name" "$type" "$repo"
+  printf "\n  🐍 Installing Python packages (via %s):\n" "$PIP"
+  for pkg in "${PYTHON_PACKAGES[@]}"; do
+    printf "    - %s: " "$pkg"
+    "$PIP" install --quiet "$pkg" && echo "✓" || echo "⚠️  failed"
   done
 }
 
-# Install Neovim dependencies (Node.js and Python packages)
-install_neovim_dependencies() {
-  printf "\n[dotfiles-nvim] Installing Neovim dependencies\n"
-
-  # Install Node.js packages
-  if command -v npm >/dev/null 2>&1; then
-    printf "\n  📦 Installing Node.js packages:\n"
-    for package in "${NPM_PACKAGES[@]}"; do
-      printf "    - Installing: $package\n"
-      npm install -g "$package" >/dev/null 2>&1 && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
-    done
-  else
-    printf "\n  ⚠️  WARNING: Node.js not installed\n"
-    printf "     Install Node.js to enable:\n"
-    printf "     - Node.js-based plugins\n"
-    printf "     - Some LSP servers (html, css, json, eslint)\n"
-    printf "     Packages to install manually: ${NPM_PACKAGES[*]}\n"
-  fi
-
-  # Install Python packages
-  if command -v pip3 >/dev/null 2>&1; then
-    printf "\n  🐍 Installing Python packages:\n"
-    for package in "${PYTHON_PACKAGES[@]}"; do
-      printf "    - Installing: $package\n"
-      pip3 install --quiet "$package" && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
-    done
-  elif command -v pip >/dev/null 2>&1; then
-    printf "\n  🐍 Installing Python packages (using pip):\n"
-    for package in "${PYTHON_PACKAGES[@]}"; do
-      printf "    - Installing: $package\n"
-      pip install --quiet "$package" && printf "      ✓ Installed\n" || printf "      ⚠️  Failed\n"
-    done
-  else
-    printf "\n  ⚠️  WARNING: Python/pip not installed\n"
-    printf "     Install Python3 and pip to enable:\n"
-    printf "     - Python-based plugins\n"
-    printf "     - Some formatters and linters\n"
-    printf "     Packages to install manually: ${PYTHON_PACKAGES[*]}\n"
-  fi
-
-  # Install Cargo packages
-  if command -v cargo >/dev/null 2>&1; then
-    printf "\n  🦀 Installing Rust/Cargo packages:\n"
-    for package in "${CARGO_PACKAGES[@]}"; do
-      printf "    - Installing: $package\n"
-      cargo install "$package" --quiet 2>&1 | grep -q "Installing" && printf "      ✓ Installed\n" || printf "      ✓ Already installed or updated\n"
-    done
-  else
-    printf "\n  ⚠️  WARNING: Rust/Cargo not installed\n"
-    printf "     Install Rust and Cargo to enable:\n"
-    printf "     - Additional code formatters (stylua for Lua)\n"
-    printf "     Packages to install manually: ${CARGO_PACKAGES[*]}\n"
-  fi
+install_cargo() {
+  command -v cargo >/dev/null 2>&1 || {
+    printf "\n  ⚠️  cargo not installed — skipping: %s\n" "${CARGO_PACKAGES[*]}"
+    return
+  }
+  printf "\n  🦀 Installing Cargo packages:\n"
+  for pkg in "${CARGO_PACKAGES[@]}"; do
+    printf "    - %s: " "$pkg"
+    cargo install "$pkg" --quiet >/dev/null 2>&1 && echo "✓" || echo "✓ (already installed or updated)"
+  done
 }
 
-# Create zsh aliases file
-create_zsh_aliases() {
-  local ZSH_NVIM_FILE=~/.zsh/nvim.zsh
-
-  printf "\n[dotfiles-nvim] Creating zsh aliases file: $ZSH_NVIM_FILE\n"
-
-  # Create .zsh directory if it doesn't exist
-  mkdir -p ~/.zsh
-
-  # Create the aliases file
-  cat > "$ZSH_NVIM_FILE" << 'EOF'
-# Neovim Multi-Config Setup
+create_zsh_alias() {
+  local ZSH_NVIM_FILE="$HOME/.zsh/nvim.zsh"
+  mkdir -p "$HOME/.zsh"
+  cat > "$ZSH_NVIM_FILE" <<'EOF'
 # Generated by ~/dotfiles/install/dotfiles_nvim.sh
-
-# Set default config to custom
+# Launches ~/.config/nvim-custom via NVIM_APPNAME=nvim-custom.
 export NVIM_APPNAME=nvim-custom
-
-# Aliases for switching between configs
 EOF
-
-  for config_line in "${CONFIGS[@]}"; do
-    IFS=':' read -r name type repo <<< "$config_line"
-    # Extract comment if present
-    local comment=""
-    if [[ "$config_line" == *"#"* ]]; then
-      comment=" # ${config_line##*#}"
-    fi
-    echo "alias nvim-$name='NVIM_APPNAME=nvim-$name nvim'$comment" >> "$ZSH_NVIM_FILE"
-  done
-
-  printf "  ✓ Aliases file created\n"
+  printf "[dotfiles-nvim] Wrote zsh init at %s\n" "$ZSH_NVIM_FILE"
 }
 
-# Print usage instructions
-print_usage() {
+print_next_steps() {
   printf "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-  printf "✓ Neovim configs installed successfully!\n\n"
-
-  printf "Next steps:\n\n"
-
-  printf "1. Source the zsh config in your ~/.zshrc:\n"
-  printf "   echo 'source ~/.zsh/nvim.zsh' >> ~/.zshrc\n"
-  printf "   source ~/.zshrc\n\n"
-
-  printf "2. Launch Neovim with any config:\n"
-  printf "   - nvim           # Default (custom config)\n"
-  for config_line in "${CONFIGS[@]}"; do
-    IFS=':' read -r name type repo <<< "$config_line"
-    printf "   - nvim-$name\n"
-  done
-
-  printf "\n3. First launch will:\n"
-  printf "   - Auto-install plugins (via lazy.nvim)\n"
-  printf "   - Install LSP servers (via Mason)\n"
-  printf "   - This takes 2-3 minutes\n\n"
-
-  printf "4. Verify installation:\n"
-  printf "   Run :checkhealth in Neovim\n\n"
-
-  printf "📦 Dependencies installed:\n"
-  if command -v npm >/dev/null 2>&1; then
-    printf "   ✓ Node.js packages (neovim, vscode-langservers-extracted)\n"
-  else
-    printf "   ⚠️  Node.js not found - install to enable Node-based plugins\n"
-  fi
-
-  if command -v pip3 >/dev/null 2>&1 || command -v pip >/dev/null 2>&1; then
-    printf "   ✓ Python packages (pynvim)\n"
-  else
-    printf "   ⚠️  Python not found - install to enable Python-based plugins\n"
-  fi
-
+  printf "✓ Neovim configured\n\n"
+  printf "First launch:\n"
+  printf "  - lazy.nvim auto-installs plugins\n"
+  printf "  - Mason installs LSP servers\n"
+  printf "  - Takes 2–3 minutes\n\n"
+  printf "Troubleshoot:  nvim +checkhealth\n"
   printf "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
 }
 
-# Main execution
-main() {
-  printf "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-  printf "Neovim Multi-Config Setup\n"
-  printf "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-
-  backup_configs
-  clean_configs
-  setup_all_configs
-  install_neovim_dependencies
-  create_zsh_aliases
-  print_usage
-}
-
-main
+header
+setup_symlink
+install_npm
+install_pip
+install_cargo
+create_zsh_alias
+print_next_steps
