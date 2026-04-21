@@ -1,15 +1,15 @@
 [core]
-  excludesfile = .gitignore_global
+  excludesFile = ~/dotfiles/git/gitignore_global
+
+[user]
+  name = Anxo Rodriguez
+  email = anxolin@gmail.com
+
+[init]
+  defaultBranch = main
 
 [push]
   default = simple
-
-[user]
-	name = Anxo Rodriguez
-	email = anxolin@gmail.com
-
-[init]
-	defaultBranch = main
 
 [log]
   date = relative
@@ -18,47 +18,25 @@
   pretty = format:%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
 
 [credential]
-	helper = cache --timeout=86400
+  helper = cache --timeout=86400
 
+# Machine-local overrides (work email, GPG key, etc.) live here. Not tracked.
 [include]
-  path = .gitconfiglocal
+  path = ~/.gitconfiglocal
 
-[core]
-	excludesFile = ~/dotfiles/git/gitignore_global
-
-
-
-
-# [diff]
-# 	tool = kdiff3
-
-# [difftool "sourcetree"]
-# 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-# 	path = 
-
-# [mergetool "sourcetree"]
-# 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-# 	trustExitCode = true
-
-# [filter "lfs"]
-# 	clean = git-lfs clean -- %f
-# 	smudge = git-lfs smudge -- %f
-# 	process = git-lfs filter-process
-# 	required = true
-
-# [core]
-# 	autocrlf = input
 [merge]
-	tool = vscode
+  tool = vscode
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+  cmd = code --wait $MERGED
+
 [diff]
-	tool = vscode
+  tool = vscode
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
+
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
