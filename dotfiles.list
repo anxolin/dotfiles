@@ -8,6 +8,4 @@ oh-my-zsh
 tmux.conf
 editorconfig
 ptpython
-mbsyncrc
-msmtprc
 p10k.zsh
