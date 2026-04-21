@@ -29,12 +29,8 @@ while read FILE; do
   TARGET=".$(basename "$FILE")"
   rm -rf "$HOME/$TARGET"
 
-  if [ "$FILE" == "gitconfig" ]; then
-    # For gitconfig we copy a template so machine-local edits don't pollute the repo.
-    printf "[dotfiles-wipe-and-install] Creating profile file %s (using %s.example as template)\n" "$TARGET" "$FILE"
-    cp "$DOT_FILES/$FILE.example" "$HOME/$TARGET"
-  else
-    printf "[dotfiles-wipe-and-install] Creating symlink %s -> %s\n" "$TARGET" "$DOT_FILES/$FILE"
-    ln -s "$DOT_FILES/$FILE" "$HOME/$TARGET"
-  fi
+  # All entries are simple symlinks. Machine-local overrides for git live in
+  # ~/.gitconfiglocal (loaded via the [include] in git/gitconfig).
+  printf "[dotfiles-wipe-and-install] Creating symlink %s -> %s\n" "$TARGET" "$DOT_FILES/$FILE"
+  ln -s "$DOT_FILES/$FILE" "$HOME/$TARGET"
 done < dotfiles.list

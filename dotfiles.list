@@ -1,5 +1,5 @@
-gitconfig
-gitignore_global
+git/gitconfig
+git/gitignore_global
 bash/bashrc
 zsh/zshrc
 vimrc

@@ -24,7 +24,7 @@
   path = .gitconfiglocal
 
 [core]
-	excludesFile = ~/dotfiles/gitignore_global
+	excludesFile = ~/dotfiles/git/gitignore_global
 
 
 

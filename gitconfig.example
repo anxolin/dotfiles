@@ -1,9 +1,0 @@
-####################
-#  GIT CONFIG      #
-####################
-
-# Common config
-[include]
-    path = ~/dotfiles/gitconfig
-
-# Custom config
