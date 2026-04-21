@@ -58,7 +58,9 @@ fi
 if [[ -f /etc/arch-release ]]; then
     printf "[install-apps-Linux] Arch: Install basic apps\n"
     #sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat unzip
-    sudo pacman -S --noconfirm zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff
+    # yay: AUR helper (ships in the extra repo since Jan 2024)
+    sudo pacman -S --noconfirm --needed \
+        zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff yay
 fi
 
 # Alpine linux
