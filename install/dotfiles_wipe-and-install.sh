@@ -24,18 +24,17 @@ while read FILE; do
     echo "[dotfiles-wipe-and-install] Error, file is undefined"
     exit 1
   fi
-  rm -rf -r ~/.$FILE
+  # FILE may be a plain name (e.g. "vimrc") or a subpath (e.g. "zsh/zshrc").
+  # The home-side dotfile uses just the basename so subpaths still produce ~/.zshrc etc.
+  TARGET=".$(basename "$FILE")"
+  rm -rf "$HOME/$TARGET"
 
-  #if [ "$FILE" == "zshrc" ] || [ "$FILE" == "bashrc" ] || [ "$FILE" == "gitconfig" ]; then
   if [ "$FILE" == "gitconfig" ]; then
-    # For bashrc and zshrc, we don't want to keep the file versioned, because a lot
-    # of scripts keep adding lines there as part of the install
-    # Instead, we use a bashrc_base and zshrc_base
-    printf "[dotfiles-wipe-and-install] Creating profile file .$FILE (using $DOT_FILES/$FILE.example as template)\n"
-    cp $DOT_FILES/$FILE.example ~/.$FILE
+    # For gitconfig we copy a template so machine-local edits don't pollute the repo.
+    printf "[dotfiles-wipe-and-install] Creating profile file %s (using %s.example as template)\n" "$TARGET" "$FILE"
+    cp "$DOT_FILES/$FILE.example" "$HOME/$TARGET"
   else
-    # All other confi files are versioned
-    printf "[dotfiles-wipe-and-install] Creating symlink .$FILE ( ~$DOT_FILES/$FILE )\n"
-    ln -s $DOT_FILES/$FILE ~/.$FILE
+    printf "[dotfiles-wipe-and-install] Creating symlink %s -> %s\n" "$TARGET" "$DOT_FILES/$FILE"
+    ln -s "$DOT_FILES/$FILE" "$HOME/$TARGET"
   fi
 done < dotfiles.list

@@ -1,10 +1,9 @@
 gitconfig
 gitignore_global
 bashrc
-zshrc
+zsh/zshrc
 vimrc
 vim
-oh-my-zsh
 tmux.conf
 editorconfig
-p10k.zsh
+zsh/p10k.zsh

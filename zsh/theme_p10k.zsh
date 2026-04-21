@@ -5,8 +5,8 @@
 #   * Themes are located in:
 # 		 ~/dotfiles/zsh/zsh-custom/themes
 #			 ~/dotfiles/.oh-my-zsh/themes/
-#  Config: 
-#      ~/dotfiles/p10k.zsh
+#  Config:
+#      ~/dotfiles/zsh/p10k.zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # IMPORTANT:
@@ -18,5 +18,5 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/p10k.zsh.
-[[ ! -f ~/dotfiles/p10k.zsh ]] || source ~/dotfiles/p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/p10k.zsh ]] || source ~/dotfiles/zsh/p10k.zsh
