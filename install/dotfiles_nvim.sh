@@ -32,17 +32,7 @@ NVIM_DOTFILES=$DOT_FILES/nvim
 #   - symlink: Direct symlink from ~/.config/nvim-{name} to ~/dotfiles/nvim/{name}
 #   - clone: Clone a repo, then symlink custom config into it (like NvChad)
 declare -a CONFIGS=(
-  "custom:symlink" # Main configuration
-  "custom2:symlink" # Alternative configuration
-  "legacy:symlink" # Config that uses my Vim configuration
-  "empty:symlink"  # Empty nvim config (defaults)
-
-  # Pre-configured setups
-  "nvchad:clone:https://github.com/NvChad/starter" # Neovim config providing solid defaults and a beautiful UI
-  "astrovim:symlink" # Feature-rich Neovim configuration that focuses on extensibility and usability
-  "kickstart:symlink" # starting point for Neovim that is: small, single file, documented
-  "lazyvim:symlink" # Neovim setup powered by 💤 lazy.nvim to make it easy to customize and extend your config
-  "lunarvim:symlink" # An IDE layer for Neovim with sane defaults. Completely free and community driven.
+  "custom:symlink" # Main (and only) configuration
 )
 
 # Node.js packages to install (requires npm)
