@@ -146,6 +146,18 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
         callback = function()
+          -- Frecency DB is a shared sqlite file. With multiple nvim instances open,
+          -- concurrent writes return SQLITE_BUSY and snacks raises, which was bubbling
+          -- up through diffview's BufWinEnter autocmds and crashing :Git staging views.
+          -- Swallow write failures: losing a frecency bump is harmless.
+          local ok, db = pcall(require, "snacks.picker.util.db")
+          if ok and db and db.set then
+            local original_set = db.set
+            db.set = function(self, key, value)
+              pcall(original_set, self, key, value)
+            end
+          end
+
           -- Setup some globals for debugging (lazy-loaded)
           _G.dd = function(...)
             Snacks.debug.inspect(...)
