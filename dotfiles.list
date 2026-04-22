@@ -1,8 +1,7 @@
 git/gitconfig
 git/gitignore_global
 bash/bashrc
+zsh/p10k.zsh
 zsh/zshrc
 vim/vimrc
 tmux/tmux.conf
-editorconfig
-zsh/p10k.zsh
