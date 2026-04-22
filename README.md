@@ -106,7 +106,7 @@ docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it --rm dotfiles-ub
 
 Download `iTerm2` from https://www.iterm2.com
 
-Use the profile in <terminal-profiles/osx-iterm2/Default-profile.json>
+Use the profile in <terminals/osx-iterm2/Default-profile.json>
 
 Details of the profile:
 
@@ -127,7 +127,7 @@ The font config should look like this:
 
 ### In OSX: Terminal
 
-Use the profile in <terminal-profiles/osx-terminal/Default-profile.terminal>
+Use the profile in <terminals/osx-terminal/Default-profile.terminal>
 
 - `Profiles > Text > Font`: Set the font to **Meslo LGS NF Regular 12pt**
 - `Profiles > Advanced > Terminfo`: Declare terminal as **xterm-256color**

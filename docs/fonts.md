@@ -32,7 +32,7 @@ After install, set the font in your terminal emulator:
 
 - **iTerm2**: Preferences → Profiles → Text → Font →
   `JetBrainsMono Nerd Font Mono 12`. The profile in
-  `terminal-profiles/osx-iterm2/Default-profile.json` already points to this
+  `terminals/osx-iterm2/Default-profile.json` already points to this
   font — import it once via Preferences → Profiles → Other Actions →
   Import JSON Profiles.
 - **Alacritty / Kitty / WezTerm**: set `font.family = "JetBrainsMono Nerd Font Mono"`
