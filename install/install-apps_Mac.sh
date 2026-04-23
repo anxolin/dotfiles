@@ -23,11 +23,12 @@ nvim_dependencies=( neovim luarocks imagemagick ghostscript tectonic )
 #   - cmake: build system
 #   - bat: cat with syntax highlighting
 #   - tldr: simplified, community man pages
+#   - lnav: log file navigator (merged timelines, SQL over logs)
 #   - solidity: Solidity compiler
 #   - uv: modern Python toolchain (replaces pyenv+pip+virtualenv+pipx)
 #   - ruff: fast Python linter/formatter (replaces black+flake8+isort)
 #   - fzf: fuzzy finder + shell integration
-dev_dependencies=( zsh ripgrep fd cmake bat tldr solidity uv ruff fzf )
+dev_dependencies=( zsh ripgrep fd cmake bat tldr lnav solidity uv ruff fzf )
 
 # Tmux:
 #   - reattach-to-user-namespace: makes tmux clipboard work on macOS. See docs/tmux.md

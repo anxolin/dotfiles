@@ -65,6 +65,17 @@ return {
     },
   },
 
+  -- GitLinker: Yank/open GitHub permalinks for current line or visual range
+  {
+    "linrongbin16/gitlinker.nvim",
+    cmd = "GitLink",
+    opts = {},
+    keys = {
+      { "<leader>gy", "<cmd>GitLink<cr>",  mode = { "n", "v" }, desc = "Yank git link" },
+      { "<leader>gY", "<cmd>GitLink!<cr>", mode = { "n", "v" }, desc = "Open git link" },
+    },
+  },
+
   -- Blame: Fugitive style git blame
   {
     "FabijanZulj/blame.nvim",

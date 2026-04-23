@@ -22,9 +22,7 @@ Use `fzf`:
 
 - `cd **<tab>` It will filter all the subdirectories, and allow to fuzzy search one. You can also add
   `!<negative-filters>`, for example for excluding dot files (`!.`)
-- `find * -type f | fzf` Search system wide, all files
-- `find ~/Dropbox -type d | fzf` Search directories in Dropbox. For example add now `2020 tax declar` to narrow down the search
-- `find -type f -size +1M -and -ctime -7 -exec du -h {} / | fzf`;
+- `fd -type d | fzf` Search system wide, all files
 
 ## More about fzf
 
@@ -46,7 +44,7 @@ If you add the key bindings:
 
 Nice to use it with `awk` and `xargs`:
 
-- `fzf | xargs ls -la`
+- `rg --files | xargs ls -la`
 
 some options:
 
@@ -56,21 +54,29 @@ some options:
 
 ## Some interesting tools for productivity
 
-- `fzf`: https://github.com/junegunn/fzf 🚀🚀
+- `fzf`: https://github.com/junegunn/fzf
 - `tldr`: https://github.com/tldr-pages/tldr
-- `bat`: https://github.com/sharkdp/bat
-  i.e. `git show v0.6.0:src/App.tsx | bat -l tsx`
-  i.e. `export MANPAGER="sh -c 'col -bx | bat -l man -p'"`
-  i.e. `fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'`
-
+- `eza` (aliased: `ls`): https://github.com/eza-community/eza
+- `bat` (aliased: `cat`): https://github.com/sharkdp/bat
 - `lnav`: https://github.com/tstack/lnav
+- `fd`: https://github.com/sharkdp/fd  (fdfind in debian)
 
-* Log analyzer too
+## Shell completion
 
-- `fd`: (TODO) https://github.com/sharkdp/fd
+### Carapace — multi-shell completer
+
+[`carapace`](https://carapace.sh/) provides completions for hundreds of CLIs
+
+## History: Atuin
+
+[`atuin`](https://atuin.sh) replaces the default shell history with a synced,
+searchable SQLite store.
+- `Ctrl-R` — interactive search over history (tmux popup if tmux ≥ 3.2).
+- `↑` — up-search (prefix match on the current buffer).
 
 Also, other productivity tools for ZSH plugins:
 
+## Other tools
 - `z`: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
 - `vim-mode`: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vi-mode
 - `copydir`: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copydir

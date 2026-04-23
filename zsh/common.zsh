@@ -40,6 +40,22 @@ alias v="nvim"
 # Lazygit
 alias lg="lazygit"
 
+# Prefer modern replacements when installed
+if command -v eza >/dev/null 2>&1; then
+  alias ls="eza"
+fi
+if command -v bat >/dev/null 2>&1; then
+  alias cat="bat --paging=never --style=plain"
+elif command -v batcat >/dev/null 2>&1; then
+  # Debian/Ubuntu ship bat as `batcat` due to a name conflict with an older tool
+  alias cat="batcat --paging=never --style=plain"
+  alias bat="batcat"
+fi
+# Debian/Ubuntu ship fd as `fdfind` due to a name conflict
+if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
+  alias fd="fdfind"
+fi
+
 
 #######################################################
 #  Setup FZF (should be applief after the plugins)    #
@@ -81,3 +97,21 @@ _source_fzf_script key-bindings.zsh
 [[ $- == *i* ]] && _source_fzf_script completion.zsh
 unset -f _source_fzf_script
 
+
+#######################################################
+#  Carapace: multi-shell completion (only if installed)
+#######################################################
+if command -v carapace >/dev/null 2>&1; then
+  autoload -U compinit && compinit
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+  #zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+  zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
+  source <(carapace _carapace)
+fi
+
+#######################################################
+# Atuin: https://atuin.sh
+#######################################################
+if command -v atuin >/dev/null 2>&1; then
+  source $ZSH_BASE/atuin.zsh
+fi
