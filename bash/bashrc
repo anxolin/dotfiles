@@ -19,6 +19,9 @@ tabs -2
 # Default editor
 export EDITOR='vim'
 
+# GPG: point gpg-agent at the current TTY so pinentry-curses/-tty can prompt.
+export GPG_TTY=$(tty)
+
 # Locale is intentionally left to each OS's own setup (not set here).
 # Inspect with: locale / locale -a
 

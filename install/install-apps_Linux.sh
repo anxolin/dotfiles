@@ -13,11 +13,14 @@ set -e
 #   - bat: cat with syntax highlighting (binary named `batcat` on Debian/Ubuntu)
 #   - tldr: simplified, community-driven man pages
 #   - lnav: log file navigator (merged timelines, SQL over logs)
+#   - pass: Unix password manager (GPG-encrypted file per entry). See docs/pass.md
+#   - gnupg: GPG (pass backend; also signing/email)
+#   - pinentry-curses: terminal passphrase dialog for gpg-agent (works locally and over SSH)
 #   - gh: GitHub CLI (on Debian, installed from GitHub's official apt repo)
 
 # If Debian based
 if [[ -f /etc/debian_version ]]; then
-    sudo apt-get -y install ripgrep fd-find fzf zsh xclip xdg-utils cmake bat tldr lnav
+    sudo apt-get -y install ripgrep fd-find fzf zsh xclip xdg-utils cmake bat tldr lnav pass gnupg pinentry-curses
 
     # Install gh (GitHub CLI) from the official repo — not in Debian bullseye's apt.
     if ! command -v gh &>/dev/null; then
@@ -62,11 +65,11 @@ if [[ -f /etc/arch-release ]]; then
     #sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat unzip
     # yay: AUR helper (ships in the extra repo since Jan 2024)
     sudo pacman -S --noconfirm --needed \
-        zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff yay tldr lnav
+        zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff yay tldr lnav pass gnupg pinentry
 fi
 
 # Alpine linux
 if [[ -f /etc/alpine-release ]]; then
     printf "[install-apps-Linux] alpine: Install basic apps\n"
-    sudo apk add --no-cache zsh neovim ripgrep fd fzf xclip xdg-utils cmake bat github-cli uv ruff tldr lnav
+    sudo apk add --no-cache zsh neovim ripgrep fd fzf xclip xdg-utils cmake bat github-cli uv ruff tldr lnav pass gnupg pinentry
 fi

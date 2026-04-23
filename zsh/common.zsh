@@ -2,6 +2,10 @@
 #  OTHER CONF ZSH    #
 ######################
 
+# GPG: point gpg-agent at the current TTY so pinentry-curses/-tty can prompt.
+# Harmless when pinentry-mac is in use; required when not.
+export GPG_TTY=$(tty)
+
 # Show pretty names for Wireguard
 #   https://www.reddit.com/r/WireGuard/comments/eg145w/short_script_to_show_peer_names_instead_of_public/
 function wg {
