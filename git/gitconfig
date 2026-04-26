@@ -11,6 +11,25 @@
 [push]
   default = simple
 
+[pull]
+  rebase = true
+
+[rebase]
+  autosquash = true
+  autostash = true
+
+[fetch]
+  prune = true
+
+[rerere]
+  enabled = true
+
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
 [log]
   date = relative
 
@@ -31,12 +50,15 @@
 
 [diff]
   tool = vscode
+  algorithm = histogram
+  colorMoved = zebra
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
 
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path =
-[mergetool "sourcetree"]
-  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+# Sourcetree no longer used — kept commented out for reference.
+# [difftool "sourcetree"]
+#   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+#   path =
+# [mergetool "sourcetree"]
+#   cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+#   trustExitCode = true

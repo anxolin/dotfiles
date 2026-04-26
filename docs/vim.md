@@ -6,10 +6,10 @@ All vim configuration is in `vimrc`.
 
 ## Overview
 
-- It uses **Vundle** plugin manager.
-- There's a list of some other plugins. Some of them are `NERDTree`, `Ctrl-p`, `Airline`, `Ale`, and `Fugitive`.
-- It also sets the theme to the **256 color Solarized Dark Theme**.
-- It changes the default search tool to **ag** (the silver searcher) instead of ACK.
+- Plugin manager: **vim-plug** (loads `~/.vim/autoload/plug.vim`; installed by `install/install-vim-plug.sh`).
+- Plugins include `NERDTree`, `CtrlP`, `fzf` + `fzf.vim`, `Airline`, `vim-fugitive` + `vim-rhubarb`, `vim-floaterm` (lazygit popup), `vim-commentary`, `vim-surround`, `vim-gitgutter`. With Node.js installed, `coc.nvim` provides LSP/completion; without Node, `ALE` is the lint fallback.
+- Theme: **catppuccin** (mocha flavour).
+- Search: **ripgrep** (`rg`) via fzf's `:Rg`; `ag` is also wired into `ack.vim` if installed.
 
 Some basic bindings are:
 

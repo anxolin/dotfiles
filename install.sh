@@ -8,7 +8,6 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -a|--skip-install-apps)        INSTALL_APPS=false ;;
     -v|--skip-install-vim-plugins) INSTALL_VIM_PLUGINS=false ;;
-    --default)                     DEFAULT=YES ;;
     *)                             echo "[dotfiles] Unknown option: $1 (ignored)" ;;
   esac
   shift
@@ -84,10 +83,6 @@ cat << EOF
 ╚═╗│ │├┴┐││││ │ │││ ││  ├┤ └─┐
 ╚═╝└─┘└─┘┴ ┴└─┘─┴┘└─┘┴─┘└─┘└─┘
 EOF
-
-# Init remaining git submodules (fzf binary)
-printf "[dotfiles] Init Git submodules\n"
-source "$DOT_FILES/install/init_submodules.sh"
 
 # Install Oh My Zsh + plugins/themes into ~/.oh-my-zsh (no longer vendored in repo)
 bash "$DOT_FILES/install/install-zsh.sh"

@@ -14,9 +14,6 @@ set history=80
 set number
 set relativenumber
 
-
-"tab sball
-
 " Do not wrap lines and when scroll horilzontally, show 25 chars of context
 set nowrap
 set sidescroll=25
@@ -37,6 +34,14 @@ set whichwrap=b,s,<,>,[,],h,l
 
 " Enable syntax highlight and plugin support
 syntax on
+
+" Truecolor (24-bit) — required for catppuccin to look right.
+" Inside tmux/screen, vim needs the t_8f/t_8b escape sequences set explicitly.
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 " filetype: Enable plugin
 "   * Detects the filetype (using the extension or the hashbang)
@@ -64,30 +69,6 @@ if has("gui_running")
   set linespace=6
 endif
 
-" Vertical ruler at 80
-if exists('+colorcolumn')
-  set colorcolumn=80
-else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
-
-
-" Identations for Python - PEP8
-" au BufNewFile,BufRead *.py
-"     \ set tabstop=4
-"     \ set softtabstop=4
-"     \ set shiftwidth=4
-"     \ set textwidth=79
-"     \ set expandtab
-"     \ set autoindent
-"     \ set fileformat=unix
-
-" Identation for JS, HTML and CSS
-" au BufNewFile,BufRead *.js, *.html, *.css
-"     \ set tabstop=2
-"     \ set softtabstop=2
-"     \ set shiftwidth=2
-
 
 " copy/paste integration
 "   * in order to work vim must have been compiled with the clipboard flag
@@ -103,6 +84,19 @@ set backspace=indent,eol,start
 " Activate mouse
 set mouse=a
 
+" Options ported from nvim init.lua
+set timeoutlen=300       " short wait for chord completion (was 1000ms — caused <leader>l to hang for lazygit)
+set ttimeoutlen=10       " key code sequence wait
+set smartcase            " case-insensitive unless query has uppercase
+set smartindent          " auto-indent on new lines
+set scrolloff=5          " keep 5 lines visible above/below cursor
+set sidescrolloff=5      " keep 5 columns visible on either side
+set splitright           " :vsplit opens to the right
+set splitbelow           " :split opens below
+set cursorline           " highlight current line
+set lazyredraw           " don't redraw during macros (faster)
+set signcolumn=yes       " always show sign column (no jitter from coc/gitgutter)
+
 " Automatically jump to end of text you pasted:
 "   This way you can paste many times with pppppp...
 vnoremap <silent> y y`]
@@ -110,8 +104,29 @@ vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 " Use c-a and c-e for the "go-to begin/end" of the line in editing mode
-inoremap <C-e> <Esc>A
-inoremap <C-a> <Esc>I
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>^
+
+" Insert-mode word movement (Alt+Left/Right and Alt+b/f/h/l)
+inoremap <M-Left>  <C-o>b
+inoremap <M-Right> <C-o>w
+inoremap <M-b> <C-o>b
+inoremap <M-f> <C-o>w
+inoremap <M-h> <C-o>b
+inoremap <M-l> <C-o>w
+
+" Insert-mode delete word backward/forward
+inoremap <M-BS> <C-w>
+inoremap <M-d>  <C-o>dw
+inoremap <C-d>  <Del>
+
+" Normal-mode word movement and forward delete
+nnoremap <M-Left>  b
+nnoremap <M-Right> w
+nnoremap <Del> x
+
+" Clear search highlight on Esc (mirrors nvim init.lua:109)
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
@@ -131,22 +146,11 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 "set autoread | au CursorHold * checktime | call feedkeys("lh")
 set autoread | au CursorHold * checktime
 
-
-" TODO: Make vim notice automatically if an external app has changed the file
-" http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
-" |VimResized|    after the Vim window size changed
-" |FocusGained|   Vim got input focus
-" |FocusLost|   Vim lost input focus
-" |CursorHold|    the user doesn't press a key for a while
-" |CursorHoldI|   the user doesn't press a key for a while in Insert mode
-" |CursorMoved|   the cursor was moved in Normal mode
-" |CursorMovedI|    the cursor was moved in Insert mode
-" |WinEnter|    after entering another window
-" |WinLeave|    before leaving a window
-" |TabEnter|    after entering another tab page
-" |TabLeave|    before leaving a tab page
-" |CmdwinEnter|   after entering the command-line window
-" |CmdwinLeave|   before leaving the command-line
+" Restore cursor position when reopening a file (mirrors nvim init.lua:161)
+augroup LastPosition
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+augroup END
 
 
 " Spell: Enable spell suggestions
@@ -193,13 +197,6 @@ nnoremap <Leader>Q :qa!<CR>
 "   Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
-" The next lines are commented, because I wanted to use lead-P for ctrlp
-" plugin, while I reasign ctrl-p to fzf files dialog
-"nmap <Leader>p "+p
-"nmap <Leader>P "+P
-"vmap <Leader>p "+p
-"vmap <Leader>P "+P
-
 " Move among buffers with SPACE arrows
 map <Leader><Right> :bnext<cr>
 map <Leader><Left> :bprev<cr>
@@ -216,43 +213,24 @@ nnoremap <Leader><Right> :tabnext<CR>
 " Tab navigation with Leader+h/l as fallback
 nnoremap <Leader>h :tabprevious<CR>
 nnoremap <Leader>l :tabnext<CR>
+" Tab navigation with Alt+Tab (may not work in all terminals/OS)
+nnoremap <A-Tab> :tabnext<CR>
+nnoremap <M-C-Y> :tabprevious<CR>
+" Tab navigation with Alt+[ / Alt+]
+nnoremap <A-]> :tabnext<CR>
+nnoremap <A-[> :tabprevious<CR>
+" Close current tab
+nnoremap <C-w>q :tabclose<CR>
+" Jump to tab N with Alt+1..9
+for s:i in range(1, 9)
+  execute 'nnoremap <A-' . s:i . '> ' . s:i . 'gt'
+endfor
 
 " Reload vimconfig with SPACE+r
 map <Leader>r :source ~/.vimrc<cr>:call Message("⚡️ reloaded!")<cr>
 
-"Python"
-""au FileType python setlocal expandtab textwidth=79 tabstop=8 softtabstop=4
+" Python: insert ipdb breakpoint
 au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-" Quick way to move lines of text up or down (alt-j)
-" Windows, Linux: Alt+jk
-" https://unix.stackexchange.com/questions/73669/what-are-the-characters-printed-when-altarrow-keys-are-pressed
-" nnoremap <A-j> :m .+1<CR>==
-" nnoremap <A-k> :m .-2<CR>==
-" inoremap <A-j> <Esc>:m .+1<CR>==gi
-" inoremap <A-k> <Esc>:m .-2<CR>==gi
-" vnoremap <A-j> :m '>+1<CR>gv=gv
-" vnoremap <A-k> :m '<-2<CR>gv=gv
-" " Windows, Linux: Alt+Arrows
-" nnoremap <A-Down> :m .+1<CR>==
-" nnoremap <A-Up> :m .-2<CR>==
-" inoremap <A-Down> <Esc>:m .+1<CR>==gi
-" inoremap <A-Up> <Esc>:m .-2<CR>==gi
-" vnoremap <A-Down> :m '>+1<CR>gv=gv
-" vnoremap <A-Up> :m '<-2<CR>gv=gv
-" " Mac: Alt+jk
-" nnoremap ¶ :m .+1<CR>==
-" nnoremap § :m .-2<CR>==
-" inoremap ¶ <Esc>:m .+1<CR>==gi
-" inoremap § <Esc>:m .-2<CR>==gi
-" vnoremap ¶ :m '>+1<CR>gv=gv
-" vnoremap § :m '<-2<CR>gv=gv
-
-" Enter visual line mode
-"nmap <Leader><Leader> V
-
-" Easymotion
-"map <Leader> <Plug>(easymotion-prefix)
 
 " Use vim expand region with v key: /terryma/vim-expand-region
 "   Use v for selecting a letter, vv to select a word, and so on...
@@ -260,9 +238,6 @@ au FileType python map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c
 "     The default was: + and _
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
-
-" Bind K to :grep under the cursor
-"nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Ignore case by default when searching
 set ignorecase
@@ -275,14 +250,6 @@ map <2-LeftMouse> :set hlsearch<CR>*
 imap <2-LeftMouse> :set hlsearch<CR><c-o>*
 set hlsearch
 nnoremap <F3> :set hlsearch!<CR>
-
-" Maketags: Use ctags generate app to
-" command! Maketags !ctags -R .
-
-" SNIPPETS:
-"   Read an empty HTML template and move cursor to title
-" nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
-
 
 " vim-plug: Plugin manager
 "   Brief help
@@ -301,10 +268,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " Use the same plugin directory for both Vim and Neovim
   call plug#begin('~/.vim/plugged')
 
-  " alternatively, pass a path where vim-plug should install plugins
-  " call plug#begin('~/some/path/here')
-
-
   " *******  Plugins *************
 
   " Plugin that jumps to the matching HTML tag or if/else/elseif using %
@@ -313,13 +276,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " vim-plug: let vim-plug manage vim-plug, required
   Plug 'junegunn/vim-plug'
 
-  " Onedark: Theme - https://github.com/joshdick/onedark.vim
-  Plug 'joshdick/onedark.vim'
-
-  " Solarized: Colors - Solarized Theme
-  "    - related conf in plugin conf section
-  "    - available, but disable (using onedark)
-  Plug 'altercation/vim-colors-solarized'
+  " Catppuccin: Theme - https://github.com/catppuccin/vim
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
   " vim-polyglot: A collection of language packs for Vim.
   Plug 'sheerun/vim-polyglot'
@@ -341,85 +299,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     "      https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
     "      https://github.com/neoclide/coc-tsserver
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
-
-
-
-    " You have to install coc extension or configure language servers for LSP
-    " support.
-    "   - Install extensions:
-    "     CocInstall coc-json coc-tsserver
-    "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+    " Extensions are installed via g:coc_global_extensions below.
 
   else
-    " Autoread: Enables autoread (reload the file if it has changed autside)
-    "Plug 'djoshea/vim-autoread'
-    "Plug 'Carpetsmoker/auto_autoread.vim'
-
-    " Syntastic: Lintern
-    " Disabled to try w0rp/ale since vim8 upgrade
-    " Plug 'vim-syntastic/syntastic'
-
-    " Asynchronous Lint Engine (Ale)
-    "   - ALE makes use of NeoVim and Vim 8 job control functions and timers to
-    "    run linters
-    "   - ALE acts as a "language client" to support a variety of Language
-    "   Server Protocol features, including: Diagnostics, Go To Definition,
-    "     Completion, Find references, Hover, SymbolSearch
-    "   - Supported Languages and tools:
-    "   https://github.com/dense-analysis/ale/blob/master/supported-tools.md
-    "   - DISABLED: to try CoC (looks beter for TS, i.e. auto es6 imports)
+    " ALE: Asynchronous Lint Engine — fallback when nodejs (and CoC) is unavailable
     Plug 'w0rp/ale'
-
-    " Autocomplete: Youcompleteme:
-    "   Multilingual code-completion, goTo declaration, view documentation, rename variables
-    "Plug 'Valloric/YouCompleteMe'
-    "Plug 'davidhalter/jedi-vim'
-
-    " Ternjs: Javascript editting support,  Jump to the definitio, Look up the
-    "   documentation,  Find the type of the thing under the cursor, references to the variable
-    " Rename the variable
-    " Plug 'ternjs/tern_for_vim'
   endif
 
-
-  " Javascript Tern: tern_for_vim: Tern is a stand-alone code-analysis engine
-  "    :TernDef: Jump to the definition of the thing under the cursor.
-  "    :TernDoc: Look up the documentation of something.
-  "    :TernType: Find the type of the thing under the cursor.
-  "    :TernRefs: Show all references to the variable or property under the cursor.
-  "    :TernRename: Rename the variable under the cursor.
-  "Plug 'ternjs/tern_for_vim'
-
-  " Taglist: List of tags in the current file
-  "     https://github.com/majutsushi/tagbar
-  "Plug 'taglist.vim': https://github.com/majutsushi/tagbar/wiki
-  "Plug 'majutsushi/tagbar'
-
-  " Jsbeautifier: Format JS, HTML and CSS with jsbeautifier
-  "Plug 'maksimr/vim-jsbeautify'
-
-  " Format: vim-autoformat: Formats using any external formatter
-  "Plug 'Chiel92/vim-autoformat'
-
-  " Solidity
-  "Plug 'tomlion/vim-solidity'
-
-  " Python
-  "Plug 'nvie/vim-flake8'
 
   " Javascript:  syntax highlighting and improved indentation.
   Plug 'pangloss/vim-javascript'
@@ -433,17 +319,21 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " GraphQL
   Plug 'jparise/vim-graphql'       
 
-  " Scala: scala integration - https://github.com/derekwyatt/vim-scala
-  "     :SortScalaImports - Sorting of import statements
-  "Plug 'derekwyatt/vim-scala'
-
   " Fugitive: Git - Vim Fugitive:
   "   Vim plugin
   Plug 'tpope/vim-fugitive'
+  " Rhubarb: GitHub integration for Fugitive (:GBrowse to open file in browser)
+  Plug 'tpope/vim-rhubarb'
+
+  Plug 'tpope/vim-commentary'    " gcc / gc{motion} to toggle comments
+  Plug 'tpope/vim-surround'      " cs/ds/ys for surrounding chars
+  Plug 'tpope/vim-repeat'        " makes . repeat plugin maps too
+  Plug 'airblade/vim-gitgutter'  " +/-/~ markers in sign column for unstaged hunks
 
   " Airline: Status bar - Vim Airline
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  " (catppuccin airline themes ship inside the catppuccin/vim plugin above)
 
   " FLZ for vim
   "   fzf#install() makes sure that you have the latest binary, but it's 
@@ -471,7 +361,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   " selection to next block easily
   Plug 'terryma/vim-expand-region'
 
-  " Move fast using <leader> <leader>
+  " EasyMotion: disable default mappings (we want <leader><leader> for :Files,
+  " and we set the easymotion bindings we use explicitly below)
+  let g:EasyMotion_do_mapping = 0
   Plug 'easymotion/vim-easymotion'
 
   " Vim-devicons: 
@@ -480,8 +372,12 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
   "   denite, unite, lightline.vim, vim-startify, vimfiler, vim-buffet and flagship.
   Plug 'ryanoasis/vim-devicons'
 
-  " nvim v0.7.2
-  Plug 'kdheepak/lazygit.nvim'
+  " Floaterm: floating terminal windows (works in vim + nvim).
+  " Used for the lazygit popup below.
+  Plug 'voldikss/vim-floaterm'
+
+  " kdheepak/lazygit.nvim is nvim-only; replaced by vim-floaterm + lazygit.
+  " Plug 'kdheepak/lazygit.nvim'
 
 
   " *******  Key mappings *************
@@ -501,20 +397,16 @@ endif
 " Basic theme config 
 set background=dark
 
-" Solarized Theme - config
-" let g:solarized_termcolors=256 " If you are going to use Solarized in Terminal mode
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
+" Catppuccin theme (mocha flavour):
+"   https://github.com/catppuccin/vim
+silent! colorscheme catppuccin_mocha
 
-" Disabled solarized
-"   Re-enable with ":colorscheme solarized"
-" silent! colorscheme solarized
+" Subtle 80-col ruler instead of catppuccin's loud red (apply now + on future :colorscheme)
+highlight ColorColumn ctermbg=237 guibg=#313244
+autocmd ColorScheme * highlight ColorColumn ctermbg=237 guibg=#313244
 
-" Onedark theme:
-"   https://github.com/joshdick/onedark.vim
-silent! colorscheme onedark
+" Spell off on code/config filetypes (keep it for markdown, txt, gitcommit, etc.)
+autocmd FileType yaml,yml,json,toml,sh,zsh,bash,vim,lua,javascript,typescript,python,go,rust,sql,dockerfile,gitconfig,conf,tmux,make,cmake,xml,html,css,scss,dosini,crontab,nginx setlocal nospell
 
 
 " Use ag instead of grep, in the :grep command
@@ -541,53 +433,56 @@ if executable('ag') && HasPlugins('ack.vim')
   let g:ctrlp_use_caching = 0
 endif
 
-" " Quick run via <F5>
-" nnoremap <F5> :call <SID>compile_and_run()<CR>
-" augroup SPACEVIM_ASYNCRUN
-"     autocmd!
-"     " Automatically open the quickfix window
-"     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-" augroup END
-"
-" function! s:compile_and_run()
-"     exec 'w'
-"     if &filetype == 'c'
-"         exec "AsyncRun! gcc % -o %<; time ./%<"
-"     elseif &filetype == 'cpp'
-"        exec "AsyncRun! g++ -std=c++11 % -o %<; time ./%<"
-"     elseif &filetype == 'java'
-"        exec "AsyncRun! javac %; time java %<"
-"     elseif &filetype == 'sh'
-"        exec "AsyncRun! time bash %"
-"     elseif &filetype == 'python'
-"        exec "AsyncRun! time python %"
-"     endif
-" endfunction
-
-
-
 " NerdTree conf
 if HasPlugins('nerdtree')
-  " Bind C-n key to NerdTree
-  map <C-n> :NERDTreeToggle<CR>
+  " Auto-close the tree when you pick a file (modal-ish feel)
+  let g:NERDTreeQuitOnOpen=1
+
+  " Smart toggle: opens with cursor on current file; press <C-n> again to close
+  function! NerdTreeSmartToggle()
+    if g:NERDTree.IsOpen()
+      NERDTreeClose
+    elseif filereadable(expand('%'))
+      NERDTreeFind
+    else
+      NERDTreeToggle
+    endif
+  endfunction
+  nnoremap <silent> <C-n> :call NerdTreeSmartToggle()<CR>
   map <C-m> :NERDTreeFind<CR>
-  
-  " Show file always in tree automatically 
-  "autocmd BufWinEnter * NERDTreeFind
-  
+
   " Open nerd tree as an only window, with the current file
   " selected
   fun! NewTreeOpen()
     NERDTreeFind
     wincmd o
-    let g:NERDTreeQuitOnOpen=1
   endfun
   nmap <silent><leader>no :call NewTreeOpen()<CR>
 endif
 
-" LazyGit
-nnoremap <silent> <leader>lg :LazyGit<CR>
-nnoremap <silent> <leader>gg :LazyGit<CR>
+" LazyGit via vim-floaterm (floating terminal, works in vim + nvim).
+" <leader>gg opens fugitive status; <leader>lg opens lazygit in a float.
+if HasPlugins('vim-floaterm') && executable('lazygit')
+  let g:floaterm_width  = 0.9
+  let g:floaterm_height = 0.9
+  nnoremap <silent> <leader>lg :FloatermNew --autoclose=2 lazygit<CR>
+  nnoremap <silent> <leader>ll :FloatermNew --autoclose=2 lazygit<CR>
+endif
+" nnoremap <silent> <leader>lg :LazyGit<CR>  " replaced by floaterm above
+
+" Fugitive: git bindings
+nnoremap <silent> <leader>gg :Git<CR>
+nnoremap <silent> <leader>gd :Gdiffsplit<CR>
+nnoremap <silent> <leader>gb :Git blame<CR>
+nnoremap <silent> <leader>gl :Git log<CR>
+nnoremap <silent> <leader>gc :Git commit<CR>
+nnoremap <silent> <leader>gS :Gwrite<CR>
+nnoremap <silent> <leader>gR :Gread<CR>
+" Rhubarb: GitHub link of current file/line
+nnoremap <silent> <leader>gy :.GBrowse!<CR>
+xnoremap <silent> <leader>gy :GBrowse!<CR>
+nnoremap <silent> <leader>gY :.GBrowse<CR>
+xnoremap <silent> <leader>gY :GBrowse<CR>
 
 " CoC: Conquer Of Completion
 if HasPlugins('coc.nvim')
@@ -796,20 +691,6 @@ if HasPlugins('ale')
   nmap <silent> <C-j> <Plug>(ale_next_wrap)
 endif
 
-" " Lintern - syntastic config (disable to use Ale instead)
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-" let g:syntastic_javascript_checkers = ['standard']
-" "nnoremap <C-L> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-" nnoremap <C-L> :SyntasticCheck<CR>
-" nnoremap <C-L><C-L> :SyntasticReset<CR>
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " Tagbar: Display tags in a window
 "   https://github.com/majutsushi/tagbar
 if exists(':TagbarToggle')
@@ -820,24 +701,7 @@ endif
 " Status bar - Vim airline conf
 if HasPlugins('vim-airline')
   set laststatus=2 "  Solution for vim-airline doesn't appear until I create a new split problem
-  let g:airline_theme='solarized'
-  " :AirlineTheme simple
-  " let g:airline#extensions#tabline#enabled = 1  " displays all buffers when there's only one tab open
-
-  " Status line
-  "   http://got-ravings.blogspot.com.es/2008/08/vim-pr0n-making-statuslines-that-own.html
-  " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-  " set statusline=%t       "tail of the filename
-  " set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-  " set statusline+=%{&ff}] "file format
-  " set statusline+=%h      "help file flag
-  " set statusline+=%m      "modified flag
-  " set statusline+=%r      "read only flag
-  " set statusline+=%y      "filetype
-  " set statusline+=%=      "left/right separator
-  " set statusline+=%c,     "cursor column
-  " set statusline+=%l/%L   "cursor line/total lines
-  " set statusline+=\ %P    "percent through file
+  let g:airline_theme='catppuccin_mocha'
 endif
 
 " ctrlp_bdelete: Close open bufferes extension by j5shi/ctrlp_bdelete
@@ -878,7 +742,32 @@ if executable('fzf')
   " fzf config
   map <leader>P :GFiles<CR>
   map <C-p> :Files<CR>
-  map <C-b> :Buffers<CR>  
+  map <C-b> :Buffers<CR>
+  " Double-leader (Space Space) for fuzzy file open
+  nnoremap <silent> <leader><leader> :Files<CR>
+
+  " Search/grep bindings (mirroring nvim Snacks.picker)
+  nnoremap <silent> <leader>/ :Rg<CR>
+  nnoremap <silent> <leader>, :Buffers<CR>
+  nnoremap <silent> <leader>: :History:<CR>
+  " <leader>e — file explorer (NerdTree, finds current file)
+  nnoremap <silent> <leader>e :NERDTreeFind<CR>
+  " <leader>f* — find
+  nnoremap <silent> <leader>ff :Files<CR>
+  nnoremap <silent> <leader>fg :GFiles<CR>
+  nnoremap <silent> <leader>fb :Buffers<CR>
+  nnoremap <silent> <leader>fr :History<CR>
+  nnoremap <silent> <leader>fh :Helptags<CR>
+  " <leader>s* — search
+  nnoremap <silent> <leader>sg :Rg<CR>
+  nnoremap          <leader>sw :Rg <C-r><C-w><CR>
+  xnoremap          <leader>sw y:Rg <C-r>"<CR>
+  nnoremap <silent> <leader>sb :BLines<CR>
+  nnoremap <silent> <leader>sm :Marks<CR>
+  nnoremap <silent> <leader>sk :Maps<CR>
+  nnoremap <silent> <leader>sC :Commands<CR>
+  nnoremap <silent> <leader>s/ :History/<CR>
+  nnoremap <silent> <leader>sh :Helptags<CR>
 
   if executable('devicon-lookup') 
     map <C-p> :call FZFWithDevIcons()<CR>
@@ -920,7 +809,7 @@ endif
 
 " Easy motion (https://github.com/easymotion/vim-easymotion)
 if HasPlugins('vim-easymotion')
-  " let g:EasyMotion_do_mapping = 0 " Disable default mappings
+  " (g:EasyMotion_do_mapping=0 set near the Plug line above so it takes effect before plugin loads)
   " Jump to anywhere you want with minimal keystrokes, with just one key binding.
   " `s{char}{label}`
   "nmap s <Plug>(easymotion-overwin-f)
@@ -929,9 +818,9 @@ if HasPlugins('vim-easymotion')
   " Need one more keystroke, but on average, it may be more comfortable.
   nmap <leader>2 <Plug>(easymotion-overwin-f2)
 
-  " Open search box
-  map  <leader>/ <Plug>(easymotion-sn)
-  omap <leader>/ <Plug>(easymotion-tn)
+  " Open easymotion search box (moved from <leader>/ — that's now :Rg grep)
+  map  <leader>? <Plug>(easymotion-sn)
+  omap <leader>? <Plug>(easymotion-tn)
 
   " Turn on case insensitive feature
   let g:EasyMotion_smartcase = 1

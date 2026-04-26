@@ -20,15 +20,4 @@ curl -fLo ~/.vim/autoload/plug.vim \
 vim +PlugInstall +qall
 
 echo "vim-plug installed successfully!"
-echo ""
-echo "Next steps:"
-echo "1. Open vim and run :PlugInstall to install all plugins"
-echo "2. Or run: vim +PlugInstall +qall"
-echo ""
-echo "Useful vim-plug commands:"
-echo "  :PlugInstall    - Install plugins"
-echo "  :PlugUpdate     - Update plugins"
-echo "  :PlugClean      - Remove unused plugins"
-echo "  :PlugUpgrade    - Upgrade vim-plug itself"
-echo "  :PlugStatus     - List installed plugins"
 

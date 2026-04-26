@@ -62,4 +62,4 @@ The fzf configuration is minimal and available in `fzf.zsh`.
 
 ## Installation
 
-FZF is installed via the `install-fzf.sh`
+FZF is installed by `install/install-apps_Mac.sh` (brew) or `install/install-apps_Linux.sh` (apt/pacman/apk). The vim plugin (`junegunn/fzf.vim`) is installed by vim-plug.

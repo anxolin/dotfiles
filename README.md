@@ -1,134 +1,83 @@
-[![Build Status](https://travis-ci.org/anxolin/dotfiles.svg?branch=master)](https://travis-ci.org/anxolin/dotfiles)
-
 # Dotfiles
 
-Installs the preferences for aplications such as `tmux`, `zsh`, `vscode` or `nvim`/`vim`.
+Personal dev environment config: `zsh`, `tmux`, `nvim` (primary editor), minimal `vim` (fallback), `git`, plus VSCode keybindings and an iTerm profile. macOS-first, also tested on Debian/Arch/Alpine Linux.
 
-There's also documentation showing the plugins and configuration for:
+## What's in here
 
-- **nvim**: [docs/nvim.md](docs/nvim.md) Plugins, mappings and configurations.
-- **vim**: [docs/vim.md](docs/vim.md) Plugins, mappings and configurations.
-- **tmux**: [docs/tmux.md](docs/tmux.md) Configurations.
-- **zsh**: [doc/zsh.md](docs/zsh.md) Theme, plugins and configurations.
-- **zsh**: [doc/zsh.md](docs/vscode.md) Shortcuts, configs, and some notes on plugins.
-- **fzf**: [doc/fzf.md](docs/fzf.md) Configuration and usage.
+- **zsh** — Oh My Zsh + Powerlevel10k, syntax highlighting, autosuggestions. See [docs/zsh.md](docs/zsh.md).
+- **tmux** — minimal config with TPM. See [docs/tmux.md](docs/tmux.md).
+- **nvim** — primary editor. lazy.nvim, Mason, Snacks, conform, treesitter. See [docs/nvim.md](docs/nvim.md).
+- **vim** — fallback editor. vim-plug, CoC (or ALE without Node), fzf, fugitive, lazygit via floaterm. See [docs/vim.md](docs/vim.md).
+- **git** — `git/gitconfig` (symlinked to `~/.gitconfig`) and `git/gitignore_global`. Machine-local overrides via `~/.gitconfiglocal` (auto-included if present).
+- **fonts** — JetBrains Mono Nerd Font. See [docs/fonts.md](docs/fonts.md).
+- **vscode** — `vscode/settings.json`, `vscode/keybindings.json` symlinked into VS Code's user dir on macOS. See [docs/vscode.md](docs/vscode.md).
+- **fzf** — usage notes in [docs/fzf.md](docs/fzf.md).
+- **pass / gpg** — Unix password manager wiring. See [docs/pass.md](docs/pass.md) and [docs/gpg.md](docs/gpg.md).
+- **terminals/osx-iterm2** — iTerm profile preset.
 
-It also contains some useful scripts used when setting up a new working environment:
-
-- [install.sh](install.sh): Installs the dotfiles in a new environment.
-  It doesn't delete anything. Conflicting files will be moved to "backup.`${date}`
-- [install-after.sh](install.sh): Install some plugins or external programs required by some vim plugins (i.e. Tern for JS development)
-
-## Setup the environment
-
-The following commands will:
-
-- Install `zsh` with a custom theme.
-- Install `ag` (the silver searcher) and `ripgrep`
-- Install `vim` and some useful packages for it (i.e. `ctags`, etc)
-- In Linux installs the `xclip`
-- Backup the old dotfiles and install the new ones.
-
-**Install the dotfiles using the script**
+## Install
 
 ```bash
-cd
+cd ~
 git clone https://github.com/anxolin/dotfiles.git
-chmod +x ./dotfiles/install.sh
 ./dotfiles/install.sh
 ```
 
-Optionally, the `install.sh` accepts:
+`install.sh` does:
 
-- `--skip-install-apps`: Do not install apps like vim, tmux, etc.
-- `--skip-install-vid-plugins`: Do not install vim plugins
+1. Backs up existing home-side dotfiles to `~/dotfiles/backup/backup_<timestamp>/` (last 10 retained per prefix).
+2. Wipes the previous symlinks and recreates them from `dotfiles.list`.
+3. On macOS: also links `vscode/settings.json` and `vscode/keybindings.json` into `~/Library/Application Support/Code/User`.
+4. Installs Oh My Zsh + Powerlevel10k + plugins into `~/.oh-my-zsh`.
+5. Installs the tmux plugin manager (TPM).
+6. Installs apps via brew (macOS) or apt/pacman/apk (Linux): zsh, ripgrep, fd, fzf, bat, tldr, lnav, gh, uv, ruff, pass/gnupg, etc.
+7. Installs JetBrains Mono Nerd Font.
+8. Sets up nvim and vim (with vim-plug + plugin install).
 
-## Update submodules (dependencies)
+Flags:
 
-Update the modules:
+- `-a`, `--skip-install-apps` — skip the apps/fonts step.
+- `-v`, `--skip-install-vim-plugins` — skip `:PlugInstall`.
 
-```bash
-git pull --recurse-submodules
-git submodule update --remote
-```
+## Customization
 
-Then you can reinstall any of the tools:
+- **Machine-local zsh config** — drop scripts into `~/.zsh/` (`alias.zsh`, `config.zsh`, `dev.zsh`, `path.zsh`); `install.sh` creates these as empty files. They are sourced by `zsh/zshrc`.
+- **Machine-local git config** — put work email / GPG key / signing config in `~/.gitconfiglocal`. It is auto-included by `git/gitconfig` and not tracked.
 
-```bash
-# Install FZF
-./install/install-fzf.sh
-```
+## iTerm2 (macOS)
 
-## Run it with docker
+Import `terminals/osx-iterm2/Default-profile.json` in iTerm2 (`Preferences > Profiles > Other Actions > Import`).
 
-Run latest docker images with:
+Recommended settings:
 
-- `--rm` Destroy the container after executing
-- `--hostname` Sets a nicer hostname (shown in tmux and zsh)
-- `-v ~/:/home/anxo/data` Maps `/home/anxo/data` to the host home dir
-- `-it` Iterative mode
-- `<image>:latest` Latest successful image (see link to all tags in Dockerhub)
-
-```bash
-# Arch
-docker run --rm  --hostname=dotfiles-arch -v ~/:/home/anxo/data -it anxolin/dotfiles-arch:latest
-
-# Alpine
-docker run --rm --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it anxolin/dotfiles-alpine:latest
-
-# Ubuntu
-docker run --rm --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it anxolin/dotfiles-ubuntu:latest
-```
-
-Tags:
-
-- **Arch**: https://hub.docker.com/r/anxolin/dotfiles-arch/tags
-- **Alpine**: https://hub.docker.com/r/anxolin/dotfiles-alpine/tags
-- **Ubuntu**: https://hub.docker.com/r/anxolin/dotfiles-ubuntu/tags
-
-## Build docker image
-
-```bash
-# Build Arch, Alpine, Ubuntu
-docker build --no-cache -f Dockerfile-arch -t dotfiles-arch .
-docker build --no-cache -f Dockerfile-alpine -t dotfiles-alpine .
-docker build --no-cache -f Dockerfile-ubuntu -t dotfiles-ubuntu .
-
-# Arch
-docker run --hostname=dotfiles-arch -v ~/:/home/anxo/data -it --rm dotfiles-arch
-docker run --hostname=dotfiles-alpine -v ~/:/home/anxo/data -it --rm dotfiles-alpine
-docker run --hostname=dotfiles-ubuntu -v ~/:/home/anxo/data -it --rm dotfiles-ubuntu
-```
-
-## Another configuration
-
-### In OSX: iTerm
-
-Download `iTerm2` from https://www.iterm2.com
-
-Use the profile in <terminals/osx-iterm2/Default-profile.json>
-
-Details of the profile:
-
-- `Profiles > Colors`: Set the color-preset to **solarized-dark** (in `settings > profiles > colors`)
-- `Terminal > Terminal Emulation`: Set the report terminal type to **xterm-256color**
-- `Profiles > Text > Font`: Set the font to JetbrainsMono Nerd Font. See available [Nerd fonts](https://www.nerdfonts.com/font-downloads).
-    * Before, I used to use **MesloLGS NF** (as it was recommended by `Powerlevel10K` ZSH plugin, which also works great with `NerdTree` etc).
-  - NOTE Regarding VIM:
-    - Vim has a setting `guifont`, for iterm2 it will use the one defined in the settings if this is not set
-    - However, for `macvim` (`mvim`), you need to set it up (it's standalone app). This is why there's a conditional setting in `~/.vimrc` to set it up only for `gui_running` environments.
-- `Profiles > Text > Font`: Set the vertical character spacing to `120%`
-
-The font config should look like this:
+- Color preset: Catppuccin Mocha (matches the tmux and nvim themes).
+- Terminal type: `xterm-256color`.
+- Font: JetBrains Mono Nerd Font.
+- Vertical character spacing: 120%.
 
 <p align="center">
   <img src="./docs/images/iterm2-fonts.png" width="700" />
 </p>
 
-### In Linux
+## Restore / revert
 
-In `Konsole`, set the font to 12pt Oc
+`install.sh` snapshots home-side dotfiles into `~/dotfiles/backup/backup_<timestamp>/` before symlinking. To revert a single file:
 
-## Some interesting tools for productivity
+```bash
+cp ~/dotfiles/backup/backup_<timestamp>/.zshrc ~/.zshrc
+```
 
-See tools in [doc/zsh.md](docs/zsh.md)
+Retention is 10 most recent snapshots per prefix (`backup_`, `nvim_`, `tmux_`); older ones are pruned automatically on each install.
+
+## Update
+
+Pull latest config and re-run the relevant installer:
+
+```bash
+cd ~/dotfiles && git pull
+# Re-run a specific piece if you changed something:
+./install/install-zsh.sh
+./install/dotfiles_nvim.sh
+```
+
+A full re-run is also safe: `./install.sh --skip-install-apps`.

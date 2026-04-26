@@ -45,4 +45,4 @@ tar xf lazygit.tar.gz lazygit
 echo "[dotfiles-lazygit-debian] Install lazygit version $LAZYGIT_VERSION"
 sudo install lazygit /usr/local/bin
 
-echo "[dotgiles-lazygit-debian] lazygit has been successfully instaled from sources"
+echo "[dotfiles-lazygit-debian] lazygit has been successfully installed from sources"
