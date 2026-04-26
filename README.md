@@ -125,13 +125,6 @@ The font config should look like this:
   <img src="./docs/images/iterm2-fonts.png" width="700" />
 </p>
 
-### In OSX: Terminal
-
-Use the profile in <terminals/osx-terminal/Default-profile.terminal>
-
-- `Profiles > Text > Font`: Set the font to **Meslo LGS NF Regular 12pt**
-- `Profiles > Advanced > Terminfo`: Declare terminal as **xterm-256color**
-
 ### In Linux
 
 In `Konsole`, set the font to 12pt Oc
