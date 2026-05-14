@@ -2,7 +2,6 @@
   excludesFile = ~/dotfiles/git/gitignore_global
 
 [user]
-  name = Anxo Rodriguez
   email = 2352112+anxolin@users.noreply.github.com
 	name = Anxo
 
@@ -50,11 +49,22 @@
   cmd = code --wait $MERGED
 
 [diff]
-  tool = vscode
+  tool = difftastic
   algorithm = histogram
   colorMoved = zebra
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = "less -RFX"
+
+[alias]
+  d = difftool -t difftastic
+  difftastic = difftool -t difftastic
+  diffvs = difftool -t vscode
 
 # Sourcetree no longer used — kept commented out for reference.
 # [difftool "sourcetree"]
