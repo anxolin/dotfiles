@@ -108,6 +108,12 @@ end
 -- Clear search highlights quickly
 map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
+-- Open current file with the OS default app (Finder / xdg-open)
+map("n", "<leader>o", function()
+  local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
+  vim.fn.jobstart({ opener, vim.fn.expand("%:p") }, { detach = true })
+end, { desc = "Open current file with system app" })
+
 -- macOS-style Natural Text Editing in insert mode
 -- Move by word with Alt+Left/Right (Option+arrows on Mac)
 map("i", "<M-Left>", "<C-o>b", { desc = "Move word backward" })
