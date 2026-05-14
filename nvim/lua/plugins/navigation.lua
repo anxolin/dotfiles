@@ -18,7 +18,16 @@ return {
           position = "float",
           mappings = {
             h = "close_node",
+            O = "system_open",
           },
+        },
+        commands = {
+          system_open = function(state)
+            local node = state.tree:get_node()
+            local path = node:get_id()
+            local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
+            vim.fn.jobstart({ opener, path }, { detach = true })
+          end,
         },
         filesystem = {
           filtered_items = {
