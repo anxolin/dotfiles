@@ -245,4 +245,13 @@
     "scminput": false,
   },
   "claudeCode.preferredLocation": "panel",
+  "chat.viewSessions.orientation": "stacked",
+  "git.replaceTagsWhenPull": true,
+  "workbench.colorTheme": "Light+",
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Light+",
+  "workbench.preferredDarkColorTheme": "Dark+",
+  "debug.internalConsoleOptions": "neverOpen",
+  "task.problemMatchers.neverPrompt": true,
+  "task.showDecorations": false,
 }

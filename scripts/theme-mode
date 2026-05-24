@@ -63,12 +63,23 @@ notify_change() {
   : > "$EVENT_FILE"  # truncate to fire fs-event watchers
 
   # tmux: live-reload catppuccin flavor in any running server.
+  # catppuccin/tmux's theme files use `set -ogq` (only-if-unset) for every
+  # @thm_*/@_ctp_* palette var, so once they're set on the server, re-running
+  # the plugin is a no-op. Unset them first, then re-run the plugin entry,
+  # then force a status-bar redraw.
   if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
-    local mode flavor
+    local mode flavor catppuccin
     mode=$(current_mode)
     if [ "$mode" = light ]; then flavor=latte; else flavor=mocha; fi
     tmux set -gq @catppuccin_flavor "$flavor" >/dev/null 2>&1 || true
-    tmux source-file ~/.tmux.conf >/dev/null 2>&1 || true
+    tmux show -g 2>/dev/null \
+      | awk '/^@(thm_|_ctp_)/{print $1}' \
+      | while read -r opt; do tmux set -gu "$opt" >/dev/null 2>&1 || true; done
+    catppuccin="$HOME/.tmux/plugins/tmux/catppuccin.tmux"
+    if [ -x "$catppuccin" ]; then
+      tmux run-shell "$catppuccin" >/dev/null 2>&1 || true
+    fi
+    tmux refresh-client -S >/dev/null 2>&1 || true
   fi
 }
 

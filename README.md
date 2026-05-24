@@ -13,7 +13,8 @@ Personal dev environment config: `zsh`, `tmux`, `nvim` (primary editor), minimal
 - **vscode** — `vscode/settings.json`, `vscode/keybindings.json` symlinked into VS Code's user dir on macOS. See [docs/vscode.md](docs/vscode.md).
 - **fzf** — usage notes in [docs/fzf.md](docs/fzf.md).
 - **pass / gpg** — Unix password manager wiring. See [docs/pass.md](docs/pass.md) and [docs/gpg.md](docs/gpg.md).
-- **terminals/osx-iterm2** — iTerm profile preset.
+- **terminals/osx-iterm2** — iTerm profile preset + catppuccin light/dark presets.
+- **theme** — one command (`theme light|dark|auto|toggle`) flips nvim, tmux, iTerm2 and VS Code together. See [docs/theme.md](docs/theme.md).
 
 ## Install
 
