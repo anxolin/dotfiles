@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# theme-mode — single source of truth for "am I light or dark right now?"
+#
+# Usage:
+#   theme-mode               print "light" or "dark"
+#   theme-mode set light     force light (writes override)
+#   theme-mode set dark      force dark  (writes override)
+#   theme-mode set auto      follow the OS setting (removes override)
+#   theme-mode toggle        flip the current effective mode (writes override)
+#   theme-mode source        prints "override" or "system"
+#
+# Files:
+#   Override : ${XDG_CONFIG_HOME:-$HOME/.config}/theme-mode
+#   Event    : ${XDG_STATE_HOME:-$HOME/.local/state}/theme-mode.event
+#              (touched on every change so editors can fs-watch it)
+
+set -euo pipefail
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}"
+OVERRIDE_FILE="$CONFIG_DIR/theme-mode"
+EVENT_FILE="$STATE_DIR/theme-mode.event"
+
+read_system_mode() {
+  case "$(uname -s)" in
+    Darwin)
+      if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
+        echo dark
+      else
+        echo light
+      fi
+      ;;
+    Linux)
+      # GNOME 42+ exposes prefer-light / prefer-dark / default.
+      if command -v gsettings >/dev/null 2>&1; then
+        local scheme
+        scheme=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null || echo "")
+        case "$scheme" in
+          *prefer-light*) echo light ;;
+          *) echo dark ;;
+        esac
+      else
+        echo dark
+      fi
+      ;;
+    *) echo dark ;;
+  esac
+}
+
+current_mode() {
+  if [ -s "$OVERRIDE_FILE" ]; then
+    local v
+    v=$(tr -d '[:space:]' < "$OVERRIDE_FILE")
+    case "$v" in
+      light|dark) echo "$v"; return ;;
+    esac
+  fi
+  read_system_mode
+}
+
+notify_change() {
+  mkdir -p "$STATE_DIR"
+  : > "$EVENT_FILE"  # truncate to fire fs-event watchers
+
+  # tmux: live-reload catppuccin flavor in any running server.
+  if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
+    local mode flavor
+    mode=$(current_mode)
+    if [ "$mode" = light ]; then flavor=latte; else flavor=mocha; fi
+    tmux set -gq @catppuccin_flavor "$flavor" >/dev/null 2>&1 || true
+    tmux source-file ~/.tmux.conf >/dev/null 2>&1 || true
+  fi
+}
+
+cmd=${1:-current}
+case "$cmd" in
+  ""|current) current_mode ;;
+  set)
+    val=${2:-}
+    case "$val" in
+      light|dark)
+        mkdir -p "$CONFIG_DIR"
+        printf "%s\n" "$val" > "$OVERRIDE_FILE"
+        ;;
+      auto|"")
+        rm -f "$OVERRIDE_FILE"
+        ;;
+      *) echo "theme-mode set: expected light|dark|auto" >&2; exit 2 ;;
+    esac
+    notify_change
+    current_mode
+    ;;
+  toggle)
+    cur=$(current_mode)
+    if [ "$cur" = dark ]; then next=light; else next=dark; fi
+    mkdir -p "$CONFIG_DIR"
+    printf "%s\n" "$next" > "$OVERRIDE_FILE"
+    notify_change
+    echo "$next"
+    ;;
+  source)
+    if [ -s "$OVERRIDE_FILE" ]; then echo override; else echo system; fi
+    ;;
+  *) echo "theme-mode: unknown command: $cmd" >&2; exit 2 ;;
+esac
