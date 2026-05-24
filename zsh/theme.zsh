@@ -40,13 +40,26 @@ _theme_iterm_apply() {
   fi
 }
 
-# Re-read current mode, emit the iTerm2 preset, reload p10k, retint fzf + bat.
+# Re-read current mode, emit the iTerm2 preset, reload p10k, retint fzf/bat/lazygit.
 _theme_iterm_sync() {
   THEME_MODE=$("$HOME/dotfiles/scripts/theme-mode" 2>/dev/null || echo dark)
   _theme_iterm_apply "$THEME_MODE"
   _theme_fzf_apply
   _theme_bat_apply
+  _theme_lazygit_apply
   _theme_p10k_reload
+}
+
+# lazygit: re-point ~/.config/lazygit/config.yml at the matching catppuccin
+# theme. Running lazygit instances aren't affected (lazygit reads config at
+# launch); next invocation picks it up.
+_theme_lazygit_apply() {
+  local src=~/dotfiles/lazygit/themes
+  local cfg=~/.config/lazygit/config.yml
+  local flavor=mocha
+  [ "$THEME_MODE" = light ] && flavor=latte
+  [ -d ~/.config/lazygit ] || mkdir -p ~/.config/lazygit
+  ln -sf "$src/$flavor.yml" "$cfg" 2>/dev/null || true
 }
 
 # bat: pick the matching Catppuccin theme. Requires the .tmTheme files to be
@@ -114,5 +127,6 @@ THEME_MODE=$("$HOME/dotfiles/scripts/theme-mode" 2>/dev/null || echo dark)
 _theme_iterm_apply "$THEME_MODE"
 _theme_fzf_apply
 _theme_bat_apply
+_theme_lazygit_apply
 
 autoload -Uz add-zsh-hook 2>/dev/null && add-zsh-hook precmd _theme_iterm_precmd

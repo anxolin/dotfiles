@@ -33,20 +33,17 @@ Import both presets so OSC `SetColors=preset=...` can find them by name:
 
 Each new shell applies the right preset for its pane. After `theme toggle`, the active pane updates immediately; idle panes update on their next prompt.
 
-## bat: one-time setup
+## bat
 
-Install the four Catppuccin themes from [catppuccin/bat](https://github.com/catppuccin/bat) into bat's themes dir and rebuild the cache:
+Catppuccin themes are vendored in `bat/themes/` and installed by `install.sh` (symlinks them into `$(bat --config-dir)/themes/` then runs `bat cache --build`). `theme.zsh` exports `BAT_THEME=Catppuccin Latte` (or `Mocha`) based on mode. Used by `bat`, fzf previews, and `MANPAGER`.
 
-```sh
-mkdir -p "$(bat --config-dir)/themes" && cd "$_"
-for n in "Catppuccin Latte" "Catppuccin Frappe" "Catppuccin Macchiato" "Catppuccin Mocha"; do
-  gh api -H "Accept: application/vnd.github.raw" \
-    "/repos/catppuccin/bat/contents/themes/${n// /%20}.tmTheme" > "$n.tmTheme"
-done
-bat cache --build
-```
+Re-run `bash install/install-bat.sh` if you ever blow away `~/.config/bat/`. Pull upstream theme updates with `bash scripts/update-bat-themes.sh` (uses `curl`, no `gh` needed) — review with `git diff bat/themes/` before committing. Source themes: [catppuccin/bat](https://github.com/catppuccin/bat).
 
-`theme.zsh` exports `BAT_THEME=Catppuccin Latte` (or `Mocha`) based on mode. Used by `bat`, `git diff` (via `delta` if configured), and fzf previews (`FZF_CTRL_T_OPTS` runs `bat --color=always …`).
+## lazygit
+
+Catppuccin themes vendored in `lazygit/themes/` (latte/mocha, `mauve` accent to match the rest). `install/install-lazygit.sh` symlinks `~/.config/lazygit/config.yml` at the right one; `theme.zsh` re-points on toggle. Running lazygit instances aren't repainted — close + reopen to see the new theme.
+
+Refresh from upstream with `bash scripts/update-lazygit-themes.sh [accent]` (defaults to `mauve`; accepts `blue`, `lavender`, `peach`, etc.). Source themes: [catppuccin/lazygit](https://github.com/catppuccin/lazygit).
 
 ## Powerlevel10k: one-time light config
 

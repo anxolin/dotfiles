@@ -128,6 +128,9 @@ fi
 # Install Catppuccin themes for bat (symlinks repo → bat config dir)
 bash "$DOT_FILES/install/install-bat.sh"
 
+# Install Catppuccin theme for lazygit (symlinks config.yml to current mode's theme)
+bash "$DOT_FILES/install/install-lazygit.sh"
+
 
 cat << EOF
 
