@@ -78,9 +78,11 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 # FZF: Load bindings
 #   https://github.com/junegunn/fzf
 # fzf options
-export FZF_CTRL_R_OPTS='--height 50% --layout=reverse --border -m --preview="" --color ""'
+# Colors are inherited from FZF_DEFAULT_OPTS (set by ~/dotfiles/zsh/theme.zsh
+# based on current light/dark mode). Don't reset them here.
+export FZF_CTRL_R_OPTS='--height 50% --layout=reverse --border -m --preview=""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS='--height 80% --layout=reverse --border --multi --preview "bat --style=numbers --color=always --line-range :500 {}" --color ""'
+export FZF_CTRL_T_OPTS='--height 80% --layout=reverse --border --multi --preview "bat --style=numbers --color=always --line-range :500 {}"'
 
 # fzf shell integration (key-bindings, completion). fzf is installed via
 # the system package manager (brew/apt/pacman/apk); shell scripts live in

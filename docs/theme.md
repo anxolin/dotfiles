@@ -33,6 +33,21 @@ Import both presets so OSC `SetColors=preset=...` can find them by name:
 
 Each new shell applies the right preset for its pane. After `theme toggle`, the active pane updates immediately; idle panes update on their next prompt.
 
+## bat: one-time setup
+
+Install the four Catppuccin themes from [catppuccin/bat](https://github.com/catppuccin/bat) into bat's themes dir and rebuild the cache:
+
+```sh
+mkdir -p "$(bat --config-dir)/themes" && cd "$_"
+for n in "Catppuccin Latte" "Catppuccin Frappe" "Catppuccin Macchiato" "Catppuccin Mocha"; do
+  gh api -H "Accept: application/vnd.github.raw" \
+    "/repos/catppuccin/bat/contents/themes/${n// /%20}.tmTheme" > "$n.tmTheme"
+done
+bat cache --build
+```
+
+`theme.zsh` exports `BAT_THEME=Catppuccin Latte` (or `Mocha`) based on mode. Used by `bat`, `git diff` (via `delta` if configured), and fzf previews (`FZF_CTRL_T_OPTS` runs `bat --color=always …`).
+
 ## Powerlevel10k: one-time light config
 
 P10k uses hardcoded color indices — switching the iTerm2 palette alone doesn't make the prompt light. Generate a light variant with the wizard:

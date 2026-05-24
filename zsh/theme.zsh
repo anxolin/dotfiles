@@ -40,11 +40,47 @@ _theme_iterm_apply() {
   fi
 }
 
-# Re-read current mode, emit the iTerm2 preset, and reload p10k for the new mode.
+# Re-read current mode, emit the iTerm2 preset, reload p10k, retint fzf + bat.
 _theme_iterm_sync() {
   THEME_MODE=$("$HOME/dotfiles/scripts/theme-mode" 2>/dev/null || echo dark)
   _theme_iterm_apply "$THEME_MODE"
+  _theme_fzf_apply
+  _theme_bat_apply
   _theme_p10k_reload
+}
+
+# bat: pick the matching Catppuccin theme. Requires the .tmTheme files to be
+# installed in `$(bat --config-dir)/themes/` and `bat cache --build` to have
+# been run once. See docs/theme.md.
+_theme_bat_apply() {
+  if [ "$THEME_MODE" = light ]; then
+    export BAT_THEME="Catppuccin Latte"
+  else
+    export BAT_THEME="Catppuccin Mocha"
+  fi
+}
+
+# fzf: layer Catppuccin colors on top of the base FZF_DEFAULT_OPTS captured
+# from common.zsh. Each toggle re-exports the right palette for new pickers.
+# Existing live pickers keep their colors until restarted.
+: ${_THEME_FZF_BASE:=${FZF_DEFAULT_OPTS:-}}
+_theme_fzf_apply() {
+  # Verbatim from https://github.com/catppuccin/fzf (themes/*.sh)
+  local c
+  if [ "$THEME_MODE" = light ]; then
+    c='--color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39'
+    c+=' --color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78'
+    c+=' --color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39'
+    c+=' --color=selected-bg:#BCC0CC'
+    c+=' --color=border:#9CA0B0,label:#4C4F69'
+  else
+    c='--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8'
+    c+=' --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC'
+    c+=' --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8'
+    c+=' --color=selected-bg:#45475A'
+    c+=' --color=border:#6C7086,label:#CDD6F4'
+  fi
+  export FZF_DEFAULT_OPTS="${_THEME_FZF_BASE} ${c}"
 }
 
 # Re-source the right p10k config and ask p10k to reload its prompt in-place.
@@ -72,9 +108,11 @@ _theme_iterm_precmd() {
   fi
 }
 
-# Expose current mode as $THEME_MODE and apply iTerm2 colors at shell start.
+# Expose current mode as $THEME_MODE and apply iTerm2/fzf/bat colors at shell start.
 export THEME_MODE
 THEME_MODE=$("$HOME/dotfiles/scripts/theme-mode" 2>/dev/null || echo dark)
 _theme_iterm_apply "$THEME_MODE"
+_theme_fzf_apply
+_theme_bat_apply
 
 autoload -Uz add-zsh-hook 2>/dev/null && add-zsh-hook precmd _theme_iterm_precmd

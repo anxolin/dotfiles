@@ -125,6 +125,9 @@ else
   printf "[dotfiles] Skip install apps\n"
 fi
 
+# Install Catppuccin themes for bat (symlinks repo → bat config dir)
+bash "$DOT_FILES/install/install-bat.sh"
+
 
 cat << EOF
 
