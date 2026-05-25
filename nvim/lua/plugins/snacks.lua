@@ -47,8 +47,8 @@ return {
                 box = "vertical",
                 border = "rounded",
                 title = "{title} {live} {flags}",
-                { win = "input", height = 1, border = "bottom" },
-                { win = "list", border = "none" },
+                { win = "input", height = 1,     border = "bottom" },
+                { win = "list",  border = "none" },
               },
               { win = "preview", title = "{preview:Preview}", border = "rounded", width = 0.55 },
             },
@@ -68,10 +68,27 @@ return {
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
       words = { enabled = true },
+      zen = {
+        toggles = {
+          dim = true,
+          git_signs = false,
+          mini_diff_signs = false,
+          diagnostics = false,
+          inlay_hints = false,
+        },
+        show = {
+          statusline = false,
+          tabline = false,
+        },
+      },
       styles = {
         notification = {
           -- wo = { wrap = true } -- Wrap notifications
-        }
+        },
+        zen = {
+          backdrop = { transparent = false, blend = 0 },
+          width = 120,
+        },
       }
     },
     keys = {
@@ -180,6 +197,14 @@ return {
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
         callback = function()
+          -- Theme-aware zen backdrop using catppuccin's purpose-built deeper shades.
+          local function set_zen_backdrop()
+            local p = require("catppuccin.palettes").get_palette()
+            local color = vim.o.background == "dark" and p.crust or p.mantle
+            Snacks.config.style("zen", { backdrop = { bg = color, transparent = false, blend = 0 } })
+          end
+          vim.api.nvim_create_autocmd("ColorScheme", { callback = set_zen_backdrop })
+          set_zen_backdrop()
           -- Frecency DB is a shared sqlite file. With multiple nvim instances open,
           -- concurrent writes return SQLITE_BUSY and snacks raises, which was bubbling
           -- up through diffview's BufWinEnter autocmds and crashing :Git staging views.
