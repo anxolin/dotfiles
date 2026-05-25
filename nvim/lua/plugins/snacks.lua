@@ -20,6 +20,40 @@ return {
       },
       picker = {
         enabled = true,
+        formatters = {
+          file = {
+            filename_first = true,
+            truncate = 80,
+          },
+        },
+        previewers = {
+          file = {
+            ft = nil,
+          },
+        },
+        layout = {
+          preset = function()
+            return vim.o.columns >= 120 and "default" or "vertical"
+          end,
+        },
+        layouts = {
+          default = {
+            layout = {
+              box = "horizontal",
+              width = 0.95,
+              min_width = 120,
+              height = 0.95,
+              {
+                box = "vertical",
+                border = "rounded",
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", title = "{preview:Preview}", border = "rounded", width = 0.55 },
+            },
+          },
+        },
         win = {
           input = {
             keys = {
@@ -155,6 +189,44 @@ return {
             local original_set = db.set
             db.set = function(self, key, value)
               pcall(original_set, self, key, value)
+            end
+          end
+
+          -- Show relative file path in preview title (default is just filename)
+          local pv_ok, preview = pcall(require, "snacks.picker.preview")
+          if pv_ok and preview and preview.file then
+            local original_file = preview.file
+            preview.file = function(ctx)
+              if ctx and ctx.item and ctx.item.file and not ctx.item.preview_title then
+                ctx.item.preview_title = vim.fn.fnamemodify(ctx.item.file, ":~:.")
+              end
+              return original_file(ctx)
+            end
+          end
+
+          -- Highlight filename brighter than the path in the preview title
+          vim.api.nvim_set_hl(0, "SnacksPickerPreviewDir", { link = "Comment", default = true })
+          vim.api.nvim_set_hl(0, "SnacksPickerPreviewFile", { link = "Title", default = true })
+          local pk_ok, picker_mod = pcall(require, "snacks.picker.core.picker")
+          if pk_ok and picker_mod and picker_mod.update_titles then
+            local orig_update = picker_mod.update_titles
+            picker_mod.update_titles = function(self)
+              orig_update(self)
+              local pwin = self.layout and self.layout.wins and self.layout.wins.preview
+              local item = self.preview and self.preview.item
+              if not (pwin and pwin.win_valid and pwin:win_valid() and item and item.file) then
+                return
+              end
+              local rel = vim.fn.fnamemodify(item.file, ":~:.")
+              local fname = vim.fn.fnamemodify(rel, ":t")
+              local dir = vim.fn.fnamemodify(rel, ":h")
+              local chunks = { { " ", "FloatTitle" } }
+              if dir ~= "" and dir ~= "." then
+                table.insert(chunks, { dir .. "/", "SnacksPickerPreviewDir" })
+              end
+              table.insert(chunks, { fname, "SnacksPickerPreviewFile" })
+              table.insert(chunks, { " ", "FloatTitle" })
+              pcall(pwin.set_title, pwin, chunks)
             end
           end
 
