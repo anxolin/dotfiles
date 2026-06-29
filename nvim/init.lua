@@ -16,7 +16,7 @@ vim.g.loaded_ruby_provider = 0
 -- **********************************************
 --            Plugins
 -- **********************************************
-require("config.lazy") -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
+require "config.lazy" -- Lazy.nvim (see nvim/custom/lua/config/lazy.lua)
 
 -- **********************************************
 --            Config
@@ -110,8 +110,8 @@ map("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
 -- Open current file with the OS default app (Finder / xdg-open)
 map("n", "<leader>o", function()
-  local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
-  vim.fn.jobstart({ opener, vim.fn.expand("%:p") }, { detach = true })
+  local opener = vim.fn.has "mac" == 1 and "open" or "xdg-open"
+  vim.fn.jobstart({ opener, vim.fn.expand "%:p" }, { detach = true })
 end, { desc = "Open current file with system app" })
 
 -- macOS-style Natural Text Editing in insert mode
@@ -157,23 +157,19 @@ local ac = vim.api.nvim_create_autocmd -- Creates an autocommand event handler, 
 -- Highlight on yank
 aug("YankHighlight", { clear = true })
 ac("TextYankPost", {
-	group = "YankHighlight",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 120 })
-	end,
+  group = "YankHighlight",
+  callback = function() vim.highlight.on_yank { higroup = "IncSearch", timeout = 120 } end,
 })
 
 -- Restore cursor position when reopening a file
 aug("LastPosition", { clear = true })
 ac("BufReadPost", {
-	group = "LastPosition",
-	callback = function()
-		local mark = vim.api.nvim_buf_get_mark(0, '"')
-		local lcount = vim.api.nvim_buf_line_count(0)
-		if mark[1] > 0 and mark[1] <= lcount then
-			pcall(vim.api.nvim_win_set_cursor, 0, mark)
-		end
-	end,
+  group = "LastPosition",
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
+  end,
 })
 
 -- **********************************************
@@ -182,9 +178,9 @@ ac("BufReadPost", {
 
 -- Reload: which Saves the current file and re-runs init.lua file
 vim.api.nvim_create_user_command("Reload", function()
-	vim.cmd("write")
-	dofile(vim.env.MYVIMRC)
-	print("~/.config/nvim/init.lua reloaded")
+  vim.cmd "write"
+  dofile(vim.env.MYVIMRC)
+  print "~/.config/nvim/init.lua reloaded"
 end, {})
 
 -- Show what Neovim sees
@@ -193,27 +189,25 @@ end, {})
 -- WhichKeyStroke: Allows to reveal which command corresponds with a given keystroke
 -- then paste the snippet at top level:
 vim.api.nvim_create_user_command("WhichKeyStroke", function()
-	vim.notify("Press a key...", vim.log.levels.INFO)
-	local ok, key = pcall(vim.fn.getcharstr)
-	if not ok then
-		return
-	end
+  vim.notify("Press a key...", vim.log.levels.INFO)
+  local ok, key = pcall(vim.fn.getcharstr)
+  if not ok then return end
 
-	local special = vim.fn.keytrans(key)
-	vim.notify("You pressed: " .. special, vim.log.levels.INFO)
+  local special = vim.fn.keytrans(key)
+  vim.notify("You pressed: " .. special, vim.log.levels.INFO)
 
-	local maps = vim.keymap.get("n", special)
-	if not maps or #maps == 0 then
-		vim.notify("No mapping found for " .. special, vim.log.levels.WARN)
-		return
-	end
+  local maps = vim.keymap.get("n", special)
+  if not maps or #maps == 0 then
+    vim.notify("No mapping found for " .. special, vim.log.levels.WARN)
+    return
+  end
 
-	for _, map in ipairs(maps) do
-		local rhs = map.rhs or "[builtin]"
-		local desc = map.desc and (" — " .. map.desc) or ""
-		local src = map.buffer and " (buffer-local)" or ""
-		vim.notify(string.format("%s → %s%s%s", map.lhs, rhs, desc, src))
-	end
+  for _, map in ipairs(maps) do
+    local rhs = map.rhs or "[builtin]"
+    local desc = map.desc and (" — " .. map.desc) or ""
+    local src = map.buffer and " (buffer-local)" or ""
+    vim.notify(string.format("%s → %s%s%s", map.lhs, rhs, desc, src))
+  end
 end, { desc = "Press a key and show its mapping" })
 
 -- **********************************************

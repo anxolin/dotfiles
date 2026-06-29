@@ -2,7 +2,6 @@
 ---@diagnostic disable-next-line: undefined-global
 local vim = vim
 
-
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -13,7 +12,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("neo-tree").setup({
+      require("neo-tree").setup {
         window = {
           position = "float",
           mappings = {
@@ -25,7 +24,7 @@ return {
           system_open = function(state)
             local node = state.tree:get_node()
             local path = node:get_id()
-            local opener = vim.fn.has("mac") == 1 and "open" or "xdg-open"
+            local opener = vim.fn.has "mac" == 1 and "open" or "xdg-open"
             vim.fn.jobstart({ opener, path }, { detach = true })
           end,
         },
@@ -48,12 +47,11 @@ return {
           },
         },
         buffers = { follow_current_file = { enable = true } },
-      })
+      }
 
       -- 🗂️ Toggle the file tree with <leader>e and <C-n>
       vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle reveal<cr>", { desc = "Toggle Neo-tree" })
       vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle reveal<cr>", { desc = "Toggle Neo-tree" })
     end,
-  }
-
+  },
 }

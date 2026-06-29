@@ -4,6 +4,6 @@ return {
   { "nvim-tree/nvim-web-devicons", opts = {} },
 
   -- Mini icons: https://github.com/nvim-mini/mini.icons
-  { 'nvim-mini/mini.nvim', version = '*' },
-
+  { "nvim-mini/mini.nvim", version = "*" },
 }
+
