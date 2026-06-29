@@ -25,6 +25,18 @@ return {
       --------------------------------------------------------------------------
       require("mason").setup()
 
+      -- Auto-install non-LSP tools (formatters, linters) via mason-registry
+      local mr = require("mason-registry")
+      local function ensure_tools(tools)
+        mr.refresh(function()
+          for _, name in ipairs(tools) do
+            local ok, pkg = pcall(mr.get_package, name)
+            if ok and not pkg:is_installed() then pkg:install() end
+          end
+        end)
+      end
+      ensure_tools({ "stylua" })
+
       --------------------------------------------------------------------------
       -- nvim-cmp
       --------------------------------------------------------------------------
@@ -110,6 +122,18 @@ return {
       --------------------------------------------------------------------------
       local lspconfig = require("lspconfig")
 
+      -- Extend the built-in lua_ls config (lsp/lua_ls.lua) with our globals
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim", "Snacks" } },
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+          },
+        },
+      })
+
       local ensure_installed = {
         "lua_ls",        -- Lua Language Server
         "gopls",         -- Go Language Server
@@ -135,19 +159,6 @@ return {
             lspconfig[server].setup({ capabilities = capabilities })
           end,
 
-          -- per-server tweaks
-          ["lua_ls"] = function()
-            lspconfig.lua_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                Lua = {
-                  diagnostics = { globals = { "vim" } },
-                  workspace = { checkThirdParty = false },
-                  telemetry = { enable = false },
-                },
-              },
-            })
-          end,
         },
       })
 
