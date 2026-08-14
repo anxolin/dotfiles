@@ -70,14 +70,15 @@ auto-included by `git/gitconfig` and not tracked.
 
 ## iTerm2 (macOS)
 
-Import `terminals/osx-iterm2/Default-profile.json` in iTerm2 (`Preferences > Profiles > Other Actions > Import`).
+Three one-time steps; the imported files live in `terminals/osx-iterm2/`:
 
-Recommended settings:
+1. **Profile** — `Settings → Profiles → Other Actions → Import JSON Profiles…` → `Default-profile.json`.
+   Carries the font (JetBrains Mono Nerd Font Mono 12), catppuccin colors and `xterm-256color`.
+2. **Color presets** — `Settings → Profiles → Colors → Color Presets… → Import…` → `presets/catppuccin-latte.itermcolors` **and** `catppuccin-mocha.itermcolors`.
+   Both are required for `theme` to repaint iTerm2 — see [docs/theme.md](docs/theme.md).
+3. **Natural text editing** — `Settings → Profiles → Keys → Key Mappings → Presets… → Natural Text Editing`.
 
-- Color preset: Catppuccin Mocha (matches the tmux and nvim themes).
-- Terminal type: `xterm-256color`.
-- Font: JetBrains Mono Nerd Font.
-- Vertical character spacing: 120%.
+The font needs no manual download: `install.sh` installs it via Homebrew ([docs/fonts.md](docs/fonts.md)).
 
 <p align="center">
   <img src="./docs/images/iterm2-fonts.png" width="700" />

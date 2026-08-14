@@ -26,10 +26,21 @@ theme toggle     # flip
 
 ## iTerm2: one-time setup
 
-Import both presets so OSC `SetColors=preset=...` can find them by name:
+`theme.zsh` repaints iTerm2 with OSC 1337 `SetColors=preset=catppuccin-mocha`
+(or `-latte`). iTerm2 resolves the preset **by name**, so import both once or the
+escape is silently ignored:
 
-1. iTerm2 → **Settings → Profiles → Colors → Color Presets… → Import…**
-2. Pick `terminals/osx-iterm2/presets/catppuccin-latte.itermcolors` and `catppuccin-mocha.itermcolors`.
+**Settings → Profiles → Colors → Color Presets… → Import…**, then pick
+`terminals/osx-iterm2/presets/catppuccin-latte.itermcolors` and
+`catppuccin-mocha.itermcolors`.
+
+Verify:
+
+```sh
+defaults read com.googlecode.iterm2 "Custom Color Presets" | grep catppuccin
+```
+
+(`frappe` and `macchiato` are vendored too, but unused by the toggle.)
 
 Each new shell applies the right preset for its pane. After `theme toggle`, the active pane updates immediately; idle panes update on their next prompt.
 

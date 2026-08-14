@@ -12,18 +12,24 @@ alignment in tables and status bars).
 
 ## Install
 
-Automated via `install/install-fonts.sh` (invoked by `install.sh`):
+macOS does **not** ship Nerd Fonts, but `install/install-fonts.sh` installs it for you:
 
-- **macOS**: Homebrew cask `font-jetbrains-mono-nerd-font`
+- **macOS**: Homebrew cask `font-jetbrains-mono-nerd-font`. The `.ttf` files land in
+  `~/Library/Fonts/` (the Caskroom keeps symlinks back to them); update with
+  `brew upgrade --cask`.
 - **Linux**: Latest release from
   [ryanoasis/nerd-fonts](https://github.com/ryanoasis/nerd-fonts/releases/latest),
   unzipped into `~/.local/share/fonts/JetBrainsMono/` and registered with
   `fc-cache`.
 
-Manual run:
+Re-runs are safe: the script skips if the cask is already installed, or if the
+`.ttf` files are already present from an earlier manual install.
+
+Check what you have:
 
 ```bash
-bash ~/dotfiles/install/install-fonts.sh
+brew list --cask --versions font-jetbrains-mono-nerd-font 
+ls ~/Library/Fonts | grep JetBrains
 ```
 
 ## Using it in your terminal
