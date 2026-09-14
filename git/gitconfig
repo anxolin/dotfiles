@@ -1,5 +1,6 @@
 [core]
   excludesFile = ~/dotfiles/git/gitignore_global
+	sshCommand = /usr/bin/ssh
 
 [user]
   email = 2352112+anxolin@users.noreply.github.com
@@ -39,9 +40,15 @@
 [credential]
   helper = cache --timeout=86400
 
-# Machine-local overrides (work email, GPG key, etc.) live here. Not tracked.
 [include]
   path = ~/.gitconfiglocal
+
+[includeIf "hasconfig:remote.*.url:git@github.com:cowprotocol/**"]
+  path = ~/.gitconfig-cow
+[includeIf "hasconfig:remote.*.url:ssh://git@github.com/cowprotocol/**"]
+  path = ~/.gitconfig-cow
+[includeIf "hasconfig:remote.*.url:https://github.com/cowprotocol/**"]
+  path = ~/.gitconfig-cow
 
 [merge]
   tool = vscode
@@ -73,3 +80,9 @@
 # [mergetool "sourcetree"]
 #   cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 #   trustExitCode = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
