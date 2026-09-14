@@ -98,3 +98,14 @@ export NVM_DIR="$HOME/.nvm"
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/p10k-light.zsh.
 [[ ! -f ~/dotfiles/zsh/p10k-light.zsh ]] || source ~/dotfiles/zsh/p10k-light.zsh
+
+# Load ssh keys from the macOS keychain into our own agent: launchd's socket lives in
+# /private/tmp, which macOS periodically cleans, breaking ssh until the next login.
+if [[ $OSTYPE == darwin* ]]; then
+  export SSH_AUTH_SOCK=~/.ssh/agent.sock
+  ssh-add -l >/dev/null 2>&1 || {
+    rm -f $SSH_AUTH_SOCK
+    ssh-agent -a $SSH_AUTH_SOCK >/dev/null
+    /usr/bin/ssh-add --apple-load-keychain -q 2>/dev/null
+  }
+fi
