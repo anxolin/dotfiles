@@ -11,7 +11,7 @@ See [`docs/gpg.md`](gpg.md) for GPG setup (required — `pass` is a thin wrapper
 ├── .gpg-id               # Fingerprint of the key that can decrypt the store
 ├── .git/                 # Git repository
 ├── email/
-│   └── gmail.gpg         # one encrypted file per entry
+│   └── my-gmail.gpg      # one encrypted file per entry
 └── wifi/
     └── home.gpg
 ```
@@ -35,6 +35,56 @@ pass init <KEY_ID>
 # Optional: turn it into a git repo (auto-commits on every insert/edit/rm/mv)
 pass git init
 ```
+
+## Basics
+```bash
+# Add a password
+pass insert email/my-gmail
+
+# Print any password
+#   --qrcode      # Displays a QR
+#   --clip        # Copy to clipboard
+pass show email/my-gmail
+
+# Generate a randome pasword
+#   --qrcode      # Displays a QR
+#   --in-place    # Displays in plain text
+#   --clip        # Copy to clipboard
+#   --no-symbols  # Don't use symbols for password
+pass generate email/my-gmail
+
+# Generate a only letters 32-long password
+pass generate test/secret-word 32 --no-symbols
+
+# Edit a password
+pass edit email/my-email
+
+# Search by name
+pass find home
+
+# Grep (search on the password content)
+pass grep my-content
+
+```
+
+
+## Pass and GPG
+Pass encrypts/decrypts the passwords using the fingerprint(s) defined in: `.gpg-id` 
+
+```bash
+# Print the finderprint used 
+cat ~/.password-store/.gpg-id
+
+# Write it by using the init command`
+pass init <fingerprint | email>
+
+# List keys
+gpg -K
+
+# Any moment in the future, you can replace or add additional GPG fingerprints
+pass init FINGERPRINT_1 FINGERPRINT_2
+```
+
 
 ## Daily commands
 
@@ -60,6 +110,10 @@ pass grep "example.com"          # search entry contents (decrypts each)
 pass edit email/gmail            # open in $EDITOR, re-encrypts on save
 pass mv email/gmail email/personal/gmail
 pass rm email/gmail
+
+# Show git  histoty
+pass git log --oneline
+
 ```
 
 ## Git sync
