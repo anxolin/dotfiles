@@ -1,6 +1,7 @@
 [core]
   excludesFile = ~/dotfiles/git/gitignore_global
 	sshCommand = /usr/bin/ssh
+	quotepath = false
 
 [user]
   email = 2352112+anxolin@users.noreply.github.com

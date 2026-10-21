@@ -254,4 +254,13 @@
   "debug.internalConsoleOptions": "neverOpen",
   "task.problemMatchers.neverPrompt": true,
   "task.showDecorations": false,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml",
+  ],
+  "claudeCode.hideOnboarding": true,
 }

@@ -15,6 +15,13 @@ command -v zsh >/dev/null 2>&1 || {
 }
 
 # --- Oh My Zsh ----------------------------------------------------------------
+# Hosts set up with the old layout have ~/.oh-my-zsh -> ~/dotfiles/oh-my-zsh, now dangling.
+# [ -d ] is false for it, and the OMZ installer then fails with "File exists"
+if [ -L "$OMZ_DIR" ] && [ ! -e "$OMZ_DIR" ]; then
+  echo "[install-zsh] Removing dangling $OMZ_DIR -> $(readlink "$OMZ_DIR")"
+  rm "$OMZ_DIR"
+fi
+
 if [ -d "$OMZ_DIR" ]; then
   echo "[install-zsh] OMZ already present at $OMZ_DIR"
 else
