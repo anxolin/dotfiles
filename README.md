@@ -42,8 +42,30 @@ Flags:
 
 ## Customization
 
-- **Machine-local zsh config** — drop scripts into `~/.zsh/` (`alias.zsh`, `config.zsh`, `dev.zsh`, `path.zsh`); `install.sh` creates these as empty files. They are sourced by `zsh/zshrc`.
-- **Machine-local git config** — put work email / GPG key / signing config in `~/.gitconfiglocal`. It is auto-included by `git/gitconfig` and not tracked.
+### Machine-local zsh config
+
+`zsh/zshrc` sources every `~/.zsh/*.zsh` in alphabetical order, so a file that
+builds `PATH` has to sort before whatever uses it. `install.sh` creates
+`alias.zsh`, `config.zsh`, `dev.zsh` and `path.zsh` as empty files.
+
+An entry can be a real file, or a symlink into a separate repo — one repo per
+layer, so each machine runs only the layers it links in:
+
+```sh
+git clone git@example.com:me/dotfiles-extra.git ~/dotfiles-extra
+for f in ~/dotfiles-extra/*.zsh; do ln -sf "$f" ~/.zsh/$(basename "$f"); done
+```
+
+Keep `~/.zsh` itself a plain directory rather than a repo, or only one layer can
+fill it.
+
+Secrets don't belong here — read them from [`pass`](docs/pass.md) at the point
+of use.
+
+### Machine-local git config
+
+Put work email / GPG key / signing config in `~/.gitconfiglocal`. It is
+auto-included by `git/gitconfig` and not tracked.
 
 ## iTerm2 (macOS)
 
