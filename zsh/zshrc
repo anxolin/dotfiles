@@ -51,6 +51,13 @@ export UPDATE_ZSH_DAYS=30
 ##########################
 source $ZSH_BASE/plugins.zsh
 
+##########################
+#  COMPLETIONS           #
+##########################
+# fpath only: must be set before Oh My Zsh runs compinit.
+source $ZSH_BASE/completions.zsh
+zsh-completions-init
+
 ##############################################################
 #  Configure OH MY ZSH and SOME DEFAULTS if not available    #
 ##############################################################
@@ -97,6 +104,9 @@ if [[ -a ~/.zsh ]]; then
 fi
 
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+# Regenerate stale completions now that every tool is on PATH.
+zsh-completions-refresh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
