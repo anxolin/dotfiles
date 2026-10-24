@@ -49,10 +49,14 @@ if command -v eza >/dev/null 2>&1; then
 fi
 if command -v bat >/dev/null 2>&1; then
   alias cat="bat --paging=never --style=plain"
+  # Guarded: an unconditional MANPAGER leaves `man` printing nothing on a box
+  # without bat. Colours follow $BAT_THEME from theme.zsh.
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 elif command -v batcat >/dev/null 2>&1; then
   # Debian/Ubuntu ship bat as `batcat` due to a name conflict with an older tool
   alias cat="batcat --paging=never --style=plain"
   alias bat="batcat"
+  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 fi
 # Debian/Ubuntu ship fd as `fdfind` due to a name conflict
 if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
