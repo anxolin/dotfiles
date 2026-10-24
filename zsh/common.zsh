@@ -85,6 +85,28 @@ if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
 fi
 
 
+###############################################################################
+#  Locale                                                                     #
+###############################################################################
+# Guarded: exporting LC_ALL for a locale the system has not generated makes
+# perl and friends warn on every invocation (common on minimal Linux images).
+if locale -a 2>/dev/null | grep -qix 'en_US.utf-\?8'; then
+  export LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+fi
+
+###############################################################################
+#  bash-scripts                                                               #
+###############################################################################
+# Sourced helpers (rpc, ...) plus its bin on PATH. Guarded so a machine without
+# the repo checked out still starts a clean shell.
+export BASH_SCRIPTS_DIR="${BASH_SCRIPTS_DIR:-$HOME/code/personal/bash-scripts}"
+if [[ -d "$BASH_SCRIPTS_DIR" ]]; then
+  for _bs in "$BASH_SCRIPTS_DIR"/sourced/*(.N); do source "$_bs"; done
+  unset _bs
+  export PATH="$BASH_SCRIPTS_DIR/bin:$PATH"
+fi
+
 #######################################################
 #  Setup FZF (should be applief after the plugins)    #
 #######################################################
