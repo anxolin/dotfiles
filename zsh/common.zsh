@@ -33,8 +33,7 @@ bindkey '^Z' fancy-ctrl-z
 #  SOME ALIASES      #
 ######################
 # General aliases
-# Machine specific aliases are in:
-#    ~/.zsh-local/alias.zsh
+# Machine specific config is in ~/.zsh/*.zsh, sourced by zshrc.
 alias aws-list='aws ec2 describe-instances --query "Reservations[*].Instances[*].{name: Tags[?Key==''Name''] | [0].Value, dns: PublicDnsName, instance_id: InstanceId, ip_address: PrivateIpAddress, state: State.Name, type: InstanceType,  launched
 : LaunchTime, placement: Placement.AvailabilityZone }" --output table'
 
