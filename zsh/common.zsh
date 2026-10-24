@@ -58,6 +58,27 @@ elif command -v batcat >/dev/null 2>&1; then
   alias bat="batcat"
   export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 fi
+###############################################################################
+#  pass: one alias per store                                                  #
+###############################################################################
+# Stores are ~/.password-store (aliased pass-personal) and ~/.password-store-<n>
+# (aliased pass-<n>). Discovered at runtime, so a new store needs no config —
+# and a machine without a given store simply does not get that alias.
+#
+# Plain `pass` follows $PASSWORD_STORE_DIR, which pass itself defaults to
+# ~/.password-store. Pick the default per machine in a local ~/.zsh file, e.g.
+#   export PASSWORD_STORE_DIR="$HOME/.password-store-cow"
+if command -v pass >/dev/null 2>&1; then
+  for _ps in "$HOME"/.password-store "$HOME"/.password-store-*(N); do
+    [[ -d "$_ps" ]] || continue
+    _sfx="${_ps##*/.password-store}"
+    _pa="pass-${${_sfx#-}:-personal}"
+    alias "$_pa"="PASSWORD_STORE_DIR='$_ps' pass"
+    (( $+functions[compdef] )) && compdef "$_pa"=pass
+  done
+  unset _ps _sfx _pa
+fi
+
 # Debian/Ubuntu ship fd as `fdfind` due to a name conflict
 if ! command -v fd >/dev/null 2>&1 && command -v fdfind >/dev/null 2>&1; then
   alias fd="fdfind"
