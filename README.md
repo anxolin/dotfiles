@@ -12,9 +12,10 @@ Personal dev environment config: `zsh`, `tmux`, `nvim` (primary editor), minimal
 - **fonts** — JetBrains Mono Nerd Font. See [docs/fonts.md](docs/fonts.md).
 - **vscode** — `vscode/settings.json`, `vscode/keybindings.json` symlinked into VS Code's user dir on macOS. See [docs/vscode.md](docs/vscode.md).
 - **fzf** — usage notes in [docs/fzf.md](docs/fzf.md).
+- **glow** — markdown renderer. Config in `glow/glow.yml`, symlinked into glow's platform config dir by `install/install-glow.sh`. Catppuccin themes in `glow/themes/`.
 - **pass / gpg** — Unix password manager wiring. See [docs/pass.md](docs/pass.md) and [docs/gpg.md](docs/gpg.md).
 - **terminals/osx-iterm2** — iTerm profile preset + catppuccin light/dark presets.
-- **theme** — one command (`theme light|dark|auto|toggle`) flips nvim, tmux, iTerm2 and VS Code together. See [docs/theme.md](docs/theme.md).
+- **theme** — one command (`theme light|dark|auto|toggle`) flips nvim, tmux, iTerm2, VS Code and glow together. See [docs/theme.md](docs/theme.md).
 
 ## Install
 
@@ -31,7 +32,7 @@ git clone https://github.com/anxolin/dotfiles.git
 3. On macOS: also links `vscode/settings.json` and `vscode/keybindings.json` into `~/Library/Application Support/Code/User`.
 4. Installs Oh My Zsh + Powerlevel10k + plugins into `~/.oh-my-zsh`.
 5. Installs the tmux plugin manager (TPM).
-6. Installs apps via brew (macOS) or apt/pacman/apk (Linux): zsh, ripgrep, fd, fzf, bat, tldr, lnav, gh, uv, ruff, pass/gnupg, etc.
+6. Installs apps via brew (macOS) or apt/pacman/apk (Linux): zsh, ripgrep, fd, fzf, bat, glow, tldr, lnav, gh, uv, ruff, pass/gnupg, etc.
 7. Installs JetBrains Mono Nerd Font.
 8. Sets up nvim and vim (with vim-plug + plugin install).
 

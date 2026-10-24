@@ -28,7 +28,8 @@ nvim_dependencies=( neovim luarocks imagemagick ghostscript tectonic )
 #   - uv: modern Python toolchain (replaces pyenv+pip+virtualenv+pipx)
 #   - ruff: fast Python linter/formatter (replaces black+flake8+isort)
 #   - fzf: fuzzy finder + shell integration
-dev_dependencies=( zsh ripgrep fd cmake bat tldr lnav solidity uv ruff fzf )
+#   - glow: markdown renderer for the terminal. See docs/glow.md
+dev_dependencies=( zsh ripgrep fd cmake bat tldr lnav solidity uv ruff fzf glow )
 
 # Secrets:
 #   - pass: Unix password manager (GPG-encrypted file per entry). See docs/pass.md

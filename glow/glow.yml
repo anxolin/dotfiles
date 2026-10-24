@@ -1,0 +1,12 @@
+# glow: markdown renderer. See docs/glow.md
+# style name, or path to a glamour JSON. The glow() wrapper in zsh/theme.zsh
+# overrides this with the Catppuccin flavor matching THEME_MODE.
+style: "auto"
+# mouse support (TUI-mode only)
+mouse: false
+# page long output instead of dumping it
+pager: true
+# word-wrap width
+width: 120
+# show hidden and ignored files in the file picker
+all: false

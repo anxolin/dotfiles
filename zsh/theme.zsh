@@ -73,6 +73,14 @@ _theme_bat_apply() {
   fi
 }
 
+# glow: glow 3.0 ignores GLAMOUR_STYLE, so the flavor has to be passed as -s.
+# Reading THEME_MODE at call time means no re-apply is needed on toggle.
+glow() {
+  local flavor=mocha
+  [ "$THEME_MODE" = light ] && flavor=latte
+  command glow -s "$HOME/dotfiles/glow/themes/catppuccin-$flavor.json" "$@"
+}
+
 # fzf: layer Catppuccin colors on top of the base FZF_DEFAULT_OPTS captured
 # from common.zsh. Each toggle re-exports the right palette for new pickers.
 # Existing live pickers keep their colors until restarted.

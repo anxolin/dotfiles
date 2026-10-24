@@ -65,11 +65,11 @@ if [[ -f /etc/arch-release ]]; then
     #sudo pacman -S --noconfirm zsh neovim ripgrep ripgrep the_silver_searcher xclip cmake bc bat unzip
     # yay: AUR helper (ships in the extra repo since Jan 2024)
     sudo pacman -S --noconfirm --needed \
-        zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff yay tldr lnav pass gnupg pinentry
+        zsh neovim ripgrep fd fzf xclip xdg-utils cmake bc bat unzip github-cli uv ruff yay tldr lnav pass gnupg pinentry glow
 fi
 
 # Alpine linux
 if [[ -f /etc/alpine-release ]]; then
     printf "[install-apps-Linux] alpine: Install basic apps\n"
-    sudo apk add --no-cache zsh neovim ripgrep fd fzf xclip xdg-utils cmake bat github-cli uv ruff tldr lnav pass gnupg pinentry
+    sudo apk add --no-cache zsh neovim ripgrep fd fzf xclip xdg-utils cmake bat github-cli uv ruff tldr lnav pass gnupg pinentry glow
 fi
