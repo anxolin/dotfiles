@@ -58,6 +58,17 @@ zsh-completions-refresh() {
     autoload -U compinit && compinit -i -d $dump
   fi
 
+  # Drop caches for tools that are no longer installed. Deliberately before the
+  # compdef guard below: deleting a stale file does not need compdef, and
+  # otherwise the cache would never be pruned in a shell without it.
+  local _tool
+  for out in $ZSH_COMPLETIONS_CACHE/_*(N); do
+    # Via a variable: a nested expansion inside an arithmetic subscript
+    # ( $+commands[${${out:t}#_}] ) does not evaluate.
+    _tool=${${out:t}#_}
+    (( $+commands[$_tool] )) || rm -f $out
+  done
+
   # Claim the commands back: carapace's bridge (sourced earlier) binds every
   # command it recognises to _carapace_completer, which only reaches the same
   # completion through a subprocess. These run last, so they win.
