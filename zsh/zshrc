@@ -10,6 +10,11 @@ fi
 ##########################
 
 # dotfiles zsh dir (holds user-written modules like common.zsh, plugins.zsh, theme_p10k.zsh)
+# Keep PATH unique. zsh ties $path to $PATH, so this dedupes both, now and
+# for every later append — login files and /etc/zprofile's path_helper
+# otherwise leave the same dirs on PATH several times over.
+typeset -U path PATH
+
 export ZSH_BASE=~/dotfiles/zsh
 
 # Oh My Zsh lives at its canonical location now (was vendored in dotfiles as a submodule).
