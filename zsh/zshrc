@@ -118,9 +118,11 @@ export NVM_DIR="$HOME/.nvm"
 # /private/tmp, which macOS periodically cleans, breaking ssh until the next login.
 if [[ $OSTYPE == darwin* ]]; then
   export SSH_AUTH_SOCK=~/.ssh/agent.sock
-  ssh-add -l >/dev/null 2>&1 || {
-    rm -f $SSH_AUTH_SOCK
-    ssh-agent -a $SSH_AUTH_SOCK >/dev/null
-    /usr/bin/ssh-add --apple-load-keychain -q 2>/dev/null
-  }
+  # ssh-add -l: 1 = agent up but empty, 2 = no agent. Only restart on 2.
+  ssh-add -l >/dev/null 2>&1
+  case $? in
+    2) rm -f $SSH_AUTH_SOCK
+       ssh-agent -a $SSH_AUTH_SOCK >/dev/null ;&
+    1) /usr/bin/ssh-add --apple-load-keychain -q 2>/dev/null ;;
+  esac
 fi
