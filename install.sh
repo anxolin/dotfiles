@@ -129,6 +129,9 @@ fi
 bash "$DOT_FILES/install/install-bat.sh"
 bash "$DOT_FILES/install/install-glow.sh"
 
+# Symlink shared Obsidian settings (hotkeys) into every registered vault
+bash "$DOT_FILES/install/install-obsidian.sh"
+
 # Install Catppuccin theme for lazygit (symlinks config.yml to current mode's theme)
 bash "$DOT_FILES/install/install-lazygit.sh"
 

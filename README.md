@@ -13,6 +13,7 @@ Personal dev environment config: `zsh`, `tmux`, `nvim` (primary editor), minimal
 - **vscode** — `vscode/settings.json`, `vscode/keybindings.json` symlinked into VS Code's user dir on macOS. See [docs/vscode.md](docs/vscode.md).
 - **fzf** — usage notes in [docs/fzf.md](docs/fzf.md).
 - **glow** — markdown renderer. Config in `glow/glow.yml`, symlinked into glow's platform config dir by `install/install-glow.sh`. Catppuccin themes in `glow/themes/`.
+- **obsidian** — shared `obsidian/hotkeys.json` (VS Code style: `⌘P` open note, `⌘⇧P` command palette), symlinked into every vault in Obsidian's registry by `install/install-obsidian.sh`. Re-run it after creating a vault.
 - **pass / gpg** — Unix password manager wiring. See [docs/pass.md](docs/pass.md) and [docs/gpg.md](docs/gpg.md).
 - **terminals/osx-iterm2** — iTerm profile preset + catppuccin light/dark presets.
 - **theme** — one command (`theme light|dark|auto|toggle`) flips nvim, tmux, iTerm2, VS Code and glow together. See [docs/theme.md](docs/theme.md).
