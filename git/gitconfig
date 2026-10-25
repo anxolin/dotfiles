@@ -42,7 +42,7 @@
   helper = cache --timeout=86400
 
 [include]
-  path = ~/.gitconfiglocal
+  path = ~/.gitconfig.local
 
 [includeIf "hasconfig:remote.*.url:git@github.com:cowprotocol/**"]
   path = ~/.gitconfig-cow

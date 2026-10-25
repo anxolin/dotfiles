@@ -30,7 +30,13 @@ while read FILE; do
   rm -rf "$HOME/$TARGET"
 
   # All entries are simple symlinks. Machine-local overrides for git live in
-  # ~/.gitconfiglocal (loaded via the [include] in git/gitconfig).
+  # ~/.gitconfig.local (loaded via the [include] in git/gitconfig).
   printf "[dotfiles-wipe-and-install] Creating symlink %s -> %s\n" "$TARGET" "$DOT_FILES/$FILE"
   ln -s "$DOT_FILES/$FILE" "$HOME/$TARGET"
 done < dotfiles.list
+
+# Machine-local git config: bootstrap from the example, never overwrite.
+if [ ! -e ~/.gitconfig.local ]; then
+  echo "[dotfiles-wipe-and-install] Creating ~/.gitconfig.local from example"
+  cp "$DOT_FILES/git/gitconfig.local.example" ~/.gitconfig.local
+fi

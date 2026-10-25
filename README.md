@@ -8,7 +8,7 @@ Personal dev environment config: `zsh`, `tmux`, `nvim` (primary editor), minimal
 - **tmux** — minimal config with TPM. See [docs/tmux.md](docs/tmux.md).
 - **nvim** — primary editor. lazy.nvim, Mason, Snacks, conform, treesitter. See [docs/nvim.md](docs/nvim.md).
 - **vim** — fallback editor. vim-plug, CoC (or ALE without Node), fzf, fugitive, lazygit via floaterm. See [docs/vim.md](docs/vim.md).
-- **git** — `git/gitconfig` (symlinked to `~/.gitconfig`) and `git/gitignore_global`. Machine-local overrides via `~/.gitconfiglocal` (auto-included if present).
+- **git** — `git/gitconfig` (symlinked to `~/.gitconfig`) and `git/gitignore_global`. Machine-local overrides via `~/.gitconfig.local` (auto-included if present).
 - **fonts** — JetBrains Mono Nerd Font. See [docs/fonts.md](docs/fonts.md).
 - **vscode** — `vscode/settings.json`, `vscode/keybindings.json` symlinked into VS Code's user dir on macOS. See [docs/vscode.md](docs/vscode.md).
 - **fzf** — usage notes in [docs/fzf.md](docs/fzf.md).
@@ -65,8 +65,10 @@ of use.
 
 ### Machine-local git config
 
-Put work email / GPG key / signing config in `~/.gitconfiglocal`. It is
-auto-included by `git/gitconfig` and not tracked.
+Put signing keys and other per-machine settings in `~/.gitconfig.local`, and
+the work email in `~/.gitconfig-cow` (applied to `cowprotocol` repos). Both are
+auto-included by `git/gitconfig` and not tracked. The installer creates
+`~/.gitconfig.local` from `git/gitconfig.local.example` if it doesn't exist.
 
 ## iTerm2 (macOS)
 

@@ -1,0 +1,18 @@
+# Machine-specific git config, not tracked. The installer copies this to
+# ~/.gitconfig.local if it is missing; uncomment what this machine needs.
+
+# Sign commits and tags with an SSH key
+# [user]
+# 	signingkey = ~/.ssh/<key>.pub
+# [gpg]
+# 	format = ssh
+# [commit]
+# 	gpgSign = true
+# [tag]
+# 	gpgSign = true
+
+# macOS + hardware key (sk-*): Apple's ssh lacks FIDO support, use Homebrew's
+# [core]
+# 	sshCommand = /opt/homebrew/bin/ssh
+# [gpg "ssh"]
+# 	program = /opt/homebrew/bin/ssh-keygen
