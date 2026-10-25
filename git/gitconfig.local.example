@@ -16,3 +16,10 @@
 # 	sshCommand = /opt/homebrew/bin/ssh
 # [gpg "ssh"]
 # 	program = /opt/homebrew/bin/ssh-keygen
+
+# Different identity for an org's repos. hasconfig matches the remote URL
+# literally, so add one block per URL form you clone with.
+# [includeIf "hasconfig:remote.*.url:git@github.com:<org>/**"]
+# 	path = ~/.gitconfig-<org>
+# [includeIf "hasconfig:remote.*.url:https://github.com/<org>/**"]
+# 	path = ~/.gitconfig-<org>

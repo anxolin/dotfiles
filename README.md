@@ -65,9 +65,9 @@ of use.
 
 ### Machine-local git config
 
-Put signing keys and other per-machine settings in `~/.gitconfig.local`, and
-the work email in `~/.gitconfig-cow` (applied to `cowprotocol` repos). Both are
-auto-included by `git/gitconfig` and not tracked. The installer creates
+Put signing keys, per-org identities (`includeIf`) and other per-machine
+settings in `~/.gitconfig.local`. It is auto-included by `git/gitconfig` and
+not tracked. The installer creates
 `~/.gitconfig.local` from `git/gitconfig.local.example` if it doesn't exist.
 
 ## iTerm2 (macOS)

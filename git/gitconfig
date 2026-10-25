@@ -44,13 +44,6 @@
 [include]
   path = ~/.gitconfig.local
 
-[includeIf "hasconfig:remote.*.url:git@github.com:cowprotocol/**"]
-  path = ~/.gitconfig-cow
-[includeIf "hasconfig:remote.*.url:ssh://git@github.com/cowprotocol/**"]
-  path = ~/.gitconfig-cow
-[includeIf "hasconfig:remote.*.url:https://github.com/cowprotocol/**"]
-  path = ~/.gitconfig-cow
-
 [merge]
   tool = vscode
 [mergetool "vscode"]
@@ -74,13 +67,6 @@
   difftastic = difftool -t difftastic
   diffvs = difftool -t vscode
 
-# Sourcetree no longer used — kept commented out for reference.
-# [difftool "sourcetree"]
-#   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-#   path =
-# [mergetool "sourcetree"]
-#   cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-#   trustExitCode = true
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
