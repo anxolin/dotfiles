@@ -72,13 +72,14 @@ not tracked. The installer creates
 
 ## iTerm2 (macOS)
 
-Three one-time steps; the imported files live in `terminals/osx-iterm2/`:
+Two one-time steps; the imported files live in `terminals/osx-iterm2/`:
 
 1. **Profile** — `Settings → Profiles → Other Actions → Import JSON Profiles…` → `Default-profile.json`.
-   Carries the font (JetBrains Mono Nerd Font Mono 12), catppuccin colors and `xterm-256color`.
+   Carries the font (JetBrains Mono Nerd Font Mono 12), catppuccin colors, `xterm-256color`,
+   the Natural Text Editing keys (Option/Cmd + arrows and Backspace), Left Option as Esc+
+   (Option+Enter inserts a newline in Claude Code) and Shift+Enter → newline (sends Ctrl+J, works through tmux).
 2. **Color presets** — `Settings → Profiles → Colors → Color Presets… → Import…` → `presets/catppuccin-latte.itermcolors` **and** `catppuccin-mocha.itermcolors`.
    Both are required for `theme` to repaint iTerm2 — see [docs/theme.md](docs/theme.md).
-3. **Natural text editing** — `Settings → Profiles → Keys → Key Mappings → Presets… → Natural Text Editing`.
 
 The font needs no manual download: `install.sh` installs it via Homebrew ([docs/fonts.md](docs/fonts.md)).
 
