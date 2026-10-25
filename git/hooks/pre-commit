@@ -9,7 +9,12 @@
 # Bypass for a single commit when you are sure:  git commit --no-verify
 set -uo pipefail
 
-if command -v gitleaks >/dev/null 2>&1; then
+if ! command -v gitleaks >/dev/null 2>&1; then
+  # Say so rather than passing quietly: a silent skip on a fresh machine looks
+  # exactly like a clean scan, which is the worst possible failure mode here.
+  printf '\n  \033[33m!\033[0m gitleaks not installed — committing WITHOUT a secret scan.\n' >&2
+  printf '    brew install gitleaks   (or: bash ~/dotfiles/install/install-apps_Mac.sh)\n\n' >&2
+else
   # --staged scans what is about to be committed, not the whole history.
   if ! gitleaks git --staged --no-banner --redact --verbose . 2>&1; then
     cat >&2 <<'MSG'

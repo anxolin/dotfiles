@@ -35,7 +35,9 @@ dev_dependencies=( zsh ripgrep fd cmake bat tldr lnav solidity uv ruff fzf glow 
 #   - pass: Unix password manager (GPG-encrypted file per entry). See docs/pass.md
 #   - gnupg: GPG (pass backend; also signing/email)
 #   - pinentry-mac: native macOS passphrase dialog for gpg-agent (with optional Keychain)
-secrets_dependencies=( pass gnupg pinentry-mac )
+#   - gitleaks: secret scanner. git/hooks/pre-commit refuses to commit without it,
+#     so this is a hard dependency of the global hook, not a nice-to-have.
+secrets_dependencies=( pass gnupg pinentry-mac gitleaks )
 
 # Tmux:
 #   - reattach-to-user-namespace: makes tmux clipboard work on macOS. See docs/tmux.md
