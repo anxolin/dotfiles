@@ -1,4 +1,6 @@
 [core]
+	; global hooks: gitleaks runs before every commit (see git/hooks/)
+	hooksPath = ~/dotfiles/git/hooks
   excludesFile = ~/dotfiles/git/gitignore_global
 	sshCommand = /usr/bin/ssh
 	quotepath = false

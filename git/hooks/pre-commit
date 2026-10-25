@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Global pre-commit hook: refuse to commit a secret.
+#
+# Reached via core.hooksPath in ~/.gitconfig, so it applies to every repo
+# without installing anything per-repo. A repo that sets its own
+# core.hooksPath (husky and friends) overrides this, and a repo with its own
+# .git/hooks/pre-commit still gets it — see the delegation at the bottom.
+#
+# Bypass for a single commit when you are sure:  git commit --no-verify
+set -uo pipefail
+
+if command -v gitleaks >/dev/null 2>&1; then
+  # --staged scans what is about to be committed, not the whole history.
+  if ! gitleaks git --staged --no-banner --redact --verbose . 2>&1; then
+    cat >&2 <<'MSG'
+
+  ─────────────────────────────────────────────────────────────────────
+  Commit blocked: gitleaks matched a secret in the staged changes.
+
+    - false positive?  add a gitleaks:allow comment on the line,
+                       or an entry to .gitleaksignore
+    - really a secret? remove it, then ROTATE it — assume it is burned
+    - sure anyway?     git commit --no-verify
+  ─────────────────────────────────────────────────────────────────────
+
+MSG
+    exit 1
+  fi
+fi
+
+# Run a repo's own hook too, so this does not silently disable theirs.
+repo_hook="$(git rev-parse --git-path hooks/pre-commit 2>/dev/null || true)"
+if [[ -n "$repo_hook" && -x "$repo_hook" && "$repo_hook" != "${BASH_SOURCE[0]}" ]]; then
+  exec "$repo_hook" "$@"
+fi
+exit 0
