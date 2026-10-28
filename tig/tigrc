@@ -1,0 +1,12 @@
+# Mouse support (off by default in tig)
+set mouse = yes
+
+# Lines moved per wheel notch
+set mouse-scroll = 3
+
+# no:  the wheel scrolls the view, the cursor stays where it is
+# yes: the wheel moves the cursor, the view follows
+set mouse-wheel-cursor = no
+
+# Note: with mouse on, tig grabs click-drag, so terminal text selection
+# needs the modifier key of your terminal (Option in iTerm2/Ghostty, Shift in others).

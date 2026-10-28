@@ -5,3 +5,4 @@ zsh/p10k.zsh
 zsh/zshrc
 vim/vimrc
 tmux/tmux.conf
+tig/tigrc
