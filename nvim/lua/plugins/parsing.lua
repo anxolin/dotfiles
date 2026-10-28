@@ -14,7 +14,10 @@ return {
     build = ":TSUpdate",
     -- event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      -- Must track master too: the default branch is `main`, the rewrite for
+      -- nvim-treesitter's `main`, which does not register itself as a module
+      -- under `nvim-treesitter.configs`.
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
     },
     config = function()
       -- Compat shim: nvim-treesitter master branch doesn't support nvim 0.12

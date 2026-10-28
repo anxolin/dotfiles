@@ -136,9 +136,14 @@ return {
 
       local ensure_installed = {
         "lua_ls",        -- Lua Language Server
-        "gopls",         -- Go Language Server
         "rust_analyzer", -- Rust Language Server
       }
+      -- gopls is built from source by mason: only auto-install when Go is on PATH
+      if vim.fn.executable("go") == 1 then
+        vim.list_extend(ensure_installed, {
+          "gopls", -- Go Language Server
+        })
+      end
       -- npm-based servers: only auto-install when npm is on PATH
       if vim.fn.executable("npm") == 1 then
         vim.list_extend(ensure_installed, {
